@@ -3,7 +3,7 @@
 export(h_ws_to_explicit_na)
 export(h_ws_to_na)
 import(checkmate)
-import(dplyr)
+import(testthat)
 importFrom(assertthat,"on_failure<-")
 importFrom(assertthat,assert_that)
 importFrom(forcats,fct_explicit_na)

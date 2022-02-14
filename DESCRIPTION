@@ -15,8 +15,6 @@ Depends:
 Imports:
     assertthat,
     checkmate,
-    dm,
-    dplyr,
     forcats,
     methods,
     testthat,
