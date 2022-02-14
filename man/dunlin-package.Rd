@@ -6,7 +6,7 @@
 \alias{dunlin-package}
 \title{Chevron Package}
 \description{
-A collection of funtion to preprocess data and organise them in a format amenable to use by chevron.
+A collection of functions to preprocess data and organize them in a format amenable to use by chevron.
 }
 \author{
 \strong{Maintainer}: NEST \email{basel.nestcicd@roche.com}

@@ -8,7 +8,7 @@ Authors@R: c(
     person("Benoit", "Falquet", , "benoit.falquet@roche.com", role = "aut"),
     person("Tim", "Barnett", , "timothy.barnett@roche.com", role = "ctb")
   )
-Description: A collection of funtion to preprocess data and organise them in a format amenable to use by chevron.
+Description: A collection of functions to preprocess data and organize them in a format amenable to use by chevron.
 License: file LICENSE
 Depends:
     R (>= 4.0.0)
