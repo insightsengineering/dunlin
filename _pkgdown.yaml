@@ -1,0 +1,15 @@
+url: https://go.roche.com/nest-docs/releases/latest/api-reference/dulin
+
+template:
+  params:
+    bootswatch: cerulean
+
+navbar:
+  right:
+    - icon: fa-github
+      href: https://github.com/insightsengineering/dunlin
+
+reference:
+  - title: functions
+    contents:
+      - dm_explicit_na

@@ -1,0 +1,8 @@
+---
+current_repo:
+  repo: insightsengineering/dunlin
+  host: https://github.com
+upstream_repos:
+downstream_repos:
+- repo: insightsengineering/chevron
+  host: https://github.com
