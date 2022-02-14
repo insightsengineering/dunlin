@@ -2,11 +2,11 @@
 
 export(h_ws_to_explicit_na)
 export(h_ws_to_na)
-import(checkmate)
 import(dm)
 import(dplyr)
 importFrom(assertthat,"on_failure<-")
 importFrom(assertthat,assert_that)
+importFrom(checkmate,assert_multi_class)
 importFrom(forcats,fct_explicit_na)
 importFrom(methods,is)
 importFrom(stats,setNames)

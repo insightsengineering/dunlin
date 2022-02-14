@@ -3,7 +3,7 @@
 #'
 #' @importFrom assertthat assert_that on_failure<-
 #' @importFrom tibble tribble
-#' @import checkmate
+#' @importFrom checkmate assert_multi_class
 #' @import dplyr
 #' @import dm
 #' @importFrom forcats fct_explicit_na
