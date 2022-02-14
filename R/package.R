@@ -1,9 +1,8 @@
-
 #' Chevron Package
 #'
 #' @importFrom assertthat assert_that on_failure<-
 #' @importFrom tibble tribble
-#' @import checkmate 
+#' @import checkmate
 #' @import testthat
 #' @importFrom forcats fct_explicit_na
 #' @importFrom methods is
