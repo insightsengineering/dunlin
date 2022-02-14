@@ -19,7 +19,6 @@ SAS imports missing data as empty strings or white spaces. This helper function 
 space-only character and levels by \code{NAs}.
 }
 \examples{
-
 char1 = c(" ", "    ", "a", "b", "", "")
 h_ws_to_na(char1)
 

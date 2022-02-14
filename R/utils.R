@@ -11,7 +11,6 @@
 #'
 #' @export
 #' @examples
-#' 
 #' char1 = c(" ", "    ", "a", "b", "", "")
 #' h_ws_to_na(char1)
 #' 
@@ -50,12 +49,12 @@ h_ws_to_na <- function(x) {
 #' [dunlin::h_ws_to_na] which replaces them with explicit missing level.
 #' 
 #' @param x (`character` or `factor`) where empty of white space should be transformed to `NAs`.
+#' @param na_level (`character`) replacement of the missing levels.
 #'
 #' @return `factor` with explicit NA
 #'
 #' @export
 #' @examples
-#' 
 #' char1 = c(" ", "    ", "a", "b", "", "")
 #' h_ws_to_explicit_na(char1)
 #' 
@@ -65,6 +64,7 @@ h_ws_to_na <- function(x) {
 h_ws_to_explicit_na <- function(x, na_level = "<Missing>") {
   
   assert_multi_class(x, c("character", "factor"))
+  assert_character(na_level)
   
   forcats::fct_explicit_na(h_ws_to_na(x), na_level = na_level)
 }

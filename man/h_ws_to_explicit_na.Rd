@@ -8,6 +8,8 @@ h_ws_to_explicit_na(x, na_level = "<Missing>")
 }
 \arguments{
 \item{x}{(\code{character} or \code{factor}) where empty of white space should be transformed to \code{NAs}.}
+
+\item{na_level}{(\code{character}) replacement of the missing levels.}
 }
 \value{
 \code{factor} with explicit NA
@@ -19,7 +21,6 @@ SAS imports missing data as empty strings or white spaces. This helper function 
 \link{h_ws_to_na} which replaces them with explicit missing level.
 }
 \examples{
-
 char1 = c(" ", "    ", "a", "b", "", "")
 h_ws_to_explicit_na(char1)
 
