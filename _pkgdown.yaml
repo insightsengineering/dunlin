@@ -10,6 +10,7 @@ navbar:
       href: https://github.com/insightsengineering/dunlin
 
 reference:
-  - title: functions
+  - title: helper functions
     contents:
-      - dm_explicit_na
+      - h_ws_to_na
+      - h_ws_to_explicit_na
