@@ -25,9 +25,7 @@ Suggests:
     DiagrammeR,
     DiagrammeRsvg,
     knitr,
-    rmarkdown,
-    scda,
-    scda.2021
+    rmarkdown
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
