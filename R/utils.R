@@ -5,7 +5,7 @@
 #' SAS imports missing data as empty strings or white spaces. This helper function replaces the empty strings and white
 #' space-only character and levels by `NAs`.
 #' 
-#' @param x (`character` or `factor`) where empty of white space should be transformed to NAs.
+#' @param x (`character` or `factor`) where empty of white space should be transformed to `NAs`.
 #'
 #' @return `character` or `factor` without explicit NA
 #'
@@ -49,7 +49,7 @@ h_ws_to_na <- function(x) {
 #' SAS imports missing data as empty strings or white spaces. This helper function is a thin wrapper around
 #' [dunlin::h_ws_to_na] which replaces them with explicit missing level.
 #' 
-#' @param x (`character` or `factor`) where empty of white space should be transformed to NAs.
+#' @param x (`character` or `factor`) where empty of white space should be transformed to `NAs`.
 #'
 #' @return `factor` with explicit NA
 #'

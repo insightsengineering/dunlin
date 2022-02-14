@@ -7,7 +7,7 @@
 h_ws_to_na(x)
 }
 \arguments{
-\item{x}{(\code{character} or \code{factor}) where empty of white space should be transformed to NAs.}
+\item{x}{(\code{character} or \code{factor}) where empty of white space should be transformed to \code{NAs}.}
 }
 \value{
 \code{character} or \code{factor} without explicit NA
