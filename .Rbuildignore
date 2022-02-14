@@ -1,0 +1,15 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^_pkgdown\.yaml$
+^vignettes/hello\.Rmd$
+^docs$
+^\.github$
+README.*
+^\.lintr$
+^\.prettierignore$
+^staged_dependencies\.yaml$
+^\.gitlab-ci\.yml$
+coverage.*
+data-raw/*
+design/*
+^\.pre-commit-config\.yaml$

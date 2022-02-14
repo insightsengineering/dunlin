@@ -1,0 +1,33 @@
+Package: dunlin
+Title: Preprocessing tools for clinical trial data
+Version: 0.1.0.9000
+Authors@R: c(
+    person("NEST", , , "basel.nestcicd@roche.com", role = c("aut", "cre")),
+    person("Roche", role = c("cph", "fnd")),
+    person("Heng", "Wang", role = "aut"), 
+    person("Benoit", "Falquet", , "benoit.falquet@roche.com", role = "aut"),
+    person("Tim", "Barnett", , "timothy.barnett@roche.com", role = "ctb")
+  )
+Description: A collection of functions to preprocess data and organize them in a format amenable to use by chevron.
+License: file LICENSE
+Depends:
+    R (>= 4.0.0)
+Imports:
+    assertthat,
+    checkmate,
+    forcats,
+    methods,
+    testthat,
+    tibble
+Suggests:
+    DiagrammeR,
+    DiagrammeRsvg,
+    knitr,
+    rmarkdown
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Config/testthat/edition: 3
