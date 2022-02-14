@@ -13,9 +13,14 @@ License: file LICENSE
 Depends:
     R (>= 4.0.0)
 Imports:
+    assertthat,
     checkmate,
     dm,
-    testthat
+    dplyr,
+    forcats,
+    methods,
+    testthat,
+    tibble
 Suggests:
     DiagrammeR,
     DiagrammeRsvg,
