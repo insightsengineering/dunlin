@@ -53,7 +53,6 @@ group <- list(
    c("=<1", "<1")
  )
 )
-
 data <- data.frame(
   SUBJECT = rep(letters[1:10], 4),
   PARAM = rep(c("Height", "Weight", "Age", "other"),  each = 10),
@@ -62,6 +61,4 @@ data <- data.frame(
 )
 
 cut_by_group(data, "AVAL", "PARAM", group, "my_new_categories")
-
-
 }

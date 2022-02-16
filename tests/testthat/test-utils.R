@@ -37,7 +37,7 @@ test_that("h_ws_to_explicit_na works as expected.", {
 # h_as_factor ----
 
 test_that("h_as_factor works as expected", {
-  
+
     char1 <- c(" ", "    ", "a", "b", "", "", NA, "<Missing>", " b ")
     res <- expect_silent(h_as_factor(char1))
     expect_factor(res,
@@ -47,7 +47,7 @@ test_that("h_as_factor works as expected", {
                   len = length(char1))
     expect_identical(NULL, attr(res, "label"))
     expect_identical(levels(res)[4], "<Missing>")
-  
+
     char2 <- c(" ", "    ", "a", "b", "", "", NA, " b ")
     attr(char2, "label") <- "my_label"
     res <- expect_silent(h_as_factor(char2))
@@ -58,7 +58,7 @@ test_that("h_as_factor works as expected", {
                   len = length(char2))
     expect_identical("my_label", attr(res, "label"))
     expect_identical(levels(res)[4], "<Missing>")
-    
+
     fact1 <- as.factor(char1)
     attr(fact1, "label") <- "my_label"
     res <- expect_silent(h_as_factor(fact1))
@@ -77,7 +77,7 @@ test_that("h_as_factor works as expected", {
 # attr_label ----
 
 test_that("attr_label works as expected", {
-  
+
   x <- c(1:10)
   res <- attr_label(x, "my_label")
   expect_numeric(res, len = length(x))
@@ -88,7 +88,7 @@ test_that("attr_label works as expected", {
 # attr_label_df ----
 
 test_that("attr_label_df works as expected", {
-  
+
   x <- mtcars
   res <- attr_label_df(x, letters[1:11])
   expect_identical(unlist(lapply(res, attr, "label"), use.names = FALSE), letters[1:11])

@@ -1,5 +1,5 @@
 #' Cutting data by group
-#' 
+#'
 #' @details Function used to categorize numeric data stored in long format depending on their group. Intervals are
 #'   closed on the right (and open on the left).
 #'
@@ -38,28 +38,25 @@
 #'    c("=<1", "<1")
 #'  )
 #')
-#' 
 #' data <- data.frame(
 #'   SUBJECT = rep(letters[1:10], 4),
 #'   PARAM = rep(c("Height", "Weight", "Age", "other"),  each = 10),
 #'   AVAL = c(rnorm(10, 165, 15), rnorm(10, 65, 5), runif(10, 18, 65), rnorm(10, 0, 1)),
 #'   index = 1:40
 #' )
-#' 
+#'
 #' cut_by_group(data, "AVAL", "PARAM", group, "my_new_categories")
-#' 
-#' 
 cut_by_group <- function(df,
                          col_data,
                          col_group,
                          group,
                          cat_col) {
-  
+
   assert_data_frame(df)
   assert_subset(c(col_data, col_group), colnames(df))
   assert_numeric(df[, col_data])
   assert_list(group)
-  
+
   df[cat_col] <- NA
 
   for (g in group) {

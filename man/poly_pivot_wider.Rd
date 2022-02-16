@@ -36,7 +36,7 @@ test_data <- data.frame(
   the_obs = c("A", "A", "A", "B", "B", "B", "C", "D"),
   the_obs2 = c("Ax", "Ax", "Ax", "Bx", "Bx", "Bx", "Cx", "Dx"),
   the_param = c("weight", "height", "gender", "weight", "gender", "height", "height", "precondition"),
-  the_label = c("Weight (Kg)", "Height (cm)", "Gender", "Weight (Kg)", 
+  the_label = c("Weight (Kg)", "Height (cm)", "Gender", "Weight (Kg)",
                 "Gender", "Height (cm)", "Height (cm)", "Pre-condition"),
   the_val = c( 65, 165, NA, 66, NA, 166, 155, NA),
   the_val2 = c( 65, 165, "M", 66, "F", 166, 155, TRUE)
