@@ -2,7 +2,7 @@
 % Please edit documentation in R/pivot.R
 \name{mini_pivot_wider}
 \alias{mini_pivot_wider}
-\title{Transforming data.frame into Wider Format}
+\title{Transforming data.frame into Wide Format}
 \usage{
 mini_pivot_wider(data, obs_id, param_from, value_from)
 }
@@ -21,7 +21,7 @@ unique values in this column will become column names in the output.}
 \code{data.frame} in a wide format.
 }
 \description{
-Transforming data.frame into Wider Format
+Transforming data.frame into Wide Format
 }
 \details{
 instead of nesting duplicated values, the function will throw an error if the same same parameter is

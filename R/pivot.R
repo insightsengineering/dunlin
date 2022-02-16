@@ -1,6 +1,6 @@
 
 
-#' Transforming data.frame into Wider Format
+#' Transforming data.frame into Wide Format
 #'
 #' @details instead of nesting duplicated values, the function will throw an error if the same same parameter is
 #'   provided twice for the same observation.
@@ -64,7 +64,7 @@ mini_pivot_wider <- function(data,
 
 
 
-#' Transforming data.frame into Wider Format
+#' Transforming data.frame with Complex Identifiers into Wide Format
 #'
 #' @details This function allows to identify observations on the basis of several columns. Warning: Instead of nesting
 #'   duplicated values, the function will throw an error if the same same parameter is provided twice for the same
@@ -140,7 +140,7 @@ multi_pivot_wider <- function(data,
 
 
 
-#' Transforming data.frame with multiple Data column into Wider Format
+#' Transforming data.frame with multiple Data Column into Wide Format
 #'
 #' @details This function is adapted to cases where the data are distributed in several columns while the name of the
 #'   parameter is in one. Typical example is `adsub` where numeric data are stored in `AVAL` while categorical data are

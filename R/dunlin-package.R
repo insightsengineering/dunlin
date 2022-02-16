@@ -1,4 +1,4 @@
-#' Chevron Package
+#' Dunlin Package
 #'
 #' @importFrom assertthat assert_that on_failure<-
 #' @importFrom tibble tribble

@@ -10,16 +10,20 @@ navbar:
       href: https://github.com/insightsengineering/dunlin
 
 reference:
-  - title: helper functions
+  - title: Packages
+    contents:
+      - dunlin-package
+  - title: Processing Functions
+    contents:
+      - coreorder_levels
+      - cut_by_group
+      - mini_pivot_wider
+      - multi_pivot_wider
+      - poly_pivot_wider
+  - title: Helper functions
     contents:
       - attr_label
       - attr_label_df
       - h_as_factor
       - h_ws_to_na
       - h_ws_to_explicit_na
-  - title: processing functions
-    contents:
-      - cut_by_group
-      - mini_pivot_wider
-      - multi_pivot_wider
-      - poly_pivot_wider

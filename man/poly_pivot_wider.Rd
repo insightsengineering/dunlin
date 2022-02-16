@@ -2,7 +2,7 @@
 % Please edit documentation in R/pivot.R
 \name{poly_pivot_wider}
 \alias{poly_pivot_wider}
-\title{Transforming data.frame with multiple Data column into Wider Format}
+\title{Transforming data.frame with multiple Data Column into Wide Format}
 \usage{
 poly_pivot_wider(data, obs_id, param_from, value_from, labels_from = NULL)
 }
@@ -24,7 +24,7 @@ first one will be selected.}
 \code{list} of \code{data.frame} in a wide format with label attribute attached to each columns.
 }
 \description{
-Transforming data.frame with multiple Data column into Wider Format
+Transforming data.frame with multiple Data Column into Wide Format
 }
 \details{
 This function is adapted to cases where the data are distributed in several columns while the name of the

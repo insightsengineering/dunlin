@@ -7,9 +7,15 @@
 coreorder_levels(df, primary, secondary, levels_primary)
 }
 \arguments{
-\item{df}{(\code{data.frame}) with PARAM and PARAMCD variables.}
+\item{df}{(\code{data.frame}) with two column whose factors should be reordered.}
 
-\item{paramcd_levels}{(\code{character}) ordered levels of PARAMCD.}
+\item{primary}{(\code{character}) the name of the column on which the levels reordering should be based.}
+
+\item{secondary}{(\code{character}) the name of the column whose levels should be reordered following the levels of the
+primary column.}
+
+\item{levels_primary}{(\code{character}) the levels in the desired order. Existing levels that are not included will be
+placed afterward in their current order.}
 }
 \description{
 Reorder Two Columns Levels Simultaneously
