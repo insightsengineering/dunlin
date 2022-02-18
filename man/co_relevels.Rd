@@ -20,6 +20,9 @@ placed afterward in their current order.}
 \description{
 Reorder Two Columns Levels Simultaneously
 }
+\details{
+The function expect a 1:1 matching between the elements of the two selected column.
+}
 \examples{
 
 df <- data.frame(SUBJID = 1:3, PARAMCD = factor(c("A", "B", "C")), PARAM = factor(paste("letter", LETTERS[1:3])))

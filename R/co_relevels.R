@@ -1,4 +1,6 @@
 #' Reorder Two Columns Levels Simultaneously
+#' 
+#' @details The function expect a 1:1 matching between the elements of the two selected column.
 #'
 #' @param df (`data.frame`) with two column whose factors should be reordered.
 #' @param primary (`character`) the name of the column on which the levels reordering should be based.
@@ -27,7 +29,6 @@ co_relevels <- function(df, primary, secondary, levels_primary) {
   df_key <- unique(df_key)
 
   if (any(duplicated(df_key[, primary])) || any(duplicated(df_key[, secondary]))) {
-    print(df_key[duplicated(df_key), ])
     stop("non univoque relation between values in primary and secondary column")
   }
 
