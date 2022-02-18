@@ -1,9 +1,9 @@
-# coreorder_levels ----
+# co_relevels ----
 
-test_that("coreorder_levels works as expected.", {
+test_that("co_relevels works as expected.", {
 
   df <- data.frame(SUBJID = 1:3, PARAMCD = factor(c("A", "B", "C")), PARAM = factor(paste("letter", LETTERS[1:3])))
-  res <- expect_silent(coreorder_levels(df, "PARAMCD", "PARAM", levels_primary = c("C", "A", "B")))
+  res <- expect_silent(co_relevels(df, "PARAMCD", "PARAM", levels_primary = c("C", "A", "B")))
 
   expect_equal(levels(res[, "PARAMCD"]), c("C", "A", "B"))
   expect_equal(levels(res[, "PARAM"]), c("letter C", "letter A", "letter B"))
@@ -12,10 +12,10 @@ test_that("coreorder_levels works as expected.", {
   expect_equal(as.character(df[, "PARAM"]), as.character(res[, "PARAM"]))
 })
 
-test_that("coreorder_levels works as expected when only a subset of levels is used.", {
+test_that("co_relevels works as expected when only a subset of levels is used.", {
 
   df <- data.frame(SUBJID = 1:3, PARAMCD = factor(c("A", "B", "C")), PARAM = factor(paste("letter", LETTERS[1:3])))
-  res <- expect_silent(coreorder_levels(df, "PARAMCD", "PARAM", levels_primary = c("B")))
+  res <- expect_silent(co_relevels(df, "PARAMCD", "PARAM", levels_primary = c("B")))
 
   expect_equal(levels(res[, "PARAMCD"]), c("B", "A", "C"))
   expect_equal(levels(res[, "PARAM"]), c("letter B", "letter A", "letter C"))
@@ -24,10 +24,10 @@ test_that("coreorder_levels works as expected when only a subset of levels is us
   expect_equal(as.character(df[, "PARAM"]), as.character(res[, "PARAM"]))
 })
 
-test_that("coreorder_levels works as expected when a supplementary level is used.", {
+test_that("co_relevels works as expected when a supplementary level is used.", {
 
   df <- data.frame(SUBJID = 1:3, PARAMCD = factor(c("A", "B", "C")), PARAM = factor(paste("letter", LETTERS[1:3])))
-  res <- expect_silent(coreorder_levels(df, "PARAMCD", "PARAM", levels_primary = c("K")))
+  res <- expect_silent(co_relevels(df, "PARAMCD", "PARAM", levels_primary = c("K")))
 
   expect_equal(levels(res[, "PARAMCD"]), c("K", "A", "B", "C"))
   expect_equal(levels(res[, "PARAM"]), c("letter A", "letter B", "letter C"))

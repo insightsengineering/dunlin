@@ -2,7 +2,7 @@
 
 export(attr_label)
 export(attr_label_df)
-export(coreorder_levels)
+export(co_relevels)
 export(cut_by_group)
 export(h_as_factor)
 export(h_ws_to_explicit_na)

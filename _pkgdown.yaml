@@ -15,7 +15,7 @@ reference:
       - dunlin-package
   - title: Processing Functions
     contents:
-      - coreorder_levels
+      - co_relevels
       - cut_by_group
       - mini_pivot_wider
       - multi_pivot_wider
