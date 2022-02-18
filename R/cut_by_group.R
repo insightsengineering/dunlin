@@ -8,8 +8,8 @@
 #' @param col_group (`character`) the column containing the names of the groups according to which the data should be
 #'   split.
 #' @param group  (`nested list`) providing for each parameter value that should be analyzed in a categorical way: the
-#'   name of the parameter (`character`), a series of breakpoints (`vector`) where the first breakpoints is typically
-#'   `-Inf` and the last `Inf`, and a series of name which will describe each category (`vector`).
+#'   name of the parameter (`character`), a series of breakpoints (`numeric`) where the first breakpoints is typically
+#'   `-Inf` and the last `Inf`, and a series of name which will describe each category (`character`).
 #' @param cat_col (`character`) the name of the new column in which the cut label should he stored.
 #'
 #' @export
@@ -56,6 +56,11 @@ cut_by_group <- function(df,
   assert_subset(c(col_data, col_group), colnames(df))
   assert_numeric(df[, col_data])
   assert_list(group)
+  
+  lapply(
+    group, 
+    function(list_element) assert_list(list_element, len = 3, types = c("character", "numeric", "character"))
+  )
 
   df[cat_col] <- NA
 

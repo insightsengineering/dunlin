@@ -15,8 +15,8 @@ cut_by_group(df, col_data, col_group, group, cat_col)
 split.}
 
 \item{group}{(\verb{nested list}) providing for each parameter value that should be analyzed in a categorical way: the
-name of the parameter (\code{character}), a series of breakpoints (\code{vector}) where the first breakpoints is typically
-\code{-Inf} and the last \code{Inf}, and a series of name which will describe each category (\code{vector}).}
+name of the parameter (\code{character}), a series of breakpoints (\code{numeric}) where the first breakpoints is typically
+\code{-Inf} and the last \code{Inf}, and a series of name which will describe each category (\code{character}).}
 
 \item{cat_col}{(\code{character}) the name of the new column in which the cut label should he stored.}
 }
