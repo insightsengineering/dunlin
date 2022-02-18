@@ -56,9 +56,9 @@ cut_by_group <- function(df,
   assert_subset(c(col_data, col_group), colnames(df))
   assert_numeric(df[, col_data])
   assert_list(group)
-  
+
   lapply(
-    group, 
+    group,
     function(list_element) assert_list(list_element, len = 3, types = c("character", "numeric", "character"))
   )
 

@@ -1,5 +1,5 @@
 #' Reorder Two Columns Levels Simultaneously
-#' 
+#'
 #' @details The function expect a 1:1 matching between the elements of the two selected column.
 #'
 #' @param df (`data.frame`) with two column whose factors should be reordered.
@@ -15,7 +15,7 @@
 #'
 #' df <- data.frame(SUBJID = 1:3, PARAMCD = factor(c("A", "B", "C")), PARAM = factor(paste("letter", LETTERS[1:3])))
 #' co_relevels(df, "PARAMCD", "PARAM", levels_primary = c("C", "A", "B"))
-#' 
+#'
 co_relevels <- function(df, primary, secondary, levels_primary) {
 
   assert_data_frame(df, min.rows = 1)
