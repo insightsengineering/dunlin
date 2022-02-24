@@ -24,7 +24,7 @@ unique values in this column will become column names in the output.}
 Transforming data.frame into Wide Format
 }
 \details{
-instead of nesting duplicated values, the function will throw an error if the same same parameter is
+instead of nesting duplicated values, the function will throw an error if the same parameter is
 provided twice for the same observation.
 }
 \examples{

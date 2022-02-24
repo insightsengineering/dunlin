@@ -26,7 +26,7 @@ Transforming data.frame with Complex Identifiers into Wide Format
 }
 \details{
 This function allows to identify observations on the basis of several columns. Warning: Instead of nesting
-duplicated values, the function will throw an error if the same same parameter is provided twice for the same
+duplicated values, the function will throw an error if the same parameter is provided twice for the same
 observation.
 }
 \examples{
