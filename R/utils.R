@@ -66,5 +66,83 @@ h_ws_to_explicit_na <- function(x, na_level = "<Missing>") {
   assert_multi_class(x, c("character", "factor"))
   assert_character(na_level)
   
-  forcats::fct_explicit_na(h_ws_to_na(x), na_level = na_level)
+  res <- forcats::fct_explicit_na(h_ws_to_na(x), na_level = na_level)
+  forcats::fct_relevel(res, na_level, after = Inf)
 }
+
+#' Transforming Empty Strings and White Spaces to Explicit NAs while Preserving Label
+#'
+#' @details This function preserves the label attribute.
+#'
+#' @param x (`character` or `factor`) input to be turned into factor with explicit missing level.
+#' @param na_level (`character`) the label to encode missing levels.
+#'
+#' @return `factor` with explicit NA and the same label as the input.
+#' 
+#' @export
+#' @examples
+#' char1 = c(" ", "    ", "a", "b", "", "", NA)
+#' attr(char1, "label") <- "my_label"
+#' 
+#' h_as_factor(char1)
+#'
+h_as_factor <- function(x, na_level = "<Missing>") {
+
+  assert_multi_class(x, c("character", "factor"))
+
+  init_lab <- attr(x, "label")
+
+  res <-  h_ws_to_explicit_na(x, na_level = na_level)
+
+  attr(res, "label") <- init_lab
+  
+  res
+}
+
+#' Setting the Label Attribute
+#'
+#' @param var (`object`) whose label attribute can be set.
+#' @param label (`character`) the label to add.
+#'
+#' @return `object` with label attribute.
+#' 
+#' @export
+#' @examples
+#' x <- c(1:10)
+#' attr(x, "label")
+#' 
+#' y <- attr_label(x, "my_label")
+#' attr(y, "label")
+#'
+attr_label <- function(var, label) {
+  
+  assert_character(label)
+
+  x <- var
+  attr(x, "label") <- label
+  
+  x
+}
+
+#' Setting the Label Attribute to Data Frame Columns
+#'
+#' @param df (`data.frame`).
+#' @param label (`character`) the labels to add.
+#'
+#' @return `data.frame` with label attributes.
+#' 
+#' @export
+#' @examples
+#' res <- attr_label_df(mtcars, letters[1:11])
+#' res
+#' lapply(res, attr, "label")
+#' 
+attr_label_df <- function(df, label) {
+  
+  assert_data_frame(df)
+  assert_character(label, len = ncol(df))
+  
+  res <- mapply(attr_label, var = df, label = as.list(label),  SIMPLIFY = FALSE)
+  as.data.frame(res)
+}
+
