@@ -4,12 +4,12 @@
 \alias{mini_pivot_wider}
 \title{Transforming data.frame into Wide Format}
 \usage{
-mini_pivot_wider(data, obs_id, param_from, value_from)
+mini_pivot_wider(data, id, param_from, value_from)
 }
 \arguments{
 \item{data}{(\code{data.frame}) to be pivoted.}
 
-\item{obs_id}{(\code{character}) the name of the column identifying the observations. It will correspond to the row names
+\item{id}{(\code{character}) the name of the column identifying the observations. It will correspond to the row names
 of the output.}
 
 \item{param_from}{(\code{character}) the name of the column containing the names of the parameters to be pivoted. The

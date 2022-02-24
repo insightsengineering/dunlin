@@ -4,12 +4,12 @@
 \alias{multi_pivot_wider}
 \title{Transforming data.frame with Complex Identifiers into Wide Format}
 \usage{
-multi_pivot_wider(data, obs_id, param_from, value_from, drop_na = FALSE)
+multi_pivot_wider(data, id, param_from, value_from, drop_na = FALSE)
 }
 \arguments{
 \item{data}{(\code{data.frame}) to be pivoted.}
 
-\item{obs_id}{(\code{character}) the name of the columns whose combination uniquely identify the observations.}
+\item{id}{(\code{character}) the name of the columns whose combination uniquely identify the observations.}
 
 \item{param_from}{(\code{character}) the name of the column containing the names of the parameters to be pivoted. The
 unique values in this column will become column names in the output.}

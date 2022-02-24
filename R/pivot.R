@@ -2,11 +2,11 @@
 
 #' Transforming data.frame into Wide Format
 #'
-#' @details instead of nesting duplicated values, the function will throw an error if the same same parameter is
+#' @details instead of nesting duplicated values, the function will throw an error if the same parameter is
 #'   provided twice for the same observation.
 #'
 #' @param data (`data.frame`) to be pivoted.
-#' @param obs_id (`character`) the name of the column identifying the observations. It will correspond to the row names
+#' @param id (`character`) the name of the column identifying the observations. It will correspond to the row names
 #'   of the output.
 #' @param param_from (`character`) the name of the column containing the names of the parameters to be pivoted. The
 #'   unique values in this column will become column names in the output.
@@ -26,37 +26,37 @@
 #' mini_pivot_wider(test_data, "the_obs", "the_param", "the_val" )
 #'
 mini_pivot_wider <- function(data,
-                       obs_id,
+                       id,
                        param_from,
                        value_from) {
 
   # check for duplication of observation-parameter
   assert_data_frame(data, min.rows = 1, min.cols = 3)
-  assert_character(obs_id, len = 1)
+  assert_character(id, len = 1)
   assert_character(param_from, len = 1)
   assert_character(value_from, len = 1)
-  assert_subset(c(obs_id, param_from, value_from), colnames(data))
-  assert_false(any(duplicated(data[, c(obs_id, param_from)])))
+  assert_subset(c(id, param_from, value_from), colnames(data))
+  assert_false(any(duplicated(data[, c(id, param_from)])))
 
-  id <- sort(unique(data[[obs_id]]))
+  unique_id <- sort(unique(data[[id]]))
   param <- data[[param_from]]
 
-  mini_data <- data[, c(obs_id, param_from, value_from)]
+  mini_data <- data[, c(id, param_from, value_from)]
   data_ls <- split(mini_data, param)
 
   # transform to named vector
   data_vec <-
   lapply(
     data_ls,
-    function(x) setNames(x[[value_from]], x[[obs_id]])
+    function(x) setNames(x[[value_from]], x[[id]])
   )
 
-  # query each obs_id in each param
-  all_vec <- lapply(data_vec, function(x) setNames(x[id], id))
+  # query each id in each param
+  all_vec <- lapply(data_vec, function(x) setNames(x[unique_id], unique_id))
 
   bind_data <- as.data.frame(all_vec)
 
-  res <- cbind(id, bind_data)
+  res <- cbind(unique_id, bind_data)
   rownames(res) <- NULL
 
   res
@@ -65,11 +65,11 @@ mini_pivot_wider <- function(data,
 #' Transforming data.frame with Complex Identifiers into Wide Format
 #'
 #' @details This function allows to identify observations on the basis of several columns. Warning: Instead of nesting
-#'   duplicated values, the function will throw an error if the same same parameter is provided twice for the same
+#'   duplicated values, the function will throw an error if the same parameter is provided twice for the same
 #'   observation.
 #'
 #' @param data (`data.frame`) to be pivoted.
-#' @param obs_id (`character`) the name of the columns whose combination uniquely identify the observations.
+#' @param id (`character`) the name of the columns whose combination uniquely identify the observations.
 #' @param param_from (`character`) the name of the column containing the names of the parameters to be pivoted. The
 #'   unique values in this column will become column names in the output.
 #' @param value_from (`character`) the name of the column containing the values that will populate the output.
@@ -90,28 +90,28 @@ mini_pivot_wider <- function(data,
 #' multi_pivot_wider(test_data, "the_obs2", "the_param", "the_val" )
 #'
 multi_pivot_wider <- function(data,
-                              obs_id,
+                              id,
                               param_from,
                               value_from,
                               drop_na = FALSE) {
 
   # check for duplication of observation-parameter
   assert_data_frame(data, min.rows = 1, min.cols = 3)
-  assert_character(obs_id)
+  assert_character(id)
   assert_character(param_from, len = 1)
   assert_character(value_from, len = 1)
-  assert_false(any(duplicated(data[, c(obs_id, param_from)])))
-  assert_subset(c(obs_id, param_from, value_from), colnames(data))
+  assert_false(any(duplicated(data[, c(id, param_from)])))
+  assert_subset(c(id, param_from, value_from), colnames(data))
 
   # find a way to sort
-  id <- unique(data[obs_id])
-  key <- apply(id[obs_id], 1, paste, collapse = "-")
-  id <- cbind(key, id)
+  unique_id <- unique(data[id])
+  key <- apply(unique_id[id], 1, paste, collapse = "-")
+  unique_id <- cbind(key, unique_id)
 
   param <- data[[param_from]]
 
   mini_data <- data[, c(param_from, value_from)]
-  f_key <- apply(data[obs_id], 1, paste, collapse = "-")
+  f_key <- apply(data[id], 1, paste, collapse = "-")
   mini_data <- cbind(f_key, mini_data)
 
   data_ls <- split(mini_data, param)
@@ -123,14 +123,14 @@ multi_pivot_wider <- function(data,
       function(x) setNames(x[[value_from]], x[, 1])
     )
 
-  # query each obs_id in each param
-  all_vec <- lapply(data_vec, function(x) x[id[, 1]])
+  # query each id in each param
+  all_vec <- lapply(data_vec, function(x) x[unique_id[, 1]])
 
   if (drop_na) all_vec <- Filter(function(x) !all(is.na(x)), all_vec)
 
   bind_data <- do.call(cbind, all_vec)
 
-  res <- cbind(id[, - 1, drop = FALSE], bind_data)
+  res <- cbind(unique_id[, - 1, drop = FALSE], bind_data)
 
   rownames(res) <- NULL
   res
@@ -143,7 +143,7 @@ multi_pivot_wider <- function(data,
 #'   in `AVALC`.
 #'
 #' @param data (`data.frame`) to be pivoted.
-#' @param obs_id (`character`) the name of the columns whose combination uniquely identify the observations.
+#' @param id (`character`) the name of the columns whose combination uniquely identify the observations.
 #' @param param_from (`character`) the name of the columns containing the names of the parameters to be pivoted. The
 #'   unique values in this column will become column names in the output.
 #' @param value_from (`character`) the name of the column containing the values that will populate the output.
@@ -170,7 +170,7 @@ multi_pivot_wider <- function(data,
 #' Reduce(function(u, v) merge(u, v, all = TRUE), x)
 #'
 poly_pivot_wider <- function(data,
-                              obs_id,
+                              id,
                               param_from,
                               value_from,
                               labels_from = NULL) {
@@ -206,7 +206,7 @@ poly_pivot_wider <- function(data,
   for (n_value_from in value_from) {
 
      res <- multi_pivot_wider(data = data,
-                                 obs_id = obs_id,
+                                 id = id,
                                  param_from = param_from,
                                  value_from = n_value_from,
                                  drop_na = TRUE)

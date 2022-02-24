@@ -4,12 +4,12 @@
 \alias{poly_pivot_wider}
 \title{Transforming data.frame with multiple Data Column into Wide Format}
 \usage{
-poly_pivot_wider(data, obs_id, param_from, value_from, labels_from = NULL)
+poly_pivot_wider(data, id, param_from, value_from, labels_from = NULL)
 }
 \arguments{
 \item{data}{(\code{data.frame}) to be pivoted.}
 
-\item{obs_id}{(\code{character}) the name of the columns whose combination uniquely identify the observations.}
+\item{id}{(\code{character}) the name of the columns whose combination uniquely identify the observations.}
 
 \item{param_from}{(\code{character}) the name of the columns containing the names of the parameters to be pivoted. The
 unique values in this column will become column names in the output.}
