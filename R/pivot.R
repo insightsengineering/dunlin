@@ -56,7 +56,7 @@ mini_pivot_wider <- function(data,
 
   bind_data <- as.data.frame(all_vec)
 
-  res <- cbind(unique_id, bind_data)
+  res <- cbind(id = unique_id, bind_data)
   rownames(res) <- NULL
 
   res
