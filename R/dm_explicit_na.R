@@ -2,7 +2,7 @@
 #' Encode Categorical Missing Values in a `DM` Object
 #'
 #' @details This is a helper function to encode missing entries across groups of categorical variables in potentially
-#'   all tables of a `dm` object.
+#'   all tables of a `dm` object. The `label` attribute of the columns is preserved.
 #'
 #' @param data (`dm`) object to be transformed.
 #' @param omit_tables (`character`) the names of the table to omit from processing.

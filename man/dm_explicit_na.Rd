@@ -34,7 +34,7 @@ Encode Categorical Missing Values in a \code{DM} Object
 }
 \details{
 This is a helper function to encode missing entries across groups of categorical variables in potentially
-all tables of a \code{dm} object.
+all tables of a \code{dm} object. The \code{label} attribute of the columns is preserved.
 }
 \examples{
 library(dm)
