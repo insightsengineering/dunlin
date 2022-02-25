@@ -70,19 +70,23 @@ h_ws_to_na <- function(x) {
 #' h_ws_to_explicit_na(logi1)
 #' 
 h_ws_to_explicit_na <- function(x, na_level = "<Missing>") {
-  
-  assert_multi_class(x, c("character", "factor", "logical", "numeric"))
+
   assert_character(na_level)
-  
+
   res <- forcats::fct_explicit_na(h_ws_to_na(x), na_level = na_level)
-  forcats::fct_relevel(res, na_level, after = Inf)
+
+  if (na_level %in% res) {
+    forcats::fct_relevel(res, na_level, after = Inf)
+  } else {
+    res
+  }
 }
 
 #' Transforming Empty Strings and White Spaces to Explicit NAs while Preserving Label
 #'
 #' @details This function preserves the label attribute.
 #'
-#' @param x (`character` or `factor` or `logical`) input to be turned into factor with explicit missing level.
+#' @param x (`vector`) input to be turned into factor with explicit missing level.
 #' @param na_level (`character`) the label to encode missing levels.
 #'
 #' @return `factor` with explicit NA and the same label as the input.
@@ -96,7 +100,7 @@ h_ws_to_explicit_na <- function(x, na_level = "<Missing>") {
 #'
 h_as_factor <- function(x, na_level = "<Missing>") {
 
-  assert_multi_class(x, c("character", "factor", "logical", "numeric"))
+  assert_vector(x)
 
   init_lab <- attr(x, "label")
 

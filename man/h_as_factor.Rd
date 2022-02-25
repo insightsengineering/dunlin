@@ -7,7 +7,7 @@
 h_as_factor(x, na_level = "<Missing>")
 }
 \arguments{
-\item{x}{(\code{character} or \code{factor} or \code{logical}) input to be turned into factor with explicit missing level.}
+\item{x}{(\code{vector}) input to be turned into factor with explicit missing level.}
 
 \item{na_level}{(\code{character}) the label to encode missing levels.}
 }

@@ -71,7 +71,12 @@ test_that("h_as_factor works as expected", {
     expect_identical(levels(res)[4], "<Missing>")
 
     int1 <- 1:10
-    expect_error(h_as_factor(int1), "Must inherit from class 'character'/'factor', but has class 'integer'.")
+    attr(int1, "label") <- "my_label"
+    res <- expect_silent(h_as_factor(int1))
+    expect_factor(res,
+                  n.levels = 10,
+                  levels = as.character(1:10),
+                  len = length(int1))
 })
 
 # attr_label ----
