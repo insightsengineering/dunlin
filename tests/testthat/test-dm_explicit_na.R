@@ -61,9 +61,9 @@ test_that("dm_explicit_na works as expected with optional arguments.", {
                                       omit_columns = "logi2",
                                       na_level = "Not Present"))
 
-  expect_data_frame(res$df1, 
-                    types = c("character", "factor", "logical", "numeric", "logical"), 
-                    nrows = nrow(df1), 
+  expect_data_frame(res$df1,
+                    types = c("character", "factor", "logical", "numeric", "logical"),
+                    nrows = nrow(df1),
                     ncols = ncol(df1))
   expect_equal(unlist(lapply(res$df1, attr, "label"), use.names = FALSE), letters[1:5])
   expect_character(res$df1$char, any.missing = TRUE)
