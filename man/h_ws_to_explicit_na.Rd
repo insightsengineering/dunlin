@@ -7,7 +7,7 @@
 h_ws_to_explicit_na(x, na_level = "<Missing>")
 }
 \arguments{
-\item{x}{(\code{character} or \code{factor}) where empty of white space should be transformed to \code{NAs}.}
+\item{x}{(\code{vector}) where empty of white space should be transformed to \code{NAs}.}
 
 \item{na_level}{(\code{character}) replacement of the missing levels.}
 }
@@ -26,5 +26,11 @@ h_ws_to_explicit_na(char1)
 
 fact1 <- as.factor(char1)
 h_ws_to_explicit_na(fact1)
+
+num1 <- c(1, 2, NA)
+h_ws_to_explicit_na(num1)
+
+logi1 <- c(TRUE, FALSE, NA)
+h_ws_to_explicit_na(logi1)
 
 }

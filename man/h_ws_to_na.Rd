@@ -7,10 +7,10 @@
 h_ws_to_na(x)
 }
 \arguments{
-\item{x}{(\code{character} or \code{factor}) where empty of white space should be transformed to \code{NAs}.}
+\item{x}{(\code{vector}) where empty of white space should be transformed to \code{NAs}.}
 }
 \value{
-\code{character} or \code{factor} without explicit NA
+\code{character} or \code{factor} without explicit NA. \code{logical} and \code{numeric} are returned as \code{character}.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
@@ -19,10 +19,16 @@ SAS imports missing data as empty strings or white spaces. This helper function 
 space-only character and levels by \code{NAs}.
 }
 \examples{
-char1 = c(" ", "    ", "a", "b", "", "")
+char1 <- c(" ", "    ", "a", "b", "", "")
 h_ws_to_na(char1)
 
 fact1 <- as.factor(char1)
 h_ws_to_na(fact1)
+
+num1 <- c(1:10) 
+h_ws_to_na(num1)
+
+logi1 <- c(TRUE, FALSE, NA) 
+h_ws_to_na(logi1)
 
 }
