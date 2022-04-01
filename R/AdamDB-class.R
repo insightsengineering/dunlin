@@ -20,8 +20,7 @@ NULL
 # Data requirements ----
 # Names of the tables required in `AdamDB` with their mandatory columns
 .tables_AdamDB <- list(
-  "adsl" = c("SUBJID", "STUDYID", "SUBJID"),
-  "adae" = c("SUBJID", "STUDYID", "SUBJID")
+  "adsl" = c("USUBJID", "STUDYID")
 )
 
 # Validation ----
@@ -29,7 +28,7 @@ S4Vectors::setValidity2("AdamDB", function(object) {
   msg <- NULL
 
   msg <- c(msg, validate_tables(object, .tables_AdamDB))
-  msg <- c(msg, validate_primary_key(object, "adsl", "SUBJID"))
+  msg <- c(msg, validate_primary_key(object, "adsl", "USUBJID"))
 
   if (is.null(msg)) TRUE else msg
 })
