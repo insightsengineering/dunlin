@@ -1,7 +1,6 @@
 # co_relevels ----
 
 test_that("co_relevels works as expected.", {
-
   df <- data.frame(SUBJID = 1:3, PARAMCD = factor(c("A", "B", "C")), PARAM = factor(paste("letter", LETTERS[1:3])))
   res <- expect_silent(co_relevels(df, "PARAMCD", "PARAM", levels_primary = c("C", "A", "B")))
 
@@ -13,7 +12,6 @@ test_that("co_relevels works as expected.", {
 })
 
 test_that("co_relevels works as expected when only a subset of levels is used.", {
-
   df <- data.frame(SUBJID = 1:3, PARAMCD = factor(c("A", "B", "C")), PARAM = factor(paste("letter", LETTERS[1:3])))
   res <- expect_silent(co_relevels(df, "PARAMCD", "PARAM", levels_primary = c("B")))
 
@@ -25,7 +23,6 @@ test_that("co_relevels works as expected when only a subset of levels is used.",
 })
 
 test_that("co_relevels works as expected when a supplementary level is used.", {
-
   df <- data.frame(SUBJID = 1:3, PARAMCD = factor(c("A", "B", "C")), PARAM = factor(paste("letter", LETTERS[1:3])))
   res <- expect_silent(co_relevels(df, "PARAMCD", "PARAM", levels_primary = c("K")))
 
@@ -37,15 +34,17 @@ test_that("co_relevels works as expected when a supplementary level is used.", {
 })
 
 test_that("co_relevels retuns an error when the matching between the selected column is not unique.", {
-
   df <- data.frame(SUBJID = 1:3, PARAMCD = factor(c("A", "A", "C")), PARAM = factor(paste("letter", LETTERS[1:3])))
-  expect_error(co_relevels(df, "PARAMCD", "PARAM", levels_primary = c("A")),
-               "non univoque relation between values in primary and secondary column")
+  expect_error(
+    co_relevels(df, "PARAMCD", "PARAM", levels_primary = c("A")),
+    "non univoque relation between values in primary and secondary column"
+  )
 })
 
 test_that("co_relevels retuns an error when NAs are present.", {
-
   df <- data.frame(SUBJID = 1:3, PARAMCD = factor(c("A", NA, "C")), PARAM = factor(paste("letter", LETTERS[1:3])))
   expect_error(co_relevels(df, "PARAMCD", "PARAM", levels_primary = c("A")),
-               "Assertion on 'df[[primary]]' failed: Contains missing values (element 2).", fixed = TRUE)
+    "Assertion on 'df[[primary]]' failed: Contains missing values (element 2).",
+    fixed = TRUE
+  )
 })

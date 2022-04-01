@@ -15,9 +15,7 @@
 #'
 #' df <- data.frame(SUBJID = 1:3, PARAMCD = factor(c("A", "B", "C")), PARAM = factor(paste("letter", LETTERS[1:3])))
 #' co_relevels(df, "PARAMCD", "PARAM", levels_primary = c("C", "A", "B"))
-#'
 co_relevels <- function(df, primary, secondary, levels_primary) {
-
   assert_data_frame(df, min.rows = 1)
   assert_subset(c(primary, secondary), colnames(df))
   assert_character(levels_primary, min.len = 1)

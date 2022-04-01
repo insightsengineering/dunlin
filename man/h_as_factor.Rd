@@ -21,9 +21,8 @@ Transforming Empty Strings and White Spaces to Explicit NAs while Preserving Lab
 This function preserves the label attribute.
 }
 \examples{
-char1 = c(" ", "    ", "a", "b", "", "", NA)
+char1 <- c(" ", "    ", "a", "b", "", "", NA)
 attr(char1, "label") <- "my_label"
 
 h_as_factor(char1)
-
 }

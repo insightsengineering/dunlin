@@ -21,5 +21,4 @@ Setting the Label Attribute to Data Frame Columns
 res <- attr_label_df(mtcars, letters[1:11])
 res
 lapply(res, attr, "label")
-
 }

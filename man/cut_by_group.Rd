@@ -36,26 +36,26 @@ group <- list(
     "Height",
     c(-Inf, 150, 170, Inf),
     c("=<150", "150-170", ">170")
-    ),
- list(
-   "Weight",
-   c(-Inf, 65, Inf),
-   c("=<65", ">65")
- ),
- list(
-   "Age",
-   c(-Inf, 31, Inf),
-   c("=<31", ">31")
- ),
- list(
-   "PreCondition",
-   c(-Inf, 1, Inf),
-   c("=<1", "<1")
- )
+  ),
+  list(
+    "Weight",
+    c(-Inf, 65, Inf),
+    c("=<65", ">65")
+  ),
+  list(
+    "Age",
+    c(-Inf, 31, Inf),
+    c("=<31", ">31")
+  ),
+  list(
+    "PreCondition",
+    c(-Inf, 1, Inf),
+    c("=<1", "<1")
+  )
 )
 data <- data.frame(
   SUBJECT = rep(letters[1:10], 4),
-  PARAM = rep(c("Height", "Weight", "Age", "other"),  each = 10),
+  PARAM = rep(c("Height", "Weight", "Age", "other"), each = 10),
   AVAL = c(rnorm(10, 165, 15), rnorm(10, 65, 5), runif(10, 18, 65), rnorm(10, 0, 1)),
   index = 1:40
 )

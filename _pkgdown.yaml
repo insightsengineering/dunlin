@@ -18,6 +18,7 @@ reference:
     contents:
       - co_relevels
       - cut_by_group
+      - dm_explicit_na
       - mini_pivot_wider
       - multi_pivot_wider
       - poly_pivot_wider
@@ -28,3 +29,9 @@ reference:
       - h_as_factor
       - h_ws_to_na
       - h_ws_to_explicit_na
+  - title: Classes
+    contents:
+      - AdamDB
+  - title: Validation functions
+    contents:
+      - validate_AdamDB
