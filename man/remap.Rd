@@ -12,10 +12,13 @@ remap(db, map)
 \item{map}{(\code{list}) in a specific format.}
 }
 \value{
-a \code{dm} object with re coded variables as factor.
+a \code{dm} object with re coded variables as factor. If not re mapped, original levels are preserved.
 }
 \description{
 Remap values
+}
+\note{
+Using the keyword \code{All} as a table name will change the corresponding variable in every table where it appears.
 }
 \examples{
 
@@ -26,7 +29,7 @@ df1 <- data.frame(
 )
 df2 <- data.frame(
   "char" = c("a", "b", NA, "a", "k", "x"),
-  "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
+  "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f1", "f2", "fx")),
   "num" = 1:6
 )
 
@@ -35,23 +38,28 @@ db <- dm(df1, df2)
 my_map <- list(
   df1 = list(
     char = list(
-      "A" = c("a", "k"), 
+      "A" = c("a", "k"),
       "B" = "b"
-    ),
-    fact = list(
-      "F1" = "f1",
-      "F2" = "f2"
     )
   ),
   df2 = list(
     num = list(
-      "11" = 1,
-      "22" = 2
+      "11" = "1",
+      "22" = "2"
+    )
+  ),
+  All = list(
+    fact = list(
+      "F1" = "f1",
+      "F2" = "f2",
+      "FX" = "fx",
+      "<Missing>" = NA
+    ),
+    other = list(
+      "x" = "X"
     )
   )
 )
 
 res <- remap(db, my_map)
-
-
 }

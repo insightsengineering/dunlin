@@ -23,5 +23,4 @@ attr(x, "label")
 
 y <- attr_label(x, "my_label")
 attr(y, "label")
-
 }
