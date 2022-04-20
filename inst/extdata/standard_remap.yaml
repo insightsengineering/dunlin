@@ -1,0 +1,10 @@
+---
+
+all:
+  ACTARM: 
+    ARM A: actarm
+
+adsl:
+  SEX: 
+    M: [Male,MALE]
+    F: Female
