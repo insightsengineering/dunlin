@@ -10,6 +10,7 @@
 #' @export
 #'
 #' @examples
+#' library(dm)
 #'
 #' df1 <- data.frame(
 #'   "char" = c("a", "b", NA, "a", "k", "x"),
@@ -86,7 +87,7 @@ remap <- function(db, map) {
 #' @param db (`dm`) object input.
 #' @param tab (`string`) the name of a table.
 #' @param col (`string`) the name of a variable in a table.
-#' @param (named `vector`) a dictionary with the mapping values, with the format `c(new = old)`.
+#' @param dic_map (named `vector`) a dictionary with the mapping values, with the format `c(new = old)`.
 #'
 #' @note If `tab` is not a valid table name of the `db` object, the original object is returned. Similarly, if `col` is
 #'   not a valid column of the selected `tab` in the object, the original object is returned. This behavior is desirable
@@ -97,6 +98,7 @@ remap <- function(db, map) {
 #' @export
 #'
 #' @examples
+#' library(dm)
 #'
 #' df1 <- data.frame(
 #'   "char" = c("a", "b", NA, "a", "k", "x"),
@@ -132,7 +134,6 @@ h_remap_tab <- function(db, tab, col, dic_map) {
 
   is_na <- which(is.na(new))
   new[is_na] <- ori_char[is_na]
-
 
   if (any(is.na(names(dic_map)))) {
     na_replacement <- dic_map[is.na(names(dic_map))][1]

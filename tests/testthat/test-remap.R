@@ -79,7 +79,7 @@ test_that("h_remap_tab works as expected", {
     "num" = 1:6
   )
 
-  db <- dm(df1, df2)
+  db <- dm::dm(df1, df2)
   dic_map <- setNames(c("A", "B", "Missing"), c("a", "b", NA))
 
   res <- expect_silent(h_remap_tab(db, "df1", "char", dic_map))
@@ -103,7 +103,7 @@ test_that("remap works as expected", {
     "num" = 1:6
   )
 
-  db <- dm(df1, df2)
+  db <- dm::dm(df1, df2)
 
   my_map <- list(
     df1 = list(

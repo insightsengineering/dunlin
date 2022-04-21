@@ -21,6 +21,7 @@ Remap values
 Using the keyword \code{All} as a table name will change the corresponding variable in every table where it appears.
 }
 \examples{
+library(dm)
 
 df1 <- data.frame(
   "char" = c("a", "b", NA, "a", "k", "x"),

@@ -34,3 +34,6 @@ reference:
   - title: Assertion Functions
     contents:
       - assert_remap
+  - title: Data
+    contents:
+      - standard_remap

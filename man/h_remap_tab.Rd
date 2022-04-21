@@ -13,7 +13,7 @@ h_remap_tab(db, tab, col, dic_map)
 
 \item{col}{(\code{string}) the name of a variable in a table.}
 
-\item{(named}{\code{vector}) a dictionary with the mapping values, with the format \code{c(new = old)}.}
+\item{dic_map}{(named \code{vector}) a dictionary with the mapping values, with the format \code{c(new = old)}.}
 }
 \value{
 a \code{dm} object with re coded variables as factor.
@@ -27,6 +27,7 @@ not a valid column of the selected \code{tab} in the object, the original object
 when a variable that exists in most but not all tables has to be re coded.
 }
 \examples{
+library(dm)
 
 df1 <- data.frame(
   "char" = c("a", "b", NA, "a", "k", "x"),
