@@ -1,10 +1,11 @@
 ---
 
-all:
-  ACTARM: 
-    ARM A: actarm
+All:
+  Variable1: 
+    NewValue: OldValue
 
-adsl:
-  SEX: 
-    M: [Male,MALE]
-    F: Female
+ATable:
+  Variable2: 
+    NewValue1: [OldValueA,OldValueB]
+    NewValue2: OldValueC
+    NewValue3: .na
