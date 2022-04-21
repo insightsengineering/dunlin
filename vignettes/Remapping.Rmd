@@ -18,7 +18,6 @@ knitr::opts_chunk$set(
 
 library(dm)
 library(dunlin)
-
 ```
 
 ## Introduction
@@ -27,7 +26,7 @@ Remapping in `dulin` consists in replacing predetermined values by another in pa
 
 This is performed in two steps: 
 
-1. A mapping list is created which specifies the correspondance between the old and the new values
+1. A mapping list is created which specifies the correspondence between the old and the new values
 
 2. The remapping itself is performed with the `dunlin::remap()` function.
 
@@ -57,33 +56,30 @@ level variables. However, the level replacing missing values will automatically 
 
 ```{r}
 
- my_map <- list(
-   adsl = list(
-     SEX = list(
-       "Male" = c("M", "m"),
-       "Female" = c("F", "f")
-     )
-   ),
-   adae = list(
-     DTHFL = list(
-       "NO" = "N",
-       "YES" = "Y",
+my_map <- list(
+  airlines = list(
+    name = list(
+      "AE" = c("American Airlines Inc."),
+      "Alaska and Hawaiian Airlines" = c("Alaska Airlines Inc.", "Hawaiian Airlines Inc.")
+    )
+  ),
+  planes = list(
+    manufacturer = list(
+      "Airbus" = "AIRBUS INDUSTRIE",
       "New Level" = "new_level",
-       "<Missing>" = NA
-     ),
-     SEX = list(
-       "MALE" = c("M", "m"),
-       "FEMALE" = c("F", "f")
-     )
-   ),
-   All = list(
-     ARM = list(
-      "A: Treatment" = "A: Drug X",
-      "B: Placebo" = "B: Placebo"
-     )
-   )
- )
-
+      "<Missing>" = NA
+    ),
+    model = list(
+      "EMB-145" = c("EMB-145XR"),
+      "Other 737" = c("737-824", "737-724", "737-732")
+    )
+  ),
+  All = list(
+    year = list(
+      "Current" = "2013"
+    )
+  )
+)
 ```
  
 
@@ -95,22 +91,26 @@ Once the re mapping list is defined, the remapping can be performed on a `dm` ob
 
 ```{r}
 
-adam <- dm::new_dm(tables = scda.2021::rcd_2021_03_22)
+db <- dm::dm_nycflights13()
 
-res <- remap(adam, my_map)
-head(adam$adsl$SEX)
-head(res$adsl$SEX)
+db <-
+  db %>%
+  dm_zoom_to(planes) %>%
+  mutate(manufacturer = ifelse(manufacturer == "EMBRAER", NA, manufacturer)) %>%
+  dm_update_zoomed()
+
+res <- remap(db, my_map)
+head(db$airlines$name)
+head(res$airlines$name)
 
 # New levels are introduced and missing values can be replaced.
-head(adam$adae$DTHFL)
-head(res$adae$DTHFL)
+head(db$planes$manufacturer)
+head(res$planes$manufacturer)
 
 # Using the `All` keyword changes several tables.
-head(adam$adae$ARM)
-head(res$adae$ARM)
+head(db$weather$year)
+head(res$weather$year)
 
-head(adam$adsl$ARM)
-head(res$adsl$ARM)
-
-
+head(db$flights$year)
+head(res$flights$year)
 ```

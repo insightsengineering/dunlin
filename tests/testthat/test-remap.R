@@ -139,7 +139,10 @@ test_that("remap works as expected", {
   expected_num <- factor(c(11, 22, 3, 4, 5, 6), levels = c(11, 22, 3, 4, 5, 6))
   expect_identical(res$df2$num, expected_num)
 
-  expected_fact <- factor(c("F1", "F2", "<Missing>", "<Missing>", "F1", "F1"), levels = c("F1", "F2", "FX", "<Missing>"))
+  expected_fact <- factor(
+    c("F1", "F2", "<Missing>", "<Missing>", "F1", "F1"),
+    levels = c("F1", "F2", "FX", "<Missing>")
+  )
   expect_identical(res$df1$fact, expected_fact)
   expect_identical(res$df2$fact, expected_fact)
 })
