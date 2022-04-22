@@ -56,7 +56,7 @@ remap <- function(db, map) {
   assert_remap(map)
 
   remap_tab <- intersect(names(map), names(db))
-  if ("All" %in% names(map)) remap_tab <- c("All", remap_tab)
+  if ("ALL" %in% toupper(names(map))) remap_tab <- c("All", remap_tab)
 
   # iterate over highest map level (tab)
   for (tab in remap_tab) {
