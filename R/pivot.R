@@ -20,15 +20,14 @@
 #'   the_obs = c("A", "A", "A", "B", "B", "B", "C", "D"),
 #'   the_obs2 = c("Ax", "Ax", "Ax", "Bx", "Bx", "Bx", "Cx", "Dx"),
 #'   the_param = c("weight", "height", "gender", "weight", "gender", "height", "height", "precondition"),
-#'   the_val = c( 65, 165, "M", 66, "F", 166, 155, TRUE)
-#'  )
+#'   the_val = c(65, 165, "M", 66, "F", 166, 155, TRUE)
+#' )
 #'
-#' mini_pivot_wider(test_data, "the_obs", "the_param", "the_val" )
-#'
+#' mini_pivot_wider(test_data, "the_obs", "the_param", "the_val")
 mini_pivot_wider <- function(data,
-                       id,
-                       param_from,
-                       value_from) {
+                             id,
+                             param_from,
+                             value_from) {
 
   # check for duplication of observation-parameter
   assert_data_frame(data, min.rows = 1, min.cols = 3)
@@ -46,10 +45,10 @@ mini_pivot_wider <- function(data,
 
   # transform to named vector
   data_vec <-
-  lapply(
-    data_ls,
-    function(x) setNames(x[[value_from]], x[[id]])
-  )
+    lapply(
+      data_ls,
+      function(x) setNames(x[[value_from]], x[[id]])
+    )
 
   # query each id in each param
   all_vec <- lapply(data_vec, function(x) setNames(x[unique_id], unique_id))
@@ -83,12 +82,11 @@ mini_pivot_wider <- function(data,
 #'   the_obs = c("A", "A", "A", "B", "B", "B", "C", "D"),
 #'   the_obs2 = c("Ax", "Ax", "Ax", "Bx", "Bx", "Bx", "Cx", "Dx"),
 #'   the_param = c("weight", "height", "gender", "weight", "gender", "height", "height", "precondition"),
-#'   the_val = c( 65, 165, "M", 66, "F", 166, 155, TRUE)
+#'   the_val = c(65, 165, "M", 66, "F", 166, 155, TRUE)
 #' )
 #'
-#' multi_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", "the_val" )
-#' multi_pivot_wider(test_data, "the_obs2", "the_param", "the_val" )
-#'
+#' multi_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", "the_val")
+#' multi_pivot_wider(test_data, "the_obs2", "the_param", "the_val")
 multi_pivot_wider <- function(data,
                               id,
                               param_from,
@@ -130,7 +128,7 @@ multi_pivot_wider <- function(data,
 
   bind_data <- do.call(cbind, all_vec)
 
-  res <- cbind(unique_id[, - 1, drop = FALSE], bind_data)
+  res <- cbind(unique_id[, -1, drop = FALSE], bind_data)
 
   rownames(res) <- NULL
   res
@@ -159,21 +157,22 @@ multi_pivot_wider <- function(data,
 #'   the_obs = c("A", "A", "A", "B", "B", "B", "C", "D"),
 #'   the_obs2 = c("Ax", "Ax", "Ax", "Bx", "Bx", "Bx", "Cx", "Dx"),
 #'   the_param = c("weight", "height", "gender", "weight", "gender", "height", "height", "precondition"),
-#'   the_label = c("Weight (Kg)", "Height (cm)", "Gender", "Weight (Kg)",
-#'                 "Gender", "Height (cm)", "Height (cm)", "Pre-condition"),
-#'   the_val = c( 65, 165, NA, 66, NA, 166, 155, NA),
-#'   the_val2 = c( 65, 165, "M", 66, "F", 166, 155, TRUE)
+#'   the_label = c(
+#'     "Weight (Kg)", "Height (cm)", "Gender", "Weight (Kg)",
+#'     "Gender", "Height (cm)", "Height (cm)", "Pre-condition"
+#'   ),
+#'   the_val = c(65, 165, NA, 66, NA, 166, 155, NA),
+#'   the_val2 = c(65, 165, "M", 66, "F", 166, 155, TRUE)
 #' )
 #'
-#' x <- poly_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", c("the_val" , "the_val2"), "the_label")
+#' x <- poly_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", c("the_val", "the_val2"), "the_label")
 #' x
 #' Reduce(function(u, v) merge(u, v, all = TRUE), x)
-#'
 poly_pivot_wider <- function(data,
-                              id,
-                              param_from,
-                              value_from,
-                              labels_from = NULL) {
+                             id,
+                             param_from,
+                             value_from,
+                             labels_from = NULL) {
 
   # other tests are performed at lower levels.
   assert_character(value_from, unique = TRUE)
@@ -204,15 +203,16 @@ poly_pivot_wider <- function(data,
 
   res_ls <- list()
   for (n_value_from in value_from) {
+    res <- multi_pivot_wider(
+      data = data,
+      id = id,
+      param_from = param_from,
+      value_from = n_value_from,
+      drop_na = TRUE
+    )
 
-     res <- multi_pivot_wider(data = data,
-                                 id = id,
-                                 param_from = param_from,
-                                 value_from = n_value_from,
-                                 drop_na = TRUE)
-
-     res <- attr_label_df(res, all_labels[colnames(res)])
-     res_ls[[n_value_from]] <- res
+    res <- attr_label_df(res, all_labels[colnames(res)])
+    res_ls[[n_value_from]] <- res
   }
   res_ls
 }

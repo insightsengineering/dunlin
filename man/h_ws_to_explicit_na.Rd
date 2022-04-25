@@ -21,7 +21,7 @@ SAS imports missing data as empty strings or white spaces. This helper function 
 \link{h_ws_to_na} which replaces them with explicit missing level.
 }
 \examples{
-char1 = c(" ", "    ", "a", "b", "", "")
+char1 <- c(" ", "    ", "a", "b", "", "")
 h_ws_to_explicit_na(char1)
 
 fact1 <- as.factor(char1)
@@ -32,5 +32,4 @@ h_ws_to_explicit_na(num1)
 
 logi1 <- c(TRUE, FALSE, NA)
 h_ws_to_explicit_na(logi1)
-
 }

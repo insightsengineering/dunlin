@@ -25,10 +25,9 @@ h_ws_to_na(char1)
 fact1 <- as.factor(char1)
 h_ws_to_na(fact1)
 
-num1 <- c(1:10) 
+num1 <- c(1:10)
 h_ws_to_na(num1)
 
-logi1 <- c(TRUE, FALSE, NA) 
+logi1 <- c(TRUE, FALSE, NA)
 h_ws_to_na(logi1)
-
 }

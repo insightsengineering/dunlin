@@ -1,7 +1,6 @@
 # cut_by_group ----
 
 test_that("cut_by_group works as expected.", {
-
   group <- list(
     list(
       "Height",
@@ -22,7 +21,7 @@ test_that("cut_by_group works as expected.", {
 
   data <- data.frame(
     SUBJECT = rep(letters[1:10], 3),
-    PARAM = rep(c("Height", "Weight", "Age"),  each = 10),
+    PARAM = rep(c("Height", "Weight", "Age"), each = 10),
     AVAL = c(seq(140, 180, length.out = 10), seq(50, 100, length.out = 10), seq(18, 100, length.out = 10)),
     index = 1:30
   )
@@ -36,7 +35,6 @@ test_that("cut_by_group works as expected.", {
 
 
 test_that("cut_by_group works as expected when supplementary group information are provided.", {
-
   group <- list(
     list(
       "Height",
@@ -62,7 +60,7 @@ test_that("cut_by_group works as expected when supplementary group information a
 
   data <- data.frame(
     SUBJECT = rep(letters[1:10], 3),
-    PARAM = rep(c("Height", "Weight", "Age"),  each = 10),
+    PARAM = rep(c("Height", "Weight", "Age"), each = 10),
     AVAL = c(seq(140, 180, length.out = 10), seq(50, 100, length.out = 10), seq(18, 100, length.out = 10)),
     index = 1:30
   )
@@ -75,7 +73,6 @@ test_that("cut_by_group works as expected when supplementary group information a
 })
 
 test_that("cut_by_group returns NA for parameters values that are covered.", {
-
   group <- list(
     list(
       "Height",
@@ -91,7 +88,7 @@ test_that("cut_by_group returns NA for parameters values that are covered.", {
 
   data <- data.frame(
     SUBJECT = rep(letters[1:10], 3),
-    PARAM = rep(c("Height", "Weight", "Age"),  each = 10),
+    PARAM = rep(c("Height", "Weight", "Age"), each = 10),
     AVAL = c(seq(140, 180, length.out = 10), seq(50, 100, length.out = 10), seq(18, 100, length.out = 10)),
     index = 1:30
   )
@@ -105,7 +102,6 @@ test_that("cut_by_group returns NA for parameters values that are covered.", {
 })
 
 test_that("cut_by_group fails when the number of labels doesn't fit the number of breaks.", {
-
   group <- list(
     list(
       "Height",
@@ -121,11 +117,13 @@ test_that("cut_by_group fails when the number of labels doesn't fit the number o
 
   data <- data.frame(
     SUBJECT = rep(letters[1:10], 3),
-    PARAM = rep(c("Height", "Weight", "Age"),  each = 10),
+    PARAM = rep(c("Height", "Weight", "Age"), each = 10),
     AVAL = c(seq(140, 180, length.out = 10), seq(50, 100, length.out = 10), seq(18, 100, length.out = 10)),
     index = 1:30
   )
 
-  expect_error(cut_by_group(data, "AVAL", "PARAM", group, "my_new_categories"),
-               "lengths of 'breaks' and 'labels' differ")
+  expect_error(
+    cut_by_group(data, "AVAL", "PARAM", group, "my_new_categories"),
+    "lengths of 'breaks' and 'labels' differ"
+  )
 })
