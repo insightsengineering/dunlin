@@ -53,16 +53,17 @@
 #'
 #' res <- remap(db, my_map)
 remap <- function(db, map = NULL) {
-  
-  if(is.null(map)) return(db)
-  
+  if (is.null(map)) {
+    return(db)
+  }
+
   assert_remap(map)
 
   remap_tab <- intersect(names(map), names(db))
   if ("ALL" %in% toupper(names(map))) {
     remap_tab <- c("All", remap_tab)
     names(map)[toupper(names(map)) == "ALL"] <- "All"
-    }
+  }
 
   # iterate over highest map level (tab).
   for (tab in remap_tab) {
@@ -207,9 +208,9 @@ assert_remap <- function(map) {
     msg <- paste("\nDuplicated table names:", toString(unique(names(map)[res])))
   }
 
-  
+
   var_remap <- lapply(map, names)
-  
+
   # assert unique variable name in each table
   res <- unlist(lapply(var_remap, function(x) test_character(x, unique = TRUE, null.ok = TRUE)))
   if (!all(res)) {
