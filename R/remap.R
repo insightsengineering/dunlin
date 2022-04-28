@@ -138,6 +138,7 @@ h_remap_tab <- function(db, tab, col, dic_map) {
   ori_lvl <- levels(as.factor(ori))
   unknow_lvl <- setdiff(ori_lvl, names(dic_map))
   new_level <- c(unique(dic_map), unknow_lvl)
+  new_level <- unique(new_level)
 
   is_na <- which(is.na(new))
   new[is_na] <- ori_char[is_na]
