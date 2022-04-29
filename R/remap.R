@@ -38,7 +38,7 @@
 #'       "22" = "2"
 #'     )
 #'   ),
-#'   All = list(
+#'   ALL = list(
 #'     fact = list(
 #'       "F1" = "f1",
 #'       "F2" = "f2",
@@ -52,13 +52,20 @@
 #' )
 #'
 #' res <- remap(db, my_map)
-remap <- function(db, map) {
+remap <- function(db, map = NULL) {
+  if (is.null(map)) {
+    return(db)
+  }
+
   assert_remap(map)
 
   remap_tab <- intersect(names(map), names(db))
-  if ("ALL" %in% toupper(names(map))) remap_tab <- c("All", remap_tab)
+  if ("ALL" %in% toupper(names(map))) {
+    remap_tab <- c("All", remap_tab)
+    names(map)[toupper(names(map)) == "ALL"] <- "All"
+  }
 
-  # iterate over highest map level (tab)
+  # iterate over highest map level (tab).
   for (tab in remap_tab) {
     local_map <- map[[tab]]
 
@@ -93,6 +100,7 @@ remap <- function(db, map) {
 #'   not a valid column of the selected `tab` in the object, the original object is returned. This behavior is desirable
 #'   when a variable that exists in most but not all tables has to be re coded.
 #'
+#' @importFrom rlang :=
 #'
 #' @return a `dm` object with re coded variables as factor.
 #' @export
@@ -131,6 +139,7 @@ h_remap_tab <- function(db, tab, col, dic_map) {
   ori_lvl <- levels(as.factor(ori))
   unknow_lvl <- setdiff(ori_lvl, names(dic_map))
   new_level <- c(unique(dic_map), unknow_lvl)
+  new_level <- unique(new_level)
 
   is_na <- which(is.na(new))
   new[is_na] <- ori_char[is_na]
@@ -195,15 +204,17 @@ assert_remap <- function(map) {
   msg <- NULL
 
   # assert unique table names
-  assert_list(map)
+  assert_list(map, min.len = 1)
   res <- duplicated(names(map))
   if (any(res)) {
     msg <- paste("\nDuplicated table names:", toString(unique(names(map)[res])))
   }
 
-  # assert unique variable name in each table
+
   var_remap <- lapply(map, names)
-  res <- unlist(lapply(var_remap, function(x) test_character(x, unique = TRUE)))
+
+  # assert unique variable name in each table
+  res <- unlist(lapply(var_remap, function(x) test_character(x, unique = TRUE, null.ok = TRUE)))
   if (!all(res)) {
     msg <- c(msg, paste("\nDuplicated Variable name inside table:", toString(unique(names(var_remap)[!res]))))
   }

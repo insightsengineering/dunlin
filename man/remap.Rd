@@ -4,7 +4,7 @@
 \alias{remap}
 \title{Remap values}
 \usage{
-remap(db, map)
+remap(db, map = NULL)
 }
 \arguments{
 \item{db}{(\code{dm}) object input.}
@@ -49,7 +49,7 @@ my_map <- list(
       "22" = "2"
     )
   ),
-  All = list(
+  ALL = list(
     fact = list(
       "F1" = "f1",
       "F2" = "f2",
