@@ -101,7 +101,7 @@ remap <- function(db, map = NULL) {
 #'   when a variable that exists in most but not all tables has to be re coded.
 #'
 #' @importFrom rlang :=
-#' 
+#'
 #' @return a `dm` object with re coded variables as factor.
 #' @export
 #'
