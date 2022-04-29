@@ -100,7 +100,8 @@ remap <- function(db, map = NULL) {
 #'   not a valid column of the selected `tab` in the object, the original object is returned. This behavior is desirable
 #'   when a variable that exists in most but not all tables has to be re coded.
 #'
-#'
+#' @importFrom rlang :=
+#' 
 #' @return a `dm` object with re coded variables as factor.
 #' @export
 #'
