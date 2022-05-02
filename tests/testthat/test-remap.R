@@ -89,9 +89,9 @@ test_that("h_remap_tab works as expected", {
   expect_identical(res$df1$char, expected)
 })
 
-# remap ----
+# apply_reformat ----
 
-test_that("remap works as expected with other All spelling", {
+test_that("apply_reformat works as expected with other All spelling", {
   df1 <- data.frame(
     "char" = c("a", "b", NA, "a", "k", "x"),
     "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
@@ -131,7 +131,7 @@ test_that("remap works as expected with other All spelling", {
     )
   )
 
-  res <- expect_silent(remap(db, my_map))
+  res <- expect_silent(apply_reformat(db, my_map))
 
   expected_char <- factor(c("A", "B", NA, "A", "A", "x"), levels = c("A", "B", "x"))
   expect_identical(res$df1$char, expected_char)
@@ -149,7 +149,7 @@ test_that("remap works as expected with other All spelling", {
 
 
 
-test_that("remap works as expected", {
+test_that("apply_reformat works as expected", {
   df1 <- data.frame(
     "char" = c("a", "b", NA, "a", "k", "x"),
     "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
@@ -189,7 +189,7 @@ test_that("remap works as expected", {
     )
   )
 
-  res <- expect_silent(remap(db, my_map))
+  res <- expect_silent(apply_reformat(db, my_map))
 
   expected_char <- factor(c("A", "B", NA, "A", "A", "x"), levels = c("A", "B", "x"))
   expect_identical(res$df1$char, expected_char)

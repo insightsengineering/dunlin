@@ -1,5 +1,5 @@
 ---
-title: "Remapping"
+title: "Reformat"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -22,15 +22,15 @@ library(dunlin)
 
 ## Introduction
 
-Remapping in `dulin` consists in replacing predetermined values by another in particular variables for selected tables of a data set stored under the form of a `dm` object. 
+Reformatting in `dulin` consists in replacing predetermined values by another in particular variables for selected tables of a data set stored under the form of a `dm` object. 
 
 This is performed in two steps: 
 
 1. A mapping list is created which specifies the correspondence between the old and the new values
 
-2. The remapping itself is performed with the `dunlin::remap()` function.
+2. The remapping itself is performed with the `dunlin::apply_reformat()` function.
 
-## The Mapping List Structure
+## The Formatting List Structure
 
 The Mapping List is a list object with 4 hierarchic levels. 
 
@@ -83,9 +83,9 @@ my_map <- list(
 ```
  
 
-## Re mapping
+## Re Formatting
  
-Once the re mapping list is defined, the remapping can be performed on a `dm` object.
+Once the re formatting list is defined, the reformatting can be performed on a `dm` object.
 
 #### Example
 
@@ -99,7 +99,7 @@ db <-
   mutate(manufacturer = ifelse(manufacturer == "EMBRAER", NA, manufacturer)) %>%
   dm_update_zoomed()
 
-res <- remap(db, my_map)
+res <- apply_reformat(db, format = my_map)
 head(db$airlines$name)
 head(res$airlines$name)
 

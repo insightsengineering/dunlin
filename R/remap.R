@@ -2,7 +2,7 @@
 #' Remap values
 #'
 #' @param db (`dm`) object input.
-#' @param map (`list`) in a specific format.
+#' @param format (`list`) in a specific format.
 #'
 #' @note Using the keyword `All` as a table name will change the corresponding variable in every table where it appears.
 #'
@@ -25,7 +25,7 @@
 #'
 #' db <- dm(df1, df2)
 #'
-#' my_map <- list(
+#' new_formats <- list(
 #'   df1 = list(
 #'     char = list(
 #'       "A" = c("a", "k"),
@@ -51,23 +51,23 @@
 #'   )
 #' )
 #'
-#' res <- remap(db, my_map)
-remap <- function(db, map = NULL) {
-  if (is.null(map)) {
+#' res <- apply_reformat(db, new_formats)
+apply_reformat <- function(db, format = NULL) {
+  if (is.null(format)) {
     return(db)
   }
 
-  assert_remap(map)
+  assert_remap(format)
 
-  remap_tab <- intersect(names(map), names(db))
-  if ("ALL" %in% toupper(names(map))) {
+  remap_tab <- intersect(names(format), names(db))
+  if ("ALL" %in% toupper(names(format))) {
     remap_tab <- c("All", remap_tab)
-    names(map)[toupper(names(map)) == "ALL"] <- "All"
+    names(format)[toupper(names(format)) == "ALL"] <- "All"
   }
 
   # iterate over highest map level (tab).
   for (tab in remap_tab) {
-    local_map <- map[[tab]]
+    local_map <- format[[tab]]
 
     # iterate over variables
     for (col in names(local_map)) {
