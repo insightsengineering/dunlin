@@ -45,4 +45,17 @@ my_map <- list(
 )
 
 assert_remap(my_map)
+
+my_map <- list(
+  df0 = NULL,
+  df1 = list(
+    char = NULL,
+    char2 = list(
+      "A" = c("a", "k"),
+      "B" = "b"
+    )
+  )
+)
+
+assert_remap(my_map)
 }

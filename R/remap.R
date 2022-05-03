@@ -72,6 +72,9 @@ apply_reformat <- function(db, format = NULL) {
     # iterate over variables
     for (col in names(local_map)) {
       key_val <- local_map[[col]]
+      
+      # if no mapping is provided for a variable, skip this remapping.
+      if (is.null(key_val)) next
 
       key_len <- unlist(lapply(key_val, length))
       val_nam <- rep(names(key_val), key_len)
@@ -200,16 +203,28 @@ h_remap_tab <- function(db, tab, col, dic_map) {
 #' )
 #'
 #' assert_remap(my_map)
+#' 
+#' my_map <- list(
+#'   df0 = NULL,
+#'   df1 = list(
+#'     char = NULL,
+#'     char2 = list(
+#'       "A" = c("a", "k"),
+#'       "B" = "b"
+#'     )
+#'   )
+#' )
+#' 
+#' assert_remap(my_map)
 assert_remap <- function(map) {
   msg <- NULL
 
   # assert unique table names
-  assert_list(map, min.len = 1)
+  assert_list(map)
   res <- duplicated(names(map))
   if (any(res)) {
     msg <- paste("\nDuplicated table names:", toString(unique(names(map)[res])))
   }
-
 
   var_remap <- lapply(map, names)
 
@@ -222,7 +237,7 @@ assert_remap <- function(map) {
   # assert 1:1 remapping
   tab_remap <- lapply(map, function(x) lapply(x, unlist))
   col_remap <- unlist(tab_remap, recursive = FALSE)
-  res <- unlist(lapply(col_remap, function(x) test_character(x, unique = TRUE)))
+  res <- unlist(lapply(col_remap, function(x) test_character(x, unique = TRUE, null.ok = TRUE)))
   if (!all(res)) {
     msg <- c(msg, paste("\nDuplicated mapping inside:", toString(names(col_remap)[!res])))
   }
