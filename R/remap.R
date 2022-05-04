@@ -72,7 +72,7 @@ apply_reformat <- function(db, format = NULL) {
     # iterate over variables
     for (col in names(local_map)) {
       key_val <- local_map[[col]]
-      
+
       # if no mapping is provided for a variable, skip this remapping.
       if (is.null(key_val)) next
 
@@ -203,7 +203,7 @@ h_remap_tab <- function(db, tab, col, dic_map) {
 #' )
 #'
 #' assert_remap(my_map)
-#' 
+#'
 #' my_map <- list(
 #'   df0 = NULL,
 #'   df1 = list(
@@ -214,7 +214,7 @@ h_remap_tab <- function(db, tab, col, dic_map) {
 #'     )
 #'   )
 #' )
-#' 
+#'
 #' assert_remap(my_map)
 assert_remap <- function(map) {
   msg <- NULL
