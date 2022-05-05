@@ -1,11 +1,11 @@
 
-#' Remap values
+#' Reformat values
 #'
 #' @param db (`dm`) object input.
 #' @param format (`list`) in a specific format.
 #'
 #' @note Using the keyword `All` as a table name will change the corresponding variable in every table where it appears.
-#'
+#' @return a `dm` object with re coded variables as factor. If not reformatted, original levels are preserved.
 #' @return a `dm` object with re coded variables as factor. If not re mapped, original levels are preserved.
 #' @export
 #'
