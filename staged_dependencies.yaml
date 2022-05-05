@@ -4,6 +4,6 @@ current_repo:
   host: https://github.com
 upstream_repos:
 downstream_repos:
-  insightsengineering/dunlin:
-    repo: insightsengineering/dunlin
+  insightsengineering/citril:
+    repo: insightsengineering/citril
     host: https://github.com
