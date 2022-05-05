@@ -1,11 +1,11 @@
 
-#' Remap values
+#' Reformat values
 #'
 #' @param db (`dm`) object input.
-#' @param map (`list`) in a specific format.
+#' @param format (`list`) in a specific format.
 #'
 #' @note Using the keyword `All` as a table name will change the corresponding variable in every table where it appears.
-#'
+#' @return a `dm` object with re coded variables as factor. If not reformatted, original levels are preserved.
 #' @return a `dm` object with re coded variables as factor. If not re mapped, original levels are preserved.
 #' @export
 #'
@@ -25,7 +25,7 @@
 #'
 #' db <- dm(df1, df2)
 #'
-#' my_map <- list(
+#' new_formats <- list(
 #'   df1 = list(
 #'     char = list(
 #'       "A" = c("a", "k"),
@@ -51,27 +51,30 @@
 #'   )
 #' )
 #'
-#' res <- remap(db, my_map)
-remap <- function(db, map = NULL) {
-  if (is.null(map)) {
+#' res <- apply_reformat(db, new_formats)
+apply_reformat <- function(db, format = NULL) {
+  if (is.null(format)) {
     return(db)
   }
 
-  assert_remap(map)
+  assert_reformat(format)
 
-  remap_tab <- intersect(names(map), names(db))
-  if ("ALL" %in% toupper(names(map))) {
+  remap_tab <- intersect(names(format), names(db))
+  if ("ALL" %in% toupper(names(format))) {
     remap_tab <- c("All", remap_tab)
-    names(map)[toupper(names(map)) == "ALL"] <- "All"
+    names(format)[toupper(names(format)) == "ALL"] <- "All"
   }
 
   # iterate over highest map level (tab).
   for (tab in remap_tab) {
-    local_map <- map[[tab]]
+    local_map <- format[[tab]]
 
     # iterate over variables
     for (col in names(local_map)) {
       key_val <- local_map[[col]]
+
+      # if no mapping is provided for a variable, skip this remapping.
+      if (is.null(key_val)) next
 
       key_len <- unlist(lapply(key_val, length))
       val_nam <- rep(names(key_val), key_len)
@@ -79,17 +82,17 @@ remap <- function(db, map = NULL) {
 
       if (tab == "All") {
         for (sel_tab in names(db)) {
-          db <- h_remap_tab(db, sel_tab, col, dic_map)
+          db <- h_reformat_tab(db, sel_tab, col, dic_map)
         }
       } else {
-        db <- h_remap_tab(db, tab, col, dic_map)
+        db <- h_reformat_tab(db, tab, col, dic_map)
       }
     }
   }
   db
 }
 
-#' Remap a Specific Variable in a Specific Column
+#' Reformat a Variable in a Specific Column and Table
 #'
 #' @param db (`dm`) object input.
 #' @param tab (`string`) the name of a table.
@@ -122,8 +125,8 @@ remap <- function(db, map = NULL) {
 #' db <- dm(df1, df2)
 #'
 #' dic_map <- setNames(c("A", "B", "Missing"), c("a", "b", NA))
-#' res <- h_remap_tab(db, "df1", "char", dic_map)
-h_remap_tab <- function(db, tab, col, dic_map) {
+#' res <- h_reformat_tab(db, "df1", "char", dic_map)
+h_reformat_tab <- function(db, tab, col, dic_map) {
   if (!tab %in% names(db)) {
     return(db)
   }
@@ -161,9 +164,7 @@ h_remap_tab <- function(db, tab, col, dic_map) {
   db
 }
 
-
-
-#' Assert the Mapping Object
+#' Assert the Reformatting Map.
 #'
 #' @param map (`list`)
 #'
@@ -199,17 +200,29 @@ h_remap_tab <- function(db, tab, col, dic_map) {
 #'   )
 #' )
 #'
-#' assert_remap(my_map)
-assert_remap <- function(map) {
+#' assert_reformat(my_map)
+#'
+#' my_map <- list(
+#'   df0 = NULL,
+#'   df1 = list(
+#'     char = NULL,
+#'     char2 = list(
+#'       "A" = c("a", "k"),
+#'       "B" = "b"
+#'     )
+#'   )
+#' )
+#'
+#' assert_reformat(my_map)
+assert_reformat <- function(map) {
   msg <- NULL
 
   # assert unique table names
-  assert_list(map, min.len = 1)
+  assert_list(map)
   res <- duplicated(names(map))
   if (any(res)) {
     msg <- paste("\nDuplicated table names:", toString(unique(names(map)[res])))
   }
-
 
   var_remap <- lapply(map, names)
 
@@ -222,7 +235,7 @@ assert_remap <- function(map) {
   # assert 1:1 remapping
   tab_remap <- lapply(map, function(x) lapply(x, unlist))
   col_remap <- unlist(tab_remap, recursive = FALSE)
-  res <- unlist(lapply(col_remap, function(x) test_character(x, unique = TRUE)))
+  res <- unlist(lapply(col_remap, function(x) test_character(x, unique = TRUE, null.ok = TRUE)))
   if (!all(res)) {
     msg <- c(msg, paste("\nDuplicated mapping inside:", toString(names(col_remap)[!res])))
   }
