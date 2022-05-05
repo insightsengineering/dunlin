@@ -57,7 +57,7 @@ apply_reformat <- function(db, format = NULL) {
     return(db)
   }
 
-  assert_remap(format)
+  assert_reformat(format)
 
   remap_tab <- intersect(names(format), names(db))
   if ("ALL" %in% toupper(names(format))) {
@@ -82,17 +82,17 @@ apply_reformat <- function(db, format = NULL) {
 
       if (tab == "All") {
         for (sel_tab in names(db)) {
-          db <- h_remap_tab(db, sel_tab, col, dic_map)
+          db <- h_reformat_tab(db, sel_tab, col, dic_map)
         }
       } else {
-        db <- h_remap_tab(db, tab, col, dic_map)
+        db <- h_reformat_tab(db, tab, col, dic_map)
       }
     }
   }
   db
 }
 
-#' Remap a Specific Variable in a Specific Column
+#' Reformat a Variable in a Specific Column and Table
 #'
 #' @param db (`dm`) object input.
 #' @param tab (`string`) the name of a table.
@@ -125,8 +125,8 @@ apply_reformat <- function(db, format = NULL) {
 #' db <- dm(df1, df2)
 #'
 #' dic_map <- setNames(c("A", "B", "Missing"), c("a", "b", NA))
-#' res <- h_remap_tab(db, "df1", "char", dic_map)
-h_remap_tab <- function(db, tab, col, dic_map) {
+#' res <- h_reformat_tab(db, "df1", "char", dic_map)
+h_reformat_tab <- function(db, tab, col, dic_map) {
   if (!tab %in% names(db)) {
     return(db)
   }
@@ -164,9 +164,7 @@ h_remap_tab <- function(db, tab, col, dic_map) {
   db
 }
 
-
-
-#' Assert the Mapping Object
+#' Assert the Reformatting Map.
 #'
 #' @param map (`list`)
 #'
@@ -202,7 +200,7 @@ h_remap_tab <- function(db, tab, col, dic_map) {
 #'   )
 #' )
 #'
-#' assert_remap(my_map)
+#' assert_reformat(my_map)
 #'
 #' my_map <- list(
 #'   df0 = NULL,
@@ -215,8 +213,8 @@ h_remap_tab <- function(db, tab, col, dic_map) {
 #'   )
 #' )
 #'
-#' assert_remap(my_map)
-assert_remap <- function(map) {
+#' assert_reformat(my_map)
+assert_reformat <- function(map) {
   msg <- NULL
 
   # assert unique table names

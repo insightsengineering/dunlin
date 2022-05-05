@@ -1,6 +1,6 @@
-# assert_remap ----
+# assert_reformat ----
 
-test_that("assert_remap works as expected", {
+test_that("assert_reformat works as expected", {
   test_map <- list(
     table1 = list(
       var1 = list(
@@ -20,10 +20,10 @@ test_that("assert_remap works as expected", {
     )
   )
 
-  expect_silent(assert_remap(test_map))
+  expect_silent(assert_reformat(test_map))
 })
 
-test_that("assert_remap does not tolerate duplicated table names, variables or mapping", {
+test_that("assert_reformat does not tolerate duplicated table names, variables or mapping", {
   test_map <- list(
     table1 = list(
       var1 = list(
@@ -58,16 +58,16 @@ test_that("assert_remap does not tolerate duplicated table names, variables or m
   )
 
   expect_error(
-    assert_remap(test_map),
+    assert_reformat(test_map),
     "Duplicated table names: table1
 Duplicated Variable name inside table: table1, table2
 Duplicated mapping inside: table1.var1"
   )
 })
 
-# h_remap_tab ----
+# h_reformat_tab ----
 
-test_that("h_remap_tab works as expected", {
+test_that("h_reformat_tab works as expected", {
   df1 <- data.frame(
     "char" = c("a", "b", NA, "a", "k", "x"),
     "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
@@ -82,7 +82,7 @@ test_that("h_remap_tab works as expected", {
   db <- dm::dm(df1, df2)
   dic_map <- setNames(c("A", "B", "Missing"), c("a", "b", NA))
 
-  res <- expect_silent(h_remap_tab(db, "df1", "char", dic_map))
+  res <- expect_silent(h_reformat_tab(db, "df1", "char", dic_map))
 
   expected <- factor(c("A", "B", "Missing", "A", "k", "x"), levels = c("A", "B", "k", "x", "Missing"))
 
@@ -179,4 +179,38 @@ test_that("apply_reformat works as expected with NULL values", {
   expect_identical(res$df2$num, expected_num)
   expect_identical(res$df1, db$df1)
   expect_identical(res$df2$fact, db$df2$fact)
+})
+
+# NULL values ----
+
+test_that("assert_reformat and apply_reformat work with NULL values", {
+  df1 <- data.frame(
+    "char" = c("a", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
+    "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
+  )
+  df2 <- data.frame(
+    "char" = c("a", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
+    "num" = 1:6
+  )
+  db <- dm::dm(df1, df2)
+
+  test_map <- list(
+    df1 = list(
+      char = list(
+        "A" = c("a", "k"),
+        "B" = NULL
+      ),
+      logi = NULL
+    ),
+    df2 = NULL
+  )
+
+  expect_silent(assert_reformat(test_map))
+  res <- apply_reformat(db, test_map)
+
+  expect_identical(res$df1$char, factor(c("A", "b", NA, "A", "A", "x"), levels = c("A", "b", "x")))
+  expect_identical(res$df1$logi, db$df1$logi)
+  expect_identical(res$df2, db$df2)
 })
