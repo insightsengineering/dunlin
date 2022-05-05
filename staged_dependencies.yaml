@@ -4,3 +4,6 @@ current_repo:
   host: https://github.com
 upstream_repos:
 downstream_repos:
+  insightsengineering/citril:
+    repo: insightsengineering/citril
+    host: https://github.com
