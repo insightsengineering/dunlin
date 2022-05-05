@@ -58,9 +58,12 @@ level variables. However, the level replacing missing values will automatically 
 ```{r}
 
 my_map <- list(
-  airlines = list( # This is the Table Name.
-    name = list( # This is the Variable Name.
-      "AE" = c("American Airlines Inc."), # AE is the Key, `c("American Airlines Inc.")` is the value.
+  # This is the Table Name.
+  airlines = list(
+    # This is the Variable Name.
+    name = list(
+      # `AE` is the Key, `c("American Airlines Inc.")` is the value.
+      "AE" = c("American Airlines Inc."),
       "Alaska and Hawaiian Airlines" = c("Alaska Airlines Inc.", "Hawaiian Airlines Inc.")
     )
   ),
@@ -126,16 +129,15 @@ reformatted and the column changed to `factor`. `B` wont be included in the leve
 
 # This is a valid reformatting map
 null_map <- list(
-    df1 = list(
-      char = list(
-        "A" = c("a", "k"),
-        "B" = NULL
-      ),
-      logi = NULL
+  df1 = list(
+    char = list(
+      "A" = c("a", "k"),
+      "B" = NULL
     ),
-    df2 = NULL
-  )
+    logi = NULL
+  ),
+  df2 = NULL
+)
 
 assert_reformat(null_map)
-
 ```
