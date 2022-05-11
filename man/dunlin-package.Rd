@@ -9,18 +9,11 @@
 A collection of functions to preprocess data and organize them in a format amenable to use by chevron.
 }
 \author{
-\strong{Maintainer}: NEST \email{basel.nestcicd@roche.com}
-
-Authors:
-\itemize{
-  \item Heng Wang
-  \item Benoit Falquet \email{benoit.falquet@roche.com}
-}
+\strong{Maintainer}: Benoit Falquet \email{benoit.falquet@roche.com}
 
 Other contributors:
 \itemize{
-  \item Roche [copyright holder, funder]
-  \item Tim Barnett \email{timothy.barnett@roche.com} [contributor]
+  \item F. Hoffmann-La Roche AG [copyright holder, funder]
 }
 
 }
