@@ -10,7 +10,7 @@ Authors@R: c(
   )
 Description: A collection of functions to preprocess data and organize
     them in a format amenable to use by chevron.
-License: file LICENSE
+License: Apache License 2.0 | file LICENSE
 Depends:
     R (>= 4.0.0)
 Imports:
@@ -29,7 +29,7 @@ Suggests:
     DiagrammeRsvg,
     knitr,
     rmarkdown
-VignetteBuilder: 
+VignetteBuilder:
     knitr
 Config/testthat/edition: 3
 Encoding: UTF-8
