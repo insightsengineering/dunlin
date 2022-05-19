@@ -2,11 +2,8 @@ Package: dunlin
 Title: Preprocessing tools for clinical trial data
 Version: 0.1.0.9006
 Authors@R: c(
-    person("NEST", , , "basel.nestcicd@roche.com", role = c("aut", "cre")),
-    person("Roche", role = c("cph", "fnd")),
-    person("Heng", "Wang", role = "aut"),
-    person("Benoit", "Falquet", , "benoit.falquet@roche.com", role = "aut"),
-    person("Tim", "Barnett", , "timothy.barnett@roche.com", role = "ctb")
+    person("Benoit", "Falquet", , "benoit.falquet@roche.com", role = c("aut", "cre")),
+    person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
   )
 Description: A collection of functions to preprocess data and organize
     them in a format amenable to use by chevron.
