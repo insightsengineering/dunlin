@@ -254,6 +254,46 @@ test_that("apply_reformat work with empty strings", {
 
 # attributes ----
 
-
-
-
+test_that("apply_reformat work with empty strings", {
+  
+  char <- c("", "b", NA, "a", "k", "x")
+  attr(char, "label") <- "my_label"
+  
+  num <- 1:6
+  attr(num, "label") <- "my_second_label"
+  
+  df1 <- data.frame(
+    "char" = char,
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
+    "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
+  )
+  df2 <- data.frame(
+    "char" = c("a", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
+    "num" = num
+  )
+  db <- dm::dm(df1, df2)
+  
+  test_map <- list(
+    df1 = list(
+      char = list(
+        "A" = c("a", "k"),
+        "B" = NULL,
+        "EMPTY STRING" = ""
+      ),
+      logi = NULL
+    ),
+    df2 = NULL
+  )
+  
+  expect_silent(assert_reformat(test_map))
+  res <- apply_reformat(db, test_map)
+  
+  expect_identical(
+    res$df1$char[1], 
+    factor("EMPTY STRING", levels = c("A", "b", "x", "EMPTY STRING"))
+  )
+  
+  expect_identical(attr(res$df1$char, "label"), "my_label")
+  expect_identical(attr(res$df2$num, "label"), "my_second_label")
+})

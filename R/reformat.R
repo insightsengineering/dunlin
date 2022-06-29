@@ -164,6 +164,12 @@ h_reformat_tab <- function(db, tab, col, dic_map) {
 
   new <- factor(new, levels = new_level)
   new <- unname(new)
+  
+  # Preserve label attribute
+  lab <- attr(ori, "label")
+  if (!is.null(lab)) {
+    attr(new, "label") <- lab
+  }
 
   db <- db %>%
     dm_zoom_to(!!tab) %>%
