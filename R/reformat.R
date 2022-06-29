@@ -162,7 +162,7 @@ h_reformat_tab <- function(db, tab, col, dic_map) {
   }
 
   # Replace Empty String if necessary
-  if (any(names(dic_map) == "")) {
+  if ("" %in% names(dic_map)) {
     empty_replacement <- dic_map[which(names(dic_map) == "")]
     new[which(ori_char == "")] <- empty_replacement
     new_level <- c(setdiff(new_level, empty_replacement), empty_replacement)

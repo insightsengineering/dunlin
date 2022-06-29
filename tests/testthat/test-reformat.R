@@ -217,7 +217,7 @@ test_that("assert_reformat and apply_reformat work with NULL values", {
 
 # empty strings ----
 
-test_that("apply_reformat work with empty strings", {
+test_that("apply_reformat works with empty strings", {
   df1 <- data.frame(
     "char" = c("", "b", NA, "a", "k", "x"),
     "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
@@ -253,7 +253,7 @@ test_that("apply_reformat work with empty strings", {
 
 # attributes ----
 
-test_that("apply_reformat work with empty strings", {
+test_that("apply_reformat preserves labels", {
   char <- c("", "b", NA, "a", "k", "x")
   attr(char, "label") <- "my_label"
 
@@ -276,6 +276,7 @@ test_that("apply_reformat work with empty strings", {
     df1 = list(
       char = list(
         "A" = c("a", "k"),
+        "isNA" = NA,
         "B" = NULL,
         "EMPTY STRING" = ""
       ),
@@ -287,11 +288,16 @@ test_that("apply_reformat work with empty strings", {
   expect_silent(assert_reformat(test_map))
   res <- apply_reformat(db, test_map)
 
+  expected_char <- factor(
+    c("EMPTY STRING", "b", "isNA", "A", "A", "x"),
+    levels = c("A", "b", "x", "isNA", "EMPTY STRING")
+  )
+  attr(expected_char, "label") <- "my_label"
+
   expect_identical(
-    res$df1$char[1],
-    factor("EMPTY STRING", levels = c("A", "b", "x", "EMPTY STRING"))
+    res$df1$char,
+    expected_char
   )
 
-  expect_identical(attr(res$df1$char, "label"), "my_label")
   expect_identical(attr(res$df2$num, "label"), "my_second_label")
 })
