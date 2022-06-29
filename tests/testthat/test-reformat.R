@@ -214,3 +214,46 @@ test_that("assert_reformat and apply_reformat work with NULL values", {
   expect_identical(res$df1$logi, db$df1$logi)
   expect_identical(res$df2, db$df2)
 })
+
+# empty strings ----
+
+test_that("apply_reformat work with empty strings", {
+  
+  df1 <- data.frame(
+    "char" = c("", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
+    "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
+  )
+  df2 <- data.frame(
+    "char" = c("a", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
+    "num" = 1:6
+  )
+  db <- dm::dm(df1, df2)
+  
+  test_map <- list(
+    df1 = list(
+      char = list(
+        "A" = c("a", "k"),
+        "B" = NULL,
+        "EMPTY STRING" = ""
+      ),
+      logi = NULL
+    ),
+    df2 = NULL
+  )
+  
+  expect_silent(assert_reformat(test_map))
+  res <- apply_reformat(db, test_map)
+  
+  expect_identical(
+    res$df1$char[1], 
+    factor("EMPTY STRING", levels = c("A", "b", "x", "EMPTY STRING"))
+  )
+})
+
+# attributes ----
+
+
+
+

@@ -112,7 +112,7 @@ apply_reformat <- function(db, format = NULL) {
 #' library(dm)
 #'
 #' df1 <- data.frame(
-#'   "char" = c("a", "b", NA, "a", "k", "x"),
+#'   "char" = c("", "b", NA, "a", "k", "x"),
 #'   "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
 #'   "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
 #' )
@@ -124,7 +124,7 @@ apply_reformat <- function(db, format = NULL) {
 #'
 #' db <- dm(df1, df2)
 #'
-#' dic_map <- setNames(c("A", "B", "Missing"), c("a", "b", NA))
+#' dic_map <- setNames(c("A", "B", "Missing", "Empty"), c("a", "b", NA, ""))
 #' res <- h_reformat_tab(db, "df1", "char", dic_map)
 h_reformat_tab <- function(db, tab, col, dic_map) {
   if (!tab %in% names(db)) {
@@ -138,12 +138,14 @@ h_reformat_tab <- function(db, tab, col, dic_map) {
   ori_char <- as.character(ori)
   new <- dic_map[ori_char]
 
-  # capture levels if factor and unique values otherwise to preserve all levels.
+  # Preserve all levels.
+  # if factor: capture levels. if other: capture unique values.
   ori_lvl <- levels(as.factor(ori))
   unknow_lvl <- setdiff(ori_lvl, names(dic_map))
   new_level <- c(unique(dic_map), unknow_lvl)
   new_level <- unique(new_level)
 
+  # Replace NA if necessary
   is_na <- which(is.na(new))
   new[is_na] <- ori_char[is_na]
 
@@ -151,6 +153,13 @@ h_reformat_tab <- function(db, tab, col, dic_map) {
     na_replacement <- dic_map[is.na(names(dic_map))][1]
     new[is.na(new)] <- na_replacement
     new_level <- c(setdiff(new_level, na_replacement), na_replacement)
+  }
+  
+  # Replace Empty String if necessary
+  if (any(names(dic_map) == "")) {
+    empty_replacement <- dic_map[which(names(dic_map) == "")]
+    new[which(ori_char == "")] <- empty_replacement
+    new_level <- c(setdiff(new_level, empty_replacement), empty_replacement)
   }
 
   new <- factor(new, levels = new_level)
