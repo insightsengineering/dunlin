@@ -218,7 +218,6 @@ test_that("assert_reformat and apply_reformat work with NULL values", {
 # empty strings ----
 
 test_that("apply_reformat work with empty strings", {
-  
   df1 <- data.frame(
     "char" = c("", "b", NA, "a", "k", "x"),
     "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
@@ -230,7 +229,7 @@ test_that("apply_reformat work with empty strings", {
     "num" = 1:6
   )
   db <- dm::dm(df1, df2)
-  
+
   test_map <- list(
     df1 = list(
       char = list(
@@ -242,12 +241,12 @@ test_that("apply_reformat work with empty strings", {
     ),
     df2 = NULL
   )
-  
+
   expect_silent(assert_reformat(test_map))
   res <- apply_reformat(db, test_map)
-  
+
   expect_identical(
-    res$df1$char[1], 
+    res$df1$char[1],
     factor("EMPTY STRING", levels = c("A", "b", "x", "EMPTY STRING"))
   )
 })
@@ -255,13 +254,12 @@ test_that("apply_reformat work with empty strings", {
 # attributes ----
 
 test_that("apply_reformat work with empty strings", {
-  
   char <- c("", "b", NA, "a", "k", "x")
   attr(char, "label") <- "my_label"
-  
+
   num <- 1:6
   attr(num, "label") <- "my_second_label"
-  
+
   df1 <- data.frame(
     "char" = char,
     "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
@@ -273,7 +271,7 @@ test_that("apply_reformat work with empty strings", {
     "num" = num
   )
   db <- dm::dm(df1, df2)
-  
+
   test_map <- list(
     df1 = list(
       char = list(
@@ -285,15 +283,15 @@ test_that("apply_reformat work with empty strings", {
     ),
     df2 = NULL
   )
-  
+
   expect_silent(assert_reformat(test_map))
   res <- apply_reformat(db, test_map)
-  
+
   expect_identical(
-    res$df1$char[1], 
+    res$df1$char[1],
     factor("EMPTY STRING", levels = c("A", "b", "x", "EMPTY STRING"))
   )
-  
+
   expect_identical(attr(res$df1$char, "label"), "my_label")
   expect_identical(attr(res$df2$num, "label"), "my_second_label")
 })

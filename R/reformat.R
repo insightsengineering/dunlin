@@ -74,7 +74,9 @@ apply_reformat <- function(db, format = NULL) {
       key_val <- local_map[[col]]
 
       # if no mapping is provided for a variable, skip this remapping.
-      if (is.null(key_val)) next
+      if (is.null(key_val)) {
+        next
+      }
 
       key_len <- unlist(lapply(key_val, length))
       val_nam <- rep(names(key_val), key_len)
@@ -102,6 +104,10 @@ apply_reformat <- function(db, format = NULL) {
 #' @note If `tab` is not a valid table name of the `db` object, the original object is returned. Similarly, if `col` is
 #'   not a valid column of the selected `tab` in the object, the original object is returned. This behavior is desirable
 #'   when a variable that exists in most but not all tables has to be re coded.
+#'
+#' @note Both empty string and `NAs` can be re coded if needed.
+#'
+#' @note the `label` attribute of the column is preserved.
 #'
 #' @importFrom rlang :=
 #'
@@ -154,7 +160,7 @@ h_reformat_tab <- function(db, tab, col, dic_map) {
     new[is.na(new)] <- na_replacement
     new_level <- c(setdiff(new_level, na_replacement), na_replacement)
   }
-  
+
   # Replace Empty String if necessary
   if (any(names(dic_map) == "")) {
     empty_replacement <- dic_map[which(names(dic_map) == "")]
@@ -164,7 +170,7 @@ h_reformat_tab <- function(db, tab, col, dic_map) {
 
   new <- factor(new, levels = new_level)
   new <- unname(new)
-  
+
   # Preserve label attribute
   lab <- attr(ori, "label")
   if (!is.null(lab)) {
