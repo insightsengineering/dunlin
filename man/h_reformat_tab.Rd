@@ -25,12 +25,16 @@ Reformat a Variable in a Specific Column and Table
 If \code{tab} is not a valid table name of the \code{db} object, the original object is returned. Similarly, if \code{col} is
 not a valid column of the selected \code{tab} in the object, the original object is returned. This behavior is desirable
 when a variable that exists in most but not all tables has to be re coded.
+
+Both empty string and \code{NAs} can be re coded if needed.
+
+the \code{label} attribute of the column is preserved.
 }
 \examples{
 library(dm)
 
 df1 <- data.frame(
-  "char" = c("a", "b", NA, "a", "k", "x"),
+  "char" = c("", "b", NA, "a", "k", "x"),
   "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
   "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
 )
@@ -42,6 +46,6 @@ df2 <- data.frame(
 
 db <- dm(df1, df2)
 
-dic_map <- setNames(c("A", "B", "Missing"), c("a", "b", NA))
+dic_map <- setNames(c("A", "B", "Missing", "Empty"), c("a", "b", NA, ""))
 res <- h_reformat_tab(db, "df1", "char", dic_map)
 }
