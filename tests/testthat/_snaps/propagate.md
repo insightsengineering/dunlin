@@ -4,8 +4,19 @@
       res
     Output
       -- Metadata --------------------------------------------------------------------
-      Tables: `airlines`, `airports`, `flights`, `planes`, `weather`
-      Columns: 54
-      Primary keys: 4
-      Foreign keys: 4
+      Tables: `df1`, `df2`
+      Columns: 7
+      Primary keys: 0
+      Foreign keys: 0
+
+# propagate works as expected in safe mode
+
+    Code
+      res
+    Output
+      -- Metadata --------------------------------------------------------------------
+      Tables: `df1`, `df2`
+      Columns: 7
+      Primary keys: 0
+      Foreign keys: 0
 

@@ -14,7 +14,7 @@ test_that("propagate works as expected", {
   db <- dm::dm(df1, df2)
 
   res <- propagate(db, "df1", "val", c("id", "id2"))
-  expect_snaphot(res)
+  expect_snapshot(res)
 })
 
 test_that("propagate works as expected in safe mode", {
