@@ -23,6 +23,7 @@ reference:
       - mini_pivot_wider
       - multi_pivot_wider
       - poly_pivot_wider
+      - propagate
   - title: Helper functions
     contents:
       - attr_label
