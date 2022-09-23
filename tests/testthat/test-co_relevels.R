@@ -11,6 +11,17 @@ test_that("co_relevels works as expected.", {
   expect_equal(as.character(df[, "PARAM"]), as.character(res[, "PARAM"]))
 })
 
+test_that("co_relevels works as expected with tibbles.", {
+  df <- tibble::tibble(SUBJID = 1:3, PARAMCD = factor(c("A", "B", "C")), PARAM = factor(paste("letter", LETTERS[1:3])))
+  res <- expect_silent(co_relevels(df, "PARAMCD", "PARAM", levels_primary = c("C", "A", "B")))
+
+  expect_equal(levels(res[["PARAMCD"]]), c("C", "A", "B"))
+  expect_equal(levels(res[["PARAM"]]), c("letter C", "letter A", "letter B"))
+
+  expect_equal(as.character(df[["PARAMCD"]]), as.character(res[["PARAMCD"]]))
+  expect_equal(as.character(df[["PARAM"]]), as.character(res[["PARAM"]]))
+})
+
 test_that("co_relevels works as expected when only a subset of levels is used.", {
   df <- data.frame(SUBJID = 1:3, PARAMCD = factor(c("A", "B", "C")), PARAM = factor(paste("letter", LETTERS[1:3])))
   res <- expect_silent(co_relevels(df, "PARAMCD", "PARAM", levels_primary = c("B")))
