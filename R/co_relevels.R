@@ -32,7 +32,7 @@ co_relevels <- function(df, primary, secondary, levels_primary) {
 
   keys <- setNames(as.character(df_key[[secondary]]), as.character(df_key[[primary]]))
 
-  all_levels_primary <- c(levels_primary, setdiff(levels(df[, primary]), levels_primary))
+  all_levels_primary <- c(levels_primary, setdiff(levels(df[[primary]]), levels_primary))
   all_levels_secondary <- keys[all_levels_primary]
 
 
