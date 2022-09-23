@@ -22,6 +22,9 @@ co_relevels <- function(df, primary, secondary, levels_primary) {
   assert_vector(df[[primary]], any.missing = FALSE)
   assert_vector(df[[secondary]], any.missing = FALSE)
 
+  df[, primary] <- as.factor(df[[primary]])
+  df[, secondary] <- as.factor(df[[secondary]])
+
   # check unique relationship
   df_key <- df[, c(primary, secondary)]
   df_key <- unique(df_key)
@@ -35,9 +38,8 @@ co_relevels <- function(df, primary, secondary, levels_primary) {
   all_levels_primary <- c(levels_primary, setdiff(levels(df[[primary]]), levels_primary))
   all_levels_secondary <- keys[all_levels_primary]
 
-
-  df[, primary] <- factor(df[, primary], all_levels_primary)
-  df[, secondary] <- factor(df[, secondary], all_levels_secondary)
+  df[, primary] <- factor(df[[primary]], all_levels_primary)
+  df[, secondary] <- factor(df[[secondary]], all_levels_secondary)
 
   df
 }
