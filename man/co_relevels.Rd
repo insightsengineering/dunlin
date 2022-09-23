@@ -9,9 +9,9 @@ co_relevels(df, primary, secondary, levels_primary)
 \arguments{
 \item{df}{(\code{data.frame}) with two column whose factors should be reordered.}
 
-\item{primary}{(\code{character}) the name of the column on which the levels reordering should be based.}
+\item{primary}{(\code{string}) the name of the column on which the levels reordering should be based.}
 
-\item{secondary}{(\code{character}) the name of the column whose levels should be reordered following the levels of the
+\item{secondary}{(\code{string}) the name of the column whose levels should be reordered following the levels of the
 primary column.}
 
 \item{levels_primary}{(\code{character}) the levels in the desired order. Existing levels that are not included will be
@@ -25,6 +25,10 @@ The function expect a 1:1 matching between the elements of the two selected colu
 }
 \examples{
 
-df <- data.frame(SUBJID = 1:3, PARAMCD = factor(c("A", "B", "C")), PARAM = factor(paste("letter", LETTERS[1:3])))
+df <- data.frame(
+  SUBJID = 1:3,
+  PARAMCD = factor(c("A", "B", "C")),
+  PARAM = factor(paste("letter", LETTERS[1:3]))
+)
 co_relevels(df, "PARAMCD", "PARAM", levels_primary = c("C", "A", "B"))
 }

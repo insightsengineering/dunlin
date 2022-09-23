@@ -3,8 +3,8 @@
 #' @details The function expect a 1:1 matching between the elements of the two selected column.
 #'
 #' @param df (`data.frame`) with two column whose factors should be reordered.
-#' @param primary (`character`) the name of the column on which the levels reordering should be based.
-#' @param secondary (`character`) the name of the column whose levels should be reordered following the levels of the
+#' @param primary (`string`) the name of the column on which the levels reordering should be based.
+#' @param secondary (`string`) the name of the column whose levels should be reordered following the levels of the
 #'   primary column.
 #' @param levels_primary (`character`) the levels in the desired order. Existing levels that are not included will be
 #'   placed afterward in their current order.
@@ -13,7 +13,11 @@
 #'
 #' @examples
 #'
-#' df <- data.frame(SUBJID = 1:3, PARAMCD = factor(c("A", "B", "C")), PARAM = factor(paste("letter", LETTERS[1:3])))
+#' df <- data.frame(
+#'   SUBJID = 1:3,
+#'   PARAMCD = factor(c("A", "B", "C")),
+#'   PARAM = factor(paste("letter", LETTERS[1:3]))
+#' )
 #' co_relevels(df, "PARAMCD", "PARAM", levels_primary = c("C", "A", "B"))
 co_relevels <- function(df, primary, secondary, levels_primary) {
   assert_data_frame(df, min.rows = 1)
