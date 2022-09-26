@@ -19,7 +19,7 @@
 #' test_data <- data.frame(
 #'   the_obs = c("A", "A", "A", "B", "B", "B", "C", "D"),
 #'   the_obs2 = c("Ax", "Ax", "Ax", "Bx", "Bx", "Bx", "Cx", "Dx"),
-#'   the_param = c("weight", "height", "gender", "weight", "gender", "height", "height", "precondition"),
+#'   the_param = c("weight", "height", "gender", "weight", "gender", "height", "height", "other"),
 #'   the_val = c(65, 165, "M", 66, "F", 166, 155, TRUE)
 #' )
 #'
@@ -81,7 +81,7 @@ mini_pivot_wider <- function(data,
 #' test_data <- data.frame(
 #'   the_obs = c("A", "A", "A", "B", "B", "B", "C", "D"),
 #'   the_obs2 = c("Ax", "Ax", "Ax", "Bx", "Bx", "Bx", "Cx", "Dx"),
-#'   the_param = c("weight", "height", "gender", "weight", "gender", "height", "height", "precondition"),
+#'   the_param = c("weight", "height", "gender", "weight", "gender", "height", "height", "other"),
 #'   the_val = c(65, 165, "M", 66, "F", 166, 155, TRUE)
 #' )
 #'
@@ -156,7 +156,7 @@ multi_pivot_wider <- function(data,
 #' test_data <- data.frame(
 #'   the_obs = c("A", "A", "A", "B", "B", "B", "C", "D"),
 #'   the_obs2 = c("Ax", "Ax", "Ax", "Bx", "Bx", "Bx", "Cx", "Dx"),
-#'   the_param = c("weight", "height", "gender", "weight", "gender", "height", "height", "precondition"),
+#'   the_param = c("weight", "height", "gender", "weight", "gender", "height", "height", "other"),
 #'   the_label = c(
 #'     "Weight (Kg)", "Height (cm)", "Gender", "Weight (Kg)",
 #'     "Gender", "Height (cm)", "Height (cm)", "Pre-condition"
@@ -165,7 +165,13 @@ multi_pivot_wider <- function(data,
 #'   the_val2 = c(65, 165, "M", 66, "F", 166, 155, TRUE)
 #' )
 #'
-#' x <- poly_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", c("the_val", "the_val2"), "the_label")
+#' x <- poly_pivot_wider(
+#'   test_data,
+#'   c("the_obs", "the_obs2"),
+#'   "the_param",
+#'   c("the_val", "the_val2"),
+#'   "the_label"
+#' )
 #' x
 #' Reduce(function(u, v) merge(u, v, all = TRUE), x)
 poly_pivot_wider <- function(data,

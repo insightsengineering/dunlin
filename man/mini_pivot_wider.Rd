@@ -31,7 +31,7 @@ provided twice for the same observation.
 test_data <- data.frame(
   the_obs = c("A", "A", "A", "B", "B", "B", "C", "D"),
   the_obs2 = c("Ax", "Ax", "Ax", "Bx", "Bx", "Bx", "Cx", "Dx"),
-  the_param = c("weight", "height", "gender", "weight", "gender", "height", "height", "precondition"),
+  the_param = c("weight", "height", "gender", "weight", "gender", "height", "height", "other"),
   the_val = c(65, 165, "M", 66, "F", 166, 155, TRUE)
 )
 
