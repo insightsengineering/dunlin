@@ -32,7 +32,7 @@ propagate <- function(db, from, add, by, safe = FALSE) {
   for (tab_name in names(db)) {
     tab_colnames <- colnames(db[[tab_name]])
 
-    if (!all(add %in% tab_colnames) & all(by %in% tab_colnames)) {
+    if (!all(add %in% tab_colnames) && all(by %in% tab_colnames)) {
       missing_var <- setdiff(add, tab_colnames)
       sel_var <- c(missing_var, by)
 
