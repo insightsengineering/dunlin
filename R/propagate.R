@@ -32,7 +32,7 @@ propagate <- function(db, from, add, by, safe = FALSE) {
   for (tab_name in names(db)) {
     tab_colnames <- colnames(db[[tab_name]])
 
-    if (!all(add %in% tab_colnames) & all(by %in% tab_colnames)) {
+    if (!all(add %in% tab_colnames) && all(by %in% tab_colnames)) {
       missing_var <- setdiff(add, tab_colnames)
       sel_var <- c(missing_var, by)
 
@@ -41,7 +41,7 @@ propagate <- function(db, from, add, by, safe = FALSE) {
       db <-
         db %>%
         dm::dm_zoom_to(!!tab_name) %>%
-        dm::left_join(!!from, select = dplyr::all_of(sel_var), by = dplyr::all_of(by)) %>%
+        dm::left_join(!!from, select = dplyr::all_of(sel_var), by = by) %>%
         dm::dm_update_zoomed()
     } else {
       cat(paste0("\nSkipping: ", tab_name))
