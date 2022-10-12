@@ -41,7 +41,7 @@ propagate <- function(db, from, add, by, safe = FALSE) {
       db <-
         db %>%
         dm::dm_zoom_to(!!tab_name) %>%
-        dm::left_join(!!from, select = dplyr::all_of(sel_var), by = dplyr::all_of(by)) %>%
+        dm::left_join(!!from, select = dplyr::all_of(sel_var), by = by) %>%
         dm::dm_update_zoomed()
     } else {
       cat(paste0("\nSkipping: ", tab_name))

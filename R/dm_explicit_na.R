@@ -75,21 +75,21 @@ dm_explicit_na <- function(data,
     if (length(names_char_col) > 0L) {
       data <- data %>%
         dm_zoom_to(!!tab_sym) %>%
-        mutate(across(names_char_col, function(x) h_as_factor(x, na_level))) %>%
+        mutate(across(all_of(names_char_col), function(x) h_as_factor(x, na_level))) %>%
         dm_update_zoomed()
     }
 
     if (length(names_logi_col) > 0L) {
       data <- data %>%
         dm_zoom_to(!!tab_sym) %>%
-        mutate(across(names_logi_col, function(x) h_as_factor(x, na_level))) %>%
+        mutate(across(all_of(names_logi_col), function(x) h_as_factor(x, na_level))) %>%
         dm_update_zoomed()
     }
 
     if (length(names_fact_col) > 0L) {
       data <- data %>%
         dm_zoom_to(!!tab_sym) %>%
-        mutate(across(names_fact_col, function(x) h_as_factor(x, na_level))) %>%
+        mutate(across(all_of(names_fact_col), function(x) h_as_factor(x, na_level))) %>%
         dm_update_zoomed()
     }
   }
