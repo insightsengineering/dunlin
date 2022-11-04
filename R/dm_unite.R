@@ -23,9 +23,12 @@
 #' }
 dm_unite <- function(adam_db, dataset, cols, sep = ".", new = NULL) {
   checkmate::assert_class(adam_db, "dm")
-  checkmate::assert_string("dataset")
+  checkmate::assert_string(dataset)
+  checkmate::assert_subset(dataset, names(adam_db))
   checkmate::assert_character(cols, min.len = 1)
+  checkmate::assert_subset(cols, colnames(adam_db[[dataset]]))
   checkmate::assert_string(sep)
+  checkmate::assert(checkmate::check_null(new) || checkmate::check_string(new))
 
   int_df <- adam_db %>%
     dm_zoom_to(!!dataset)
