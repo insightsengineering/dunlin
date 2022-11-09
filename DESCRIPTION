@@ -1,6 +1,7 @@
 Package: dunlin
 Title: Preprocessing tools for clinical trial data
-Version: 0.1.1
+Version: 0.1.1.9000
+Date: 2022-11-09
 Authors@R: c(
     person("Benoit", "Falquet", , "benoit.falquet@roche.com", role = c("aut", "cre")),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
@@ -33,4 +34,3 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
-Date: 2022-10-14
