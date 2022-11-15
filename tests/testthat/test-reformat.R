@@ -330,17 +330,17 @@ test_that("apply_reformat works as expected with empty list", {
   # Character are converted to factors with levels in alphabetic order.
   expect_identical(
     res$df1$char,
-    factor(c("", "b", NA, "a", "k", "x"), levels = c("","a", "b", "k", "x"))
+    factor(c("", "b", NA, "a", "k", "x"), levels = c("", "a", "b", "k", "x"))
   )
-  
+
   # Logical are converted to factors with levels in alphabetic order.
   expect_identical(
     res$df1$logi,
     factor(c(NA, FALSE, TRUE, NA, FALSE, NA))
   )
-  
+
   # Factor are unaltered.
-  expect_identical( 
+  expect_identical(
     res$df1$fact,
     db$df1$fact,
   )
