@@ -13,7 +13,8 @@ h_reformat_tab(db, tab, col, dic_map)
 
 \item{col}{(\code{string}) the name of a variable in a table.}
 
-\item{dic_map}{(named \code{vector}) a dictionary with the mapping values, with the format \code{c(new = old)}.}
+\item{dic_map}{(named \code{vector}) a dictionary with the mapping values, with the format \code{c(new = old)}. If \code{NULL}, the
+selected column will be converted into factor without further modifications.}
 }
 \value{
 a \code{dm} object with re coded variables as factor.
@@ -28,7 +29,7 @@ when a variable that exists in most but not all tables has to be re coded.
 
 Both empty string and \code{NAs} can be re coded if needed.
 
-the \code{label} attribute of the column is preserved.
+The \code{label} attribute of the column is preserved.
 }
 \examples{
 library(dm)

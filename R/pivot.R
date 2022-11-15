@@ -28,14 +28,13 @@ mini_pivot_wider <- function(data,
                              id,
                              param_from,
                              value_from) {
-
   # check for duplication of observation-parameter
-  assert_data_frame(data, min.rows = 1, min.cols = 3)
-  assert_character(id, len = 1)
-  assert_character(param_from, len = 1)
-  assert_character(value_from, len = 1)
-  assert_subset(c(id, param_from, value_from), colnames(data))
-  assert_false(any(duplicated(data[, c(id, param_from)])))
+  checkmate::assert_data_frame(data, min.rows = 1, min.cols = 3)
+  checkmate::assert_character(id, len = 1)
+  checkmate::assert_character(param_from, len = 1)
+  checkmate::assert_character(value_from, len = 1)
+  checkmate::assert_subset(c(id, param_from, value_from), colnames(data))
+  checkmate::assert_false(any(duplicated(data[, c(id, param_from)])))
 
   unique_id <- sort(unique(data[[id]]))
   param <- data[[param_from]]
@@ -92,14 +91,13 @@ multi_pivot_wider <- function(data,
                               param_from,
                               value_from,
                               drop_na = FALSE) {
-
   # check for duplication of observation-parameter
-  assert_data_frame(data, min.rows = 1, min.cols = 3)
-  assert_character(id)
-  assert_character(param_from, len = 1)
-  assert_character(value_from, len = 1)
-  assert_false(any(duplicated(data[, c(id, param_from)])))
-  assert_subset(c(id, param_from, value_from), colnames(data))
+  checkmate::assert_data_frame(data, min.rows = 1, min.cols = 3)
+  checkmate::assert_character(id)
+  checkmate::assert_character(param_from, len = 1)
+  checkmate::assert_character(value_from, len = 1)
+  checkmate::assert_false(any(duplicated(data[, c(id, param_from)])))
+  checkmate::assert_subset(c(id, param_from, value_from), colnames(data))
 
   # find a way to sort
   unique_id <- unique(data[id])
@@ -179,17 +177,16 @@ poly_pivot_wider <- function(data,
                              param_from,
                              value_from,
                              labels_from = NULL) {
-
   # other tests are performed at lower levels.
-  assert_character(value_from, unique = TRUE)
+  checkmate::assert_character(value_from, unique = TRUE)
 
   # Create new labels for new columns.
   if (is.null(labels_from) || labels_from == param_from) {
     new_labels <- unique(data[[param_from]])
     names(new_labels) <- new_labels
   } else {
-    assert_character(labels_from, len = 1)
-    assert_subset(labels_from, colnames(data))
+    checkmate::assert_character(labels_from, len = 1)
+    checkmate::assert_subset(labels_from, colnames(data))
 
     new_labels_df <- data[, c(labels_from, param_from)]
     new_labels_df <- unique(new_labels_df)

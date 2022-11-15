@@ -28,7 +28,7 @@ test_that("cut_by_group works as expected.", {
 
   res <- expect_silent(cut_by_group(data, "AVAL", "PARAM", group, "my_new_categories"))
 
-  expect_character(res[, "my_new_categories"], len = 30)
+  checkmate::expect_character(res[, "my_new_categories"], len = 30)
   expect_equal(unique(res[, "my_new_categories"]), c("=<150", "150-170", ">170", "=<65", ">65", "=<31", ">31"))
   expect_equal(res[3:4, "my_new_categories"], c("=<150", "150-170"))
 })
@@ -67,7 +67,7 @@ test_that("cut_by_group works as expected when supplementary group information a
 
   res <- expect_silent(cut_by_group(data, "AVAL", "PARAM", group, "my_new_categories"))
 
-  expect_character(res[, "my_new_categories"], len = 30)
+  checkmate::expect_character(res[, "my_new_categories"], len = 30)
   expect_equal(unique(res[, "my_new_categories"]), c("=<150", "150-170", ">170", "=<65", ">65", "=<31", ">31"))
   expect_equal(res[3:4, "my_new_categories"], c("=<150", "150-170"))
 })
@@ -95,7 +95,7 @@ test_that("cut_by_group returns NA for parameters values that are covered.", {
 
   res <- expect_silent(cut_by_group(data, "AVAL", "PARAM", group, "my_new_categories"))
 
-  expect_character(res[, "my_new_categories"], len = 30)
+  checkmate::expect_character(res[, "my_new_categories"], len = 30)
   expect_equal(unique(res[, "my_new_categories"]), c("=<150", "150-170", ">170", "=<65", ">65", NA))
   expect_equal(res[3:4, "my_new_categories"], c("=<150", "150-170"))
   expect_equal(res[21:30, "my_new_categories"], as.character(rep(NA, 10)))

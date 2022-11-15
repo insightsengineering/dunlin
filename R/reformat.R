@@ -99,7 +99,8 @@ apply_reformat <- function(db, format = NULL) {
 #' @param db (`dm`) object input.
 #' @param tab (`string`) the name of a table.
 #' @param col (`string`) the name of a variable in a table.
-#' @param dic_map (named `vector`) a dictionary with the mapping values, with the format `c(new = old)`.
+#' @param dic_map (named `vector`) a dictionary with the mapping values, with the format `c(new = old)`. If `NULL`, the
+#'   selected column will be converted into factor without further modifications.
 #'
 #' @note If `tab` is not a valid table name of the `db` object, the original object is returned. Similarly, if `col` is
 #'   not a valid column of the selected `tab` in the object, the original object is returned. This behavior is desirable
@@ -107,9 +108,7 @@ apply_reformat <- function(db, format = NULL) {
 #'
 #' @note Both empty string and `NAs` can be re coded if needed.
 #'
-#' @note the `label` attribute of the column is preserved.
-#'
-#' @importFrom rlang :=
+#' @note The `label` attribute of the column is preserved.
 #'
 #' @return a `dm` object with re coded variables as factor.
 #' @export
@@ -142,6 +141,18 @@ h_reformat_tab <- function(db, tab, col, dic_map) {
 
   ori <- db[[tab]][[col]]
   ori_char <- as.character(ori)
+
+  if (is.null(dic_map)) {
+    db <- db %>%
+      dm_zoom_to(!!tab) %>%
+      mutate(!!col := as.factor(ori_char)) %>%
+      dm_update_zoomed()
+
+    return(db)
+  }
+
+
+
   new <- dic_map[ori_char]
 
   # Preserve all levels.
@@ -151,7 +162,7 @@ h_reformat_tab <- function(db, tab, col, dic_map) {
   new_level <- c(unique(dic_map), unknow_lvl)
   new_level <- unique(new_level)
 
-  # Replace NA if necessary
+  # Replace NA if necessary and put NA level at the end.
   is_na <- which(is.na(new))
   new[is_na] <- ori_char[is_na]
 
@@ -161,7 +172,7 @@ h_reformat_tab <- function(db, tab, col, dic_map) {
     new_level <- c(setdiff(new_level, na_replacement), na_replacement)
   }
 
-  # Replace Empty String if necessary
+  # Replace Empty String if necessary and put empty string level at the end.
   if ("" %in% names(dic_map)) {
     empty_replacement <- dic_map[which(names(dic_map) == "")]
     new[which(ori_char == "")] <- empty_replacement
@@ -239,7 +250,7 @@ assert_reformat <- function(map) {
   msg <- NULL
 
   # assert unique table names
-  assert_list(map)
+  checkmate::assert_list(map)
   res <- duplicated(names(map))
   if (any(res)) {
     msg <- paste("\nDuplicated table names:", toString(unique(names(map)[res])))
@@ -248,7 +259,7 @@ assert_reformat <- function(map) {
   var_remap <- lapply(map, names)
 
   # assert unique variable name in each table
-  res <- unlist(lapply(var_remap, function(x) test_character(x, unique = TRUE, null.ok = TRUE)))
+  res <- unlist(lapply(var_remap, function(x) checkmate::test_character(x, unique = TRUE, null.ok = TRUE)))
   if (!all(res)) {
     msg <- c(msg, paste("\nDuplicated Variable name inside table:", toString(unique(names(var_remap)[!res]))))
   }
@@ -256,7 +267,7 @@ assert_reformat <- function(map) {
   # assert 1:1 remapping
   tab_remap <- lapply(map, function(x) lapply(x, unlist))
   col_remap <- unlist(tab_remap, recursive = FALSE)
-  res <- unlist(lapply(col_remap, function(x) test_character(x, unique = TRUE, null.ok = TRUE)))
+  res <- unlist(lapply(col_remap, function(x) checkmate::test_character(x, unique = TRUE, null.ok = TRUE)))
   if (!all(res)) {
     msg <- c(msg, paste("\nDuplicated mapping inside:", toString(names(col_remap)[!res])))
   }
