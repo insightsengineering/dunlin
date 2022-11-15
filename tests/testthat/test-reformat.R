@@ -305,7 +305,7 @@ test_that("apply_reformat preserves labels", {
 test_that("apply_reformat works as expected with empty list", {
   df1 <- data.frame(
     "char" = c("", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f2", "f1")),
     "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
   )
   df2 <- data.frame(
@@ -317,11 +317,8 @@ test_that("apply_reformat works as expected with empty list", {
 
   test_map <- list(
     df1 = list(
-      char = list(
-        "A" = c("a", "k"),
-        "B" = NULL,
-        "EMPTY STRING" = ""
-      ),
+      char = list(),
+      fact = list(),
       logi = list()
     ),
     df2 = NULL
@@ -330,13 +327,22 @@ test_that("apply_reformat works as expected with empty list", {
   expect_silent(assert_reformat(test_map))
   res <- apply_reformat(db, test_map)
 
+  # Character are converted to factors with levels in alphabetic order.
   expect_identical(
-    res$df1$char[1],
-    factor("EMPTY STRING", levels = c("A", "b", "x", "EMPTY STRING"))
+    res$df1$char,
+    factor(c("", "b", NA, "a", "k", "x"), levels = c("","a", "b", "k", "x"))
   )
+  
+  # Logical are converted to factors with levels in alphabetic order.
   expect_identical(
     res$df1$logi,
-    factor(c(NA, "FALSE", "TRUE", NA, "FALSE", NA))
+    factor(c(NA, FALSE, TRUE, NA, FALSE, NA))
+  )
+  
+  # Factor are unaltered.
+  expect_identical( 
+    res$df1$fact,
+    db$df1$fact,
   )
 
   expect_identical(

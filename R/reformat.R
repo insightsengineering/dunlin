@@ -145,13 +145,11 @@ h_reformat_tab <- function(db, tab, col, dic_map) {
   if (is.null(dic_map)) {
     db <- db %>%
       dm_zoom_to(!!tab) %>%
-      mutate(!!col := as.factor(ori_char)) %>%
+      mutate(!!col := as.factor(ori)) %>%
       dm_update_zoomed()
 
     return(db)
   }
-
-
 
   new <- dic_map[ori_char]
 
