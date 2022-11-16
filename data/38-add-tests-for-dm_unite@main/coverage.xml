@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage line-rate="0.98989898989899" branch-rate="0" lines-covered="294" lines-valid="297" branches-covered="0" branches-valid="0" complexity="0" version="3.6.1" timestamp="2022-11-15 12:13:04">
+<coverage line-rate="0.989830508474576" branch-rate="0" lines-covered="292" lines-valid="295" branches-covered="0" branches-valid="0" complexity="0" version="3.6.1" timestamp="2022-11-16 13:17:39">
   <sources/>
   <packages>
-    <package name="dunlin" line-rate="0.98989898989899" branch-rate="0" complexity="0">
+    <package name="dunlin" line-rate="0.989830508474576" branch-rate="0" complexity="0">
       <classes>
         <class name="co_relevels.R" filename="R/co_relevels.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
@@ -190,21 +190,19 @@
                 <line number="36" hits="3" branch="false"/>
                 <line number="37" hits="3" branch="false"/>
                 <line number="40" hits="3" branch="false"/>
-                <line number="41" hits="3" branch="false"/>
+                <line number="43" hits="3" branch="false"/>
                 <line number="44" hits="3" branch="false"/>
                 <line number="45" hits="3" branch="false"/>
                 <line number="46" hits="3" branch="false"/>
-                <line number="47" hits="3" branch="false"/>
+                <line number="49" hits="3" branch="false"/>
                 <line number="50" hits="3" branch="false"/>
                 <line number="51" hits="3" branch="false"/>
-                <line number="52" hits="3" branch="false"/>
+                <line number="54" hits="3" branch="false"/>
                 <line number="55" hits="3" branch="false"/>
-                <line number="56" hits="3" branch="false"/>
                 <line number="57" hits="3" branch="false"/>
                 <line number="59" hits="3" branch="false"/>
+                <line number="60" hits="3" branch="false"/>
                 <line number="61" hits="3" branch="false"/>
-                <line number="62" hits="3" branch="false"/>
-                <line number="63" hits="3" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -227,21 +225,19 @@
             <line number="36" hits="3" branch="false"/>
             <line number="37" hits="3" branch="false"/>
             <line number="40" hits="3" branch="false"/>
-            <line number="41" hits="3" branch="false"/>
+            <line number="43" hits="3" branch="false"/>
             <line number="44" hits="3" branch="false"/>
             <line number="45" hits="3" branch="false"/>
             <line number="46" hits="3" branch="false"/>
-            <line number="47" hits="3" branch="false"/>
+            <line number="49" hits="3" branch="false"/>
             <line number="50" hits="3" branch="false"/>
             <line number="51" hits="3" branch="false"/>
-            <line number="52" hits="3" branch="false"/>
+            <line number="54" hits="3" branch="false"/>
             <line number="55" hits="3" branch="false"/>
-            <line number="56" hits="3" branch="false"/>
             <line number="57" hits="3" branch="false"/>
             <line number="59" hits="3" branch="false"/>
+            <line number="60" hits="3" branch="false"/>
             <line number="61" hits="3" branch="false"/>
-            <line number="62" hits="3" branch="false"/>
-            <line number="63" hits="3" branch="false"/>
           </lines>
         </class>
         <class name="pivot.R" filename="R/pivot.R" line-rate="1" branch-rate="0" complexity="0">
