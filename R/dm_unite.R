@@ -38,23 +38,21 @@ dm_unite <- function(adam_db, dataset, cols, sep = ".", new = NULL) {
 
   # Create alll possible factor combination.
   all_lvl_df <- expand.grid(lvl)
-  colnames(all_lvl_df) <- cols
 
-  # Arrange new factors depending on the original factors order to create new levels in the correcxt order.
+  # Arrange new factors depending on the original factors order to create new levels in the correct order.
   all_lvl <- all_lvl_df %>%
     arrange(across(all_of(cols))) %>%
     unite("res", all_of(cols), sep = sep) %>%
     pull("res")
 
-  # Retrieve existting factors to filter the possible levels
+  # Retrieve existing factors to filter the possible levels
   x_vec <- x_df %>%
     unite("res", all_of(cols), sep = sep) %>%
     pull(.data$res)
 
   # Filter factors and retrieve existing levels.
   existing_lvl <- intersect(all_lvl, x_vec)
-  x_fact <- as.factor(x_vec)
-  x_fact <- fct_relevel(x_fact, existing_lvl)
+  x_fact <- factor(x_vec, existing_lvl)
 
   x_interaction <- if (!is.null(new)) new else x_interaction
 
