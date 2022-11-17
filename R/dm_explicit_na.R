@@ -11,12 +11,6 @@
 #' @param logical_as_factor (`logical`) should logical columns be transformed into factor.
 #' @param na_level (`character`) the label to encode missing levels.
 #'
-#' @importFrom checkmate assert_class assert_character assert_logical
-#' @importFrom dm dm_zoom_to dm_update_zoomed
-#' @importFrom dplyr mutate across
-#' @importFrom magrittr %>%
-#' @importFrom rlang sym !!
-#'
 #' @return `dm` object with explicit missing levels
 #' @export
 #'
@@ -45,12 +39,12 @@ dm_explicit_na <- function(data,
                            char_as_factor = TRUE,
                            logical_as_factor = FALSE,
                            na_level = "<Missing>") {
-  assert_class(data, "dm")
-  assert_character(omit_tables, null.ok = TRUE)
-  assert_character(omit_columns, null.ok = TRUE)
-  assert_logical(char_as_factor, len = 1)
-  assert_logical(logical_as_factor, len = 1)
-  assert_character(na_level, len = 1)
+  checkmate::assert_class(data, "dm")
+  checkmate::assert_character(omit_tables, null.ok = TRUE)
+  checkmate::assert_character(omit_columns, null.ok = TRUE)
+  checkmate::assert_logical(char_as_factor, len = 1)
+  checkmate::assert_logical(logical_as_factor, len = 1)
+  checkmate::assert_character(na_level, len = 1)
 
   target_tables <- setdiff(names(data), omit_tables)
 

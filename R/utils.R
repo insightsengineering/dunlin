@@ -65,7 +65,7 @@ h_ws_to_na <- function(x) {
 #' logi1 <- c(TRUE, FALSE, NA)
 #' h_ws_to_explicit_na(logi1)
 h_ws_to_explicit_na <- function(x, na_level = "<Missing>") {
-  assert_character(na_level)
+  checkmate::assert_character(na_level)
 
   res <- forcats::fct_explicit_na(h_ws_to_na(x), na_level = na_level)
 
@@ -92,7 +92,7 @@ h_ws_to_explicit_na <- function(x, na_level = "<Missing>") {
 #'
 #' h_as_factor(char1)
 h_as_factor <- function(x, na_level = "<Missing>") {
-  assert_vector(x)
+  checkmate::assert_vector(x)
 
   init_lab <- attr(x, "label")
 
@@ -118,7 +118,7 @@ h_as_factor <- function(x, na_level = "<Missing>") {
 #' y <- attr_label(x, "my_label")
 #' attr(y, "label")
 attr_label <- function(var, label) {
-  assert_character(label)
+  checkmate::assert_character(label)
 
   x <- var
   attr(x, "label") <- label
@@ -139,8 +139,8 @@ attr_label <- function(var, label) {
 #' res
 #' lapply(res, attr, "label")
 attr_label_df <- function(df, label) {
-  assert_data_frame(df)
-  assert_character(label, len = ncol(df))
+  checkmate::assert_data_frame(df)
+  checkmate::assert_character(label, len = ncol(df))
 
   res <- mapply(attr_label, var = df, label = as.list(label), SIMPLIFY = FALSE)
   as.data.frame(res)

@@ -155,7 +155,7 @@ test_that("poly_pivot_wider works as expected.", {
 
   res <- poly_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", c("the_val", "the_val2"), "the_label")
 
-  expect_list(res, len = 2)
+  checkmate::expect_list(res, len = 2)
 
   the_obs <- c("A", "B", "C", "D")
   the_obs2 <- c("Ax", "Bx", "Cx", "Dx")
@@ -192,7 +192,7 @@ test_that("poly_pivot_wider works as expected with default label.", {
 
   res <- poly_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", c("the_val", "the_val2"))
 
-  expect_list(res, len = 2)
+  checkmate::expect_list(res, len = 2)
 
   the_obs <- c("A", "B", "C", "D")
   the_obs2 <- c("Ax", "Bx", "Cx", "Dx")

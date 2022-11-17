@@ -17,27 +17,37 @@ test_that("dm_explicit_na works as expected with default options.", {
 
   res <- dm_explicit_na(db)
 
-  expect_data_frame(res$df1, types = c("factor", "logical"), nrows = nrow(df1), ncols = ncol(df1))
-  expect_factor(res$df1$char,
+  checkmate::expect_data_frame(res$df1, types = c("factor", "logical"), nrows = nrow(df1), ncols = ncol(df1))
+  checkmate::expect_factor(res$df1$char,
     levels = c("a", "b", "k", "x", "<Missing>"),
     empty.levels.ok = FALSE,
     any.missing = FALSE
   )
-  expect_factor(res$df1$fact, levels = c("f1", "f2", "<Missing>"), empty.levels.ok = FALSE, any.missing = FALSE)
-  expect_logical(res$df1$logi, any.missing = TRUE)
-  expect_factor(res$df1$no_missing,
+  checkmate::expect_factor(
+    res$df1$fact,
+    levels = c("f1", "f2", "<Missing>"),
+    empty.levels.ok = FALSE,
+    any.missing = FALSE
+  )
+  checkmate::expect_logical(res$df1$logi, any.missing = TRUE)
+  checkmate::expect_factor(res$df1$no_missing,
     levels = letters[1:6],
     empty.levels.ok = FALSE,
     any.missing = FALSE
   )
 
-  expect_data_frame(res$df2, types = c("factor", "integer"), nrows = nrow(df2), ncols = ncol(df2))
-  expect_factor(res$df2$char,
+  checkmate::expect_data_frame(res$df2, types = c("factor", "integer"), nrows = nrow(df2), ncols = ncol(df2))
+  checkmate::expect_factor(res$df2$char,
     levels = c("a", "b", "k", "x", "<Missing>"),
     empty.levels.ok = FALSE, any.missing = FALSE
   )
-  expect_factor(res$df2$fact, levels = c("f1", "f2", "<Missing>"), empty.levels.ok = FALSE, any.missing = FALSE)
-  expect_integer(res$df2$num, any.missing = FALSE)
+  checkmate::expect_factor(
+    res$df2$fact,
+    levels = c("f1", "f2", "<Missing>"),
+    empty.levels.ok = FALSE,
+    any.missing = FALSE
+  )
+  checkmate::expect_integer(res$df2$num, any.missing = FALSE)
 })
 
 test_that("dm_explicit_na works as expected with optional arguments.", {
@@ -69,21 +79,36 @@ test_that("dm_explicit_na works as expected with optional arguments.", {
     na_level = "Not Present"
   )
 
-  expect_data_frame(res$df1,
+  checkmate::expect_data_frame(res$df1,
     types = c("character", "factor", "logical", "numeric", "logical"),
     nrows = nrow(df1),
     ncols = ncol(df1)
   )
   expect_equal(unlist(lapply(res$df1, attr, "label"), use.names = FALSE), letters[1:5])
-  expect_character(res$df1$char, any.missing = TRUE)
-  expect_factor(res$df1$fact, levels = c("f1", "f2", "Not Present"), empty.levels.ok = FALSE, any.missing = FALSE)
-  expect_factor(res$df1$logi, levels = c("FALSE", "TRUE", "Not Present"), empty.levels.ok = FALSE, any.missing = TRUE)
-  expect_integer(res$df1$num, any.missing = FALSE)
-  expect_logical(res$df1$logi2, any.missing = TRUE)
+  checkmate::expect_character(res$df1$char, any.missing = TRUE)
+  checkmate::expect_factor(
+    res$df1$fact,
+    levels = c("f1", "f2", "Not Present"),
+    empty.levels.ok = FALSE,
+    any.missing = FALSE
+  )
+  checkmate::expect_factor(
+    res$df1$logi,
+    levels = c("FALSE", "TRUE", "Not Present"),
+    empty.levels.ok = FALSE,
+    any.missing = TRUE
+  )
+  checkmate::expect_integer(res$df1$num, any.missing = FALSE)
+  checkmate::expect_logical(res$df1$logi2, any.missing = TRUE)
 
-  expect_data_frame(res$df2, types = c("character", "factor", "integer"), nrows = nrow(df2), ncols = ncol(df2))
+  checkmate::expect_data_frame(
+    res$df2,
+    types = c("character", "factor", "integer"),
+    nrows = nrow(df2),
+    ncols = ncol(df2)
+  )
   expect_equal(unlist(lapply(res$df2, attr, "label"), use.names = FALSE), LETTERS[1:3])
-  expect_character(res$df2$char, any.missing = TRUE)
-  expect_factor(res$df2$fact, levels = c("f1", "f2"), empty.levels.ok = TRUE, any.missing = TRUE)
-  expect_integer(res$df2$num, any.missing = FALSE)
+  checkmate::expect_character(res$df2$char, any.missing = TRUE)
+  checkmate::expect_factor(res$df2$fact, levels = c("f1", "f2"), empty.levels.ok = TRUE, any.missing = TRUE)
+  checkmate::expect_integer(res$df2$num, any.missing = FALSE)
 })

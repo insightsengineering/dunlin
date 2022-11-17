@@ -4,7 +4,7 @@
 \name{dunlin-package}
 \alias{dunlin}
 \alias{dunlin-package}
-\title{Dunlin Package}
+\title{\code{Dunlin} Package}
 \description{
 A collection of functions to preprocess data and organize them in a format amenable to use by chevron.
 }

@@ -51,14 +51,16 @@ cut_by_group <- function(df,
                          col_group,
                          group,
                          cat_col) {
-  assert_data_frame(df)
-  assert_subset(c(col_data, col_group), colnames(df))
-  assert_numeric(df[, col_data])
-  assert_list(group)
+  checkmate::assert_data_frame(df)
+  checkmate::assert_subset(c(col_data, col_group), colnames(df))
+  checkmate::assert_numeric(df[, col_data])
+  checkmate::assert_list(group)
 
   lapply(
     group,
-    function(list_element) assert_list(list_element, len = 3, types = c("character", "numeric", "character"))
+    function(list_element) {
+      checkmate::assert_list(list_element, len = 3, types = c("character", "numeric", "character"))
+    }
   )
 
   df[cat_col] <- NA

@@ -3,13 +3,13 @@
 test_that("h_ws_to_na works as expected.", {
   char1 <- c(" ", "    ", "a", "b", "", "", NA, " b ")
   res <- expect_silent(h_ws_to_na(char1))
-  expect_character(res,
+  checkmate::expect_character(res,
     any.missing = TRUE,
     len = length(char1)
   )
   fact1 <- as.factor(c(" ", "    ", "a", "b", "", "", NA, " b "))
   res <- expect_silent(h_ws_to_na(fact1))
-  expect_factor(res,
+  checkmate::expect_factor(res,
     n.levels = 3,
     levels = c("a", "b", " b "),
     empty.levels.ok = FALSE,
@@ -23,14 +23,14 @@ test_that("h_ws_to_na works as expected.", {
 test_that("h_ws_to_explicit_na works as expected.", {
   char1 <- c(" ", "    ", "a", "b", "", "", NA, " b ")
   res <- expect_silent(h_ws_to_explicit_na(char1))
-  expect_factor(res,
+  checkmate::expect_factor(res,
     n.levels = 4,
     levels = c("a", "b", " b ", "<Missing>"),
     empty.levels.ok = FALSE,
     len = length(char1)
   )
   res <- expect_silent(h_ws_to_explicit_na(char1, "Not here"))
-  expect_factor(res,
+  checkmate::expect_factor(res,
     n.levels = 4,
     levels = c("a", "b", " b ", "Not here"),
     empty.levels.ok = FALSE,
@@ -43,7 +43,7 @@ test_that("h_ws_to_explicit_na works as expected.", {
 test_that("h_as_factor works as expected", {
   char1 <- c(" ", "    ", "a", "b", "", "", NA, "<Missing>", " b ")
   res <- expect_silent(h_as_factor(char1))
-  expect_factor(res,
+  checkmate::expect_factor(res,
     n.levels = 4,
     levels = c("a", "b", " b ", "<Missing>"),
     empty.levels.ok = FALSE,
@@ -55,7 +55,7 @@ test_that("h_as_factor works as expected", {
   char2 <- c(" ", "    ", "a", "b", "", "", NA, " b ")
   attr(char2, "label") <- "my_label"
   res <- expect_silent(h_as_factor(char2))
-  expect_factor(res,
+  checkmate::expect_factor(res,
     n.levels = 4,
     levels = c("a", "b", " b ", "<Missing>"),
     empty.levels.ok = FALSE,
@@ -67,7 +67,7 @@ test_that("h_as_factor works as expected", {
   fact1 <- as.factor(char1)
   attr(fact1, "label") <- "my_label"
   res <- expect_silent(h_as_factor(fact1))
-  expect_factor(res,
+  checkmate::expect_factor(res,
     n.levels = 4,
     levels = c("a", "b", " b ", "<Missing>"),
     empty.levels.ok = FALSE,
@@ -79,7 +79,7 @@ test_that("h_as_factor works as expected", {
   int1 <- 1:10
   attr(int1, "label") <- "my_label"
   res <- expect_silent(h_as_factor(int1))
-  expect_factor(res,
+  checkmate::expect_factor(res,
     n.levels = 10,
     levels = as.character(1:10),
     len = length(int1)
@@ -91,7 +91,7 @@ test_that("h_as_factor works as expected", {
 test_that("attr_label works as expected", {
   x <- c(1:10)
   res <- attr_label(x, "my_label")
-  expect_numeric(res, len = length(x))
+  checkmate::expect_numeric(res, len = length(x))
   expect_identical(attr(res, "label"), "my_label")
   expect_error(attr_label(x, NULL), "Assertion on 'label' failed: Must be of type 'character', not 'NULL'.")
 })

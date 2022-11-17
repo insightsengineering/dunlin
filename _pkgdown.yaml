@@ -32,7 +32,6 @@ reference:
       - h_as_factor
       - h_ws_to_na
       - h_ws_to_explicit_na
-      - h_reformat_tab
   - title: Assertion Functions
     contents:
       - assert_reformat

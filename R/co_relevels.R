@@ -20,11 +20,11 @@
 #' )
 #' co_relevels(df, "PARAMCD", "PARAM", levels_primary = c("C", "A", "B"))
 co_relevels <- function(df, primary, secondary, levels_primary) {
-  assert_data_frame(df, min.rows = 1)
-  assert_subset(c(primary, secondary), colnames(df))
-  assert_character(levels_primary, min.len = 1)
-  assert_vector(df[[primary]], any.missing = FALSE)
-  assert_vector(df[[secondary]], any.missing = FALSE)
+  checkmate::assert_data_frame(df, min.rows = 1)
+  checkmate::assert_subset(c(primary, secondary), colnames(df))
+  checkmate::assert_character(levels_primary, min.len = 1)
+  checkmate::assert_vector(df[[primary]], any.missing = FALSE)
+  checkmate::assert_vector(df[[secondary]], any.missing = FALSE)
 
   df[, primary] <- as.factor(df[[primary]])
   df[, secondary] <- as.factor(df[[secondary]])
