@@ -99,8 +99,11 @@ apply_reformat <- function(db, format = NULL) {
 #' @param db (`dm`) object input.
 #' @param tab (`string`) the name of a table.
 #' @param col (`string`) the name of a variable in a table.
-#' @param dic_map (named `vector`) a dictionary with the mapping values, with the format `c(new = old)`. If `NULL`, the
-#'   selected column will be converted into factor without further modifications.
+#' @param dic_map (named `vector`) a dictionary with the mapping values, with the format `c(new = old)` sorted according
+#'   to the desired order of factor levels. Existing values not present in the dictionary are preserved, but their
+#'   corresponding levels will be placed after the levels of the remapped values. If `NAs` or empty string are mapped,
+#'   their corresponding level will be last. If `dic_map` is `NULL`, the selected column will be converted into factor
+#'   without further modifications.
 #'
 #' @note If `tab` is not a valid table name of the `db` object, the original object is returned. Similarly, if `col` is
 #'   not a valid column of the selected `tab` in the object, the original object is returned. This behavior is desirable
@@ -111,9 +114,11 @@ apply_reformat <- function(db, format = NULL) {
 #' @note The `label` attribute of the column is preserved.
 #'
 #' @return a `dm` object with re coded variables as factor.
-#' @export
+#'
+#' @keywords internal
 #'
 #' @examples
+#' \dontrun{
 #' library(dm)
 #'
 #' df1 <- data.frame(
@@ -131,7 +136,14 @@ apply_reformat <- function(db, format = NULL) {
 #'
 #' dic_map <- setNames(c("A", "B", "Missing", "Empty"), c("a", "b", NA, ""))
 #' res <- h_reformat_tab(db, "df1", "char", dic_map)
+#' }
 h_reformat_tab <- function(db, tab, col, dic_map) {
+  checkmate::assert_class(db, "dm")
+  checkmate::assert_string(tab)
+  checkmate::assert_string(col)
+  checkmate::assert_character(dic_map, null.ok = TRUE)
+  checkmate::assert_character(names(dic_map), unique = TRUE, null.ok = TRUE)
+
   if (!tab %in% names(db)) {
     return(db)
   }
@@ -140,7 +152,6 @@ h_reformat_tab <- function(db, tab, col, dic_map) {
   }
 
   ori <- db[[tab]][[col]]
-  ori_char <- as.character(ori)
 
   if (is.null(dic_map)) {
     db <- db %>%
@@ -151,6 +162,7 @@ h_reformat_tab <- function(db, tab, col, dic_map) {
     return(db)
   }
 
+  ori_char <- as.character(ori)
   new <- dic_map[ori_char]
 
   # Preserve all levels.

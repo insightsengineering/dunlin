@@ -13,8 +13,11 @@ h_reformat_tab(db, tab, col, dic_map)
 
 \item{col}{(\code{string}) the name of a variable in a table.}
 
-\item{dic_map}{(named \code{vector}) a dictionary with the mapping values, with the format \code{c(new = old)}. If \code{NULL}, the
-selected column will be converted into factor without further modifications.}
+\item{dic_map}{(named \code{vector}) a dictionary with the mapping values, with the format \code{c(new = old)} sorted according
+to the desired order of factor levels. Existing values not present in the dictionary are preserved, but their
+corresponding levels will be placed after the levels of the remapped values. If \code{NAs} or empty string are mapped,
+their corresponding level will be last. If \code{dic_map} is \code{NULL}, the selected column will be converted into factor
+without further modifications.}
 }
 \value{
 a \code{dm} object with re coded variables as factor.
@@ -32,6 +35,7 @@ Both empty string and \code{NAs} can be re coded if needed.
 The \code{label} attribute of the column is preserved.
 }
 \examples{
+\dontrun{
 library(dm)
 
 df1 <- data.frame(
@@ -50,3 +54,5 @@ db <- dm(df1, df2)
 dic_map <- setNames(c("A", "B", "Missing", "Empty"), c("a", "b", NA, ""))
 res <- h_reformat_tab(db, "df1", "char", dic_map)
 }
+}
+\keyword{internal}
