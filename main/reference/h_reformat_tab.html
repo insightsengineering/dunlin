@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dunlin</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1.9001</span>
       </span>
     </div>
 
@@ -38,14 +38,6 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.1">v0.1.1</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/insightsengineering/dunlin" class="external-link">
     <span class="fa fa-github"></span>
@@ -89,7 +81,11 @@
 
 
 <dt>dic_map</dt>
-<dd><p>(named <code>vector</code>) a dictionary with the mapping values, with the format <code>c(new = old)</code>.</p></dd>
+<dd><p>(named <code>vector</code>) a dictionary with the mapping values, with the format <code>c(new = old)</code> sorted according
+to the desired order of factor levels. Existing values not present in the dictionary are preserved, but their
+corresponding levels will be placed after the levels of the remapped values. If <code>NAs</code> or empty string are mapped,
+their corresponding level will be last. If <code>dic_map</code> is <code>NULL</code>, the selected column will be converted into factor
+without further modifications.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -104,12 +100,13 @@
 not a valid column of the selected <code>tab</code> in the object, the original object is returned. This behavior is desirable
 when a variable that exists in most but not all tables has to be re coded.</p>
 <p>Both empty string and <code>NAs</code> can be re coded if needed.</p>
-<p>the <code>label</code> attribute of the column is preserved.</p>
+<p>The <code>label</code> attribute of the column is preserved.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://cynkra.github.io/dm/" class="external-link">dm</a></span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://cynkra.github.io/dm/" class="external-link">dm</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"char"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"b"</span>, <span class="cn">NA</span>, <span class="st">"a"</span>, <span class="st">"k"</span>, <span class="st">"x"</span><span class="op">)</span>,</span></span>
@@ -126,6 +123,7 @@ when a variable that exists in most but not all tables has to be re coded.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">dic_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"Missing"</span>, <span class="st">"Empty"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="cn">NA</span>, <span class="st">""</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">h_reformat_tab</span><span class="op">(</span><span class="va">db</span>, <span class="st">"df1"</span>, <span class="st">"char"</span>, <span class="va">dic_map</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>

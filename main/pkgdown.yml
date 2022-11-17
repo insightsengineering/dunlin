@@ -3,7 +3,7 @@ pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   Reformatting: Reformatting.html
-last_built: 2022-11-14T07:47Z
+last_built: 2022-11-17T14:57Z
 urls:
   reference: https://go.roche.com/nest-docs/releases/latest/api-reference/dulin/main/reference
   article: https://go.roche.com/nest-docs/releases/latest/api-reference/dulin/main/articles
