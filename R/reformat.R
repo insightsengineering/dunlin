@@ -156,7 +156,7 @@ h_reformat_tab <- function(db, tab, col, dic_map) {
   if (is.null(dic_map)) {
     db <- db %>%
       dm_zoom_to(!!tab) %>%
-      mutate(!!col := as.factor(ori)) %>%
+      mutate(!!col := as.factor(.env$ori)) %>%
       dm_update_zoomed()
 
     return(db)
@@ -200,7 +200,7 @@ h_reformat_tab <- function(db, tab, col, dic_map) {
 
   db <- db %>%
     dm_zoom_to(!!tab) %>%
-    mutate(!!col := new) %>%
+    mutate(!!col := .env$new) %>%
     dm_update_zoomed()
 
   db
