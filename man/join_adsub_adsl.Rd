@@ -14,6 +14,8 @@ join_adsub_adsl(
 )
 }
 \arguments{
+\item{adam_db}{(\code{dm}) object input with an \code{adsl} and \code{adsub} table.}
+
 \item{keys}{(\code{character}) the name of the columns in \code{adsl} uniquely identifying a row.}
 
 \item{continuous_var}{(\code{character}) the value of a parameter in the \code{PARAMCD} column of the \code{adsub} table from which
@@ -27,8 +29,6 @@ none are selected.}
 \item{continuous_suffix}{(\code{string}) the suffixes to add to the newly generated columns containing continuous values.}
 
 \item{categorial_suffix}{(\code{string}) the suffixes to add to the newly generated columns containing categorical values.}
-
-\item{db}{(\code{dm}) object input with an \code{adsl} and \code{adsub} table.}
 }
 \value{
 a \code{dm} object with new columns in the \code{adsl} table.
@@ -54,8 +54,8 @@ adsub <- data.frame(
 
 db <- dm::dm(adsl, adsub)
 
-db <- dm_add_pk(db, adsl, STUDYID)
-db <- dm_add_fk(db, adsub, STUDYID, adsl)
+db <- dm::dm_add_pk(db, adsl, STUDYID)
+db <- dm::dm_add_fk(db, adsub, STUDYID, adsl)
 
 x <- join_adsub_adsl(adam_db = db)
 x <- join_adsub_adsl(adam_db = db, continuous_var = c("w", "h"), categorial_var = "h")

@@ -1,6 +1,6 @@
 #' Join `adsub` to `adsl`
 #'
-#' @param db (`dm`) object input with an `adsl` and `adsub` table.
+#' @param adam_db (`dm`) object input with an `adsl` and `adsub` table.
 #' @param keys (`character`) the name of the columns in `adsl` uniquely identifying a row.
 #' @param continuous_var (`character`) the value of a parameter in the `PARAMCD` column of the `adsub` table from which
 #'   columns containing continuous values should be created. If `"all"`, all parameter values are selected, if `NULL`,
@@ -33,8 +33,8 @@
 #'
 #' db <- dm::dm(adsl, adsub)
 #'
-#' db <- dm_add_pk(db, adsl, STUDYID)
-#' db <- dm_add_fk(db, adsub, STUDYID, adsl)
+#' db <- dm::dm_add_pk(db, adsl, STUDYID)
+#' db <- dm::dm_add_fk(db, adsub, STUDYID, adsl)
 #'
 #' x <- join_adsub_adsl(adam_db = db)
 #' x <- join_adsub_adsl(adam_db = db, continuous_var = c("w", "h"), categorial_var = "h")
