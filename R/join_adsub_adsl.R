@@ -3,9 +3,11 @@
 #' @param db (`dm`) object input with an `adsl` and `adsub` table.
 #' @param keys (`character`) the name of the columns in `adsl` uniquely identifying a row.
 #' @param continuous_var (`character`) the value of a parameter in the `PARAMCD` column of the `adsub` table from which
-#'   columns containing continuous values should be created.
+#'   columns containing continuous values should be created. If `"all"`, all parameter values are selected, if `NULL`,
+#'   none are selected.
 #' @param categorial_var (`character`) the value of a parameter in the `PARAMCD` column of the `adsub` table from which
-#'   columns containing categorical values should be created.
+#'   columns containing categorical values should be created. If `"all"`, all parameter values are selected, if `NULL`,
+#'   none are selected.
 #' @param continuous_suffix (`string`) the suffixes to add to the newly generated columns containing continuous values.
 #' @param categorial_suffix (`string`) the suffixes to add to the newly generated columns containing categorical values.
 #'

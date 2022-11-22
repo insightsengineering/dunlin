@@ -17,10 +17,12 @@ join_adsub_adsl(
 \item{keys}{(\code{character}) the name of the columns in \code{adsl} uniquely identifying a row.}
 
 \item{continuous_var}{(\code{character}) the value of a parameter in the \code{PARAMCD} column of the \code{adsub} table from which
-columns containing continuous values should be created.}
+columns containing continuous values should be created. If \code{"all"}, all parameter values are selected, if \code{NULL},
+none are selected.}
 
 \item{categorial_var}{(\code{character}) the value of a parameter in the \code{PARAMCD} column of the \code{adsub} table from which
-columns containing categorical values should be created.}
+columns containing categorical values should be created. If \code{"all"}, all parameter values are selected, if \code{NULL},
+none are selected.}
 
 \item{continuous_suffix}{(\code{string}) the suffixes to add to the newly generated columns containing continuous values.}
 
