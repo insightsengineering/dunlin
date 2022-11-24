@@ -112,12 +112,7 @@ or select different columns to avoid automatic renaming."
     poly_pivot_wider(id = keys, param_from = "PARAMCD", value_from = value_col, labels_from = "PARAM")
 
   # Generate a non-existing table name.
-  new_tab_nam <- "adsub_1"
-  i <- 1
-  while (new_tab_nam %in% names(adam_db)) {
-    new_tab_nam <- gsub("_[0-9]*$", paste0("_", i), new_tab_nam)
-    i <- i + 1
-  }
+  new_tab_nam <- tail(make.names(c(names(adam_db), "adsub"), unique = TRUE), 1)
 
   for (i in seq_along(value_col)) {
     adsub_df <- adsub_wide_ls[[value_col[i]]]
