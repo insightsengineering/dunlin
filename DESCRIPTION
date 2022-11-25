@@ -1,7 +1,7 @@
 Package: dunlin
 Title: Preprocessing tools for clinical trial data
-Version: 0.1.1.9002
-Date: 2022-11-17
+Version: 0.1.1.9003
+Date: 2022-11-25
 Authors@R: c(
     person("Benoit", "Falquet", , "benoit.falquet@roche.com", role = c("aut", "cre")),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
