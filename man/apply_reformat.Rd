@@ -13,8 +13,6 @@ apply_reformat(db, format = NULL)
 }
 \value{
 a \code{dm} object with re coded variables as factor. If not reformatted, original levels are preserved.
-
-a \code{dm} object with re coded variables as factor. If not re mapped, original levels are preserved.
 }
 \description{
 Reformat values
