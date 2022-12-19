@@ -13,8 +13,8 @@ Depends:
     R (>= 4.0.0)
 Imports:
     assertthat,
-    checkmate,
-    dm,
+    checkmate (>= 2.0),
+    dm (>= 1.0),
     dplyr,
     forcats,
     magrittr,
