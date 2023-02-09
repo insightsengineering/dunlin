@@ -16,7 +16,7 @@ Imports:
     checkmate (>= 2.0),
     dm (>= 1.0),
     dplyr,
-    forcats,
+    forcats (>= 1.0.0),
     magrittr,
     methods,
     rlang,
