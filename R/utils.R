@@ -67,10 +67,12 @@ h_ws_to_na <- function(x) {
 h_ws_to_explicit_na <- function(x, na_level = "<Missing>") {
   checkmate::assert_character(na_level)
 
-  res <- forcats::fct_explicit_na(h_ws_to_na(x), na_level = na_level)
+  res <- forcats::fct_na_value_to_level(h_ws_to_na(x), na_level)
 
   if (na_level %in% res) {
     forcats::fct_relevel(res, na_level, after = Inf)
+  } else if (na_level %in% levels(res)) {
+    forcats::fct_drop(res, only = na_level)
   } else {
     res
   }
