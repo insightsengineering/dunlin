@@ -164,7 +164,6 @@ test_that("apply_reformat preserves labels", {
     res$df1$char,
     expected_char
   )
-
 })
 
 test_that("apply_reformat works as expected with empty list", {
