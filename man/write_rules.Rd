@@ -6,6 +6,13 @@
 \usage{
 write_rules(rules, file, append = TRUE)
 }
+\arguments{
+\item{rules}{(\code{rules}) object.}
+
+\item{file}{(\code{string}) file path to write to.}
+
+\item{append}{(\code{flag}) indicator of whether to overwrite or add rules.}
+}
 \description{
 Write rule
 }

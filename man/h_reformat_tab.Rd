@@ -4,7 +4,7 @@
 \alias{h_reformat_tab}
 \title{Reformat a Variable in a Specific Column and Table}
 \usage{
-h_reformat_tab(db, tab, col, dic_map)
+h_reformat_tab(db, tab, col, format)
 }
 \arguments{
 \item{db}{(\code{dm}) object input.}
@@ -13,14 +13,10 @@ h_reformat_tab(db, tab, col, dic_map)
 
 \item{col}{(\code{string}) the name of a variable in a table.}
 
-\item{dic_map}{(named \code{vector}) a dictionary with the mapping values, with the format \code{c(new = old)} sorted according
-to the desired order of factor levels. Existing values not present in the dictionary are preserved, but their
-corresponding levels will be placed after the levels of the remapped values. If \code{NAs} or empty string are mapped,
-their corresponding level will be last. If \code{dic_map} is \code{NULL}, the selected column will be converted into factor
-without further modifications.}
+\item{dic_map}{(\code{rule}) object.}
 }
 \value{
-a \code{dm} object with re coded variables as factor.
+a \code{dm} object with re coded variables respecting its original data type.
 }
 \description{
 Reformat a Variable in a Specific Column and Table
@@ -40,18 +36,16 @@ library(dm)
 
 df1 <- data.frame(
   "char" = c("", "b", NA, "a", "k", "x"),
-  "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
-  "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
+  "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
 )
 df2 <- data.frame(
   "char" = c("a", "b", NA, "a", "k", "x"),
-  "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
-  "num" = 1:6
+  "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
 )
 
 db <- dm(df1, df2)
 
-dic_map <- setNames(c("A", "B", "Missing", "Empty"), c("a", "b", NA, ""))
+dic_map <- rule(A = "a", B = "b", Missing = NA, Empty = "")
 res <- h_reformat_tab(db, "df1", "char", dic_map)
 }
 }

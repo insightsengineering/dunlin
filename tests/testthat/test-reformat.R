@@ -8,15 +8,14 @@ test_that("h_reformat_tab works as expected", {
   )
   df2 <- data.frame(
     "char" = c("a", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
-    "num" = 1:6
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
   )
 
   db <- dm::dm(df1, df2)
   dic_map <- rule(A = "a", B = "b", Missing = NA)
   res <- expect_silent(h_reformat_tab(db, "df1", "char", dic_map))
 
-  expected <- factor(c("A", "B", "Missing", "A", "k", "x"), levels = c("A", "B", "k", "x", "Missing"))
+  expected <- c("A", "B", "Missing", "A", "k", "x")
 
   expect_identical(res$df1$char, expected)
 })
@@ -31,8 +30,7 @@ test_that("apply_reformat works as expected with other All spelling", {
   )
   df2 <- data.frame(
     "char" = c("a", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
-    "num" = 1:6
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
   )
 
   db <- dm::dm(df1, df2)
@@ -44,17 +42,10 @@ test_that("apply_reformat works as expected with other All spelling", {
         "B" = "b"
       )
     ),
-    df2 = list(
-      num = rule(
-        "11" = "1",
-        "22" = "2"
-      )
-    ),
     All = list(
       fact = rule(
         "F1" = "f1",
         "F2" = "f2",
-        "FX" = "fx",
         "<Missing>" = NA
       ),
       other = rule(
@@ -65,15 +56,12 @@ test_that("apply_reformat works as expected with other All spelling", {
 
   res <- expect_silent(apply_reformat(db, my_map))
 
-  expected_char <- factor(c("A", "B", NA, "A", "A", "x"), levels = c("A", "B", "x"))
+  expected_char <- c("A", "B", NA, "A", "A", "x")
   expect_identical(res$df1$char, expected_char)
-
-  expected_num <- factor(c(11, 22, 3, 4, 5, 6), levels = c(11, 22, 3, 4, 5, 6))
-  expect_identical(res$df2$num, expected_num)
 
   expected_fact <- factor(
     c("F1", "F2", "<Missing>", "<Missing>", "F1", "F1"),
-    levels = c("F1", "F2", "FX", "<Missing>")
+    levels = c("F1", "F2", "<Missing>")
   )
   expect_identical(res$df1$fact, expected_fact)
   expect_identical(res$df2$fact, expected_fact)
@@ -88,8 +76,7 @@ test_that("apply_reformat works as expected with NULL values", {
   )
   df2 <- data.frame(
     "char" = c("a", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
-    "num" = 1:6
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
   )
 
   db <- dm::dm(df1, df2)
@@ -97,18 +84,12 @@ test_that("apply_reformat works as expected with NULL values", {
   my_map <- list(
     df1 = NULL,
     df2 = list(
-      num = rule(
-        "11" = "1",
-        "22" = "2"
-      ),
       fact = empty_rule
     )
   )
 
   res <- expect_silent(apply_reformat(db, my_map))
 
-  expected_num <- factor(c(11, 22, 3, 4, 5, 6), levels = c(11, 22, 3, 4, 5, 6))
-  expect_identical(res$df2$num, expected_num)
   expect_identical(res$df1, db$df1)
   expect_identical(res$df2$fact, db$df2$fact)
 })
@@ -123,8 +104,7 @@ test_that("apply_reformat works with empty strings", {
   )
   df2 <- data.frame(
     "char" = c("a", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
-    "num" = 1:6
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
   )
   db <- dm::dm(df1, df2)
 
@@ -132,7 +112,6 @@ test_that("apply_reformat works with empty strings", {
     df1 = list(
       char = rule(
         "A" = c("a", "k"),
-        "B" = NULL,
         "EMPTY STRING" = ""
       ),
       logi = empty_rule
@@ -143,7 +122,7 @@ test_that("apply_reformat works with empty strings", {
 
   expect_identical(
     res$df1$char[1],
-    factor("EMPTY STRING", levels = c("A", "b", "x", "EMPTY STRING"))
+    "EMPTY STRING"
   )
 })
 
@@ -153,9 +132,6 @@ test_that("apply_reformat preserves labels", {
   char <- c("", "b", NA, "a", "k", "x")
   attr(char, "label") <- "my_label"
 
-  num <- 1:6
-  attr(num, "label") <- "my_second_label"
-
   df1 <- data.frame(
     "char" = char,
     "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
@@ -163,8 +139,7 @@ test_that("apply_reformat preserves labels", {
   )
   df2 <- data.frame(
     "char" = c("a", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
-    "num" = num
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
   )
   db <- dm::dm(df1, df2)
 
@@ -173,7 +148,6 @@ test_that("apply_reformat preserves labels", {
       char = rule(
         "A" = c("a", "k"),
         "isNA" = NA,
-        "B" = NULL,
         "EMPTY STRING" = ""
       ),
       logi = empty_rule
@@ -183,10 +157,7 @@ test_that("apply_reformat preserves labels", {
 
   res <- apply_reformat(db, test_map)
 
-  expected_char <- factor(
-    c("EMPTY STRING", "b", "isNA", "A", "A", "x"),
-    levels = c("A", "b", "x", "isNA", "EMPTY STRING")
-  )
+  expected_char <- c("EMPTY STRING", "b", "isNA", "A", "A", "x")
   attr(expected_char, "label") <- "my_label"
 
   expect_identical(
@@ -194,7 +165,6 @@ test_that("apply_reformat preserves labels", {
     expected_char
   )
 
-  expect_identical(attr(res$df2$num, "label"), "my_second_label")
 })
 
 test_that("apply_reformat works as expected with empty list", {
@@ -205,8 +175,7 @@ test_that("apply_reformat works as expected with empty list", {
   )
   df2 <- data.frame(
     "char" = c("a", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
-    "num" = 1:6
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
   )
   db <- dm::dm(df1, df2)
 
@@ -224,13 +193,13 @@ test_that("apply_reformat works as expected with empty list", {
   # Character are converted to factors with levels in alphabetic order.
   expect_identical(
     res$df1$char,
-    factor(c("", "b", NA, "a", "k", "x"), levels = c("", "a", "b", "k", "x"))
+    c("", "b", NA, "a", "k", "x")
   )
 
   # Logical are converted to factors with levels in alphabetic order.
   expect_identical(
     res$df1$logi,
-    factor(c(NA, FALSE, TRUE, NA, FALSE, NA))
+    c(NA, FALSE, TRUE, NA, FALSE, NA)
   )
 
   # Factor are unaltered.

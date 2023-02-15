@@ -12,7 +12,7 @@ apply_reformat(db, format = NULL)
 \item{format}{(\code{list}) in a specific format.}
 }
 \value{
-a \code{dm} object with re coded variables as factor. If not reformatted, original levels are preserved.
+a \code{dm} object. If not reformatted, value remain unchanged.
 }
 \description{
 Reformat values
@@ -25,42 +25,33 @@ library(dm)
 
 df1 <- data.frame(
   "char" = c("a", "b", NA, "a", "k", "x"),
-  "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
-  "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
+  "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
 )
 df2 <- data.frame(
   "char" = c("a", "b", NA, "a", "k", "x"),
-  "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f1", "f2", "fx")),
-  "num" = 1:6
+  "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f1", "f2", "fx"))
 )
 
 db <- dm(df1, df2)
 
-new_formats <- list(
+new_format <- list(
   df1 = list(
-    char = list(
+    char = rule(
       "A" = c("a", "k"),
       "B" = "b"
     )
   ),
-  df2 = list(
-    num = list(
-      "11" = "1",
-      "22" = "2"
-    )
-  ),
   ALL = list(
-    fact = list(
+    fact = rule(
       "F1" = "f1",
       "F2" = "f2",
-      "FX" = "fx",
       "<Missing>" = NA
     ),
-    other = list(
+    other = rule(
       "x" = "X"
     )
   )
 )
 
-res <- apply_reformat(db, new_formats)
+res <- apply_reformat(db, new_format)
 }

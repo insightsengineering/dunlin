@@ -2,7 +2,7 @@
 
 test_that("rule create works with arguments", {
   r <- rule(a = "1", b = "2")
-  expect_class(r, "rule")
+  expect_s3_class(r, "rule")
   expect_identical(r, c(a = "1", b = "2"), ignore_attr = TRUE)
   r2 <- rule(.lst = list(a = "1", b = "2"))
   expect_identical(r2, r)
@@ -10,16 +10,16 @@ test_that("rule create works with arguments", {
 
 test_that("rule coerce logical/numeric to character", {
   r <- rule(a = 1)
-  expect_class(r, "rule")
+  expect_s3_class(r, "rule")
   expect_identical(r, c(a = "1"), ignore_attr = TRUE)
   r2 <- rule(a = NA)
-  expect_class(r2, "rule")
+  expect_s3_class(r2, "rule")
   expect_identical(r2, c(a = NA_character_), ignore_attr = TRUE)
 })
 
 test_that("rule works for multiple map", {
   r <- rule(a = 1, b = c(2, 3))
-  expect_class(r, "rule")
+  expect_s3_class(r, "rule")
   expect_identical(r, c(a = "1", b = "2", b = "3"), ignore_attr = TRUE)
 })
 
@@ -59,7 +59,7 @@ test_that("emtpy_rule printed correctly", {
 
 test_that("rules is a named list of rule", {
   r <- rules(a = rule(a = 1))
-  expect_class(r, "rules")
+  expect_s3_class(r, "rules")
   expect_identical(r, list(rule(a = 1)), ignore_attr = TRUE)
 })
 
@@ -82,7 +82,7 @@ test_that("rules elements must have different names", {
 })
 
 test_that("rules printed correctly", {
-  expect_snapshot(rules(a = rule(a = 1), a = rule(a = 2)))
+  expect_snapshot(rules(a = rule(a = 1), b = rule(a = 2)))
 })
 
 # append_rules ----

@@ -4,12 +4,12 @@
 \alias{reformat}
 \title{Reformat Values}
 \usage{
-reformat(obj, formats)
+reformat(obj, format)
 }
 \arguments{
 \item{obj}{object to reformat}
 
-\item{formats}{(\code{rule}) or (\code{list}) of \code{rules} depending on the class of obj}
+\item{format}{(\code{rule}) or (\code{list}) of \code{rules} depending on the class of obj}
 }
 \description{
 Reformat Values
