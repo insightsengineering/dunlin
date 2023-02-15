@@ -1,3 +1,54 @@
+#' Reformat Values
+#' @param obj object to reformat
+#' @param format (`rule`) or (`list`) of `rules` depending on the class of obj
+#' @export
+#' @details
+#' For character values, reformating will only change those should be changed.
+#' NA values are not changed, if the rule does not contain `NA_character_`.
+#' Factors works similarly to characters.
+#' For `dm` objects, see `apply_reformat` for more details.
+#' `empty_rule` will do nothing to the data.
+reformat <- function(obj, format) {
+  UseMethod("reformat")
+}
+#' @export
+reformat.default <- function(obj, format) {
+  stop("Not implemented!")
+}
+#' @export
+reformat.character <- function(obj, format) {
+  if (is(format, "empty_rule")) {
+    return(obj)
+  }
+  checkmate::assert_class(format, "rule")
+  value_match <- unlist(format)
+  m <- match(obj, value_match)
+  obj[!is.na(m)] <- names(format)[m[!is.na(m)]]
+  return(obj)
+}
+#' @export
+reformat.factor <- function(obj, format) {
+  if (is(format, "empty_rule")) {
+    return(obj)
+  }
+  checkmate::assert_class(format, "rule")
+  if (any(is.na(format))) {
+    obj <- forcats::fct_na_value_to_level(obj)
+  }
+  forcats::fct_recode(obj, !!!format)
+}
+#' @export
+reformat.dm <- function(obj,
+                        format) {
+  checkmate::assert_list(format, names = "unique", types = "list")
+  lapply(format, function(x) {
+    checkmate::assert_list(x, names = "unique", types = "rule")
+  })
+  if (length(format) == 0) {
+    return(obj)
+  }
+  apply_reformat(obj, format)
+}
 
 #' Reformat values
 #'
@@ -6,7 +57,6 @@
 #'
 #' @note Using the keyword `All` as a table name will change the corresponding variable in every table where it appears.
 #' @return a `dm` object with re coded variables as factor. If not reformatted, original levels are preserved.
-#' @export
 #'
 #' @examples
 #' library(dm)
@@ -24,7 +74,7 @@
 #'
 #' db <- dm(df1, df2)
 #'
-#' new_formats <- list(
+#' new_format <- list(
 #'   df1 = list(
 #'     char = list(
 #'       "A" = c("a", "k"),
@@ -50,14 +100,11 @@
 #'   )
 #' )
 #'
-#' res <- apply_reformat(db, new_formats)
+#' res <- apply_reformat(db, new_format)
 apply_reformat <- function(db, format = NULL) {
   if (is.null(format)) {
     return(db)
   }
-
-  assert_reformat(format)
-
   remap_tab <- intersect(names(format), names(db))
   if ("ALL" %in% toupper(names(format))) {
     remap_tab <- c("All", remap_tab)
@@ -203,87 +250,4 @@ h_reformat_tab <- function(db, tab, col, dic_map) {
     dm_update_zoomed()
 
   db
-}
-
-#' Assert the Reformatting Map.
-#'
-#' @param map (`list`)
-#'
-#' @return `NULL` if the `map` object fits the criteria for a mapping list.
-#' @export
-#'
-#' @examples
-#' my_map <- list(
-#'   df1 = list(
-#'     char = list(
-#'       "A" = c("a", "k"),
-#'       "B" = "b"
-#'     ),
-#'     char2 = list(
-#'       "A" = c("a", "k"),
-#'       "B" = "b"
-#'     )
-#'   ),
-#'   df2 = list(
-#'     num = list(
-#'       "11" = "1",
-#'       "22" = NA
-#'     )
-#'   ),
-#'   All = list(
-#'     fact = list(
-#'       "F1" = "f1",
-#'       "F2" = "f2"
-#'     ),
-#'     other = list(
-#'       "x" = "X"
-#'     )
-#'   )
-#' )
-#'
-#' assert_reformat(my_map)
-#'
-#' my_map <- list(
-#'   df0 = NULL,
-#'   df1 = list(
-#'     char = NULL,
-#'     char2 = list(
-#'       "A" = c("a", "k"),
-#'       "B" = "b"
-#'     )
-#'   )
-#' )
-#'
-#' assert_reformat(my_map)
-assert_reformat <- function(map) {
-  msg <- NULL
-
-  # assert unique table names
-  checkmate::assert_list(map)
-  res <- duplicated(names(map))
-  if (any(res)) {
-    msg <- paste("\nDuplicated table names:", toString(unique(names(map)[res])))
-  }
-
-  var_remap <- lapply(map, names)
-
-  # assert unique variable name in each table
-  res <- unlist(lapply(var_remap, function(x) checkmate::test_character(x, unique = TRUE, null.ok = TRUE)))
-  if (!all(res)) {
-    msg <- c(msg, paste("\nDuplicated Variable name inside table:", toString(unique(names(var_remap)[!res]))))
-  }
-
-  # assert 1:1 remapping
-  tab_remap <- lapply(map, function(x) lapply(x, unlist))
-  col_remap <- unlist(tab_remap, recursive = FALSE)
-  res <- unlist(lapply(col_remap, function(x) checkmate::test_character(x, unique = TRUE, null.ok = TRUE)))
-  if (!all(res)) {
-    msg <- c(msg, paste("\nDuplicated mapping inside:", toString(names(col_remap)[!res])))
-  }
-
-  if (is.null(msg)) {
-    invisible(NULL)
-  } else {
-    stop(msg)
-  }
 }
