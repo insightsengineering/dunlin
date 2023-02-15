@@ -18,6 +18,6 @@ Reformat Values
 For character values, reformatting will only change those should be changed.
 NA values are not changed, if the rule does not contain \code{NA_character_}.
 Factors works similarly to characters.
-For \code{dm} objects, see \code{apply_reformat} for more details.
+For \code{dm} objects, see \code{reformat} for more details.
 \code{empty_rule} will do nothing to the data.
 }

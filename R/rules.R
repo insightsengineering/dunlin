@@ -74,11 +74,11 @@ rules <- function(..., .lst = list(...)) {
 append_rules <- function(rules_base, rule_add) {
   checkmate::assert_class(rules_base, "rules")
   checkmate::assert_class(rule_add, "rules")
-  rules(.lst = modifyList(rules_base, rule_add))
+  rules(.lst = utils::modifyList(rules_base, rule_add))
 }
 
 #' @export
-print.rule <- function(x) {
+print.rule <- function(x, ...) {
   cat("Mapping of:\n")
   nms <- names(x)
   for (i in seq_len(length(x))) {
@@ -87,12 +87,12 @@ print.rule <- function(x) {
 }
 
 #' @export
-print.empty_rule <- function(x) {
+print.empty_rule <- function(x, ...) {
   cat("Empty mapping\n")
 }
 
 #' @export
-print.rules <- function(x) {
+print.rules <- function(x, ...) {
   for (i in names(x)) {
     cat("rule ", i, "\n")
     print(x[[i]])
@@ -100,7 +100,7 @@ print.rules <- function(x) {
 }
 
 #' @export
-as.list.rule <- function(x) {
+as.list.rule <- function(x, ...) {
   nms <- names(x)
   unames <- unique(nms)
   res <- lapply(unames, function(i) {
@@ -110,7 +110,7 @@ as.list.rule <- function(x) {
 }
 
 #' @export
-as.list.rules <- function(x) {
+as.list.rules <- function(x, ...) {
   class(x) <- "list"
   lapply(x, as.list.rule)
 }

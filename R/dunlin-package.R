@@ -11,4 +11,5 @@
 #' @importFrom magrittr %>%
 #' @importFrom methods is
 #' @importFrom stats setNames
+#' @importFrom utils modifyList
 "_PACKAGE"

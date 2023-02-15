@@ -20,38 +20,4 @@ Reformat values
 \note{
 Using the keyword \code{All} as a table name will change the corresponding variable in every table where it appears.
 }
-\examples{
-library(dm)
-
-df1 <- data.frame(
-  "char" = c("a", "b", NA, "a", "k", "x"),
-  "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
-)
-df2 <- data.frame(
-  "char" = c("a", "b", NA, "a", "k", "x"),
-  "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f1", "f2", "fx"))
-)
-
-db <- dm(df1, df2)
-
-new_format <- list(
-  df1 = list(
-    char = rule(
-      "A" = c("a", "k"),
-      "B" = "b"
-    )
-  ),
-  ALL = list(
-    fact = rule(
-      "F1" = "f1",
-      "F2" = "f2",
-      "<Missing>" = NA
-    ),
-    other = rule(
-      "x" = "X"
-    )
-  )
-)
-
-res <- apply_reformat(db, new_format)
-}
+\keyword{internal}
