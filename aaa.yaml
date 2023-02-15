@@ -1,0 +1,10 @@
+All:
+  Variable1:
+    NewValue: OldValue
+ATable:
+  Variable2:
+    NewValue1:
+    - OldValueA
+    - OldValueB
+    NewValue2: OldValueC
+    NewValue3: .na

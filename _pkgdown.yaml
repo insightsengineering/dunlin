@@ -32,9 +32,6 @@ reference:
       - h_as_factor
       - h_ws_to_na
       - h_ws_to_explicit_na
-  - title: Assertion Functions
-    contents:
-      - assert_reformat
   - title: Data
     contents:
       - standard_remap
