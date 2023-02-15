@@ -29,7 +29,7 @@ write_rules <- function(rules, file, append = TRUE) {
 }
 
 #' Create rule based on mappings
-#' @param ... Mapping pairs, the argumen name is the transformed while
+#' @param ... Mapping pairs, the argument name is the transformed while
 #' its values are original values.
 #' @param .lst (`list`) of mapping.
 #' @export

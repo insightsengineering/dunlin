@@ -13,7 +13,7 @@ h_reformat_tab(db, tab, col, format)
 
 \item{col}{(\code{string}) the name of a variable in a table.}
 
-\item{dic_map}{(\code{rule}) object.}
+\item{format}{(\code{rule}) object.}
 }
 \value{
 a \code{dm} object with re coded variables respecting its original data type.

@@ -15,7 +15,7 @@ reformat(obj, format)
 Reformat Values
 }
 \details{
-For character values, reformating will only change those should be changed.
+For character values, reformatting will only change those should be changed.
 NA values are not changed, if the rule does not contain \code{NA_character_}.
 Factors works similarly to characters.
 For \code{dm} objects, see \code{apply_reformat} for more details.

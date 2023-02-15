@@ -7,7 +7,7 @@
 rule(..., .lst = list(...))
 }
 \arguments{
-\item{...}{Mapping pairs, the argumen name is the transformed while
+\item{...}{Mapping pairs, the argument name is the transformed while
 its values are original values.}
 
 \item{.lst}{(\code{list}) of mapping.}

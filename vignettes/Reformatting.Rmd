@@ -71,7 +71,7 @@ reformat(factor(c("a", "c", "d", NA)), r)
 
 Please note that the level for `NA` is always the last one, if that new level only has `NA`.
 
-For `dm` objects, the `format` argument is actualy a nested list of rule.
+For `dm` objects, the `format` argument is actually a nested list of rule.
 The first layer indicates the table names, the second layer indicates the variables in that table.
  
 The `All` keyword, in first layer, lower or Mixed case, can be used instead of a table name to indicate that a particular
@@ -100,67 +100,13 @@ my_map <- list(
       "EMB-145" = c("EMB-145XR"),
       "Other 737" = c("737-824", "737-724", "737-732")
     )
-  ),
-  All = list(
-    year = rule(
-      "Current" = "2013"
-    )
   )
 )
-```
- 
-
-## Re Formatting
- 
-Once the re formatting map is defined, the reformatting can be performed on a `dm` object.
-
-#### Example
-
-```{r}
 
 db <- dm::dm_nycflights13()
 
-db <-
-  db %>%
-  dm_zoom_to(planes) %>%
-  mutate(manufacturer = ifelse(manufacturer == "EMBRAER", NA, manufacturer)) %>%
-  dm_update_zoomed()
-
-res <- apply_reformat(db, format = my_map)
-head(db$airlines$name)
-head(res$airlines$name)
-
-# New levels are introduced and missing values can be replaced.
-head(db$planes$manufacturer)
-head(res$planes$manufacturer)
-
-# Using the `All` keyword changes several tables.
-head(db$weather$year)
-head(res$weather$year)
-
-head(db$flights$year)
-head(res$flights$year)
+db_formatted <- reformat(db, my_map)
+head(db_formatted$planes$model)
 ```
 
-## Reformatting Map with `NULL` values
 
-Reformatting functions tolerate `NULL` values in the reformatting maps. In the following example, the table `df2` will
-be left unchanged as well as the `logi` column of the `df1` table. In the `char` column, only `a` and `k` will be
-reformatted and the column changed to `factor`. `B` wont be included in the levels.
-
-```{r}
-
-# This is a valid reformatting map
-null_map <- list(
-  df1 = list(
-    char = list(
-      "A" = c("a", "k"),
-      "B" = NULL
-    ),
-    logi = NULL
-  ),
-  df2 = NULL
-)
-
-assert_reformat(null_map)
-```

@@ -3,7 +3,7 @@
 #' @param format (`rule`) or (`list`) of `rules` depending on the class of obj
 #' @export
 #' @details
-#' For character values, reformating will only change those should be changed.
+#' For character values, reformatting will only change those should be changed.
 #' NA values are not changed, if the rule does not contain `NA_character_`.
 #' Factors works similarly to characters.
 #' For `dm` objects, see `apply_reformat` for more details.
@@ -132,7 +132,7 @@ apply_reformat <- function(db, format = NULL) {
 #' @param db (`dm`) object input.
 #' @param tab (`string`) the name of a table.
 #' @param col (`string`) the name of a variable in a table.
-#' @param dic_map (`rule`) object.
+#' @param format (`rule`) object.
 #'
 #' @note If `tab` is not a valid table name of the `db` object, the original object is returned. Similarly, if `col` is
 #'   not a valid column of the selected `tab` in the object, the original object is returned. This behavior is desirable
@@ -168,7 +168,7 @@ h_reformat_tab <- function(db, tab, col, format) {
   checkmate::assert_class(db, "dm")
   checkmate::assert_string(tab)
   checkmate::assert_string(col)
-  checkmate::assert_class(dic_map, "rule")
+  checkmate::assert_class(format, "rule")
 
   if (!tab %in% names(db)) {
     return(db)
