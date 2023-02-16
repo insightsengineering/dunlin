@@ -272,7 +272,7 @@ test_that("empty_rule do nothing to input", {
   a <- c("1", "2")
   expect_identical(a, reformat(a, empty_rule))
   b <- factor(c("1", "2"))
-  expect_identical(a, reformat(b, empty_rule))
+  expect_identical(b, reformat(b, empty_rule))
   db <- dm::dm_nycflights13()
   expect_identical(db, reformat(db, list(a = list(b = empty_rule))))
 })
