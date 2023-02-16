@@ -81,7 +81,6 @@ indicate that a particular variable should be changed in every table where it ap
 #### Example of Reformatting Map
 
 ```{r}
-
 my_map <- list(
   # This is the Table Name.
   airlines = list(
