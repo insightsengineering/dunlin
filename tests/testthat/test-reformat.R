@@ -20,6 +20,12 @@ test_that("h_reformat_tab works as expected", {
   expect_identical(res$df1$char, expected)
 })
 
+test_that("h_reformat_tab ignore unknown variable", {
+  db <- dm::dm_nycflights13()
+  expect_identical(db, h_reformat_tab(db, "a", "a", rule()))
+  expect_identical(db, h_reformat_tab(db, "airlines", "a", rule()))
+})
+
 # apply_reformat ----
 
 test_that("apply_reformat works as expected with other All spelling", {
@@ -92,6 +98,11 @@ test_that("apply_reformat works as expected with NULL values", {
 
   expect_identical(res$df1, db$df1)
   expect_identical(res$df2$fact, db$df2$fact)
+})
+
+test_that("apply format works for null", {
+  db <- dm::dm_nycflights13()
+  expect_identical(db, apply_reformat(db, NULL))
 })
 
 # empty strings ----
@@ -215,6 +226,14 @@ test_that("apply_reformat works as expected with empty list", {
 
 # reformat ----
 
+## reformat non supported type ----
+
+test_that("reformat fails for numeric or logical", {
+  x <- c(0, 1, 2)
+  r <- rule(a = 1, b = 2)
+  expect_error(reformat(x, r), "Not implemented!")
+})
+
 ## reformat character ----
 
 test_that("reformat for characters works as expected", {
@@ -226,6 +245,7 @@ test_that("reformat for characters works as expected", {
   )
 })
 
+## reformat factor ----
 
 test_that("reformat for factors works as expected", {
   x <- factor(c("a", "a", "b", "", NA), levels = c("a", "b", ""))
@@ -244,4 +264,15 @@ test_that("reformat for factors works as expected", {
     reformat(x, r),
     factor(c("x", "x", "b", "y", "y"), c("x", "b", "y"))
   )
+})
+
+# reformat using emtpy_rule ----
+
+test_that("empty_rule do nothing to input", {
+  a <- c("1", "2")
+  expect_identical(a, reformat(a, empty_rule))
+  b <- factor(c("1", "2"))
+  expect_identical(a, reformat(b, empty_rule))
+  db <- dm::dm_nycflights13()
+  expect_identical(db, reformat(db, list(a = list(b = empty_rule))))
 })
