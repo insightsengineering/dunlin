@@ -147,3 +147,22 @@ attr_label_df <- function(df, label) {
   res <- mapply(attr_label, var = df, label = as.list(label), SIMPLIFY = FALSE)
   as.data.frame(res)
 }
+
+#' Fuse list elements
+#'
+#' @param x (`list`) to fuse.
+#' @param y (`list`) to fuse. Elements with names already existing in `x` are discarded.
+#'
+#' @keywords internal
+#'
+fuse_sequentially <- function(x, y) {
+  if (missing(y) || is.null(y)) {
+    return(x)
+  }
+
+  names_x <- names(x)
+  sel_names_y <- setdiff(names(y), names_x)
+
+  c(x, y[sel_names_y])
+}
+
