@@ -100,6 +100,8 @@ reformat.list <- function(obj,
     names(format)[toupper(names(format)) == "ALL"] <- "All"
   }
 
+  # Fuse sequentially suppresses the rules provided in "All" the value associated with the selected table is just 
+  # empty_rule. TODO see if it makes sense.
   full_format <- lapply(names(obj), function(tab) fuse_sequentially(format[[tab]], format[["All"]]))
   names(full_format) <- names(obj)
 
