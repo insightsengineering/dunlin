@@ -48,5 +48,6 @@ db <- dm(df1, df2)
 dic_map <- rule(A = "a", B = "b", Missing = NA, Empty = "")
 res <- h_reformat_tab(db, "df1", "char", dic_map)
 }
+
 }
 \keyword{internal}

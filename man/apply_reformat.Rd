@@ -7,7 +7,7 @@
 apply_reformat(db, format = NULL)
 }
 \arguments{
-\item{db}{(\code{dm}) object input.}
+\item{db}{(\code{dm}  or \code{list} of \code{data.frame}) object input.}
 
 \item{format}{(\code{list}) in a specific format.}
 }
