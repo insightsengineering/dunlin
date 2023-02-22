@@ -44,28 +44,79 @@ reformat.factor <- function(obj, format) {
 #' @export
 reformat.dm <- function(obj,
                         format) {
-  checkmate::assert_list(format, names = "unique", types = "list")
-  lapply(format, function(x) {
-    checkmate::assert_list(x, names = "unique", types = "rule")
-  })
+  checkmate::assert_list(format, names = "unique", types = "list", null.ok = TRUE)
   if (length(format) == 0) {
     return(obj)
   }
-  apply_reformat(obj, format)
+
+  lapply(format, function(x) {
+    checkmate::assert_list(x, names = "unique", types = "rule")
+  })
+
+  ls_df <- as.list(obj)
+  ls_res <- reformat(ls_df, format = format)
+  res <- as_dm(ls_res)
+
+  pk <- dm::dm_get_all_pks(obj)
+
+  for (i in seq_len(nrow(pk))) {
+    res <- dm_add_pk(res, !!pk[["table"]][i], !!pk[["pk_col"]][[i]])
+  }
+
+  fk <- dm::dm_get_all_fks(obj)
+
+  for (i in seq_len(nrow(fk))) {
+    res <- dm::dm_add_fk(
+      res,
+      !!fk[["child_table"]][i],
+      !!fk[["child_fk_cols"]][[i]],
+      !!fk[["parent_table"]][i],
+      !!fk[["parent_key_cols"]][[i]]
+    )
+  }
+
+  res
 }
 
 #' @export
 reformat.list <- function(obj,
                           format) {
   checkmate::assert_list(obj, type = c("data.frame", "tibble"))
-  checkmate::assert_list(format, names = "unique", types = "list")
-  lapply(format, function(x) {
-    checkmate::assert_list(x, names = "unique", types = "rule")
-  })
+  checkmate::assert_list(format, names = "unique", types = "list", null.ok = TRUE)
+  
   if (length(format) == 0) {
     return(obj)
   }
-  apply_reformat(obj, format)
+  
+  lapply(format, function(x) {
+    checkmate::assert_list(x, names = "unique", types = "rule")
+  })
+
+  remap_tab <- names(format)
+
+  # Propagate ALL
+  if ("ALL" %in% toupper(names(format))) {
+    remap_tab <- c("All", remap_tab)
+    names(format)[toupper(names(format)) == "ALL"] <- "All"
+  }
+
+  full_format <- lapply(names(obj), function(tab) fuse_sequentially(format[[tab]], format[["All"]]))
+  names(full_format) <- names(obj)
+
+  for (tab in names(full_format)) {
+    if (is(full_format[[tab]], "empty_rule")) next
+
+    local_map <- full_format[[tab]]
+    local_map <- local_map[names(local_map) %in% names(obj[[tab]])]
+
+
+    obj[[tab]][names(local_map)] <- mapply(
+      function(rl, col) reformat(obj[[tab]][[col]], format = rl), local_map, names(local_map),
+      SIMPLIFY = FALSE
+    )
+  }
+
+  obj
 }
 
 #' Reformat values

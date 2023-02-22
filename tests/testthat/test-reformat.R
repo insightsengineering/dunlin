@@ -270,6 +270,73 @@ test_that("reformat for factors works as expected", {
   )
 })
 
+# reformat list ---
+
+test_that("reformat for list works as expected", {
+  df1 <- data.frame(
+    "char" = c("", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f2", "f1")),
+    "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
+  )
+  df2 <- data.frame(
+    "char" = c("a", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
+    "another_char" = c("a", "b", NA, "a", "k", "x"),
+    "another_fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
+  )
+  db <- list(df1 = df1, df2 = df2)
+
+  test_map <- list(
+    df1 = list(
+      char = rule("X" = "", "B" = "b", "Not Available" = NA),
+      fact = rule(),
+      logi = rule()
+    ),
+    df2 = list(
+      fact = empty_rule
+    ),
+    ALL = list(
+      fact = rule("F1" = "f1"),
+      another_char = rule("XXX" = "a"),
+      another_fact = rule("FX" = "f1", "F0" = NA)
+    )
+  )
+
+  expect_silent(res <- reformat(db, test_map))
+  
+  expect_identical(res$df1$char, c("X", "B", "Not Available", "a", "k", "x")) # normal reformatting
+  expect_identical(res$df1$fact, db$df1$fact) # empty rule changes nothing
+  expect_identical(res$df2$char, db$df2$char) # no rule to apply
+  expect_identical(res$df2$fact, db$df2$fact) # local rules have priority over ALL rules
+  expect_identical(res$df2$another_char, c("XXX", "b", NA, "XXX", "k", "x")) # ALL rule applies
+  expect_identical(res$df2$another_fact, factor(c("FX", "f2", "F0", "F0", "FX", "FX"), levels = c("FX", "f2", "F0")))
+})
+
+
+test_that("reformat for list works as expected with empty rule", {
+  df1 <- data.frame(
+    "char" = c("", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f2", "f1")),
+    "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
+  )
+  df2 <- data.frame(
+    "char" = c("a", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
+  )
+  db <- list(df1 = df1, df2 = df2)
+
+  test_map <- list(
+    df1 = list(
+      char = rule(),
+      fact = rule(),
+      logi = rule()
+    ),
+    df2 = empty_rule # TODO
+  )
+
+  expect_silent(res <- reformat(db, test_map))
+})
+
 # reformat using emtpy_rule ----
 
 test_that("empty_rule do nothing to input", {
