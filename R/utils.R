@@ -156,9 +156,14 @@ attr_label_df <- function(df, label) {
 #' @keywords internal
 #'
 fuse_sequentially <- function(x, y) {
+  
+  checkmate::assert_list(x)
+  
   if (missing(y) || is.null(y)) {
     return(x)
   }
+  
+  checkmate::assert_list(y)
 
   names_x <- names(x)
   sel_names_y <- setdiff(names(y), names_x)
