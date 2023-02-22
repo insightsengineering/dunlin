@@ -156,12 +156,11 @@ attr_label_df <- function(df, label) {
 #' @keywords internal
 #'
 fuse_sequentially <- function(x, y) {
-  
   # if `x` is empty rule, it overrides everything and is returned as is.
   if (missing(y) || is.null(y) || is(x, "empty_rule")) {
     return(x)
   }
-  
+
   checkmate::assert_list(x, null.ok = TRUE)
   checkmate::assert_list(y)
 
@@ -170,4 +169,3 @@ fuse_sequentially <- function(x, y) {
 
   c(x, y[sel_names_y])
 }
-

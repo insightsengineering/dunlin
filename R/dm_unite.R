@@ -1,4 +1,3 @@
-
 #' Unite Columns of a Table in a `dm` object.
 #'
 #' @param adam_db (`dm`) object to be transformed.

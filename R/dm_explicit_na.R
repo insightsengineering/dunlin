@@ -1,4 +1,3 @@
-
 #' Encode Categorical Missing Values in a `DM` Object
 #'
 #' @details This is a helper function to encode missing entries across groups of categorical variables in potentially

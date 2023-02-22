@@ -1,4 +1,3 @@
-
 test_that("propagate works as expected", {
   df1 <- data.frame(
     "id" = c("a", "b", NA, "a", "k", "x"),

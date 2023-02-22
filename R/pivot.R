@@ -1,5 +1,3 @@
-
-
 #' Transforming data.frame into Wide Format
 #'
 #' @details instead of nesting duplicated values, the function will throw an error if the same parameter is
