@@ -13,7 +13,12 @@ reformat <- function(obj, format) {
 }
 #' @export
 reformat.default <- function(obj, format) {
-  stop("Not implemented!")
+  
+  if (is(format, "empty_rule")) {
+    return(obj)
+  }
+
+  stop("Not implemented! Only empty rule allowed.")
 }
 #' @export
 reformat.character <- function(obj, format) {
@@ -36,14 +41,6 @@ reformat.factor <- function(obj, format) {
     obj <- forcats::fct_na_value_to_level(obj)
   }
   forcats::fct_recode(obj, !!!format)
-}
-
-#' @export
-reformat.logical <- function(obj, format) {
-  if (is(format, "empty_rule")) {
-    return(obj)
-  }
-  stop("Not implemented, only empty_rule is available for logical!")
 }
 
 #' @export
@@ -108,6 +105,9 @@ apply_reformat.list <- function(db, format = NULL) {
   names(full_format) <- names(db)
   
   for(tab in names(full_format)) {
+    
+    if (is(full_format[[tab]], "empty_rule")) next
+
     local_map <- full_format[[tab]]
     local_map <- local_map[names(local_map) %in% names(db[[tab]])]
     

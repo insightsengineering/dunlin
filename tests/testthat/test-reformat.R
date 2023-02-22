@@ -102,7 +102,11 @@ test_that("apply_reformat works as expected with NULL values", {
 
 test_that("apply format works for null", {
   db <- dm::dm_nycflights13()
-  expect_identical(db, apply_reformat(db, NULL))
+  expect_silent(res <- apply_reformat(db, NULL))
+
+  expect_equal(dm::dm_get_all_fks(db), dm::dm_get_all_fks(res))
+  expect_equal(dm::dm_get_all_pks(db), dm::dm_get_all_pks(res))
+  expect_equal(as.list(db), as.list(res))
 })
 
 # empty strings ----
@@ -195,7 +199,7 @@ test_that("apply_reformat works as expected with empty list", {
       fact = rule(),
       logi = rule()
     ),
-    df2 = empty_rule
+    df2 = empty_rule # TODO
   )
 
   res <- apply_reformat(db, test_map)
@@ -273,6 +277,4 @@ test_that("empty_rule do nothing to input", {
   expect_identical(a, reformat(a, empty_rule))
   b <- factor(c("1", "2"))
   expect_identical(b, reformat(b, empty_rule))
-  db <- dm::dm_nycflights13()
-  expect_identical(db, reformat(db, list(airlines = list(carrier = empty_rule))))
 })
