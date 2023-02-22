@@ -13,12 +13,10 @@ reformat <- function(obj, format) {
 }
 #' @export
 reformat.default <- function(obj, format) {
-  
-  if (is(format, "empty_rule")) {
-    return(obj)
+  if (!is(format, "empty_rule")) {
+    warning("Not implemented! Only empty rule allowed.")
   }
-
-  stop("Not implemented! Only empty rule allowed.")
+  return(obj)
 }
 #' @export
 reformat.character <- function(obj, format) {
@@ -58,7 +56,7 @@ reformat.dm <- function(obj,
 
 #' @export
 reformat.list <- function(obj,
-                        format) {
+                          format) {
   checkmate::assert_list(obj, type = c("data.frame", "tibble"))
   checkmate::assert_list(format, names = "unique", types = "list")
   lapply(format, function(x) {
@@ -84,58 +82,57 @@ apply_reformat <- function(db, format = NULL) {
 }
 
 #' @export
-#' 
+#'
 apply_reformat.list <- function(db, format = NULL) {
-  
   checkmate::assert_list(db, types = c("data.frame", "tibble"))
-  
+
   remap_tab <- names(format)
-  
+
   if (is.null(format)) {
     return(db)
   }
-  
+
   # Propagate ALL
   if ("ALL" %in% toupper(names(format))) {
     remap_tab <- c("All", remap_tab)
     names(format)[toupper(names(format)) == "ALL"] <- "All"
   }
-  
+
   full_format <- lapply(names(db), function(tab) fuse_sequentially(format[[tab]], format[["All"]]))
   names(full_format) <- names(db)
-  
-  for(tab in names(full_format)) {
-    
+
+  for (tab in names(full_format)) {
     if (is(full_format[[tab]], "empty_rule")) next
 
     local_map <- full_format[[tab]]
     local_map <- local_map[names(local_map) %in% names(db[[tab]])]
-    
-    
+
+
     db[[tab]][names(local_map)] <- mapply(
-      function(rl, col) reformat(db[[tab]][[col]], format = rl), local_map, names(local_map), SIMPLIFY = FALSE
+      function(rl, col) reformat(db[[tab]][[col]], format = rl), local_map, names(local_map),
+      SIMPLIFY = FALSE
     )
   }
-  
+
   db
 }
 
 
 #' @export
-#' 
+#'
 apply_reformat.dm <- function(db, format = NULL) {
   ls_df <- as.list(db)
   ls_res <- apply_reformat(ls_df, format = format)
   res <- as_dm(ls_res)
-  
+
   pk <- dm::dm_get_all_pks(db)
-  
+
   for (i in seq_len(nrow(pk))) {
     res <- dm_add_pk(res, !!pk[["table"]][i], !!pk[["pk_col"]][[i]])
   }
-  
+
   fk <- dm::dm_get_all_fks(db)
-  
+
   for (i in seq_len(nrow(fk))) {
     res <- dm::dm_add_fk(
       res,
@@ -145,7 +142,7 @@ apply_reformat.dm <- function(db, format = NULL) {
       !!fk[["parent_key_cols"]][[i]]
     )
   }
-  
+
   res
 }
 
@@ -187,7 +184,7 @@ apply_reformat.dm <- function(db, format = NULL) {
 #' dic_map <- rule(A = "a", B = "b", Missing = NA, Empty = "")
 #' res <- h_reformat_tab(db, "df1", "char", dic_map)
 #' }
-#' 
+#'
 h_reformat_tab <- function(db, tab, col, format) {
   checkmate::assert_class(db, "dm")
   checkmate::assert_string(tab)

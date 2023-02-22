@@ -235,7 +235,7 @@ test_that("apply_reformat works as expected with empty list", {
 test_that("reformat fails for numeric or logical", {
   x <- c(0, 1, 2)
   r <- rule(a = 1, b = 2)
-  expect_error(reformat(x, r), "Not implemented!")
+  expect_warning(res <- reformat(x, r), "Not implemented! Only empty rule allowed.")
 })
 
 ## reformat character ----
