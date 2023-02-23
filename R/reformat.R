@@ -52,9 +52,9 @@ reformat.character <- function(obj, format) {
 #' @examples
 #'
 #' # Reformatting of factor.
-#' obj <- factor(c("a", "b", "x", NA))
+#' obj <- factor(c("a", "b", "x", NA), levels = c("x", "b", "a", "z"))
 #' attr(obj, "label") <- "my label"
-#' format <- rule("A" = "a", "NN" = NA)
+#' format <- rule("A" = "a", "NN" = NA, "Not Present" = "z")
 #'
 #' reformat(obj, format)
 reformat.factor <- function(obj, format) {
@@ -65,6 +65,9 @@ reformat.factor <- function(obj, format) {
   if (any(is.na(format))) {
     obj <- forcats::fct_na_value_to_level(obj)
   }
+
+  format <- format[format %in% levels(obj)]
+
   forcats::fct_recode(obj, !!!format)
 }
 

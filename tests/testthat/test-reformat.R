@@ -40,6 +40,16 @@ test_that("reformat for factors works as expected", {
   )
 })
 
+test_that("reformat factor works as expected when the level doesn't exist", {
+  x <- factor(c("a", "a", "b", "", NA), levels = c("a", "b", ""))
+  r <- rule(x = "a", y = "", z = NA, "Not a level" = "Not here")
+  expect_silent(res <- reformat(x, r))
+  expect_identical(
+    res,
+    factor(c("x", "x", "b", "y", "z"), levels = c("x", "b", "y", "z"))
+  )
+})
+
 # reformat list ----
 
 test_that("reformat for list works as expected", {
