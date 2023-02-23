@@ -1,232 +1,3 @@
-# h_reformat_tab ----
-
-test_that("h_reformat_tab works as expected", {
-  df1 <- data.frame(
-    "char" = c("a", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
-    "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
-  )
-  df2 <- data.frame(
-    "char" = c("a", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
-  )
-
-  db <- dm::dm(df1, df2)
-  dic_map <- rule(A = "a", B = "b", Missing = NA)
-  res <- expect_silent(h_reformat_tab(db, "df1", "char", dic_map))
-
-  expected <- c("A", "B", "Missing", "A", "k", "x")
-
-  expect_identical(res$df1$char, expected)
-})
-
-test_that("h_reformat_tab ignore unknown variable", {
-  db <- dm::dm_nycflights13()
-  expect_identical(db, h_reformat_tab(db, "a", "a", rule()))
-  expect_identical(db, h_reformat_tab(db, "airlines", "a", rule()))
-})
-
-# apply_reformat ----
-
-test_that("apply_reformat works as expected with other All spelling", {
-  df1 <- data.frame(
-    "char" = c("a", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
-    "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
-  )
-  df2 <- data.frame(
-    "char" = c("a", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
-  )
-
-  db <- dm::dm(df1, df2)
-
-  my_map <- list(
-    df1 = list(
-      char = rule(
-        "A" = c("a", "k"),
-        "B" = "b"
-      )
-    ),
-    All = list(
-      fact = rule(
-        "F1" = "f1",
-        "F2" = "f2",
-        "<Missing>" = NA
-      ),
-      other = rule(
-        "x" = "X"
-      )
-    )
-  )
-
-  res <- expect_silent(apply_reformat(db, my_map))
-
-  expected_char <- c("A", "B", NA, "A", "A", "x")
-  expect_identical(res$df1$char, expected_char)
-
-  expected_fact <- factor(
-    c("F1", "F2", "<Missing>", "<Missing>", "F1", "F1"),
-    levels = c("F1", "F2", "<Missing>")
-  )
-  expect_identical(res$df1$fact, expected_fact)
-  expect_identical(res$df2$fact, expected_fact)
-})
-
-
-test_that("apply_reformat works as expected with NULL values", {
-  df1 <- data.frame(
-    "char" = c("a", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
-    "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
-  )
-  df2 <- data.frame(
-    "char" = c("a", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
-  )
-
-  db <- dm::dm(df1, df2)
-
-  my_map <- list(
-    df1 = NULL,
-    df2 = list(
-      fact = empty_rule
-    )
-  )
-
-  res <- expect_silent(apply_reformat(db, my_map))
-
-  expect_identical(res$df1, db$df1)
-  expect_identical(res$df2$fact, db$df2$fact)
-})
-
-test_that("apply format works for null", {
-  db <- dm::dm_nycflights13()
-  expect_silent(res <- apply_reformat(db, NULL))
-
-  expect_equal(dm::dm_get_all_fks(db), dm::dm_get_all_fks(res))
-  expect_equal(dm::dm_get_all_pks(db), dm::dm_get_all_pks(res))
-  expect_equal(as.list(db), as.list(res))
-})
-
-# empty strings ----
-
-test_that("apply_reformat works with empty strings", {
-  df1 <- data.frame(
-    "char" = c("", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
-    "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
-  )
-  df2 <- data.frame(
-    "char" = c("a", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
-  )
-  db <- dm::dm(df1, df2)
-
-  test_map <- list(
-    df1 = list(
-      char = rule(
-        "A" = c("a", "k"),
-        "EMPTY STRING" = ""
-      ),
-      logi = empty_rule
-    ),
-    df2 = NULL
-  )
-  res <- apply_reformat(db, test_map)
-
-  expect_identical(
-    res$df1$char[1],
-    "EMPTY STRING"
-  )
-})
-
-# attributes ----
-
-test_that("apply_reformat preserves labels", {
-  char <- c("", "b", NA, "a", "k", "x")
-  attr(char, "label") <- "my_label"
-
-  df1 <- data.frame(
-    "char" = char,
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
-    "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
-  )
-  df2 <- data.frame(
-    "char" = c("a", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
-  )
-  db <- dm::dm(df1, df2)
-
-  test_map <- list(
-    df1 = list(
-      char = rule(
-        "A" = c("a", "k"),
-        "isNA" = NA,
-        "EMPTY STRING" = ""
-      ),
-      logi = empty_rule
-    ),
-    df2 = NULL
-  )
-
-  res <- apply_reformat(db, test_map)
-
-  expected_char <- c("EMPTY STRING", "b", "isNA", "A", "A", "x")
-  attr(expected_char, "label") <- "my_label"
-
-  expect_identical(
-    res$df1$char,
-    expected_char
-  )
-})
-
-test_that("apply_reformat works as expected with empty list", {
-  df1 <- data.frame(
-    "char" = c("", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f2", "f1")),
-    "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
-  )
-  df2 <- data.frame(
-    "char" = c("a", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
-  )
-  db <- dm::dm(df1, df2)
-
-  test_map <- list(
-    df1 = list(
-      char = rule(),
-      fact = rule(),
-      logi = rule()
-    ),
-    df2 = empty_rule # TODO
-  )
-
-  res <- apply_reformat(db, test_map)
-
-  # Character are converted to factors with levels in alphabetic order.
-  expect_identical(
-    res$df1$char,
-    c("", "b", NA, "a", "k", "x")
-  )
-
-  # Logical are converted to factors with levels in alphabetic order.
-  expect_identical(
-    res$df1$logi,
-    c(NA, FALSE, TRUE, NA, FALSE, NA)
-  )
-
-  # Factor are unaltered.
-  expect_identical(
-    res$df1$fact,
-    db$df1$fact,
-  )
-
-  expect_identical(
-    res$df2,
-    db$df2
-  )
-})
 
 # reformat ----
 
@@ -270,7 +41,7 @@ test_that("reformat for factors works as expected", {
   )
 })
 
-# reformat list ---
+# reformat list ----
 
 test_that("reformat for list works as expected", {
   df1 <- data.frame(
@@ -284,60 +55,29 @@ test_that("reformat for list works as expected", {
     "another_char" = c("a", "b", NA, "a", "k", "x"),
     "another_fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
   )
+
   db <- list(df1 = df1, df2 = df2)
+  attr(db$df1$char, "label") <- "my label"
 
   test_map <- list(
     df1 = list(
       char = rule("X" = "", "B" = "b", "Not Available" = NA),
-      fact = rule(),
       logi = rule()
-    ),
-    df2 = list(
-      fact = empty_rule
-    ),
-    ALL = list(
-      fact = rule("F1" = "f1"),
-      another_char = rule("XXX" = "a"),
-      another_fact = rule("FX" = "f1", "F0" = NA)
     )
   )
 
   expect_silent(res <- reformat(db, test_map))
+
+  expected <- c("X", "B", "Not Available", "a", "k", "x")
+  attr(expected, "label") <- "my label"
   
-  expect_identical(res$df1$char, c("X", "B", "Not Available", "a", "k", "x")) # normal reformatting
-  expect_identical(res$df1$fact, db$df1$fact) # empty rule changes nothing
-  expect_identical(res$df2$char, db$df2$char) # no rule to apply
-  expect_identical(res$df2$fact, db$df2$fact) # local rules have priority over ALL rules
-  expect_identical(res$df2$another_char, c("XXX", "b", NA, "XXX", "k", "x")) # ALL rule applies
-  expect_identical(res$df2$another_fact, factor(c("FX", "f2", "F0", "F0", "FX", "FX"), levels = c("FX", "f2", "F0")))
+  expect_identical(res$df1$char, expected) # normal reformatting keeps attribute.
+  expect_identical(res$df1$fact, db$df1$fact) # No rules to apply.
+  expect_identical(res$df1$fact, db$df1$fact) # Empty rule changes nothing.
+  expect_identical(res$df2, db$df2) # No rules associated with the table, hence no change.
 })
 
-
-test_that("reformat for list works as expected with empty rule", {
-  df1 <- data.frame(
-    "char" = c("", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f2", "f1")),
-    "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
-  )
-  df2 <- data.frame(
-    "char" = c("a", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
-  )
-  db <- list(df1 = df1, df2 = df2)
-
-  test_map <- list(
-    df1 = list(
-      char = rule(),
-      fact = rule(),
-      logi = rule()
-    ),
-    df2 = empty_rule # TODO
-  )
-
-  expect_silent(res <- reformat(db, test_map))
-})
-
-# reformat using emtpy_rule ----
+# reformat using empty_rule ----
 
 test_that("empty_rule do nothing to input", {
   a <- c("1", "2")

@@ -2,9 +2,24 @@
 % Please edit documentation in R/reformat.R
 \name{reformat}
 \alias{reformat}
+\alias{reformat.default}
+\alias{reformat.character}
+\alias{reformat.factor}
+\alias{reformat.dm}
+\alias{reformat.list}
 \title{Reformat Values}
 \usage{
 reformat(obj, format)
+
+\method{reformat}{default}(obj, format)
+
+\method{reformat}{character}(obj, format)
+
+\method{reformat}{factor}(obj, format)
+
+\method{reformat}{dm}(obj, format)
+
+\method{reformat}{list}(obj, format)
 }
 \arguments{
 \item{obj}{object to reformat}
@@ -20,4 +35,72 @@ NA values are not changed, if the rule does not contain \code{NA_character_}.
 Factors works similarly to characters.
 For \code{dm} objects, see \code{reformat} for more details.
 \code{empty_rule} will do nothing to the data.
+}
+\examples{
+
+# Reformatting of character.
+obj <- c("a", "b", "x", NA)
+attr(obj, "label") <- "my label"
+format <- rule("A" = "a", "NN" = NA)
+
+reformat(obj, format)
+
+# Reformatting of factor.
+obj <- factor(c("a", "b", "x", NA))
+attr(obj, "label") <- "my label"
+format <- rule("A" = "a", "NN" = NA)
+
+reformat(obj, format)
+
+# Reformatting of dm.
+library(dm)
+
+df1 <- data.frame(
+  var1 = c("a", "b", NA),
+  var2 = factor(c("F1", "F2", NA))
+)
+
+df2 <- data.frame(
+  var1 = c("x", NA, "y"),
+  var2 = factor(c("F11", NA, "F22"))
+)
+
+db <- dm(df1 = df1, df2 = df2)
+
+format <- list(
+  df1 = list(
+    var1 = rule("X" = "x", "N" = NA)
+  ),
+  df2 = list(
+    var1 = empty_rule,
+    var2 = rule("f11" = "F11", "NN" = NA)
+  )
+)
+
+reformat(db, format)
+
+# Reformatting of list of data.frame.
+df1 <- data.frame(
+  var1 = c("a", "b", NA),
+  var2 = factor(c("F1", "F2", NA))
+)
+
+df2 <- data.frame(
+  var1 = c("x", NA, "y"),
+  var2 = factor(c("F11", NA, "F22"))
+)
+
+db <- list(df1 = df1, df2 = df2)
+
+format <- list(
+  df1 = list(
+    var1 = rule("X" = "x", "N" = NA)
+  ),
+  df2 = list(
+    var1 = empty_rule,
+    var2 = rule("f11" = "F11", "NN" = NA)
+  )
+)
+
+reformat(db, format)
 }
