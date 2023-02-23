@@ -1,4 +1,3 @@
-
 # reformat ----
 
 ## reformat non supported type ----
@@ -70,7 +69,7 @@ test_that("reformat for list works as expected", {
 
   expected <- c("X", "B", "Not Available", "a", "k", "x")
   attr(expected, "label") <- "my label"
-  
+
   expect_identical(res$df1$char, expected) # normal reformatting keeps attribute.
   expect_identical(res$df1$fact, db$df1$fact) # No rules to apply.
   expect_identical(res$df1$fact, db$df1$fact) # Empty rule changes nothing.
