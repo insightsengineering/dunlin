@@ -1,6 +1,9 @@
 #' Reformat Values
-#' @param obj object to reformat
-#' @param format (`rule`) or (`list`) of `rules` depending on the class of obj
+#' @param obj object to reformat.
+#' @param format (`rule`) or (`list`) of `rules` depending on the class of obj.
+#' @param na_last (`flag`) whether the level replacing `NA` should be last.
+#' @param ... not used. Only for compatibility between methods.
+#'
 #' @export
 #' @details
 #' For character values, reformatting will only change those should be changed.
@@ -11,13 +14,13 @@
 #'
 #' @rdname reformat
 #'
-reformat <- function(obj, format) {
+reformat <- function(obj, format, na_last = FALSE) {
   UseMethod("reformat")
 }
 
 #' @export
 #' @rdname reformat
-reformat.default <- function(obj, format) {
+reformat.default <- function(obj, format, ...) {
   if (!is(format, "empty_rule")) {
     warning("Not implemented! Only empty rule allowed.")
   }
@@ -35,7 +38,7 @@ reformat.default <- function(obj, format) {
 #' format <- rule("A" = "a", "NN" = NA)
 #'
 #' reformat(obj, format)
-reformat.character <- function(obj, format) {
+reformat.character <- function(obj, format, ...) {
   if (is(format, "empty_rule")) {
     return(obj)
   }
@@ -52,12 +55,13 @@ reformat.character <- function(obj, format) {
 #' @examples
 #'
 #' # Reformatting of factor.
-#' obj <- factor(c("a", "b", "x", NA), levels = c("x", "b", "a", "z"))
+#' obj <- factor(c("a", "aa", "b", "x", NA), levels = c("x", "b", "aa", "a", "z"))
 #' attr(obj, "label") <- "my label"
-#' format <- rule("A" = "a", "NN" = NA, "Not Present" = "z")
+#' format <- rule("A" = c("a", "aa"), "NN" = c(NA, "x"), "Not Present" = "z")
 #'
 #' reformat(obj, format)
-reformat.factor <- function(obj, format) {
+#' reformat(obj, format, na_last = TRUE)
+reformat.factor <- function(obj, format, na_last = FALSE) {
   if (is(format, "empty_rule")) {
     return(obj)
   }
@@ -68,7 +72,14 @@ reformat.factor <- function(obj, format) {
 
   format <- format[format %in% levels(obj)]
 
-  forcats::fct_recode(obj, !!!format)
+  res <- forcats::fct_recode(obj, !!!format)
+
+  if (any(is.na(format)) && na_last) {
+    na_lvl <- names(format)[is.na(format)]
+    forcats::fct_relevel(res, na_lvl, after = Inf)
+  } else {
+    res
+  }
 }
 
 #' @export
@@ -103,11 +114,12 @@ reformat.factor <- function(obj, format) {
 #'
 #' reformat(db, format)
 reformat.dm <- function(obj,
-                        format) {
+                        format,
+                        na_last = FALSE) {
   checkmate::assert_class(obj, "dm")
 
   ls_df <- as.list(obj)
-  ls_res <- reformat(ls_df, format = format)
+  ls_res <- reformat(ls_df, format = format, na_last = na_last)
   res <- as_dm(ls_res)
 
   pk <- dm::dm_get_all_pks(obj)
@@ -161,7 +173,8 @@ reformat.dm <- function(obj,
 #'
 #' reformat(db, format)
 reformat.list <- function(obj,
-                          format) {
+                          format,
+                          na_last = FALSE) {
   checkmate::assert_list(obj, type = c("data.frame", "tibble"))
   checkmate::assert_named(obj)
   checkmate::assert_list(format, names = "unique", types = "list", null.ok = TRUE)
@@ -182,7 +195,9 @@ reformat.list <- function(obj,
 
 
     obj[[tab]][names(local_map)] <- mapply(
-      function(rl, col) reformat(obj[[tab]][[col]], format = rl), local_map, names(local_map),
+      function(rl, col) reformat(obj[[tab]][[col]], format = rl, na_last = na_last),
+      local_map,
+      names(local_map),
       SIMPLIFY = FALSE
     )
   }

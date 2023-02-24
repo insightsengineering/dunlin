@@ -9,22 +9,26 @@
 \alias{reformat.list}
 \title{Reformat Values}
 \usage{
-reformat(obj, format)
+reformat(obj, format, na_last = FALSE)
 
-\method{reformat}{default}(obj, format)
+\method{reformat}{default}(obj, format, ...)
 
-\method{reformat}{character}(obj, format)
+\method{reformat}{character}(obj, format, ...)
 
-\method{reformat}{factor}(obj, format)
+\method{reformat}{factor}(obj, format, na_last = FALSE)
 
-\method{reformat}{dm}(obj, format)
+\method{reformat}{dm}(obj, format, na_last = FALSE)
 
-\method{reformat}{list}(obj, format)
+\method{reformat}{list}(obj, format, na_last = FALSE)
 }
 \arguments{
-\item{obj}{object to reformat}
+\item{obj}{object to reformat.}
 
-\item{format}{(\code{rule}) or (\code{list}) of \code{rules} depending on the class of obj}
+\item{format}{(\code{rule}) or (\code{list}) of \code{rules} depending on the class of obj.}
+
+\item{na_last}{(\code{flag}) whether the level replacing \code{NA} should be last.}
+
+\item{...}{not used. Only for compatibility between methods.}
 }
 \description{
 Reformat Values
@@ -46,11 +50,12 @@ format <- rule("A" = "a", "NN" = NA)
 reformat(obj, format)
 
 # Reformatting of factor.
-obj <- factor(c("a", "b", "x", NA), levels = c("x", "b", "a", "z"))
+obj <- factor(c("a", "aa", "b", "x", NA), levels = c("x", "b", "aa", "a", "z"))
 attr(obj, "label") <- "my label"
-format <- rule("A" = "a", "NN" = NA, "Not Present" = "z")
+format <- rule("A" = c("a", "aa"), "NN" = c(NA, "x"), "Not Present" = "z")
 
 reformat(obj, format)
+reformat(obj, format, na_last = TRUE)
 
 # Reformatting of dm.
 library(dm)
