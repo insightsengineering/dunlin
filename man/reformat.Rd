@@ -46,9 +46,9 @@ format <- rule("A" = "a", "NN" = NA)
 reformat(obj, format)
 
 # Reformatting of factor.
-obj <- factor(c("a", "b", "x", NA))
+obj <- factor(c("a", "b", "x", NA), levels = c("x", "b", "a", "z"))
 attr(obj, "label") <- "my label"
-format <- rule("A" = "a", "NN" = NA)
+format <- rule("A" = "a", "NN" = NA, "Not Present" = "z")
 
 reformat(obj, format)
 
