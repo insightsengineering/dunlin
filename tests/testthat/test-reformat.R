@@ -120,15 +120,19 @@ test_that("reformat for list works as expected", {
   expect_identical(res$df1$char, expected) # normal reformatting keeps attribute.
   expect_identical(res$df1$fact, db$df1$fact) # No rules to apply.
   expect_identical(res$df1$fact, db$df1$fact) # Empty rule changes nothing.
-  expect_identical(res$df2, db$df2) # No rules associated with the table, hence no change.
-  expect_identical(res$df2$char, db$df2$char) # Empty rule changes nothing, not even convert to factor.
+  expect_identical(res$df2$char, as.factor(db$df2$char)) # Empty rule changes character to factor by default.
 })
 
 # reformat using empty_rule ----
 
 test_that("empty_rule do nothing to input", {
+  
   a <- c("1", "2")
-  expect_identical(a, reformat(a, empty_rule))
+  expect_identical(as.factor(a), reformat(a, empty_rule))
+  
+  a <- c("1", "2")
+  expect_identical(a, reformat(a, empty_rule, string_as_fct = FALSE))
+  
   b <- factor(c("1", "2"))
   expect_identical(b, reformat(b, empty_rule))
 })

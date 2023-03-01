@@ -40,25 +40,31 @@ reformat.default <- function(obj, format, ...) {
 #'
 #' reformat(obj, format)
 reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) {
-  if (is(format, "empty_rule")) {
-    return(obj)
-  }
   checkmate::assert_class(format, "rule")
   checkmate::assert_flag(string_as_fct)
 
   if (string_as_fct) {
+    # Keep attributes.
     att <- attributes(obj)
     obj_fact <- as.factor(obj)
     supp_att_name <- setdiff(names(att), attributes(obj_fact))
     supp_att <- att[supp_att_name]
     attributes(obj_fact) <- c(attributes(obj_fact), supp_att)
 
+    if (is(format, "empty_rule")) {
+      return(obj_fact)
+    }
+
     reformat(obj_fact, format, na_last = na_last)
   } else {
+    if (is(format, "empty_rule")) {
+      return(obj)
+    }
+
     value_match <- unlist(format)
     m <- match(obj, value_match)
     obj[!is.na(m)] <- names(format)[m[!is.na(m)]]
-    return(obj)
+    obj
   }
 }
 
