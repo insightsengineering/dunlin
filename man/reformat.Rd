@@ -9,17 +9,17 @@
 \alias{reformat.list}
 \title{Reformat Values}
 \usage{
-reformat(obj, format, na_last = FALSE)
+reformat(obj, format, string_as_fct = TRUE, na_last = TRUE)
 
 \method{reformat}{default}(obj, format, ...)
 
-\method{reformat}{character}(obj, format, ...)
+\method{reformat}{character}(obj, format, string_as_fct = TRUE, na_last = TRUE, ...)
 
-\method{reformat}{factor}(obj, format, na_last = FALSE)
+\method{reformat}{factor}(obj, format, na_last = TRUE, ...)
 
-\method{reformat}{dm}(obj, format, na_last = FALSE)
+\method{reformat}{dm}(obj, format, string_as_fct = TRUE, na_last = TRUE)
 
-\method{reformat}{list}(obj, format, na_last = FALSE)
+\method{reformat}{list}(obj, format, string_as_fct = TRUE, na_last = TRUE)
 }
 \arguments{
 \item{obj}{object to reformat.}

@@ -1,6 +1,7 @@
 #' Reformat Values
 #' @param obj object to reformat.
 #' @param format (`rule`) or (`list`) of `rules` depending on the class of obj.
+#' @string_as_fct (`flag`) whether the reformatted character object should be converted to factor.
 #' @param na_last (`flag`) whether the level replacing `NA` should be last.
 #' @param ... not used. Only for compatibility between methods.
 #'
@@ -14,7 +15,7 @@
 #'
 #' @rdname reformat
 #'
-reformat <- function(obj, format, na_last = FALSE) {
+reformat <- function(obj, format, string_as_fct = TRUE, na_last = TRUE) {
   UseMethod("reformat")
 }
 
@@ -38,15 +39,27 @@ reformat.default <- function(obj, format, ...) {
 #' format <- rule("A" = "a", "NN" = NA)
 #'
 #' reformat(obj, format)
-reformat.character <- function(obj, format, ...) {
+reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) {
   if (is(format, "empty_rule")) {
     return(obj)
   }
   checkmate::assert_class(format, "rule")
-  value_match <- unlist(format)
-  m <- match(obj, value_match)
-  obj[!is.na(m)] <- names(format)[m[!is.na(m)]]
-  return(obj)
+  checkmate::assert_flag(string_as_fct)
+
+  if (string_as_fct) {
+    att <- attributes(obj)
+    obj_fact <- as.factor(obj)
+    supp_att_name <- setdiff(names(att), attributes(obj_fact))
+    supp_att <- att[supp_att_name]
+    attributes(obj_fact) <- c(attributes(obj_fact), supp_att)
+
+    reformat(obj_fact, format, na_last = na_last)
+  } else {
+    value_match <- unlist(format)
+    m <- match(obj, value_match)
+    obj[!is.na(m)] <- names(format)[m[!is.na(m)]]
+    return(obj)
+  }
 }
 
 #' @export
@@ -61,7 +74,7 @@ reformat.character <- function(obj, format, ...) {
 #'
 #' reformat(obj, format)
 #' reformat(obj, format, na_last = TRUE)
-reformat.factor <- function(obj, format, na_last = FALSE) {
+reformat.factor <- function(obj, format, na_last = TRUE, ...) {
   if (is(format, "empty_rule")) {
     return(obj)
   }
@@ -115,11 +128,12 @@ reformat.factor <- function(obj, format, na_last = FALSE) {
 #' reformat(db, format)
 reformat.dm <- function(obj,
                         format,
-                        na_last = FALSE) {
+                        string_as_fct = TRUE,
+                        na_last = TRUE) {
   checkmate::assert_class(obj, "dm")
 
   ls_df <- as.list(obj)
-  ls_res <- reformat(ls_df, format = format, na_last = na_last)
+  ls_res <- reformat(ls_df, format = format, string_as_fct = string_as_fct, na_last = na_last)
   res <- as_dm(ls_res)
 
   pk <- dm::dm_get_all_pks(obj)
@@ -174,7 +188,8 @@ reformat.dm <- function(obj,
 #' reformat(db, format)
 reformat.list <- function(obj,
                           format,
-                          na_last = FALSE) {
+                          string_as_fct = TRUE,
+                          na_last = TRUE) {
   checkmate::assert_list(obj, type = c("data.frame", "tibble"))
   checkmate::assert_named(obj)
   checkmate::assert_list(format, names = "unique", types = "list", null.ok = TRUE)
@@ -195,7 +210,7 @@ reformat.list <- function(obj,
 
 
     obj[[tab]][names(local_map)] <- mapply(
-      function(rl, col) reformat(obj[[tab]][[col]], format = rl, na_last = na_last),
+      function(rl, col) reformat(obj[[tab]][[col]], format = rl, string_as_fct = string_as_fct, na_last = na_last),
       local_map,
       names(local_map),
       SIMPLIFY = FALSE
