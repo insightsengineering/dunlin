@@ -1,7 +1,7 @@
 #' Reformat Values
 #' @param obj object to reformat.
 #' @param format (`rule`) or (`list`) of `rules` depending on the class of obj.
-#' @string_as_fct (`flag`) whether the reformatted character object should be converted to factor.
+#' @param string_as_fct (`flag`) whether the reformatted character object should be converted to factor.
 #' @param na_last (`flag`) whether the level replacing `NA` should be last.
 #' @param ... not used. Only for compatibility between methods.
 #'
@@ -15,7 +15,7 @@
 #'
 #' @rdname reformat
 #'
-reformat <- function(obj, format, string_as_fct = TRUE, na_last = TRUE) {
+reformat <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) {
   UseMethod("reformat")
 }
 
@@ -74,7 +74,7 @@ reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE
 #'
 #' reformat(obj, format)
 #' reformat(obj, format, na_last = TRUE)
-reformat.factor <- function(obj, format, na_last = TRUE, ...) {
+reformat.factor <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) {
   if (is(format, "empty_rule")) {
     return(obj)
   }
@@ -126,10 +126,7 @@ reformat.factor <- function(obj, format, na_last = TRUE, ...) {
 #' )
 #'
 #' reformat(db, format)
-reformat.dm <- function(obj,
-                        format,
-                        string_as_fct = TRUE,
-                        na_last = TRUE) {
+reformat.dm <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) {
   checkmate::assert_class(obj, "dm")
 
   ls_df <- as.list(obj)
@@ -186,10 +183,7 @@ reformat.dm <- function(obj,
 #' )
 #'
 #' reformat(db, format)
-reformat.list <- function(obj,
-                          format,
-                          string_as_fct = TRUE,
-                          na_last = TRUE) {
+reformat.list <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) {
   checkmate::assert_list(obj, type = c("data.frame", "tibble"))
   checkmate::assert_named(obj)
   checkmate::assert_list(format, names = "unique", types = "list", null.ok = TRUE)
