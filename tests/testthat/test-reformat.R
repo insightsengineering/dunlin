@@ -126,13 +126,12 @@ test_that("reformat for list works as expected", {
 # reformat using empty_rule ----
 
 test_that("empty_rule do nothing to input", {
-  
   a <- c("1", "2")
   expect_identical(as.factor(a), reformat(a, empty_rule))
-  
+
   a <- c("1", "2")
   expect_identical(a, reformat(a, empty_rule, string_as_fct = FALSE))
-  
+
   b <- factor(c("1", "2"))
   expect_identical(b, reformat(b, empty_rule))
 })
