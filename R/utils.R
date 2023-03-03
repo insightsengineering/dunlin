@@ -169,3 +169,30 @@ fuse_sequentially <- function(x, y) {
 
   c(x, y[sel_names_y])
 }
+
+#' Unnest a list of mappings
+#'
+#' @param .lst (`list`) of mapping.
+#' @return `named character`.
+#'
+#' @export
+#' @examples
+#'
+#' l <- list(A = "A", B = c("X", "Y"), Missing = c(NA))
+#' h_unnest_format(l)
+h_unnest_format <- function(.lst) {
+  checkmate::assert_list(.lst, types = c("character", "numeric", "logical"), any.missing = FALSE, names = "unique")
+  if (length(.lst) == 0) {
+    return(character(0))
+  } else {
+    vals <- as.character(unlist(.lst, use.names = FALSE))
+    checkmate::assert_character(vals, unique = TRUE)
+    nms <- unlist(lapply(seq_len(length(.lst)), function(x) {
+      rep(names(.lst)[x], length(.lst[[x]]))
+    }))
+
+    vals <- as.character(vals)
+    names(vals) <- nms
+    vals
+  }
+}

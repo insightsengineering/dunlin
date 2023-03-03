@@ -4,15 +4,15 @@
 
 test_that("reformat fails for numeric or logical", {
   x <- c(0, 1, 2)
-  r <- rule(a = 1, b = 2)
-  expect_warning(res <- reformat(x, r), "Not implemented! Only empty rule allowed.")
+  r <- list(a = 1, b = 2)
+  expect_warning(res <- reformat(x, r), "Not implemented! Only empty list format allowed.")
 })
 
 ## reformat character ----
 
 test_that("reformat for characters works as expected when string_as_fct is FALSE", {
   x <- c("b", "a", "b", "", NA, "a")
-  r <- rule(x = "a", y = "", z = NA)
+  r <- list(x = "a", y = "", z = NA)
   expect_identical(
     reformat(x, r, string_as_fct = FALSE),
     c("b", "x", "b", "y", "z", "x")
@@ -21,7 +21,7 @@ test_that("reformat for characters works as expected when string_as_fct is FALSE
 
 test_that("reformat for characters works as expected when string_as_fct is TRUE", {
   x <- c("b", "a", "b", "", NA, "a")
-  r <- rule(x = "a", y = "", z = NA)
+  r <- list(x = "a", y = "", z = NA)
   expect_identical(
     reformat(x, r, string_as_fct = TRUE),
     factor(c("b", "x", "b", "y", "z", "x"), levels = c("y", "x", "b", "z"))
@@ -30,14 +30,14 @@ test_that("reformat for characters works as expected when string_as_fct is TRUE"
 
 test_that("reformat for characters works as expected when string_as_fct is TRUE and na_last is false", {
   x <- c("b", "a", "b", "", NA, "a")
-  r <- rule(x = "a", y = "", z = NA)
+  r <- list(x = "a", y = "", z = NA)
   expect_identical(
     reformat(x, r, string_as_fct = TRUE, na_last = FALSE),
     factor(c("b", "x", "b", "y", "z", "x"), levels = c("y", "x", "b", "z"))
   )
 
   x <- c("b", "a", "b", "", NA, "a")
-  r <- rule(x = "a", y = c("", NA))
+  r <- list(x = "a", y = c("", NA))
   expect_identical(
     reformat(x, r, string_as_fct = TRUE, na_last = FALSE),
     factor(c("b", "x", "b", "y", "y", "x"), levels = c("y", "x", "b"))
@@ -48,17 +48,17 @@ test_that("reformat for characters works as expected when string_as_fct is TRUE 
 
 test_that("reformat for factors works as expected", {
   x <- factor(c("a", "", "b", "a", NA), levels = c("a", "", "b"))
-  r <- rule(x = "a", y = "", z = NA)
+  r <- list(x = "a", y = "", z = NA)
   expect_identical(
     reformat(x, r),
     factor(c("x", "y", "b", "x", "z"), c("x", "y", "b", "z"))
   )
-  r <- rule(x = "a", y = "")
+  r <- list(x = "a", y = "")
   expect_identical(
     reformat(x, r),
     factor(c("x", "y", "b", "x", NA), c("x", "y", "b"))
   )
-  r <- rule(x = "a", y = c(NA, ""))
+  r <- list(x = "a", y = c(NA, ""))
   expect_identical(
     reformat(x, r),
     factor(c("x", "y", "b", "x", "y"), c("x", "b", "y"))
@@ -67,7 +67,7 @@ test_that("reformat for factors works as expected", {
 
 test_that("reformat factor works as expected when the level doesn't exist", {
   x <- factor(c("a", "a", "b", "", NA), levels = c("a", "b", ""))
-  r <- rule(x = "a", y = "", z = NA, "Not a level" = "Not here")
+  r <- list(x = "a", y = "", z = NA, "Not a level" = "Not here")
   expect_silent(res <- reformat(x, r))
   expect_identical(
     res,
@@ -77,7 +77,7 @@ test_that("reformat factor works as expected when the level doesn't exist", {
 
 test_that("reformat factor works as expected when na_last = FALSE", {
   x <- factor(c("a", "a", "b", "", NA), levels = c("a", "", "b"))
-  r <- rule(x = "a", y = c("", NA))
+  r <- list(x = "a", y = c("", NA))
   expect_silent(res <- reformat(x, r, na_last = FALSE))
   expect_identical(
     res,
@@ -105,11 +105,11 @@ test_that("reformat for list works as expected", {
 
   test_map <- list(
     df1 = list(
-      char = rule("Empty" = "", "B" = "b", "Not Available" = NA),
-      logi = rule()
+      char = list("Empty" = "", "B" = "b", "Not Available" = NA),
+      logi = list()
     ),
     df2 = list(
-      char = rule()
+      char = list()
     )
   )
 
@@ -125,13 +125,13 @@ test_that("reformat for list works as expected", {
 
 # reformat using empty_rule ----
 
-test_that("empty_rule do nothing to input", {
+test_that("empty list works as expected", {
   a <- c("1", "2")
-  expect_identical(as.factor(a), reformat(a, empty_rule))
+  expect_identical(as.factor(a), reformat(a, list()))
 
   a <- c("1", "2")
-  expect_identical(a, reformat(a, empty_rule, string_as_fct = FALSE))
+  expect_identical(a, reformat(a, list(), string_as_fct = FALSE))
 
   b <- factor(c("1", "2"))
-  expect_identical(b, reformat(b, empty_rule))
+  expect_identical(b, reformat(b, list()))
 })

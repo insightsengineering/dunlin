@@ -1,17 +1,11 @@
 #' Reformat Values
 #' @param obj object to reformat.
-#' @param format (`rule`) or (`list`) of `rules` depending on the class of obj.
+#' @param format (`list`) or (`list`) of `lists` depending on the class of obj.
 #' @param string_as_fct (`flag`) whether the reformatted character object should be converted to factor.
 #' @param na_last (`flag`) whether the level replacing `NA` should be last.
 #' @param ... not used. Only for compatibility between methods.
 #'
 #' @export
-#' @details
-#' For character values, reformatting will only change those should be changed.
-#' NA values are not changed, if the rule does not contain `NA_character_`.
-#' Factors works similarly to characters.
-#' For `dm` objects, see `reformat` for more details.
-#' `empty_rule` will do nothing to the data.
 #'
 #' @rdname reformat
 #'
@@ -22,8 +16,8 @@ reformat <- function(obj, ...) {
 #' @export
 #' @rdname reformat
 reformat.default <- function(obj, format, ...) {
-  if (!is(format, "empty_rule")) {
-    warning("Not implemented! Only empty rule allowed.")
+  if (length(format) != 0) {
+    warning("Not implemented! Only empty list format allowed.")
   }
   return(obj)
 }
@@ -36,11 +30,11 @@ reformat.default <- function(obj, format, ...) {
 #' # Reformatting of character.
 #' obj <- c("a", "b", "x", NA)
 #' attr(obj, "label") <- "my label"
-#' format <- rule("A" = "a", "NN" = NA)
+#' format <- list("A" = "a", "NN" = c(NA, ""))
 #'
-#' reformat(obj, format)
+#' reformat(obj, format, string_as_fct = FALSE)
 reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) {
-  checkmate::assert_class(format, "rule")
+  checkmate::assert_list(format, types = c("character", "logical"))
   checkmate::assert_flag(string_as_fct)
   checkmate::assert_flag(na_last)
 
@@ -52,18 +46,18 @@ reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE
     supp_att <- att[supp_att_name]
     attributes(obj_fact) <- c(attributes(obj_fact), supp_att)
 
-    if (is(format, "empty_rule")) {
+    if (length(format) == 0) {
       return(obj_fact)
     }
 
     reformat(obj_fact, format, na_last = na_last)
   } else {
-    if (is(format, "empty_rule")) {
+    if (length(format) == 0) {
       return(obj)
     }
 
-    value_match <- unlist(format)
-    m <- match(obj, value_match)
+    format <- h_unnest_format(format)
+    m <- match(obj, format)
     obj[!is.na(m)] <- names(format)[m[!is.na(m)]]
     obj
   }
@@ -75,20 +69,22 @@ reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE
 #' @examples
 #'
 #' # Reformatting of factor.
-#' obj <- factor(c("a", "aa", "b", "x", NA), levels = c("x", "b", "aa", "a", "z"))
+#' obj <- factor(c("a", "aa", "x", "NA", "b"), levels = c("x", "b", "aa", "a", "z"))
 #' attr(obj, "label") <- "my label"
-#' format <- rule("A" = c("a", "aa"), "NN" = c(NA, "x"), "Not Present" = "z")
+#' format <- list("A" = c("a", "aa"), "Missing" = c(NA, "x"), "Not Present" = "z")
 #'
 #' reformat(obj, format)
-#' reformat(obj, format, na_last = TRUE)
+#' reformat(obj, format, na_last = FALSE)
 reformat.factor <- function(obj, format, na_last = TRUE, ...) {
-  checkmate::assert_class(format, "rule")
+  checkmate::assert_list(format, types = c("character", "logical"))
   checkmate::assert_flag(na_last)
 
-  if (is(format, "empty_rule")) {
+  if (length(format) == 0) {
     return(obj)
   }
-  checkmate::assert_class(format, "rule")
+
+  format <- h_unnest_format(format)
+
   if (any(is.na(format))) {
     obj <- forcats::fct_na_value_to_level(obj)
   }
@@ -127,11 +123,11 @@ reformat.factor <- function(obj, format, na_last = TRUE, ...) {
 #'
 #' format <- list(
 #'   df1 = list(
-#'     var1 = rule("X" = "x", "N" = NA)
+#'     var1 = list("X" = "x", "N" = NA)
 #'   ),
 #'   df2 = list(
-#'     var1 = empty_rule,
-#'     var2 = rule("f11" = "F11", "NN" = NA)
+#'     var1 = list(),
+#'     var2 = list("f11" = "F11", "NN" = NA)
 #'   )
 #' )
 #'
@@ -185,11 +181,11 @@ reformat.dm <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) 
 #'
 #' format <- list(
 #'   df1 = list(
-#'     var1 = rule("X" = "x", "N" = NA)
+#'     var1 = list("X" = "x", "N" = c(NA, ""))
 #'   ),
 #'   df2 = list(
-#'     var1 = empty_rule,
-#'     var2 = rule("f11" = "F11", "NN" = NA)
+#'     var1 = list(),
+#'     var2 = list("f11" = "F11", "NN" = NA)
 #'   )
 #' )
 #'
@@ -197,17 +193,15 @@ reformat.dm <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) 
 reformat.list <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) {
   checkmate::assert_list(obj, type = c("data.frame", "tibble"))
   checkmate::assert_named(obj)
-  checkmate::assert_list(format, names = "unique", types = "list", null.ok = TRUE)
   checkmate::assert_flag(string_as_fct)
   checkmate::assert_flag(na_last)
+
 
   if (length(format) == 0) {
     return(obj)
   }
 
-  lapply(format, function(x) {
-    checkmate::assert_list(x, names = "unique", types = "rule")
-  })
+  assert_valid_format(format)
 
   for (tab in names(format)) {
     if (is(format[[tab]], "empty_rule")) next

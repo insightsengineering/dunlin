@@ -26,7 +26,7 @@ reformat(obj, ...)
 
 \item{...}{not used. Only for compatibility between methods.}
 
-\item{format}{(\code{rule}) or (\code{list}) of \code{rules} depending on the class of obj.}
+\item{format}{(\code{list}) or (\code{list}) of \code{lists} depending on the class of obj.}
 
 \item{string_as_fct}{(\code{flag}) whether the reformatted character object should be converted to factor.}
 
@@ -35,29 +35,22 @@ reformat(obj, ...)
 \description{
 Reformat Values
 }
-\details{
-For character values, reformatting will only change those should be changed.
-NA values are not changed, if the rule does not contain \code{NA_character_}.
-Factors works similarly to characters.
-For \code{dm} objects, see \code{reformat} for more details.
-\code{empty_rule} will do nothing to the data.
-}
 \examples{
 
 # Reformatting of character.
 obj <- c("a", "b", "x", NA)
 attr(obj, "label") <- "my label"
-format <- rule("A" = "a", "NN" = NA)
+format <- list("A" = "a", "NN" = c(NA, ""))
 
-reformat(obj, format)
+reformat(obj, format, string_as_fct = FALSE)
 
 # Reformatting of factor.
-obj <- factor(c("a", "aa", "b", "x", NA), levels = c("x", "b", "aa", "a", "z"))
+obj <- factor(c("a", "aa", "x", "NA", "b"), levels = c("x", "b", "aa", "a", "z"))
 attr(obj, "label") <- "my label"
-format <- rule("A" = c("a", "aa"), "NN" = c(NA, "x"), "Not Present" = "z")
+format <- list("A" = c("a", "aa"), "Missing" = c(NA, "x"), "Not Present" = "z")
 
 reformat(obj, format)
-reformat(obj, format, na_last = TRUE)
+reformat(obj, format, na_last = FALSE)
 
 # Reformatting of dm.
 library(dm)
@@ -76,11 +69,11 @@ db <- dm(df1 = df1, df2 = df2)
 
 format <- list(
   df1 = list(
-    var1 = rule("X" = "x", "N" = NA)
+    var1 = list("X" = "x", "N" = NA)
   ),
   df2 = list(
-    var1 = empty_rule,
-    var2 = rule("f11" = "F11", "NN" = NA)
+    var1 = list(),
+    var2 = list("f11" = "F11", "NN" = NA)
   )
 )
 
@@ -101,11 +94,11 @@ db <- list(df1 = df1, df2 = df2)
 
 format <- list(
   df1 = list(
-    var1 = rule("X" = "x", "N" = NA)
+    var1 = list("X" = "x", "N" = c(NA, ""))
   ),
   df2 = list(
-    var1 = empty_rule,
-    var2 = rule("f11" = "F11", "NN" = NA)
+    var1 = list(),
+    var2 = list("f11" = "F11", "NN" = NA)
   )
 )
 

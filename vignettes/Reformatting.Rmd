@@ -27,30 +27,30 @@ tables of a data set stored.
 
 This is performed in two steps: 
 
-1. A Reformatting Map (`rule` object) is created which specifies the correspondence between the old and the new values
+1. A rule (`list`) is created which specifies the correspondence between the old and the new values
 
 2. The reformatting itself is performed with the `dunlin::reformat()` function.
 
-## The Formatting Map Structure
+## The Rule Structure
 
-The Reformatting Map is a `rule` object inheriting from `character`.
+The rule is a `list`.
 Its names are the new values to be used, and its values are the old values to be used.
 
 ```{r}
-rule(A = "a", B = c("c", "d"))
+list(A = "a", B = c("c", "d"))
 ```
 
-This rule will replace "a" with "A", replace "c" or "d" with "B".
+Using this rule will replace "a" with "A", replace "c" or "d" with "B".
 
 ## Calling `reformat`
 
-`reformat` is a generic supports reformatting of `character` or `factor`. Reformatting for
+`reformat` is a generic supports reformatting of `character`, `factor`, `dm` and `list of data.frame`. Reformatting for
 other types of variables is meaningless. `reformat` will also preserve the attributes of the
 original data, e.g. the data type or labels will be unchanged.
 
 An example of reformatting `character` can be
 ```{r}
-r <- rule(A = "a", B = c("c", "d"))
+r <- list(A = "a", B = c("c", "d"))
 reformat(c("a", "c", "d", NA), r)
 ```
 
@@ -58,7 +58,7 @@ We can see that the `NA` values are not changed.
 
 Now we test the factor reformatting:
 ```{r}
-r <- rule(A = "a", B = c("c", "d"))
+r <- list(A = "a", B = c("c", "d"))
 reformat(factor(c("a", "c", "d", NA)), r)
 ```
 
@@ -66,17 +66,14 @@ The `NA` values are also not changed.
 However, if we including reformatting for the `NA`, there is something different:
 
 ```{r}
-r <- rule(A = "a", B = c("c", "d"), C = NA)
+r <- list(A = "a", B = c("c", "d"), C = NA)
 reformat(factor(c("a", "c", "d", NA)), r)
 ```
 
 Please note that the level for `NA` is always the last one, if that new level only has `NA`.
 
-For `dm` objects, the `format` argument is actually a nested list of rule.
+For `dm` objects, the `format` argument is actually a nested list of rules or **reformatting map**.
 The first layer indicates the table names, the second layer indicates the variables in that table.
- 
-The `All` keyword, in first layer, lower or Mixed case, can be used instead of a table name to
-indicate that a particular variable should be changed in every table where it appears.
  
 #### Example of Reformatting Map
 
@@ -85,18 +82,19 @@ my_map <- list(
   # This is the Table Name.
   airlines = list(
     # This is the Variable Name.
-    name = rule(
+    name = list(
+      # This a variable Value.
       "AE" = c("American Airlines Inc."),
       "Alaska and Hawaiian Airlines" = c("Alaska Airlines Inc.", "Hawaiian Airlines Inc.")
     )
   ),
   planes = list(
-    manufacturer = rule(
+    manufacturer = list(
       "Airbus" = "AIRBUS INDUSTRIE",
       "New Level" = "new_level",
       "<Missing>" = NA
     ),
-    model = rule(
+    model = list(
       "EMB-145" = c("EMB-145XR"),
       "Other 737" = c("737-824", "737-724", "737-732")
     )
