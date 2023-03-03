@@ -15,7 +15,7 @@
 #'
 #' @rdname reformat
 #'
-reformat <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) {
+reformat <- function(obj, ...) {
   UseMethod("reformat")
 }
 
@@ -42,6 +42,7 @@ reformat.default <- function(obj, format, ...) {
 reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) {
   checkmate::assert_class(format, "rule")
   checkmate::assert_flag(string_as_fct)
+  checkmate::assert_flag(na_last)
 
   if (string_as_fct) {
     # Keep attributes.
@@ -80,7 +81,10 @@ reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE
 #'
 #' reformat(obj, format)
 #' reformat(obj, format, na_last = TRUE)
-reformat.factor <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) {
+reformat.factor <- function(obj, format, na_last = TRUE, ...) {
+  checkmate::assert_class(format, "rule")
+  checkmate::assert_flag(na_last)
+
   if (is(format, "empty_rule")) {
     return(obj)
   }
@@ -133,23 +137,24 @@ reformat.factor <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, .
 #'
 #' reformat(db, format)
 reformat.dm <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) {
-  checkmate::assert_class(obj, "dm")
-
-  ls_df <- as.list(obj)
-  ls_res <- reformat(ls_df, format = format, string_as_fct = string_as_fct, na_last = na_last)
-  res <- as_dm(ls_res)
+  checkmate::assert_list(format, names = "unique", types = "list", null.ok = TRUE)
+  checkmate::assert_flag(string_as_fct)
+  checkmate::assert_flag(na_last)
 
   pk <- dm::dm_get_all_pks(obj)
-
-  for (i in seq_len(nrow(pk))) {
-    res <- dm_add_pk(res, !!pk[["table"]][i], !!pk[["pk_col"]][[i]])
-  }
-
   fk <- dm::dm_get_all_fks(obj)
 
+  obj <- as.list(obj)
+  obj <- reformat(obj, format = format, string_as_fct = string_as_fct, na_last = na_last)
+  obj <- as_dm(obj)
+
+  for (i in seq_len(nrow(pk))) {
+    obj <- dm_add_pk(obj, !!pk[["table"]][i], !!pk[["pk_col"]][[i]])
+  }
+
   for (i in seq_len(nrow(fk))) {
-    res <- dm::dm_add_fk(
-      res,
+    obj <- dm::dm_add_fk(
+      obj,
       !!fk[["child_table"]][i],
       !!fk[["child_fk_cols"]][[i]],
       !!fk[["parent_table"]][i],
@@ -157,7 +162,7 @@ reformat.dm <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) 
     )
   }
 
-  res
+  obj
 }
 
 #' @export
@@ -193,6 +198,8 @@ reformat.list <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...
   checkmate::assert_list(obj, type = c("data.frame", "tibble"))
   checkmate::assert_named(obj)
   checkmate::assert_list(format, names = "unique", types = "list", null.ok = TRUE)
+  checkmate::assert_flag(string_as_fct)
+  checkmate::assert_flag(na_last)
 
   if (length(format) == 0) {
     return(obj)

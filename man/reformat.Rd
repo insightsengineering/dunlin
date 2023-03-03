@@ -9,13 +9,13 @@
 \alias{reformat.list}
 \title{Reformat Values}
 \usage{
-reformat(obj, format, string_as_fct = TRUE, na_last = TRUE, ...)
+reformat(obj, ...)
 
 \method{reformat}{default}(obj, format, ...)
 
 \method{reformat}{character}(obj, format, string_as_fct = TRUE, na_last = TRUE, ...)
 
-\method{reformat}{factor}(obj, format, string_as_fct = TRUE, na_last = TRUE, ...)
+\method{reformat}{factor}(obj, format, na_last = TRUE, ...)
 
 \method{reformat}{dm}(obj, format, string_as_fct = TRUE, na_last = TRUE, ...)
 
@@ -24,13 +24,13 @@ reformat(obj, format, string_as_fct = TRUE, na_last = TRUE, ...)
 \arguments{
 \item{obj}{object to reformat.}
 
+\item{...}{not used. Only for compatibility between methods.}
+
 \item{format}{(\code{rule}) or (\code{list}) of \code{rules} depending on the class of obj.}
 
 \item{string_as_fct}{(\code{flag}) whether the reformatted character object should be converted to factor.}
 
 \item{na_last}{(\code{flag}) whether the level replacing \code{NA} should be last.}
-
-\item{...}{not used. Only for compatibility between methods.}
 }
 \description{
 Reformat Values
