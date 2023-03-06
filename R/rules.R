@@ -1,33 +1,3 @@
-#' Read rule yaml file
-#' @param file (`string`) of path to the rule yaml file.
-#' @export
-read_rules <- function(file) {
-  checkmate::assert_file_exists(file)
-  content <- yaml::read_yaml(file)
-  rules(.lst = lapply(content, do.call, what = rule))
-}
-
-#' Write rule
-#' @param rules (`rules`) object.
-#' @param file (`string`) file path to write to.
-#' @param append (`flag`) indicator of whether to overwrite or add rules.
-#' @export
-write_rules <- function(rules, file, append = TRUE) {
-  checkmate::assert_class(rules, "rules")
-  checkmate::assert_string(file)
-  checkmate::assert_flag(append)
-  if (append) {
-    if (file.exists(file)) {
-      original <- read_rules(file)
-    } else {
-      original <- rules()
-    }
-    yaml::write_yaml(as.list(append_rules(original, rules)), file)
-  } else {
-    yaml::write_yaml(as.list(rules), file)
-  }
-}
-
 #' Create rule based on mappings
 #' @param ... Mapping pairs, the argument name is the transformed while
 #' its values are original values.
@@ -57,27 +27,8 @@ empty_rule <- structure(
   class = c("empty_rule", "rule", "character")
 )
 
-#' Create rule sets
-#' @param ... Named arguments of rules.
-#' @param .lst (`list`) of rules.
 #' @export
-rules <- function(..., .lst = list(...)) {
-  checkmate::assert_list(.lst, types = "rule", any.missing = FALSE, names = "unique")
-  class(.lst) <- c("rules", "list")
-  return(.lst)
-}
-
-#' Append rules to an existing rules sets
-#' @param rules_base (`rules`) to update.
-#' @param rule_add (`rules`) to add/update.
-#' @export
-append_rules <- function(rules_base, rule_add) {
-  checkmate::assert_class(rules_base, "rules")
-  checkmate::assert_class(rule_add, "rules")
-  rules(.lst = utils::modifyList(rules_base, rule_add))
-}
-
-#' @export
+#'
 print.rule <- function(x, ...) {
   cat("Mapping of:\n")
   nms <- names(x)
@@ -86,20 +37,16 @@ print.rule <- function(x, ...) {
   }
 }
 
-#' @export
-print.empty_rule <- function(x, ...) {
-  cat("Empty mapping\n")
-}
 
+#' Convert Rule to List
+#' @param x (`rule`) to convert.
+#' @param ... not used.
+#'
 #' @export
-print.rules <- function(x, ...) {
-  for (i in names(x)) {
-    cat("rule ", i, "\n")
-    print(x[[i]])
-  }
-}
-
-#' @export
+#' @examples
+#'
+#' x <- rule("a" = c("a", "b"), "X" = "x")
+#' as.list(x)
 as.list.rule <- function(x, ...) {
   nms <- names(x)
   unames <- unique(nms)
@@ -110,7 +57,30 @@ as.list.rule <- function(x, ...) {
 }
 
 #' @export
-as.list.rules <- function(x, ...) {
-  class(x) <- "list"
-  lapply(x, as.list.rule)
+print.empty_rule <- function(x, ...) {
+  cat("Empty mapping\n")
+}
+
+#' Read Format yaml file
+#' @param file (`string`) of path to the rule yaml file.
+#' @export
+read_format <- function(file) {
+  checkmate::assert_file_exists(file)
+  content <- yaml::read_yaml(file)
+  assert_valid_list_format(content)
+
+  lapply(content, function(tab) lapply(tab, function(r) rule(.lst = r)))
+}
+
+#' Write Format yaml file
+#' @param format (`list`) object.
+#' @param file (`string`) file path to write to.
+#' @export
+write_format <- function(format, file) {
+  assert_valid_format(format)
+  checkmate::assert_string(file)
+
+  res <- rapply(format, as.list, classes = "rule", how = "replace")
+
+  yaml::write_yaml(res, file)
 }

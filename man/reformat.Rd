@@ -26,7 +26,7 @@ reformat(obj, ...)
 
 \item{...}{not used. Only for compatibility between methods.}
 
-\item{format}{(\code{rule}) or (\code{list}) of \code{rules} depending on the class of obj.}
+\item{format}{(\code{rule}) or (\code{list}) of \code{rule} depending on the class of obj.}
 
 \item{string_as_fct}{(\code{flag}) whether the reformatted character object should be converted to factor.}
 
@@ -35,12 +35,10 @@ reformat(obj, ...)
 \description{
 Reformat Values
 }
-\details{
-For character values, reformatting will only change those should be changed.
-NA values are not changed, if the rule does not contain \code{NA_character_}.
-Factors works similarly to characters.
-For \code{dm} objects, see \code{reformat} for more details.
-\code{empty_rule} will do nothing to the data.
+\note{
+When the rule is empty rule or when values subject to reformatting are absent from the object, no error is
+raised. The rest of the reformatting process (for instance the conversion to factor  and the reformatting of
+factors levels if \code{string_as_fct = TRUE}) is still carried out.
 }
 \examples{
 

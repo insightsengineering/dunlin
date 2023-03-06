@@ -32,14 +32,17 @@ reference:
       - h_as_factor
       - h_ws_to_na
       - h_ws_to_explicit_na
-  - title: Rules
+  - title: Rule and Format
     contents:
       - rule
-      - rules
-      - read_rules
-      - write_rules
+      - as.list.rule
       - empty_rule
-      - append_rules
+      - read_format
+      - write_format
+  - title: Assertions
+    contents:
+      - assert_valid_format
+      - assert_valid_list_format
   - title: Data
     contents:
       - standard_remap

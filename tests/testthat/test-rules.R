@@ -55,80 +55,36 @@ test_that("emtpy_rule printed correctly", {
   expect_snapshot(empty_rule)
 })
 
-# rules ----
-
-test_that("rules is a named list of rule", {
-  r <- rules(a = rule(a = 1))
-  expect_s3_class(r, "rules")
-  expect_identical(r, list(rule(a = 1)), ignore_attr = TRUE)
-})
-
-test_that("rules failes if element is not rule", {
-  expect_error(
-    rules(a = list(a = 1)),
-    "May only contain the following types: \\{rule\\}"
-  )
-})
-
-test_that("rules elements must have different names", {
-  expect_error(
-    rules(rule(a = 1)),
-    "Must have names"
-  )
-  expect_error(
-    rules(a = rule(a = 1), a = rule(a = 2)),
-    "Must have unique names, but element 2 is duplicated"
-  )
-})
-
-test_that("rules printed correctly", {
-  expect_snapshot(rules(a = rule(a = 1), b = rule(a = 2)))
-})
-
-# append_rules ----
-
-test_that("append_rules works as expected", {
-  a <- rules(a = rule(a = 1))
-  b <- rules(a = rule(a = 2))
-  expect_identical(
-    append_rules(a, b),
-    rules(a = rule(a = 2))
-  )
-  d <- rules(a = rule(a = 2), b = rule(a = 3))
-  expect_identical(
-    append_rules(a, d),
-    rules(a = rule(a = 2), b = rule(a = 3))
-  )
-})
-
 # rule reading/writing ----
 
-test_that("rules are read and written correctly", {
+test_that("nested list of rules are read and written correctly", {
   tf <- tempfile()
-  r1 <- rules(
-    a = rule(a = 1, b = 2),
-    b = rule(a = 3, b = 4)
-  )
-  write_rules(r1, file = tf, append = TRUE)
-  r2 <- read_rules(tf)
-  expect_identical(r1, r2)
-  r3 <- rules(
-    a = rule(a = 2, b = 3:4),
-    d = rule(a = NA)
-  )
-  write_rules(r3, file = tf, append = TRUE)
-  expect_identical(
-    read_rules(tf),
-    rules(
-      a = rule(a = 2, b = 3:4),
-      b = rule(a = 3, b = 4),
-      d = rule(a = NA)
+  r1 <- list(
+    df1 = list(
+      a = rule(a = 1, b = 2),
+      b = rule(a = 3, b = 4)
     )
   )
-  write_rules(r3, tf, FALSE)
-  expect_identical(
-    read_rules(tf),
-    r3
+  write_format(r1, file = tf)
+
+  r2 <- read_format(tf)
+  expect_identical(r1, r2)
+
+  on.exit(file.remove(tf))
+})
+
+test_that("nested list of rules are read and written correctly in the case of empty rule", {
+  tf <- tempfile()
+  r1 <- list(
+    df1 = list(
+      a = rule(a = 1, b = 2),
+      b = empty_rule
+    )
   )
+  write_format(r1, file = tf)
+
+  r2 <- read_format(tf)
+  expect_identical(r1, r2)
+
   on.exit(file.remove(tf))
 })

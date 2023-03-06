@@ -5,7 +5,7 @@
 \alias{standard_remap}
 \title{Example of Remapping List}
 \format{
-a \code{rules} of 2 \code{rule}.
+a nest \code{list} with \code{rule}.
 }
 \source{
 this object is based on the \code{yaml} file of the same name stored in \code{inst/extdata}.

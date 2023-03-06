@@ -1,17 +1,14 @@
 #' Reformat Values
 #' @param obj object to reformat.
-#' @param format (`rule`) or (`list`) of `rules` depending on the class of obj.
+#' @param format (`rule`) or (`list`) of `rule` depending on the class of obj.
 #' @param string_as_fct (`flag`) whether the reformatted character object should be converted to factor.
 #' @param na_last (`flag`) whether the level replacing `NA` should be last.
 #' @param ... not used. Only for compatibility between methods.
 #'
 #' @export
-#' @details
-#' For character values, reformatting will only change those should be changed.
-#' NA values are not changed, if the rule does not contain `NA_character_`.
-#' Factors works similarly to characters.
-#' For `dm` objects, see `reformat` for more details.
-#' `empty_rule` will do nothing to the data.
+#' @note When the rule is empty rule or when values subject to reformatting are absent from the object, no error is
+#'   raised. The rest of the reformatting process (for instance the conversion to factor  and the reformatting of
+#'   factors levels if `string_as_fct = TRUE`) is still carried out.
 #'
 #' @rdname reformat
 #'
@@ -137,7 +134,7 @@ reformat.factor <- function(obj, format, na_last = TRUE, ...) {
 #'
 #' reformat(db, format)
 reformat.dm <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) {
-  checkmate::assert_list(format, names = "unique", types = "list", null.ok = TRUE)
+  assert_valid_format(format)
   checkmate::assert_flag(string_as_fct)
   checkmate::assert_flag(na_last)
 
@@ -205,9 +202,7 @@ reformat.list <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...
     return(obj)
   }
 
-  lapply(format, function(x) {
-    checkmate::assert_list(x, names = "unique", types = "rule")
-  })
+  assert_valid_format(format)
 
   for (tab in names(format)) {
     if (is(format[[tab]], "empty_rule")) next

@@ -1,8 +1,17 @@
 ---
-
-Variable1: 
-  NewValue: OldValue
-Variable2: 
-  NewValue1: [OldValueA, OldValueB]
-  NewValue2: OldValueC
-  NewValue3: .na
+Table1:
+  ColumnX:
+    NewValue1:
+    - OldValueA
+    - OldValueB
+    NewValue2: OldValueC
+  ColumnY:
+    NewValue3:
+    - OldValueD
+    - OldValueE
+    NewValue4: .na.character
+Table2:
+  ColumnZ:
+    NewValue5:
+    - OldValueF
+    - .na.character
