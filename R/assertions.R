@@ -12,7 +12,8 @@
 #'   df2 = list(
 #'     var1 = list(),
 #'     var2 = list("f11" = "F11", "NN" = NA)
-#'   )
+#'   ),
+#'   df3 = list()
 #' )
 #'
 #' assert_valid_format(format)
@@ -20,7 +21,7 @@ assert_valid_format <- function(object) {
   coll <- checkmate::makeAssertCollection()
 
   # Check object.
-  checkmate::assert_list(object, names = "unique", type = "list")
+  checkmate::assert_list(object, names = "unique", type = "list", add = coll)
 
   # Check table level.
   mapply(

@@ -5,6 +5,10 @@
 #' @param na_last (`flag`) whether the level replacing `NA` should be last.
 #' @param ... not used. Only for compatibility between methods.
 #'
+#' @note Values subject to reformatting but absent from the object do not lead to an error. The rest of the reformatting
+#'   process (for instance the conversion to factor  and the reformatting of factors levels if `string_as_fct = TRUE`)
+#'   is still carried out.
+#'
 #' @export
 #'
 #' @rdname reformat
@@ -196,7 +200,6 @@ reformat.list <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...
   checkmate::assert_flag(string_as_fct)
   checkmate::assert_flag(na_last)
 
-
   if (length(format) == 0) {
     return(obj)
   }
@@ -204,11 +207,10 @@ reformat.list <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...
   assert_valid_format(format)
 
   for (tab in names(format)) {
-    if (is(format[[tab]], "empty_rule")) next
+    if (length(format[[tab]]) == 0) next
 
     local_map <- format[[tab]]
     local_map <- local_map[names(local_map) %in% names(obj[[tab]])]
-
 
     obj[[tab]][names(local_map)] <- mapply(
       function(rl, col) reformat(obj[[tab]][[col]], format = rl, string_as_fct = string_as_fct, na_last = na_last),

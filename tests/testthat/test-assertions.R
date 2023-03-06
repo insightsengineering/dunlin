@@ -13,7 +13,7 @@ test_that("assert_valid_format works as expected", {
   expect_true(res)
 })
 
-test_that("assert_valid_format works as expected", {
+test_that("assert_valid_format fails as expected", {
   format <- list(
     df1 = list(
       var1 = list("X" = "x", "N" = c(NA, "")),

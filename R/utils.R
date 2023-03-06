@@ -148,28 +148,6 @@ attr_label_df <- function(df, label) {
   as.data.frame(res)
 }
 
-#' Fuse list elements
-#'
-#' @param x (`list`) to fuse.
-#' @param y (`list`) to fuse. Elements with names already existing in `x` are discarded.
-#'
-#' @keywords internal
-#'
-fuse_sequentially <- function(x, y) {
-  # if `x` is empty rule, it overrides everything and is returned as is.
-  if (missing(y) || is.null(y) || is(x, "empty_rule")) {
-    return(x)
-  }
-
-  checkmate::assert_list(x, null.ok = TRUE)
-  checkmate::assert_list(y)
-
-  names_x <- names(x)
-  sel_names_y <- setdiff(names(y), names_x)
-
-  c(x, y[sel_names_y])
-}
-
 #' Unnest a list of mappings
 #'
 #' @param .lst (`list`) of mapping.

@@ -99,8 +99,9 @@ test_that("reformat for list works as expected", {
     "another_char" = c("a", "b", NA, "a", "k", "x"),
     "another_fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
   )
+  df3 <- data.frame(x = c("a", "b", "c"))
 
-  db <- list(df1 = df1, df2 = df2)
+  db <- list(df1 = df1, df2 = df2, df3 = df3)
   attr(db$df1$char, "label") <- "my label"
 
   test_map <- list(
@@ -110,7 +111,8 @@ test_that("reformat for list works as expected", {
     ),
     df2 = list(
       char = list()
-    )
+    ),
+    df3 = list()
   )
 
   expect_silent(res <- reformat(db, test_map))
@@ -119,11 +121,12 @@ test_that("reformat for list works as expected", {
 
   expect_identical(res$df1$char, expected) # normal reformatting keeps attribute.
   expect_identical(res$df1$fact, db$df1$fact) # No rules to apply.
-  expect_identical(res$df1$fact, db$df1$fact) # Empty rule changes nothing.
-  expect_identical(res$df2$char, as.factor(db$df2$char)) # Empty rule changes character to factor by default.
+  expect_identical(res$df1$fact, db$df1$fact) # Empty list changes nothing.
+  expect_identical(res$df2$char, as.factor(db$df2$char)) # Empty list changes character to factor by default.
+  expect_identical(res$df3, db$df3)
 })
 
-# reformat using empty_rule ----
+# reformat using empty list ----
 
 test_that("empty list works as expected", {
   a <- c("1", "2")

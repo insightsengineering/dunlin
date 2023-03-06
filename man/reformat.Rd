@@ -35,6 +35,11 @@ reformat(obj, ...)
 \description{
 Reformat Values
 }
+\note{
+Values subject to reformatting but absent from the object do not lead to an error. The rest of the reformatting
+process (for instance the conversion to factor  and the reformatting of factors levels if \code{string_as_fct = TRUE})
+is still carried out.
+}
 \examples{
 
 # Reformatting of character.

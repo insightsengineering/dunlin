@@ -30,16 +30,12 @@ reference:
       - attr_label
       - attr_label_df
       - h_as_factor
+      - h_unnest_format
       - h_ws_to_na
       - h_ws_to_explicit_na
-  - title: Rules
+  - title: Assertions
     contents:
-      - rule
-      - rules
-      - read_rules
-      - write_rules
-      - empty_rule
-      - append_rules
+      - assert_valid_format
   - title: Data
     contents:
       - standard_remap

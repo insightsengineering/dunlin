@@ -23,7 +23,8 @@ format <- list(
   df2 = list(
     var1 = list(),
     var2 = list("f11" = "F11", "NN" = NA)
-  )
+  ),
+  df3 = list()
 )
 
 assert_valid_format(format)
