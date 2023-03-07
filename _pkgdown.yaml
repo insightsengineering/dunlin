@@ -37,8 +37,7 @@ reference:
       - rule
       - as.list.rule
       - empty_rule
-      - read_format
-      - write_format
+      - read_rules
   - title: Assertions
     contents:
       - assert_valid_format

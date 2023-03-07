@@ -61,26 +61,11 @@ print.empty_rule <- function(x, ...) {
   cat("Empty mapping\n")
 }
 
-#' Read Format yaml file
+#' Read yaml File describing `rule`
 #' @param file (`string`) of path to the rule yaml file.
 #' @export
-read_format <- function(file) {
+read_rules <- function(file) {
   checkmate::assert_file_exists(file)
   content <- yaml::read_yaml(file)
-  assert_valid_list_format(content)
-
-  lapply(content, function(tab) lapply(tab, function(r) rule(.lst = r)))
-}
-
-#' Write Format yaml file
-#' @param format (`list`) object.
-#' @param file (`string`) file path to write to.
-#' @export
-write_format <- function(format, file) {
-  assert_valid_format(format)
-  checkmate::assert_string(file)
-
-  res <- rapply(format, as.list, classes = "rule", how = "replace")
-
-  yaml::write_yaml(res, file)
+  lapply(content, function(x) rule(.lst = x))
 }

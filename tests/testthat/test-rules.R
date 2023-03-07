@@ -55,36 +55,18 @@ test_that("emtpy_rule printed correctly", {
   expect_snapshot(empty_rule)
 })
 
-# rule reading/writing ----
+# rule reading ----
 
-test_that("nested list of rules are read and written correctly", {
+test_that("list of rules are read correctly", {
   tf <- tempfile()
   r1 <- list(
-    df1 = list(
-      a = rule(a = 1, b = 2),
-      b = rule(a = 3, b = 4)
-    )
+    rule_a = list(a = 1, b = 2),
+    rule_b = list(a = 3, b = 4)
   )
-  write_format(r1, file = tf)
+  yaml::write_yaml(r1, file = tf)
 
-  r2 <- read_format(tf)
-  expect_identical(r1, r2)
+  r2 <- read_rules(tf)
 
-  on.exit(file.remove(tf))
-})
-
-test_that("nested list of rules are read and written correctly in the case of empty rule", {
-  tf <- tempfile()
-  r1 <- list(
-    df1 = list(
-      a = rule(a = 1, b = 2),
-      b = empty_rule
-    )
-  )
-  write_format(r1, file = tf)
-
-  r2 <- read_format(tf)
-  expect_identical(r1, r2)
-
-  on.exit(file.remove(tf))
+  checkmate::expect_list(r2, type = "rule", len = 2)
+  expect_identical(names(r2), c("rule_a", "rule_b"))
 })
