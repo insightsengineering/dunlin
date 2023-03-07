@@ -31,10 +31,13 @@
     <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dulin/main/news/index.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dulin/main/reference/apply_reformat.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dulin/main/reference/as.list.rule.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dulin/main/reference/assert_reformat.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dulin/main/reference/assert_valid_format.html</loc>
+  </url>
+  <url>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dulin/main/reference/assert_valid_list_format.html</loc>
   </url>
   <url>
     <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dulin/main/reference/attr_label.html</loc>
@@ -58,10 +61,10 @@
     <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dulin/main/reference/dunlin-package.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dulin/main/reference/h_as_factor.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dulin/main/reference/empty_rule.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dulin/main/reference/h_reformat_tab.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dulin/main/reference/h_as_factor.html</loc>
   </url>
   <url>
     <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dulin/main/reference/h_ws_to_explicit_na.html</loc>
@@ -86,6 +89,15 @@
   </url>
   <url>
     <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dulin/main/reference/propagate.html</loc>
+  </url>
+  <url>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dulin/main/reference/read_rules.html</loc>
+  </url>
+  <url>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dulin/main/reference/reformat.html</loc>
+  </url>
+  <url>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dulin/main/reference/rule.html</loc>
   </url>
   <url>
     <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dulin/main/reference/standard_remap.html</loc>
