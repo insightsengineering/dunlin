@@ -1,4 +1,3 @@
-
 #' Propagate Column
 #'
 #' `propagate`copy columns from a given table of a `dm` object to all tables based on other common columns. If several

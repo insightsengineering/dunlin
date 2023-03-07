@@ -44,7 +44,7 @@ test_that("join_adsub_adsl throw a warning when column already exist in adsl.", 
     mutate(h = 160) %>%
     dm::dm_update_zoomed()
 
-  expect_warning(join_adsub_adsl(adam_db = new_db))
+  expect_warning(join_adsub_adsl(adam_db = new_db), "h already exist in adsl, the name will default to another values")
 })
 
 test_that("join_adsub_adsl throw a warning when two new columns would have the same name.", {

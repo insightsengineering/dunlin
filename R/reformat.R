@@ -1,289 +1,223 @@
-
-#' Reformat values
+#' Reformat Values
+#' @param obj object to reformat.
+#' @param format (`rule`) or (`list`) of `rule` depending on the class of obj.
+#' @param string_as_fct (`flag`) whether the reformatted character object should be converted to factor.
+#' @param na_last (`flag`) whether the level replacing `NA` should be last.
+#' @param ... not used. Only for compatibility between methods.
 #'
-#' @param db (`dm`) object input.
-#' @param format (`list`) in a specific format.
-#'
-#' @note Using the keyword `All` as a table name will change the corresponding variable in every table where it appears.
-#' @return a `dm` object with re coded variables as factor. If not reformatted, original levels are preserved.
 #' @export
+#' @note When the rule is empty rule or when values subject to reformatting are absent from the object, no error is
+#'   raised. The rest of the reformatting process (for instance the conversion to factor  and the reformatting of
+#'   factors levels if `string_as_fct = TRUE`) is still carried out.
+#'
+#' @rdname reformat
+#'
+reformat <- function(obj, ...) {
+  UseMethod("reformat")
+}
+
+#' @export
+#' @rdname reformat
+reformat.default <- function(obj, format, ...) {
+  if (!is(format, "empty_rule")) {
+    warning("Not implemented! Only empty rule allowed.")
+  }
+  return(obj)
+}
+
+#' @export
+#' @rdname reformat
 #'
 #' @examples
-#' library(dm)
 #'
-#' df1 <- data.frame(
-#'   "char" = c("a", "b", NA, "a", "k", "x"),
-#'   "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
-#'   "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
-#' )
-#' df2 <- data.frame(
-#'   "char" = c("a", "b", NA, "a", "k", "x"),
-#'   "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f1", "f2", "fx")),
-#'   "num" = 1:6
-#' )
+#' # Reformatting of character.
+#' obj <- c("a", "b", "x", NA)
+#' attr(obj, "label") <- "my label"
+#' format <- rule("A" = "a", "NN" = NA)
 #'
-#' db <- dm(df1, df2)
-#'
-#' new_formats <- list(
-#'   df1 = list(
-#'     char = list(
-#'       "A" = c("a", "k"),
-#'       "B" = "b"
-#'     )
-#'   ),
-#'   df2 = list(
-#'     num = list(
-#'       "11" = "1",
-#'       "22" = "2"
-#'     )
-#'   ),
-#'   ALL = list(
-#'     fact = list(
-#'       "F1" = "f1",
-#'       "F2" = "f2",
-#'       "FX" = "fx",
-#'       "<Missing>" = NA
-#'     ),
-#'     other = list(
-#'       "x" = "X"
-#'     )
-#'   )
-#' )
-#'
-#' res <- apply_reformat(db, new_formats)
-apply_reformat <- function(db, format = NULL) {
-  if (is.null(format)) {
-    return(db)
-  }
+#' reformat(obj, format)
+reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) {
+  checkmate::assert_class(format, "rule")
+  checkmate::assert_flag(string_as_fct)
+  checkmate::assert_flag(na_last)
 
-  assert_reformat(format)
+  if (string_as_fct) {
+    # Keep attributes.
+    att <- attributes(obj)
+    obj_fact <- as.factor(obj)
+    supp_att_name <- setdiff(names(att), attributes(obj_fact))
+    supp_att <- att[supp_att_name]
+    attributes(obj_fact) <- c(attributes(obj_fact), supp_att)
 
-  remap_tab <- intersect(names(format), names(db))
-  if ("ALL" %in% toupper(names(format))) {
-    remap_tab <- c("All", remap_tab)
-    names(format)[toupper(names(format)) == "ALL"] <- "All"
-  }
-
-  # iterate over highest map level (tab).
-  for (tab in remap_tab) {
-    local_map <- format[[tab]]
-
-    # iterate over variables
-    for (col in names(local_map)) {
-      key_val <- local_map[[col]]
-
-      # if no mapping is provided for a variable, skip this remapping.
-      if (is.null(key_val)) {
-        next
-      }
-
-      key_len <- unlist(lapply(key_val, length))
-      val_nam <- rep(names(key_val), key_len)
-      dic_map <- setNames(val_nam, unlist(key_val))
-
-      if (tab == "All") {
-        for (sel_tab in names(db)) {
-          db <- h_reformat_tab(db, sel_tab, col, dic_map)
-        }
-      } else {
-        db <- h_reformat_tab(db, tab, col, dic_map)
-      }
+    if (is(format, "empty_rule")) {
+      return(obj_fact)
     }
+
+    reformat(obj_fact, format, na_last = na_last)
+  } else {
+    if (is(format, "empty_rule")) {
+      return(obj)
+    }
+
+    value_match <- unlist(format)
+    m <- match(obj, value_match)
+    obj[!is.na(m)] <- names(format)[m[!is.na(m)]]
+    obj
   }
-  db
 }
 
-#' Reformat a Variable in a Specific Column and Table
-#'
-#' @param db (`dm`) object input.
-#' @param tab (`string`) the name of a table.
-#' @param col (`string`) the name of a variable in a table.
-#' @param dic_map (named `vector`) a dictionary with the mapping values, with the format `c(new = old)` sorted according
-#'   to the desired order of factor levels. Existing values not present in the dictionary are preserved, but their
-#'   corresponding levels will be placed after the levels of the remapped values. If `NAs` or empty string are mapped,
-#'   their corresponding level will be last. If `dic_map` is `NULL`, the selected column will be converted into factor
-#'   without further modifications.
-#'
-#' @note If `tab` is not a valid table name of the `db` object, the original object is returned. Similarly, if `col` is
-#'   not a valid column of the selected `tab` in the object, the original object is returned. This behavior is desirable
-#'   when a variable that exists in most but not all tables has to be re coded.
-#'
-#' @note Both empty string and `NAs` can be re coded if needed.
-#'
-#' @note The `label` attribute of the column is preserved.
-#'
-#' @return a `dm` object with re coded variables as factor.
-#'
-#' @keywords internal
+#' @export
+#' @rdname reformat
 #'
 #' @examples
-#' \dontrun{
+#'
+#' # Reformatting of factor.
+#' obj <- factor(c("a", "aa", "b", "x", NA), levels = c("x", "b", "aa", "a", "z"))
+#' attr(obj, "label") <- "my label"
+#' format <- rule("A" = c("a", "aa"), "NN" = c(NA, "x"), "Not Present" = "z")
+#'
+#' reformat(obj, format)
+#' reformat(obj, format, na_last = TRUE)
+reformat.factor <- function(obj, format, na_last = TRUE, ...) {
+  checkmate::assert_class(format, "rule")
+  checkmate::assert_flag(na_last)
+
+  if (is(format, "empty_rule")) {
+    return(obj)
+  }
+  checkmate::assert_class(format, "rule")
+  if (any(is.na(format))) {
+    obj <- forcats::fct_na_value_to_level(obj)
+  }
+
+  format <- format[format %in% levels(obj)]
+
+  res <- forcats::fct_recode(obj, !!!format)
+
+  if (any(is.na(format)) && na_last) {
+    na_lvl <- names(format)[is.na(format)]
+    forcats::fct_relevel(res, na_lvl, after = Inf)
+  } else {
+    res
+  }
+}
+
+#' @export
+#' @rdname reformat
+#'
+#' @examples
+#'
+#' # Reformatting of dm.
 #' library(dm)
 #'
 #' df1 <- data.frame(
-#'   "char" = c("", "b", NA, "a", "k", "x"),
-#'   "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
-#'   "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
+#'   var1 = c("a", "b", NA),
+#'   var2 = factor(c("F1", "F2", NA))
 #' )
+#'
 #' df2 <- data.frame(
-#'   "char" = c("a", "b", NA, "a", "k", "x"),
-#'   "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
-#'   "num" = 1:6
+#'   var1 = c("x", NA, "y"),
+#'   var2 = factor(c("F11", NA, "F22"))
 #' )
 #'
-#' db <- dm(df1, df2)
+#' db <- dm(df1 = df1, df2 = df2)
 #'
-#' dic_map <- setNames(c("A", "B", "Missing", "Empty"), c("a", "b", NA, ""))
-#' res <- h_reformat_tab(db, "df1", "char", dic_map)
-#' }
-h_reformat_tab <- function(db, tab, col, dic_map) {
-  checkmate::assert_class(db, "dm")
-  checkmate::assert_string(tab)
-  checkmate::assert_string(col)
-  checkmate::assert_character(dic_map, null.ok = TRUE)
-  checkmate::assert_character(names(dic_map), unique = TRUE, null.ok = TRUE)
-
-  if (!tab %in% names(db)) {
-    return(db)
-  }
-  if (!col %in% colnames(db[[tab]])) {
-    return(db)
-  }
-
-  ori <- db[[tab]][[col]]
-
-  if (is.null(dic_map)) {
-    db <- db %>%
-      dm_zoom_to(!!tab) %>%
-      mutate(!!col := as.factor(.env$ori)) %>%
-      dm_update_zoomed()
-
-    return(db)
-  }
-
-  ori_char <- as.character(ori)
-  new <- dic_map[ori_char]
-
-  # Preserve all levels.
-  # if factor: capture levels. if other: capture unique values.
-  ori_lvl <- levels(as.factor(ori))
-  unknow_lvl <- setdiff(ori_lvl, names(dic_map))
-  new_level <- c(unique(dic_map), unknow_lvl)
-  new_level <- unique(new_level)
-
-  # Replace NA if necessary and put NA level at the end.
-  is_na <- which(is.na(new))
-  new[is_na] <- ori_char[is_na]
-
-  if (any(is.na(names(dic_map)))) {
-    na_replacement <- dic_map[is.na(names(dic_map))][1]
-    new[is.na(new)] <- na_replacement
-    new_level <- c(setdiff(new_level, na_replacement), na_replacement)
-  }
-
-  # Replace Empty String if necessary and put empty string level at the end.
-  if ("" %in% names(dic_map)) {
-    empty_replacement <- dic_map[which(names(dic_map) == "")]
-    new[which(ori_char == "")] <- empty_replacement
-    new_level <- c(setdiff(new_level, empty_replacement), empty_replacement)
-  }
-
-  new <- factor(new, levels = new_level)
-  new <- unname(new)
-
-  # Preserve label attribute
-  lab <- attr(ori, "label")
-  if (!is.null(lab)) {
-    attr(new, "label") <- lab
-  }
-
-  db <- db %>%
-    dm_zoom_to(!!tab) %>%
-    mutate(!!col := .env$new) %>%
-    dm_update_zoomed()
-
-  db
-}
-
-#' Assert the Reformatting Map.
-#'
-#' @param map (`list`)
-#'
-#' @return `NULL` if the `map` object fits the criteria for a mapping list.
-#' @export
-#'
-#' @examples
-#' my_map <- list(
+#' format <- list(
 #'   df1 = list(
-#'     char = list(
-#'       "A" = c("a", "k"),
-#'       "B" = "b"
-#'     ),
-#'     char2 = list(
-#'       "A" = c("a", "k"),
-#'       "B" = "b"
-#'     )
+#'     var1 = rule("X" = "x", "N" = NA)
 #'   ),
 #'   df2 = list(
-#'     num = list(
-#'       "11" = "1",
-#'       "22" = NA
-#'     )
-#'   ),
-#'   All = list(
-#'     fact = list(
-#'       "F1" = "f1",
-#'       "F2" = "f2"
-#'     ),
-#'     other = list(
-#'       "x" = "X"
-#'     )
+#'     var1 = empty_rule,
+#'     var2 = rule("f11" = "F11", "NN" = NA)
 #'   )
 #' )
 #'
-#' assert_reformat(my_map)
+#' reformat(db, format)
+reformat.dm <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) {
+  assert_valid_format(format)
+  checkmate::assert_flag(string_as_fct)
+  checkmate::assert_flag(na_last)
+
+  pk <- dm::dm_get_all_pks(obj)
+  fk <- dm::dm_get_all_fks(obj)
+
+  obj <- as.list(obj)
+  obj <- reformat(obj, format = format, string_as_fct = string_as_fct, na_last = na_last)
+  obj <- as_dm(obj)
+
+  for (i in seq_len(nrow(pk))) {
+    obj <- dm_add_pk(obj, !!pk[["table"]][i], !!pk[["pk_col"]][[i]])
+  }
+
+  for (i in seq_len(nrow(fk))) {
+    obj <- dm::dm_add_fk(
+      obj,
+      !!fk[["child_table"]][i],
+      !!fk[["child_fk_cols"]][[i]],
+      !!fk[["parent_table"]][i],
+      !!fk[["parent_key_cols"]][[i]]
+    )
+  }
+
+  obj
+}
+
+#' @export
+#' @rdname reformat
 #'
-#' my_map <- list(
-#'   df0 = NULL,
+#' @examples
+#'
+#' # Reformatting of list of data.frame.
+#' df1 <- data.frame(
+#'   var1 = c("a", "b", NA),
+#'   var2 = factor(c("F1", "F2", NA))
+#' )
+#'
+#' df2 <- data.frame(
+#'   var1 = c("x", NA, "y"),
+#'   var2 = factor(c("F11", NA, "F22"))
+#' )
+#'
+#' db <- list(df1 = df1, df2 = df2)
+#'
+#' format <- list(
 #'   df1 = list(
-#'     char = NULL,
-#'     char2 = list(
-#'       "A" = c("a", "k"),
-#'       "B" = "b"
-#'     )
+#'     var1 = rule("X" = "x", "N" = NA)
+#'   ),
+#'   df2 = list(
+#'     var1 = empty_rule,
+#'     var2 = rule("f11" = "F11", "NN" = NA)
 #'   )
 #' )
 #'
-#' assert_reformat(my_map)
-assert_reformat <- function(map) {
-  msg <- NULL
+#' reformat(db, format)
+reformat.list <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) {
+  checkmate::assert_list(obj, type = c("data.frame", "tibble"))
+  checkmate::assert_named(obj)
+  checkmate::assert_list(format, names = "unique", types = "list", null.ok = TRUE)
+  checkmate::assert_flag(string_as_fct)
+  checkmate::assert_flag(na_last)
 
-  # assert unique table names
-  checkmate::assert_list(map)
-  res <- duplicated(names(map))
-  if (any(res)) {
-    msg <- paste("\nDuplicated table names:", toString(unique(names(map)[res])))
+  if (length(format) == 0) {
+    return(obj)
   }
 
-  var_remap <- lapply(map, names)
+  assert_valid_format(format)
 
-  # assert unique variable name in each table
-  res <- unlist(lapply(var_remap, function(x) checkmate::test_character(x, unique = TRUE, null.ok = TRUE)))
-  if (!all(res)) {
-    msg <- c(msg, paste("\nDuplicated Variable name inside table:", toString(unique(names(var_remap)[!res]))))
+  for (tab in names(format)) {
+    if (is(format[[tab]], "empty_rule")) next
+
+    local_map <- format[[tab]]
+    local_map <- local_map[names(local_map) %in% names(obj[[tab]])]
+
+
+    obj[[tab]][names(local_map)] <- mapply(
+      function(rl, col) reformat(obj[[tab]][[col]], format = rl, string_as_fct = string_as_fct, na_last = na_last),
+      local_map,
+      names(local_map),
+      SIMPLIFY = FALSE
+    )
   }
 
-  # assert 1:1 remapping
-  tab_remap <- lapply(map, function(x) lapply(x, unlist))
-  col_remap <- unlist(tab_remap, recursive = FALSE)
-  res <- unlist(lapply(col_remap, function(x) checkmate::test_character(x, unique = TRUE, null.ok = TRUE)))
-  if (!all(res)) {
-    msg <- c(msg, paste("\nDuplicated mapping inside:", toString(names(col_remap)[!res])))
-  }
-
-  if (is.null(msg)) {
-    invisible(NULL)
-  } else {
-    stop(msg)
-  }
+  obj
 }

@@ -20,7 +20,8 @@ Imports:
     magrittr,
     methods,
     rlang,
-    tibble
+    tibble,
+    yaml
 Suggests:
     DiagrammeR,
     DiagrammeRsvg,

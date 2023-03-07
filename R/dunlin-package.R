@@ -11,4 +11,6 @@
 #' @importFrom magrittr %>%
 #' @importFrom methods is
 #' @importFrom stats setNames
+#' @importFrom utils modifyList
+#' @importFrom yaml read_yaml
 "_PACKAGE"

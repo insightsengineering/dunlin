@@ -15,7 +15,6 @@ reference:
       - dunlin-package
   - title: Processing Functions
     contents:
-      - apply_reformat
       - co_relevels
       - cut_by_group
       - dm_explicit_na
@@ -25,6 +24,7 @@ reference:
       - multi_pivot_wider
       - poly_pivot_wider
       - propagate
+      - reformat
   - title: Helper functions
     contents:
       - attr_label
@@ -32,9 +32,16 @@ reference:
       - h_as_factor
       - h_ws_to_na
       - h_ws_to_explicit_na
-  - title: Assertion Functions
+  - title: Rule and Format
     contents:
-      - assert_reformat
+      - rule
+      - as.list.rule
+      - empty_rule
+      - read_rules
+  - title: Assertions
+    contents:
+      - assert_valid_format
+      - assert_valid_list_format
   - title: Data
     contents:
       - standard_remap

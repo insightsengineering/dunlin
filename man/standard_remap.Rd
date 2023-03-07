@@ -5,7 +5,7 @@
 \alias{standard_remap}
 \title{Example of Remapping List}
 \format{
-a \code{list} of 2 elements with 3 hierarchical levels satisfying the criteria of the \code{assert_reformat}.
+a nest \code{list} with \code{rule}.
 }
 \source{
 this object is based on the \code{yaml} file of the same name stored in \code{inst/extdata}.
