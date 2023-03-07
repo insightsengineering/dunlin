@@ -32,7 +32,7 @@ assert_valid_format <- function(object) {
         names = "unique",
         types = "rule",
         any.missing = FALSE,
-        .var.name = paste("in table:", xtable),
+        .var.name = paste0("[", xtable, "]"),
         add = coll
       )
     },
@@ -76,7 +76,7 @@ assert_valid_list_format <- function(object) {
         names = "unique",
         types = "list",
         any.missing = FALSE,
-        .var.name = paste("in table:", xtable),
+        .var.name = paste0("[", xtable, "]"),
         add = coll
       )
     },
@@ -94,7 +94,7 @@ assert_valid_list_format <- function(object) {
             x,
             names = "unique",
             type = c("character", "numeric", "logical"),
-            .var.name = paste("in table:", xtable, "variable:", xvar),
+            .var.name = paste0("[", xtable, ".", xvar, "]"),
             add = coll
           )
         },
