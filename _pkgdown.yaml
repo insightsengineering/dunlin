@@ -37,6 +37,7 @@ reference:
       - rule
       - as.list.rule
       - empty_rule
+      - list2rules
       - read_rules
   - title: Assertions
     contents:
