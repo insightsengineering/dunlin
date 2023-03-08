@@ -7,7 +7,7 @@
 list2rules(obj)
 }
 \arguments{
-\item{file}{(\code{string}) of path to the rule yaml file.}
+\item{obj}{(\verb{nested list}) to convert into list of rules.}
 }
 \description{
 Read yaml File describing \code{rule}
