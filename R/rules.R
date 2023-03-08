@@ -37,6 +37,24 @@ print.rule <- function(x, ...) {
   }
 }
 
+#' Read yaml File describing `rule`
+#' @param obj (`nested list`) to convert into list of rules.
+#' @export
+#' @examples
+#' obj <- list(
+#'   rule1 = list("X" = c("a", "b"), "Z" = "c"),
+#'   rule2 = list(Missing = c(NA, ""))
+#' )
+#' list2rules(obj)
+#'
+list2rules <- function(obj) {
+  coll <- checkmate::makeAssertCollection()
+  checkmate::assert_list(obj, unique = TRUE, types = "list", add = coll)
+  checkmate::assert_names(names(obj), type = "unique", add = coll)
+  checkmate::reportAssertions(coll)
+
+  lapply(obj, function(x) rule(.lst = x))
+}
 
 #' Convert Rule to List
 #' @param x (`rule`) to convert.
@@ -67,5 +85,5 @@ print.empty_rule <- function(x, ...) {
 read_rules <- function(file) {
   checkmate::assert_file_exists(file)
   content <- yaml::read_yaml(file)
-  lapply(content, function(x) rule(.lst = x))
+  list2rules(content)
 }

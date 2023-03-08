@@ -55,6 +55,43 @@ test_that("emtpy_rule printed correctly", {
   expect_snapshot(empty_rule)
 })
 
+# list2rules ----
+
+test_that("list2rules works as expected", {
+  r1 <- list(
+    rule_a = list(a = 1, b = 2),
+    rule_b = list(a = 3, b = 4),
+    rule_c = list()
+  )
+
+  expect_silent(res <- list2rules(r1))
+
+  checkmate::expect_list(res, type = "rule", len = 3)
+  expect_identical(names(res), c("rule_a", "rule_b", "rule_c"))
+})
+
+test_that("list2rules fails as expected", {
+  r1 <- list(
+    rule_a = list(a = 1, b = 2),
+    rule_b = list(a = 3, b = 4),
+    rule_a_again = list(a = 1, b = 2),
+    rule_b = list("X" = "x")
+  )
+
+  res <- expect_error(capture_output_lines(list2rules(r1), width = 200, print = FALSE))
+
+  expect_match(
+    res$message,
+    "* Variable 'obj': Contains duplicated values, position 3.",
+    fixed = TRUE
+  )
+  expect_match(
+    res$message,
+    "* Variable 'names(obj)': Must have unique names, but element 4 is duplicated.",
+    fixed = TRUE
+  )
+})
+
 # rule reading ----
 
 test_that("list of rules are read correctly", {
