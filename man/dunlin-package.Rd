@@ -11,6 +11,11 @@ A collection of functions to preprocess data and organize them in a format amena
 \author{
 \strong{Maintainer}: Benoit Falquet \email{benoit.falquet@roche.com}
 
+Authors:
+\itemize{
+  \item Liming Li \email{liming.li@roche.com}
+}
+
 Other contributors:
 \itemize{
   \item F. Hoffmann-La Roche AG [copyright holder, funder]
