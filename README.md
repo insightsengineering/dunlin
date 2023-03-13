@@ -23,43 +23,25 @@
 
 ## Installation
 
-### Clone and install manually
+It is recommended that you [create and use a GitHub PAT](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) to install the latest version of this package. Once you have the PAT, run the following:
 
-1. Clone the repository
-
-1. Install `staged.dependencies` with
-
-   ```r
-   devtools::install_github("openpharma/staged.dependencies")
-   ```
-
-   and setup your GitHub tokens following the instructions on the `staged.dependencies` [website](https://github.com/openpharma/staged.dependencies).  Make sure that you enable SSO for the token.
-
-1. Install the `dunlin` package dependencies with (make sure the working directory is set to the root of `dunlin`)
-
-   ```r
-   library(staged.dependencies)
-      x <- dependency_table(
-      project = "insightsengineering/dunlin",
-      project_type = "repo@host",
-      ref = "main",
-      verbose = 1
-   )
-
-   install_deps(x, install_direction = "upstream", install_project = TRUE)
-   ```
+```r
+Sys.setenv(GITHUB_PAT = "your_access_token_here")
+if (!require("remotes")) install.packages("remotes")
+remotes::install_github("insightsengineering/citril@*release")
+```
 
 ## Usage
 
   ```r
   library(dm)
   library(dunlin)
-  
+
   db <- dm_nycflights13()
-  
+
   new_carrier <- c(NA, "", as.character(db$airlines$carrier[-c(1, 2)]))
   new_name <- c(NA, "", as.character(db$airlines$name[-c(1, 2)]))
-  
+
   db <- db %>%
     dm_zoom_to("airlines") %>%
     mutate(
@@ -70,30 +52,30 @@
 
   db$airlines
   ```
-  
+
   which returns `airlines` as
-  
+
   ```text
   # A tibble: 15 × 2
-     carrier name                         
-     <chr>   <chr>                        
-   1  NA      NA                          
-   2 ""      ""                           
-   3 "AS"    "Alaska Airlines Inc."       
-   4 "B6"    "JetBlue Airways"            
-   5 "DL"    "Delta Air Lines Inc."       
-   6 "EV"    "ExpressJet Airlines Inc."   
-   7 "F9"    "Frontier Airlines Inc."     
+     carrier name
+     <chr>   <chr>
+   1  NA      NA
+   2 ""      ""
+   3 "AS"    "Alaska Airlines Inc."
+   4 "B6"    "JetBlue Airways"
+   5 "DL"    "Delta Air Lines Inc."
+   6 "EV"    "ExpressJet Airlines Inc."
+   7 "F9"    "Frontier Airlines Inc."
    8 "FL"    "AirTran Airways Corporation"
-   9 "HA"    "Hawaiian Airlines Inc."     
-  10 "MQ"    "Envoy Air"                  
-  11 "UA"    "United Air Lines Inc."      
-  12 "US"    "US Airways Inc."            
-  13 "VX"    "Virgin America"             
-  14 "WN"    "Southwest Airlines Co."     
-  15 "YV"    "Mesa Airlines Inc."   
+   9 "HA"    "Hawaiian Airlines Inc."
+  10 "MQ"    "Envoy Air"
+  11 "UA"    "United Air Lines Inc."
+  12 "US"    "US Airways Inc."
+  13 "VX"    "Virgin America"
+  14 "WN"    "Southwest Airlines Co."
+  15 "YV"    "Mesa Airlines Inc."
   ```
-  
+
   ```r
   new_format <- list(
     airlines = list(
@@ -101,31 +83,31 @@
       name = rule("<Missing>" = c("", NA, "<Missing>"))
     )
   )
-  
+
   db <- dunlin::reformat(db, new_format, na_last = TRUE)
-  
+
   db$airlines
   ```
-  
+
   which reformulates `airlines` as
-  
+
   ```text
   # A tibble: 15 × 2
-     carrier             name                       
-     <fct>               <fct>                      
-   1 No Coding available <Missing>                  
-   2 No Coding available <Missing>                  
-   3 AS                  Alaska Airlines Inc.       
-   4 B6                  JetBlue Airways            
-   5 DL                  Delta Air Lines Inc.       
-   6 EV                  ExpressJet Airlines Inc.   
-   7 F9                  Frontier Airlines Inc.     
+     carrier             name
+     <fct>               <fct>
+   1 No Coding available <Missing>
+   2 No Coding available <Missing>
+   3 AS                  Alaska Airlines Inc.
+   4 B6                  JetBlue Airways
+   5 DL                  Delta Air Lines Inc.
+   6 EV                  ExpressJet Airlines Inc.
+   7 F9                  Frontier Airlines Inc.
    8 FL                  AirTran Airways Corporation
-   9 HA                  Hawaiian Airlines Inc.     
-  10 MQ                  Envoy Air                  
-  11 UA                  United Air Lines Inc.      
-  12 US                  US Airways Inc.            
-  13 VX                  Virgin America             
-  14 WN                  Southwest Airlines Co.     
-  15 YV                  Mesa Airlines Inc.    
+   9 HA                  Hawaiian Airlines Inc.
+  10 MQ                  Envoy Air
+  11 UA                  United Air Lines Inc.
+  12 US                  US Airways Inc.
+  13 VX                  Virgin America
+  14 WN                  Southwest Airlines Co.
+  15 YV                  Mesa Airlines Inc.
   ```
