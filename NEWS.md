@@ -1,3 +1,8 @@
-# dunlin 0.1.1.9013
+# dunlin 0.1.2
+* Added ...
+* Added ...
+* Added ...
+
+# dunlin 0.1.1
 
 * Initial package release.
