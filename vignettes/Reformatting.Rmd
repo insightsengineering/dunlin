@@ -1,12 +1,11 @@
 ---
 title: "Reformatting"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Reformatting}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
-editor_options: 
+editor_options:
   chunk_output_type: console
 ---
 
@@ -15,6 +14,10 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+# need to load additional hidden dm dependencies for pkgdown - https://github.com/cynkra/dm/blob/v1.0.0/R/pkgdown.R#L17
+library(DiagrammeRsvg)
+library(DiagrammeR)
 
 library(dm)
 library(dunlin)
@@ -25,7 +28,7 @@ library(dunlin)
 Reformatting in `dulin` consists in replacing predetermined values by another in particular variables for selected
 tables of a data set stored.
 
-This is performed in two steps: 
+This is performed in two steps:
 
 1. A Reformatting Map (`rule` object) is created which specifies the correspondence between the old and the new values
 
@@ -74,10 +77,10 @@ Please note that the level for `NA` is always the last one, if that new level on
 
 For `dm` objects, the `format` argument is actually a nested list of rule.
 The first layer indicates the table names, the second layer indicates the variables in that table.
- 
+
 The `All` keyword, in first layer, lower or Mixed case, can be used instead of a table name to
 indicate that a particular variable should be changed in every table where it appears.
- 
+
 #### Example of Reformatting Map
 
 ```{r}
@@ -108,5 +111,3 @@ db <- dm::dm_nycflights13()
 db_formatted <- reformat(db, my_map)
 head(db_formatted$planes$model)
 ```
-
-
