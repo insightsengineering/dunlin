@@ -25,7 +25,7 @@ library(dunlin)
 
 ## Introduction
 
-Reformatting in `dulin` consists in replacing predetermined values by another in particular variables for selected
+Reformatting in `dunlin` consists in replacing predetermined values by another in particular variables for selected
 tables of a data set stored.
 
 This is performed in two steps:
