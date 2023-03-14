@@ -71,10 +71,8 @@ h_ws_to_explicit_na <- function(x, na_level = "<Missing>") {
 
   if (na_level %in% res) {
     forcats::fct_relevel(res, na_level, after = Inf)
-  } else if (na_level %in% levels(res)) {
-    forcats::fct_drop(res, only = na_level)
   } else {
-    res
+    forcats::fct_drop(res, only = na_level)
   }
 }
 

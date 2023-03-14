@@ -2,7 +2,7 @@
 % Please edit documentation in R/rules.R
 \name{list2rules}
 \alias{list2rules}
-\title{Read yaml File describing \code{rule}}
+\title{Convert nested list into list of \code{rule}}
 \usage{
 list2rules(obj)
 }
@@ -10,7 +10,7 @@ list2rules(obj)
 \item{obj}{(\verb{nested list}) to convert into list of rules.}
 }
 \description{
-Read yaml File describing \code{rule}
+Convert nested list into list of \code{rule}
 }
 \examples{
 obj <- list(

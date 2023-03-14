@@ -161,22 +161,22 @@ test_that("reformat for list works for empty rule", {
   db <- list(df1 = df1, df2 = df2)
   attr(db$df1$char, "label") <- "my label"
 
-  test_map2 <- list(df1 = list(char = empty_rule))
-  expect_silent(res2 <- reformat(db, test_map2))
+  test_map <- list(df1 = list(char = empty_rule))
+  expect_silent(res2 <- reformat(db, test_map))
   expect_identical(res2$df1$char, reformat(db$df1$char, empty_rule))
-
 })
-
 
 # reformat dm ----
 
 test_that("reformat for dm works as expected", {
   df1 <- data.frame(
+    "id" = c("1", "2", "3", "4", "5", "6"),
     "char" = c("", "b", NA, "a", "k", "x"),
     "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f2", "f1")),
     "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
   )
   df2 <- data.frame(
+    "id" = c("1", "1", "2", "2", "3", "3"),
     "char" = c("a", "b", NA, "a", "k", "x"),
     "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
     "another_char" = c("a", "b", NA, "a", "k", "x"),
@@ -184,7 +184,9 @@ test_that("reformat for dm works as expected", {
   )
 
   attr(df1$char, "label") <- "my label"
-  db <- dm(df1 = df1, df2 = df2)
+  db <- dm(df1 = df1, df2 = df2) %>%
+    dm_add_pk(df1, id) %>%
+    dm_add_fk(df2, id, df1, id)
   test_map <- list(
     df1 = list(
       char = rule("Empty" = "", "B" = "b", "Not Available" = NA),
