@@ -15,6 +15,10 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
+# need to load additional hidden dm dependencies for pkgdown - https://github.com/cynkra/dm/blob/v1.0.0/R/pkgdown.R#L17
+library(DiagrammeRsvg)
+library(DiagrammeR)
+
 library(dm)
 library(dunlin)
 ```
