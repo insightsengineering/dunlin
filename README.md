@@ -28,7 +28,7 @@ It is recommended that you [create and use a GitHub PAT](https://docs.github.com
 ```r
 Sys.setenv(GITHUB_PAT = "your_access_token_here")
 if (!require("remotes")) install.packages("remotes")
-remotes::install_github("insightsengineering/citril@*release")
+remotes::install_github("insightsengineering/dunlin@*release")
 ```
 
 ## Usage
