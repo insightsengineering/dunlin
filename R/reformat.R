@@ -205,11 +205,8 @@ reformat.list <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...
   assert_valid_format(format)
 
   for (tab in names(format)) {
-    if (is(format[[tab]], "empty_rule")) next
-
     local_map <- format[[tab]]
     local_map <- local_map[names(local_map) %in% names(obj[[tab]])]
-
 
     obj[[tab]][names(local_map)] <- mapply(
       function(rl, col) reformat(obj[[tab]][[col]], format = rl, string_as_fct = string_as_fct, na_last = na_last),

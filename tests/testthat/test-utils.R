@@ -38,6 +38,11 @@ test_that("h_ws_to_explicit_na works as expected.", {
   )
 })
 
+test_that("h_ws_to_explicit_na do not add NA level when it do not exist", {
+  res <- expect_silent(h_ws_to_explicit_na(c("a", "b"), "empty"))
+  expect_identical(levels(res), c("a", "b"))
+})
+
 # h_as_factor ----
 
 test_that("h_as_factor works as expected", {

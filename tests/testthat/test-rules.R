@@ -92,6 +92,19 @@ test_that("list2rules fails as expected", {
   )
 })
 
+# as.list ----
+
+test_that("as.list convert rules into list correctly", {
+  test_rule <- rule(a = c("a", "b"), b = c("c", "d"))
+  expected <- list(a = c("a", "b"), b = c("c", "d"))
+  expect_identical(as.list(test_rule), expected)
+})
+
+test_that("as.list and rule are reversible", {
+  test_rule <- rule(a = c("a", "b"), b = c("c", "d"))
+  expect_identical(rule(.lst = as.list(test_rule)), test_rule)
+})
+
 # rule reading ----
 
 test_that("list of rules are read correctly", {

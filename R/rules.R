@@ -37,7 +37,7 @@ print.rule <- function(x, ...) {
   }
 }
 
-#' Read yaml File describing `rule`
+#' Convert nested list into list of `rule`
 #' @param obj (`nested list`) to convert into list of rules.
 #' @export
 #' @examples
