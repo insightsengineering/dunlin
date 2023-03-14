@@ -123,6 +123,88 @@ test_that("reformat for list works as expected", {
   expect_identical(res$df2$char, as.factor(db$df2$char)) # Empty rule changes character to factor by default.
 })
 
+test_that("reformat for list works as does not change the data for no rules", {
+  df1 <- data.frame(
+    "char" = c("", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f2", "f1")),
+    "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
+  )
+  df2 <- data.frame(
+    "char" = c("a", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
+    "another_char" = c("a", "b", NA, "a", "k", "x"),
+    "another_fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
+  )
+
+  db <- list(df1 = df1, df2 = df2)
+  attr(db$df1$char, "label") <- "my label"
+
+  test_map <- list()
+
+  expect_silent(res <- reformat(db, test_map))
+  expect_identical(res, db)
+})
+
+test_that("reformat for list works for empty rule", {
+  df1 <- data.frame(
+    "char" = c("", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f2", "f1")),
+    "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
+  )
+  df2 <- data.frame(
+    "char" = c("a", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
+    "another_char" = c("a", "b", NA, "a", "k", "x"),
+    "another_fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
+  )
+
+  db <- list(df1 = df1, df2 = df2)
+  attr(db$df1$char, "label") <- "my label"
+
+  test_map2 <- list(df1 = list(char = empty_rule))
+  expect_silent(res2 <- reformat(db, test_map2))
+  expect_identical(res2$df1$char, reformat(db$df1$char, empty_rule))
+
+})
+
+
+# reformat dm ----
+
+test_that("reformat for dm works as expected", {
+  df1 <- data.frame(
+    "char" = c("", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f2", "f1")),
+    "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
+  )
+  df2 <- data.frame(
+    "char" = c("a", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
+    "another_char" = c("a", "b", NA, "a", "k", "x"),
+    "another_fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
+  )
+
+  attr(df1$char, "label") <- "my label"
+  db <- dm(df1 = df1, df2 = df2)
+  test_map <- list(
+    df1 = list(
+      char = rule("Empty" = "", "B" = "b", "Not Available" = NA),
+      logi = rule()
+    ),
+    df2 = list(
+      char = rule()
+    )
+  )
+
+  expect_silent(res <- reformat(db, test_map))
+  expected <- factor(c("Empty", "B", "Not Available", "a", "k", "x"), c("Empty", "a", "B", "k", "x", "Not Available"))
+  attr(expected, "label") <- "my label"
+
+  expect_identical(res$df1$char, expected) # normal reformatting keeps attribute.
+  expect_identical(res$df1$fact, db$df1$fact) # No rules to apply.
+  expect_identical(res$df1$fact, db$df1$fact) # Empty rule changes nothing.
+  expect_identical(res$df2$char, as.factor(db$df2$char)) # Empty rule changes character to factor by default.
+})
+
 # reformat using empty_rule ----
 
 test_that("empty_rule do nothing to input", {
