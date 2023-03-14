@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="assertions" timestamp="2023-03-14T04:58:49Z" hostname="0e2c312c8b18" tests="14" skipped="0" failures="0" errors="0" time="0.101">
-    <testcase time="0.015" classname="assertions" name="assert_valid_format_works_as_expected"/>
-    <testcase time="0.0269999999999999" classname="assertions" name="assert_valid_format_works_as_expected"/>
-    <testcase time="0.03" classname="assertions" name="assert_valid_format_fails_as_expected"/>
+  <testsuite name="assertions" timestamp="2023-03-14T05:04:39Z" hostname="8829ff9d5f8e" tests="14" skipped="0" failures="0" errors="0" time="0.092">
+    <testcase time="0.0139999999999999" classname="assertions" name="assert_valid_format_works_as_expected"/>
+    <testcase time="0.024" classname="assertions" name="assert_valid_format_works_as_expected"/>
+    <testcase time="0.027" classname="assertions" name="assert_valid_format_fails_as_expected"/>
     <testcase time="0.001" classname="assertions" name="assert_valid_format_fails_as_expected"/>
     <testcase time="0.002" classname="assertions" name="assert_valid_format_fails_as_expected"/>
     <testcase time="0.001" classname="assertions" name="assert_valid_format_fails_as_expected"/>
     <testcase time="0.001" classname="assertions" name="assert_valid_format_fails_as_expected"/>
-    <testcase time="0.00500000000000012" classname="assertions" name="assert_valid_list_format_works_as_expected"/>
-    <testcase time="0.004" classname="assertions" name="assert_valid_list_format_works_as_expected"/>
-    <testcase time="0.01" classname="assertions" name="assert_valid_list_format_fails_as_expected"/>
-    <testcase time="0.00099999999999989" classname="assertions" name="assert_valid_list_format_fails_as_expected"/>
+    <testcase time="0.005" classname="assertions" name="assert_valid_list_format_works_as_expected"/>
+    <testcase time="0.003" classname="assertions" name="assert_valid_list_format_works_as_expected"/>
+    <testcase time="0.00900000000000001" classname="assertions" name="assert_valid_list_format_fails_as_expected"/>
+    <testcase time="0.001" classname="assertions" name="assert_valid_list_format_fails_as_expected"/>
+    <testcase time="0.001" classname="assertions" name="assert_valid_list_format_fails_as_expected"/>
     <testcase time="0.002" classname="assertions" name="assert_valid_list_format_fails_as_expected"/>
-    <testcase time="0.00100000000000011" classname="assertions" name="assert_valid_list_format_fails_as_expected"/>
-    <testcase time="0.00099999999999989" classname="assertions" name="assert_valid_list_format_fails_as_expected"/>
+    <testcase time="0.001" classname="assertions" name="assert_valid_list_format_fails_as_expected"/>
   </testsuite>
-  <testsuite name="co_relevels" timestamp="2023-03-14T04:58:49Z" hostname="0e2c312c8b18" tests="22" skipped="0" failures="0" errors="0" time="0.132">
-    <testcase time="0.018" classname="co_relevels" name="co_relevels_works_as_expected."/>
-    <testcase time="0.00800000000000001" classname="co_relevels" name="co_relevels_works_as_expected."/>
-    <testcase time="0.00299999999999989" classname="co_relevels" name="co_relevels_works_as_expected."/>
+  <testsuite name="co_relevels" timestamp="2023-03-14T05:04:39Z" hostname="8829ff9d5f8e" tests="22" skipped="0" failures="0" errors="0" time="0.117">
+    <testcase time="0.016" classname="co_relevels" name="co_relevels_works_as_expected."/>
+    <testcase time="0.00600000000000001" classname="co_relevels" name="co_relevels_works_as_expected."/>
     <testcase time="0.004" classname="co_relevels" name="co_relevels_works_as_expected."/>
-    <testcase time="0.004" classname="co_relevels" name="co_relevels_works_as_expected."/>
-    <testcase time="0.0110000000000001" classname="co_relevels" name="co_relevels_works_as_expected_with_tibbles."/>
+    <testcase time="0.003" classname="co_relevels" name="co_relevels_works_as_expected."/>
+    <testcase time="0.003" classname="co_relevels" name="co_relevels_works_as_expected."/>
+    <testcase time="0.01" classname="co_relevels" name="co_relevels_works_as_expected_with_tibbles."/>
+    <testcase time="0.00399999999999989" classname="co_relevels" name="co_relevels_works_as_expected_with_tibbles."/>
+    <testcase time="0.003" classname="co_relevels" name="co_relevels_works_as_expected_with_tibbles."/>
     <testcase time="0.004" classname="co_relevels" name="co_relevels_works_as_expected_with_tibbles."/>
-    <testcase time="0.004" classname="co_relevels" name="co_relevels_works_as_expected_with_tibbles."/>
-    <testcase time="0.004" classname="co_relevels" name="co_relevels_works_as_expected_with_tibbles."/>
-    <testcase time="0.004" classname="co_relevels" name="co_relevels_works_as_expected_with_tibbles."/>
+    <testcase time="0.003" classname="co_relevels" name="co_relevels_works_as_expected_with_tibbles."/>
+    <testcase time="0.00600000000000001" classname="co_relevels" name="co_relevels_works_as_expected_when_only_a_subset_of_levels_is_used."/>
+    <testcase time="0.003" classname="co_relevels" name="co_relevels_works_as_expected_when_only_a_subset_of_levels_is_used."/>
     <testcase time="0.00600000000000001" classname="co_relevels" name="co_relevels_works_as_expected_when_only_a_subset_of_levels_is_used."/>
     <testcase time="0.004" classname="co_relevels" name="co_relevels_works_as_expected_when_only_a_subset_of_levels_is_used."/>
-    <testcase time="0.0069999999999999" classname="co_relevels" name="co_relevels_works_as_expected_when_only_a_subset_of_levels_is_used."/>
-    <testcase time="0.004" classname="co_relevels" name="co_relevels_works_as_expected_when_only_a_subset_of_levels_is_used."/>
-    <testcase time="0.004" classname="co_relevels" name="co_relevels_works_as_expected_when_only_a_subset_of_levels_is_used."/>
-    <testcase time="0.00600000000000001" classname="co_relevels" name="co_relevels_works_as_expected_when_a_supplementary_level_is_used."/>
+    <testcase time="0.003" classname="co_relevels" name="co_relevels_works_as_expected_when_only_a_subset_of_levels_is_used."/>
+    <testcase time="0.005" classname="co_relevels" name="co_relevels_works_as_expected_when_a_supplementary_level_is_used."/>
     <testcase time="0.004" classname="co_relevels" name="co_relevels_works_as_expected_when_a_supplementary_level_is_used."/>
     <testcase time="0.004" classname="co_relevels" name="co_relevels_works_as_expected_when_a_supplementary_level_is_used."/>
+    <testcase time="0.00300000000000011" classname="co_relevels" name="co_relevels_works_as_expected_when_a_supplementary_level_is_used."/>
     <testcase time="0.004" classname="co_relevels" name="co_relevels_works_as_expected_when_a_supplementary_level_is_used."/>
-    <testcase time="0.004" classname="co_relevels" name="co_relevels_works_as_expected_when_a_supplementary_level_is_used."/>
-    <testcase time="0.00900000000000012" classname="co_relevels" name="co_relevels_retuns_an_error_when_the_matching_between_the_selected_column_is_not_unique."/>
-    <testcase time="0.012" classname="co_relevels" name="co_relevels_retuns_an_error_when_NAs_are_present."/>
+    <testcase time="0.0089999999999999" classname="co_relevels" name="co_relevels_retuns_an_error_when_the_matching_between_the_selected_column_is_not_unique."/>
+    <testcase time="0.01" classname="co_relevels" name="co_relevels_retuns_an_error_when_NAs_are_present."/>
   </testsuite>
-  <testsuite name="cut_by_group" timestamp="2023-03-14T04:58:49Z" hostname="0e2c312c8b18" tests="14" skipped="0" failures="0" errors="0" time="0.075">
-    <testcase time="0.0219999999999998" classname="cut_by_group" name="cut_by_group_works_as_expected."/>
-    <testcase time="0.00100000000000011" classname="cut_by_group" name="cut_by_group_works_as_expected."/>
+  <testsuite name="cut_by_group" timestamp="2023-03-14T05:04:39Z" hostname="8829ff9d5f8e" tests="14" skipped="0" failures="0" errors="0" time="0.069">
+    <testcase time="0.02" classname="cut_by_group" name="cut_by_group_works_as_expected."/>
+    <testcase time="0.00099999999999989" classname="cut_by_group" name="cut_by_group_works_as_expected."/>
+    <testcase time="0.00300000000000011" classname="cut_by_group" name="cut_by_group_works_as_expected."/>
     <testcase time="0.004" classname="cut_by_group" name="cut_by_group_works_as_expected."/>
-    <testcase time="0.004" classname="cut_by_group" name="cut_by_group_works_as_expected."/>
-    <testcase time="0.00600000000000001" classname="cut_by_group" name="cut_by_group_works_as_expected_when_supplementary_group_information_are_provided."/>
-    <testcase time="0.00099999999999989" classname="cut_by_group" name="cut_by_group_works_as_expected_when_supplementary_group_information_are_provided."/>
+    <testcase time="0.00499999999999989" classname="cut_by_group" name="cut_by_group_works_as_expected_when_supplementary_group_information_are_provided."/>
+    <testcase time="0.00100000000000011" classname="cut_by_group" name="cut_by_group_works_as_expected_when_supplementary_group_information_are_provided."/>
     <testcase time="0.004" classname="cut_by_group" name="cut_by_group_works_as_expected_when_supplementary_group_information_are_provided."/>
-    <testcase time="0.00300000000000011" classname="cut_by_group" name="cut_by_group_works_as_expected_when_supplementary_group_information_are_provided."/>
+    <testcase time="0.00299999999999989" classname="cut_by_group" name="cut_by_group_works_as_expected_when_supplementary_group_information_are_provided."/>
     <testcase time="0.00800000000000001" classname="cut_by_group" name="cut_by_group_returns_NA_for_parameters_values_that_are_covered."/>
     <testcase time="0.00100000000000011" classname="cut_by_group" name="cut_by_group_returns_NA_for_parameters_values_that_are_covered."/>
+    <testcase time="0.00299999999999989" classname="cut_by_group" name="cut_by_group_returns_NA_for_parameters_values_that_are_covered."/>
     <testcase time="0.004" classname="cut_by_group" name="cut_by_group_returns_NA_for_parameters_values_that_are_covered."/>
     <testcase time="0.004" classname="cut_by_group" name="cut_by_group_returns_NA_for_parameters_values_that_are_covered."/>
-    <testcase time="0.004" classname="cut_by_group" name="cut_by_group_returns_NA_for_parameters_values_that_are_covered."/>
-    <testcase time="0.0089999999999999" classname="cut_by_group" name="cut_by_group_fails_when_the_number_of_labels_doesn_t_fit_the_number_of_breaks."/>
+    <testcase time="0.00800000000000001" classname="cut_by_group" name="cut_by_group_fails_when_the_number_of_labels_doesn_t_fit_the_number_of_breaks."/>
   </testsuite>
-  <testsuite name="dm_explicit_na" timestamp="2023-03-14T04:58:49Z" hostname="0e2c312c8b18" tests="21" skipped="0" failures="0" errors="0" time="0.417">
-    <testcase time="0.233" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_default_options."/>
+  <testsuite name="dm_explicit_na" timestamp="2023-03-14T05:04:39Z" hostname="8829ff9d5f8e" tests="21" skipped="0" failures="0" errors="0" time="0.365">
+    <testcase time="0.205" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_default_options."/>
     <testcase time="0.002" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_default_options."/>
     <testcase time="0.00099999999999989" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_default_options."/>
     <testcase time="0.00100000000000011" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_default_options."/>
@@ -65,152 +65,152 @@
     <testcase time="0.00100000000000011" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_default_options."/>
     <testcase time="0.00099999999999989" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_default_options."/>
     <testcase time="0.00100000000000011" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_default_options."/>
-    <testcase time="0.00100000000000011" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_default_options."/>
-    <testcase time="0.155" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_optional_arguments."/>
-    <testcase time="0.00499999999999989" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_optional_arguments."/>
+    <testcase time="0.00099999999999989" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_default_options."/>
+    <testcase time="0.134" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_optional_arguments."/>
+    <testcase time="0.00299999999999989" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_optional_arguments."/>
+    <testcase time="0.00100000000000011" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_optional_arguments."/>
+    <testcase time="0.002" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_optional_arguments."/>
+    <testcase time="0.00099999999999989" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_optional_arguments."/>
     <testcase time="0.00100000000000011" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_optional_arguments."/>
     <testcase time="0.00099999999999989" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_optional_arguments."/>
+    <testcase time="0.00100000000000011" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_optional_arguments."/>
+    <testcase time="0.00299999999999989" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_optional_arguments."/>
     <testcase time="0.002" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_optional_arguments."/>
     <testcase time="0.00100000000000011" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_optional_arguments."/>
     <testcase time="0.00099999999999989" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_optional_arguments."/>
-    <testcase time="0.00100000000000011" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_optional_arguments."/>
-    <testcase time="0.00499999999999989" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_optional_arguments."/>
-    <testcase time="0.00100000000000011" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_optional_arguments."/>
-    <testcase time="0.00099999999999989" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_optional_arguments."/>
-    <testcase time="0.00100000000000011" classname="dm_explicit_na" name="dm_explicit_na_works_as_expected_with_optional_arguments."/>
   </testsuite>
-  <testsuite name="dm_unite" timestamp="2023-03-14T04:58:50Z" hostname="0e2c312c8b18" tests="8" skipped="0" failures="0" errors="0" time="0.745">
-    <testcase time="0.249" classname="dm_unite" name="dm_unite_works_as_expected_with_characters"/>
-    <testcase time="0.00500000000000012" classname="dm_unite" name="dm_unite_works_as_expected_with_characters"/>
-    <testcase time="0.236" classname="dm_unite" name="dm_unite_works_as_expected_with_factors"/>
-    <testcase time="0.00999999999999979" classname="dm_unite" name="dm_unite_works_as_expected_with_factors"/>
+  <testsuite name="dm_unite" timestamp="2023-03-14T05:04:39Z" hostname="8829ff9d5f8e" tests="8" skipped="0" failures="0" errors="0" time="0.664">
+    <testcase time="0.22" classname="dm_unite" name="dm_unite_works_as_expected_with_characters"/>
+    <testcase time="0.004" classname="dm_unite" name="dm_unite_works_as_expected_with_characters"/>
+    <testcase time="0.213" classname="dm_unite" name="dm_unite_works_as_expected_with_factors"/>
+    <testcase time="0.00900000000000012" classname="dm_unite" name="dm_unite_works_as_expected_with_factors"/>
     <testcase time="0.004" classname="dm_unite" name="dm_unite_works_as_expected_with_factors"/>
-    <testcase time="0.233" classname="dm_unite" name="dm_unite_works_as_expected_with_more_than_2_columns"/>
+    <testcase time="0.207" classname="dm_unite" name="dm_unite_works_as_expected_with_more_than_2_columns"/>
     <testcase time="0.004" classname="dm_unite" name="dm_unite_works_as_expected_with_more_than_2_columns"/>
-    <testcase time="0.004" classname="dm_unite" name="dm_unite_works_as_expected_with_more_than_2_columns"/>
+    <testcase time="0.00300000000000011" classname="dm_unite" name="dm_unite_works_as_expected_with_more_than_2_columns"/>
   </testsuite>
-  <testsuite name="join_adsub_adsl" timestamp="2023-03-14T04:58:51Z" hostname="0e2c312c8b18" tests="14" skipped="0" failures="0" errors="0" time="2.438">
-    <testcase time="0.591" classname="join_adsub_adsl" name="join_adsub_adsl_works_as_expected_with_default_values"/>
+  <testsuite name="join_adsub_adsl" timestamp="2023-03-14T05:04:40Z" hostname="8829ff9d5f8e" tests="14" skipped="0" failures="0" errors="0" time="2.193">
+    <testcase time="0.522" classname="join_adsub_adsl" name="join_adsub_adsl_works_as_expected_with_default_values"/>
+    <testcase time="0.00100000000000033" classname="join_adsub_adsl" name="join_adsub_adsl_works_as_expected_with_default_values"/>
     <testcase time="0.00099999999999989" classname="join_adsub_adsl" name="join_adsub_adsl_works_as_expected_with_default_values"/>
-    <testcase time="0.00099999999999989" classname="join_adsub_adsl" name="join_adsub_adsl_works_as_expected_with_default_values"/>
-    <testcase time="0.347" classname="join_adsub_adsl" name="join_adsub_adsl_works_as_expected_when_no_column_is_selected"/>
+    <testcase time="0.314" classname="join_adsub_adsl" name="join_adsub_adsl_works_as_expected_when_no_column_is_selected"/>
     <testcase time="0.00099999999999989" classname="join_adsub_adsl" name="join_adsub_adsl_works_as_expected_when_no_column_is_selected"/>
-    <testcase time="0.00100000000000033" classname="join_adsub_adsl" name="join_adsub_adsl_works_as_expected_when_no_column_is_selected"/>
-    <testcase time="0.345" classname="join_adsub_adsl" name="join_adsub_adsl_works_as_expected_when_no_column_is_selected"/>
+    <testcase time="0.00099999999999989" classname="join_adsub_adsl" name="join_adsub_adsl_works_as_expected_when_no_column_is_selected"/>
+    <testcase time="0.311" classname="join_adsub_adsl" name="join_adsub_adsl_works_as_expected_when_no_column_is_selected"/>
     <testcase time="0.00100000000000033" classname="join_adsub_adsl" name="join_adsub_adsl_works_as_expected_when_no_column_is_selected"/>
     <testcase time="0.00099999999999989" classname="join_adsub_adsl" name="join_adsub_adsl_works_as_expected_when_no_column_is_selected"/>
-    <testcase time="0.346" classname="join_adsub_adsl" name="join_adsub_adsl_works_as_expected_when_no_column_is_selected"/>
-    <testcase time="0.00100000000000033" classname="join_adsub_adsl" name="join_adsub_adsl_works_as_expected_when_no_column_is_selected"/>
-    <testcase time="0.00199999999999978" classname="join_adsub_adsl" name="join_adsub_adsl_works_as_expected_when_no_column_is_selected"/>
-    <testcase time="0.4" classname="join_adsub_adsl" name="join_adsub_adsl_throw_a_warning_when_column_already_exist_in_adsl."/>
-    <testcase time="0.399999999999999" classname="join_adsub_adsl" name="join_adsub_adsl_throw_a_warning_when_two_new_columns_would_have_the_same_name."/>
+    <testcase time="0.312" classname="join_adsub_adsl" name="join_adsub_adsl_works_as_expected_when_no_column_is_selected"/>
+    <testcase time="0.00200000000000022" classname="join_adsub_adsl" name="join_adsub_adsl_works_as_expected_when_no_column_is_selected"/>
+    <testcase time="0.00099999999999989" classname="join_adsub_adsl" name="join_adsub_adsl_works_as_expected_when_no_column_is_selected"/>
+    <testcase time="0.364" classname="join_adsub_adsl" name="join_adsub_adsl_throw_a_warning_when_column_already_exist_in_adsl."/>
+    <testcase time="0.361" classname="join_adsub_adsl" name="join_adsub_adsl_throw_a_warning_when_two_new_columns_would_have_the_same_name."/>
   </testsuite>
-  <testsuite name="pivot" timestamp="2023-03-14T04:58:53Z" hostname="0e2c312c8b18" tests="17" skipped="0" failures="0" errors="0" time="0.108">
-    <testcase time="0.0110000000000001" classname="pivot" name="mini_pivot_wider_works_as_expected."/>
-    <testcase time="0.00400000000000045" classname="pivot" name="mini_pivot_wider_works_as_expected."/>
+  <testsuite name="pivot" timestamp="2023-03-14T05:04:42Z" hostname="8829ff9d5f8e" tests="17" skipped="0" failures="0" errors="0" time="0.098">
+    <testcase time="0.00999999999999979" classname="pivot" name="mini_pivot_wider_works_as_expected."/>
+    <testcase time="0.00300000000000011" classname="pivot" name="mini_pivot_wider_works_as_expected."/>
     <testcase time="0.00800000000000001" classname="pivot" name="mini_pivot_wider_returns_an_error_when_required_column_are_not_present."/>
-    <testcase time="0.00899999999999945" classname="pivot" name="mini_pivot_wider_returns_an_error_when_data_are_duplicated."/>
-    <testcase time="0.00700000000000056" classname="pivot" name="multi_pivot_wider_works_as_expected."/>
-    <testcase time="0.00399999999999956" classname="pivot" name="multi_pivot_wider_works_as_expected."/>
+    <testcase time="0.00800000000000001" classname="pivot" name="mini_pivot_wider_returns_an_error_when_data_are_duplicated."/>
+    <testcase time="0.00699999999999967" classname="pivot" name="multi_pivot_wider_works_as_expected."/>
+    <testcase time="0.00300000000000011" classname="pivot" name="multi_pivot_wider_works_as_expected."/>
     <testcase time="0.00700000000000056" classname="pivot" name="multi_pivot_wider_works_as_expected_with_drop_na_argument."/>
     <testcase time="0.00299999999999923" classname="pivot" name="multi_pivot_wider_works_as_expected_with_drop_na_argument."/>
     <testcase time="0.00700000000000056" classname="pivot" name="multi_pivot_wider_works_as_expected_with_drop_na_argument."/>
-    <testcase time="0.00399999999999956" classname="pivot" name="multi_pivot_wider_works_as_expected_with_drop_na_argument."/>
-    <testcase time="0.00900000000000034" classname="pivot" name="multi_pivot_wider_works_as_expected_when_the_unique_identification_deoends_on_several_columns"/>
+    <testcase time="0.00300000000000011" classname="pivot" name="multi_pivot_wider_works_as_expected_with_drop_na_argument."/>
+    <testcase time="0.00800000000000001" classname="pivot" name="multi_pivot_wider_works_as_expected_when_the_unique_identification_deoends_on_several_columns"/>
     <testcase time="0.00399999999999956" classname="pivot" name="multi_pivot_wider_works_as_expected_when_the_unique_identification_deoends_on_several_columns"/>
-    <testcase time="0.00400000000000045" classname="pivot" name="multi_pivot_wider_works_as_expected_when_the_unique_identification_deoends_on_several_columns"/>
-    <testcase time="0.00900000000000034" classname="pivot" name="poly_pivot_wider_works_as_expected."/>
-    <testcase time="0.00399999999999956" classname="pivot" name="poly_pivot_wider_works_as_expected."/>
-    <testcase time="0.00900000000000034" classname="pivot" name="poly_pivot_wider_works_as_expected_with_default_label."/>
-    <testcase time="0.00499999999999989" classname="pivot" name="poly_pivot_wider_works_as_expected_with_default_label."/>
+    <testcase time="0.00300000000000011" classname="pivot" name="multi_pivot_wider_works_as_expected_when_the_unique_identification_deoends_on_several_columns"/>
+    <testcase time="0.00800000000000001" classname="pivot" name="poly_pivot_wider_works_as_expected."/>
+    <testcase time="0.00400000000000045" classname="pivot" name="poly_pivot_wider_works_as_expected."/>
+    <testcase time="0.00800000000000001" classname="pivot" name="poly_pivot_wider_works_as_expected_with_default_label."/>
+    <testcase time="0.00399999999999956" classname="pivot" name="poly_pivot_wider_works_as_expected_with_default_label."/>
   </testsuite>
-  <testsuite name="propagate" timestamp="2023-03-14T04:58:53Z" hostname="0e2c312c8b18" tests="3" skipped="2" failures="0" errors="0" time="0.417">
-    <testcase time="0.222" classname="propagate" name="propagate_works_as_expected">
+  <testsuite name="propagate" timestamp="2023-03-14T05:04:42Z" hostname="8829ff9d5f8e" tests="3" skipped="2" failures="0" errors="0" time="0.376">
+    <testcase time="0.198" classname="propagate" name="propagate_works_as_expected">
       <skipped message="Reason: On CRAN ('test-propagate.R:16')"/>
     </testcase>
-    <testcase time="0.159000000000001" classname="propagate" name="propagate_works_as_expected_in_safe_mode"/>
-    <testcase time="0.0359999999999996" classname="propagate" name="propagate_works_as_expected_in_safe_mode">
+    <testcase time="0.143999999999999" classname="propagate" name="propagate_works_as_expected_in_safe_mode"/>
+    <testcase time="0.0340000000000007" classname="propagate" name="propagate_works_as_expected_in_safe_mode">
       <skipped message="Reason: On CRAN ('test-propagate.R:35')"/>
     </testcase>
   </testsuite>
-  <testsuite name="reformat" timestamp="2023-03-14T04:58:54Z" hostname="0e2c312c8b18" tests="20" skipped="0" failures="0" errors="0" time="0.14">
-    <testcase time="0.0369999999999999" classname="reformat" name="reformat_fails_for_numeric_or_logical"/>
-    <testcase time="0.00699999999999967" classname="reformat" name="reformat_for_characters_works_as_expected_when_string_as_fct_is_FALSE"/>
-    <testcase time="0.00800000000000001" classname="reformat" name="reformat_for_characters_works_as_expected_when_string_as_fct_is_TRUE"/>
-    <testcase time="0.00800000000000001" classname="reformat" name="reformat_for_characters_works_as_expected_when_string_as_fct_is_TRUE_and_na_last_is_false"/>
-    <testcase time="0.00400000000000045" classname="reformat" name="reformat_for_characters_works_as_expected_when_string_as_fct_is_TRUE_and_na_last_is_false"/>
-    <testcase time="0.00800000000000001" classname="reformat" name="reformat_for_factors_works_as_expected"/>
+  <testsuite name="reformat" timestamp="2023-03-14T05:04:43Z" hostname="8829ff9d5f8e" tests="20" skipped="0" failures="0" errors="0" time="0.125">
+    <testcase time="0.0329999999999995" classname="reformat" name="reformat_fails_for_numeric_or_logical"/>
+    <testcase time="0.00700000000000056" classname="reformat" name="reformat_for_characters_works_as_expected_when_string_as_fct_is_FALSE"/>
+    <testcase time="0.00699999999999967" classname="reformat" name="reformat_for_characters_works_as_expected_when_string_as_fct_is_TRUE"/>
+    <testcase time="0.00600000000000023" classname="reformat" name="reformat_for_characters_works_as_expected_when_string_as_fct_is_TRUE_and_na_last_is_false"/>
+    <testcase time="0.00499999999999989" classname="reformat" name="reformat_for_characters_works_as_expected_when_string_as_fct_is_TRUE_and_na_last_is_false"/>
+    <testcase time="0.00600000000000023" classname="reformat" name="reformat_for_factors_works_as_expected"/>
     <testcase time="0.00399999999999956" classname="reformat" name="reformat_for_factors_works_as_expected"/>
     <testcase time="0.00400000000000045" classname="reformat" name="reformat_for_factors_works_as_expected"/>
-    <testcase time="0.00899999999999945" classname="reformat" name="reformat_factor_works_as_expected_when_the_level_doesn_t_exist"/>
-    <testcase time="0.00400000000000045" classname="reformat" name="reformat_factor_works_as_expected_when_the_level_doesn_t_exist"/>
-    <testcase time="0.00499999999999989" classname="reformat" name="reformat_factor_works_as_expected_when_na_last_FALSE"/>
+    <testcase time="0.00800000000000001" classname="reformat" name="reformat_factor_works_as_expected_when_the_level_doesn_t_exist"/>
+    <testcase time="0.00299999999999923" classname="reformat" name="reformat_factor_works_as_expected_when_the_level_doesn_t_exist"/>
+    <testcase time="0.00400000000000045" classname="reformat" name="reformat_factor_works_as_expected_when_na_last_FALSE"/>
     <testcase time="0.00399999999999956" classname="reformat" name="reformat_factor_works_as_expected_when_na_last_FALSE"/>
-    <testcase time="0.00700000000000056" classname="reformat" name="reformat_for_list_works_as_expected"/>
+    <testcase time="0.00600000000000023" classname="reformat" name="reformat_for_list_works_as_expected"/>
     <testcase time="0.00399999999999956" classname="reformat" name="reformat_for_list_works_as_expected"/>
+    <testcase time="0.00300000000000011" classname="reformat" name="reformat_for_list_works_as_expected"/>
     <testcase time="0.00400000000000045" classname="reformat" name="reformat_for_list_works_as_expected"/>
-    <testcase time="0.00399999999999956" classname="reformat" name="reformat_for_list_works_as_expected"/>
-    <testcase time="0.00400000000000045" classname="reformat" name="reformat_for_list_works_as_expected"/>
+    <testcase time="0.00300000000000011" classname="reformat" name="reformat_for_list_works_as_expected"/>
     <testcase time="0.00699999999999967" classname="reformat" name="empty_rule_do_nothing_to_input"/>
-    <testcase time="0.00400000000000045" classname="reformat" name="empty_rule_do_nothing_to_input"/>
+    <testcase time="0.00300000000000011" classname="reformat" name="empty_rule_do_nothing_to_input"/>
     <testcase time="0.00399999999999956" classname="reformat" name="empty_rule_do_nothing_to_input"/>
   </testsuite>
-  <testsuite name="rules" timestamp="2023-03-14T04:58:54Z" hostname="0e2c312c8b18" tests="23" skipped="2" failures="0" errors="0" time="0.266">
-    <testcase time="0.00800000000000001" classname="rules" name="rule_create_works_with_arguments"/>
-    <testcase time="0.121" classname="rules" name="rule_create_works_with_arguments"/>
+  <testsuite name="rules" timestamp="2023-03-14T05:04:43Z" hostname="8829ff9d5f8e" tests="23" skipped="2" failures="0" errors="0" time="0.245">
+    <testcase time="0.00700000000000056" classname="rules" name="rule_create_works_with_arguments"/>
+    <testcase time="0.111" classname="rules" name="rule_create_works_with_arguments"/>
     <testcase time="0.00399999999999956" classname="rules" name="rule_create_works_with_arguments"/>
-    <testcase time="0.00399999999999956" classname="rules" name="rule_coerce_logical_numeric_to_character"/>
-    <testcase time="0.00700000000000056" classname="rules" name="rule_coerce_logical_numeric_to_character"/>
+    <testcase time="0.00400000000000045" classname="rules" name="rule_coerce_logical_numeric_to_character"/>
+    <testcase time="0.00600000000000023" classname="rules" name="rule_coerce_logical_numeric_to_character"/>
     <testcase time="0.000999999999999446" classname="rules" name="rule_coerce_logical_numeric_to_character"/>
     <testcase time="0.00600000000000023" classname="rules" name="rule_coerce_logical_numeric_to_character"/>
     <testcase time="0.00400000000000045" classname="rules" name="rule_works_for_multiple_map"/>
-    <testcase time="0.00699999999999967" classname="rules" name="rule_works_for_multiple_map"/>
-    <testcase time="0.00900000000000034" classname="rules" name="rule_fails_when_one_value_is_mapped_to_multiple"/>
+    <testcase time="0.00599999999999934" classname="rules" name="rule_works_for_multiple_map"/>
+    <testcase time="0.00800000000000001" classname="rules" name="rule_fails_when_one_value_is_mapped_to_multiple"/>
     <testcase time="0.00499999999999989" classname="rules" name="rule_fails_when_one_value_is_mapped_to_multiple"/>
-    <testcase time="0.00899999999999945" classname="rules" name="rule_fails_for_values_that_is_not_character_logical_numeric"/>
+    <testcase time="0.00800000000000001" classname="rules" name="rule_fails_for_values_that_is_not_character_logical_numeric"/>
     <testcase time="0.0130000000000008" classname="rules" name="rule_printed_correctly">
       <skipped message="Reason: On CRAN ('test-rules.R:45')"/>
     </testcase>
-    <testcase time="0.016" classname="rules" name="emtpy_rule_is_length_0_character"/>
-    <testcase time="0.00800000000000001" classname="rules" name="emtpy_rule_printed_correctly">
+    <testcase time="0.0149999999999997" classname="rules" name="emtpy_rule_is_length_0_character"/>
+    <testcase time="0.00699999999999967" classname="rules" name="emtpy_rule_printed_correctly">
       <skipped message="Reason: On CRAN ('test-rules.R:55')"/>
     </testcase>
-    <testcase time="0.016" classname="rules" name="list2rules_works_as_expected"/>
+    <testcase time="0.0150000000000006" classname="rules" name="list2rules_works_as_expected"/>
     <testcase time="0.000999999999999446" classname="rules" name="list2rules_works_as_expected"/>
-    <testcase time="0.00400000000000045" classname="rules" name="list2rules_works_as_expected"/>
+    <testcase time="0.00300000000000011" classname="rules" name="list2rules_works_as_expected"/>
     <testcase time="0.00999999999999979" classname="rules" name="list2rules_fails_as_expected"/>
     <testcase time="0.00100000000000033" classname="rules" name="list2rules_fails_as_expected"/>
-    <testcase time="0.00199999999999978" classname="rules" name="list2rules_fails_as_expected"/>
-    <testcase time="0.00499999999999989" classname="rules" name="list_of_rules_are_read_correctly"/>
-    <testcase time="0.00499999999999989" classname="rules" name="list_of_rules_are_read_correctly"/>
+    <testcase time="0.00100000000000033" classname="rules" name="list2rules_fails_as_expected"/>
+    <testcase time="0.00599999999999934" classname="rules" name="list_of_rules_are_read_correctly"/>
+    <testcase time="0.00300000000000011" classname="rules" name="list_of_rules_are_read_correctly"/>
   </testsuite>
-  <testsuite name="utils" timestamp="2023-03-14T04:58:54Z" hostname="0e2c312c8b18" tests="28" skipped="0" failures="0" errors="0" time="0.098">
+  <testsuite name="utils" timestamp="2023-03-14T05:04:43Z" hostname="8829ff9d5f8e" tests="28" skipped="0" failures="0" errors="0" time="0.091">
     <testcase time="0.00800000000000001" classname="utils" name="h_ws_to_na_works_as_expected."/>
     <testcase time="0.00100000000000033" classname="utils" name="h_ws_to_na_works_as_expected."/>
     <testcase time="0.00199999999999978" classname="utils" name="h_ws_to_na_works_as_expected."/>
-    <testcase time="0.000999999999999446" classname="utils" name="h_ws_to_na_works_as_expected."/>
-    <testcase time="0.00400000000000045" classname="utils" name="h_ws_to_na_works_as_expected."/>
+    <testcase time="0.00100000000000033" classname="utils" name="h_ws_to_na_works_as_expected."/>
+    <testcase time="0.00300000000000011" classname="utils" name="h_ws_to_na_works_as_expected."/>
     <testcase time="0.00499999999999989" classname="utils" name="h_ws_to_explicit_na_works_as_expected."/>
-    <testcase time="0.00100000000000033" classname="utils" name="h_ws_to_explicit_na_works_as_expected."/>
-    <testcase time="0.00199999999999978" classname="utils" name="h_ws_to_explicit_na_works_as_expected."/>
-    <testcase time="0.00100000000000033" classname="utils" name="h_ws_to_explicit_na_works_as_expected."/>
-    <testcase time="0.00599999999999934" classname="utils" name="h_as_factor_works_as_expected"/>
+    <testcase time="0.000999999999999446" classname="utils" name="h_ws_to_explicit_na_works_as_expected."/>
+    <testcase time="0.00200000000000067" classname="utils" name="h_ws_to_explicit_na_works_as_expected."/>
+    <testcase time="0.000999999999999446" classname="utils" name="h_ws_to_explicit_na_works_as_expected."/>
+    <testcase time="0.00499999999999989" classname="utils" name="h_as_factor_works_as_expected"/>
     <testcase time="0.00100000000000033" classname="utils" name="h_as_factor_works_as_expected"/>
-    <testcase time="0.00399999999999956" classname="utils" name="h_as_factor_works_as_expected"/>
-    <testcase time="0.00400000000000045" classname="utils" name="h_as_factor_works_as_expected"/>
-    <testcase time="0.00199999999999978" classname="utils" name="h_as_factor_works_as_expected"/>
-    <testcase time="0.00100000000000033" classname="utils" name="h_as_factor_works_as_expected"/>
-    <testcase time="0.00399999999999956" classname="utils" name="h_as_factor_works_as_expected"/>
-    <testcase time="0.00400000000000045" classname="utils" name="h_as_factor_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="utils" name="h_as_factor_works_as_expected"/>
+    <testcase time="0.00399999999999956" classname="utils" name="h_as_factor_works_as_expected"/>
+    <testcase time="0.00200000000000067" classname="utils" name="h_as_factor_works_as_expected"/>
     <testcase time="0.000999999999999446" classname="utils" name="h_as_factor_works_as_expected"/>
     <testcase time="0.00400000000000045" classname="utils" name="h_as_factor_works_as_expected"/>
-    <testcase time="0.00399999999999956" classname="utils" name="h_as_factor_works_as_expected"/>
     <testcase time="0.00300000000000011" classname="utils" name="h_as_factor_works_as_expected"/>
-    <testcase time="0.00499999999999989" classname="utils" name="h_as_factor_works_as_expected"/>
+    <testcase time="0.00299999999999923" classname="utils" name="h_as_factor_works_as_expected"/>
+    <testcase time="0.00100000000000033" classname="utils" name="h_as_factor_works_as_expected"/>
+    <testcase time="0.00300000000000011" classname="utils" name="h_as_factor_works_as_expected"/>
+    <testcase time="0.00399999999999956" classname="utils" name="h_as_factor_works_as_expected"/>
+    <testcase time="0.00200000000000067" classname="utils" name="h_as_factor_works_as_expected"/>
+    <testcase time="0.00199999999999978" classname="utils" name="h_as_factor_works_as_expected"/>
+    <testcase time="0.00699999999999967" classname="utils" name="attr_label_works_as_expected"/>
     <testcase time="0.00400000000000045" classname="utils" name="attr_label_works_as_expected"/>
-    <testcase time="0.00399999999999956" classname="utils" name="attr_label_works_as_expected"/>
-    <testcase time="0.00600000000000023" classname="utils" name="attr_label_works_as_expected"/>
+    <testcase time="0.00499999999999989" classname="utils" name="attr_label_works_as_expected"/>
     <testcase time="0.00800000000000001" classname="utils" name="attr_label_df_works_as_expected"/>
     <testcase time="0.00499999999999989" classname="utils" name="attr_label_df_works_as_expected"/>
   </testsuite>
