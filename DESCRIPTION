@@ -1,9 +1,11 @@
 Package: dunlin
 Title: Preprocessing tools for clinical trial data
-Version: 0.1.1.9013
-Date: 2023-03-08
+Version: 0.1.1.9014
+Date: 2023-03-14
 Authors@R: c(
     person("Benoit", "Falquet", , "benoit.falquet@roche.com", role = c("aut", "cre")),
+    person("Liming", "Li", , "liming.li@roche.com", role = "aut"),
+    person("Xiaoli", "Duan", , "xiaoli.duan@roche.com", role = "aut"),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
   )
 Description: A collection of functions to preprocess data and organize
@@ -12,7 +14,6 @@ License: Apache License 2.0 | file LICENSE
 Depends:
     R (>= 4.0.0)
 Imports:
-    assertthat,
     checkmate (>= 2.0),
     dm (>= 1.0),
     dplyr,

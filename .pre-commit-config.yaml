@@ -16,24 +16,13 @@ repos:
         name: Regenerate package documentation
         additional_dependencies:
           - checkmate
-          - digest
+          - dm
           - dplyr
-          - ggplot2
-          - glue
-          - grDevices
-          - lifecycle
-          - logger
+          - forcats
           - magrittr
           - methods
-          - bioc::MultiAssayExperiment
-          - R6
           - rlang
-          - rtables
-          - shinyjs
-          - shinyWidgets
-          - stats
-          - bioc::SummarizedExperiment
-          - utils
+          - tibble
           - yaml
       - id: spell-check
         name: Check spelling with `spelling`
@@ -64,6 +53,7 @@ repos:
           (.*/|)DESCRIPTION|
           (.*/|)LICENSE|
           (.*/|)NAMESPACE|
+          .*\-package.Rd|
           (.*/|)staged_dependencies\.yaml|
           (.*/|)WORDLIST|
           \.github/.*\.yaml|
