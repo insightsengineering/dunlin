@@ -84,7 +84,7 @@ ls_unite <- function(adam_db, tab, cols, sep = ".", new = NULL) {
   checkmate::assert_string(tab)
   checkmate::assert_names(names(adam_db), must.include = tab)
   checkmate::assert_character(cols, min.len = 1)
-  checkmate::assert_names(colnames(adam_db[[cols]]), must.include = cols)
+  checkmate::assert_names(names(adam_db[[tab]]), must.include = cols)
   checkmate::assert_string(sep)
   checkmate::assert_string(new, null.ok = TRUE)
 
