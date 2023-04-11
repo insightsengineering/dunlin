@@ -38,6 +38,10 @@ dm_explicit_na <- function(data,
                            char_as_factor = TRUE,
                            logical_as_factor = FALSE,
                            na_level = "<Missing>") {
+  .Deprecated(
+    "Use of `dm` object is deprecated, please use `lapply(data, tern::df_explicit_na)` on a `list` of `data.frame`."
+  )
+  
   checkmate::assert_class(data, "dm")
   checkmate::assert_character(omit_tables, null.ok = TRUE)
   checkmate::assert_character(omit_columns, null.ok = TRUE)
