@@ -1,3 +1,7 @@
+# dunlin 0.1.2.9000
+
+* Add `log_filter` function for filtering with additional logs.
+
 # dunlin 0.1.2
 
 * Defined a Reformatting Map (`rule` object) which specifies the correspondence between the old and the new values in data.
