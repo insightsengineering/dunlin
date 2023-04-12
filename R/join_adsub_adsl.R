@@ -229,10 +229,6 @@ join_adsub_adsl.dm <- function(adam_db,
 
 # Utility functions ----
 
-#' Assert whether any two names are identical.
-#'
-#' @keywords internal
-#'
 assert_names_collision <- function(vars_nam) {
   final_names_ls <- lapply(vars_nam, names)
   in_both <- final_names_ls[[1]] %in% final_names_ls[[2]]
@@ -248,10 +244,6 @@ or select different columns to avoid automatic renaming."
   }
 }
 
-#' Assert that names are not in adsl
-#'
-#' @keywords internal
-#'
 assert_names_notadsl <- function(vars_nam, df) {
   final_names <- unique(sapply(vars_nam, names))
   already_in_adsl <- final_names %in% colnames(df)
