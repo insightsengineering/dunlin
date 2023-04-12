@@ -144,7 +144,7 @@ join_adsub_adsl.dm <- function(adam_db,
                                categorical_var = "all",
                                continuous_suffix = "",
                                categorical_suffix = "_CAT") {
-  .Deprecated(msg = "Usage of `dm` object is deprecated, please use list of `data.frame`.")
+  .Deprecated(msg = "Use of `dm` object is deprecated, please use `list` of `data.frame`.")
   
   checkmate::assert_class(adam_db, "dm")
   checkmate::assert_names(names(adam_db), must.include = c("adsl", "adsub"))
