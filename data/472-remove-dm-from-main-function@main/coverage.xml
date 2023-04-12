@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.996204933586338" branch-rate="0" lines-covered="525" lines-valid="527" branches-covered="0" branches-valid="0" complexity="0" version="3.6.2" timestamp="2023-04-12 08:41:29">
+<coverage line-rate="0.996204933586338" branch-rate="0" lines-covered="525" lines-valid="527" branches-covered="0" branches-valid="0" complexity="0" version="3.6.2" timestamp="2023-04-12 09:18:10">
   <sources>
     <source>/__w/dunlin/dunlin/dunlin</source>
   </sources>
@@ -409,31 +409,31 @@
             </method>
             <method name="assert_names_collision" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="237" hits="11" branch="false"/>
-                <line number="238" hits="11" branch="false"/>
-                <line number="239" hits="11" branch="false"/>
+                <line number="233" hits="11" branch="false"/>
+                <line number="234" hits="11" branch="false"/>
+                <line number="235" hits="11" branch="false"/>
+                <line number="236" hits="1" branch="false"/>
+                <line number="237" hits="1" branch="false"/>
+                <line number="238" hits="1" branch="false"/>
+                <line number="239" hits="1" branch="false"/>
                 <line number="240" hits="1" branch="false"/>
                 <line number="241" hits="1" branch="false"/>
                 <line number="242" hits="1" branch="false"/>
                 <line number="243" hits="1" branch="false"/>
-                <line number="244" hits="1" branch="false"/>
-                <line number="245" hits="1" branch="false"/>
-                <line number="246" hits="1" branch="false"/>
-                <line number="247" hits="1" branch="false"/>
               </lines>
             </method>
             <method name="assert_names_notadsl" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="256" hits="11" branch="false"/>
-                <line number="257" hits="11" branch="false"/>
-                <line number="258" hits="11" branch="false"/>
-                <line number="259" hits="2" branch="false"/>
-                <line number="260" hits="2" branch="false"/>
-                <line number="261" hits="2" branch="false"/>
-                <line number="262" hits="2" branch="false"/>
-                <line number="263" hits="2" branch="false"/>
-                <line number="264" hits="2" branch="false"/>
-                <line number="265" hits="2" branch="false"/>
+                <line number="248" hits="11" branch="false"/>
+                <line number="249" hits="11" branch="false"/>
+                <line number="250" hits="11" branch="false"/>
+                <line number="251" hits="2" branch="false"/>
+                <line number="252" hits="2" branch="false"/>
+                <line number="253" hits="2" branch="false"/>
+                <line number="254" hits="2" branch="false"/>
+                <line number="255" hits="2" branch="false"/>
+                <line number="256" hits="2" branch="false"/>
+                <line number="257" hits="2" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -532,27 +532,27 @@
             <line number="222" hits="12" branch="false"/>
             <line number="223" hits="12" branch="false"/>
             <line number="226" hits="6" branch="false"/>
-            <line number="237" hits="11" branch="false"/>
-            <line number="238" hits="11" branch="false"/>
-            <line number="239" hits="11" branch="false"/>
+            <line number="233" hits="11" branch="false"/>
+            <line number="234" hits="11" branch="false"/>
+            <line number="235" hits="11" branch="false"/>
+            <line number="236" hits="1" branch="false"/>
+            <line number="237" hits="1" branch="false"/>
+            <line number="238" hits="1" branch="false"/>
+            <line number="239" hits="1" branch="false"/>
             <line number="240" hits="1" branch="false"/>
             <line number="241" hits="1" branch="false"/>
             <line number="242" hits="1" branch="false"/>
             <line number="243" hits="1" branch="false"/>
-            <line number="244" hits="1" branch="false"/>
-            <line number="245" hits="1" branch="false"/>
-            <line number="246" hits="1" branch="false"/>
-            <line number="247" hits="1" branch="false"/>
-            <line number="256" hits="11" branch="false"/>
-            <line number="257" hits="11" branch="false"/>
-            <line number="258" hits="11" branch="false"/>
-            <line number="259" hits="2" branch="false"/>
-            <line number="260" hits="2" branch="false"/>
-            <line number="261" hits="2" branch="false"/>
-            <line number="262" hits="2" branch="false"/>
-            <line number="263" hits="2" branch="false"/>
-            <line number="264" hits="2" branch="false"/>
-            <line number="265" hits="2" branch="false"/>
+            <line number="248" hits="11" branch="false"/>
+            <line number="249" hits="11" branch="false"/>
+            <line number="250" hits="11" branch="false"/>
+            <line number="251" hits="2" branch="false"/>
+            <line number="252" hits="2" branch="false"/>
+            <line number="253" hits="2" branch="false"/>
+            <line number="254" hits="2" branch="false"/>
+            <line number="255" hits="2" branch="false"/>
+            <line number="256" hits="2" branch="false"/>
+            <line number="257" hits="2" branch="false"/>
           </lines>
         </class>
         <class name="pivot.R" filename="R/pivot.R" line-rate="1" branch-rate="0" complexity="0">
