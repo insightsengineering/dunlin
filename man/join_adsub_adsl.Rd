@@ -6,7 +6,15 @@
 \alias{join_adsub_adsl.dm}
 \title{Join \code{adsub} to \code{adsl}}
 \usage{
-join_adsub_adsl(obj, ...)
+join_adsub_adsl(
+  adam_db,
+  keys,
+  continuous_var,
+  categorical_var,
+  continuous_suffix,
+  categorical_suffix,
+  ...
+)
 
 \method{join_adsub_adsl}{list}(
   adam_db,
@@ -14,7 +22,8 @@ join_adsub_adsl(obj, ...)
   continuous_var = "all",
   categorical_var = "all",
   continuous_suffix = "",
-  categorical_suffix = "_CAT"
+  categorical_suffix = "_CAT",
+  ...
 )
 
 \method{join_adsub_adsl}{dm}(
@@ -23,7 +32,8 @@ join_adsub_adsl(obj, ...)
   continuous_var = "all",
   categorical_var = "all",
   continuous_suffix = "",
-  categorical_suffix = "_CAT"
+  categorical_suffix = "_CAT",
+  ...
 )
 }
 \arguments{
@@ -43,6 +53,8 @@ none are selected.}
 
 \item{categorical_suffix}{(\code{string}) the suffixes to add to the newly generated columns containing categorical
 values.}
+
+\item{...}{not used.}
 }
 \value{
 a \code{dm} object or \code{list} of \code{data.frame} with new columns in the \code{adsl} table.
@@ -70,6 +82,7 @@ db <- list(adsl = adsl, adsub = adsub)
 
 x <- join_adsub_adsl(adam_db = db)
 x <- join_adsub_adsl(adam_db = db, continuous_var = c("w", "h"), categorical_var = "h")
+\dontrun{
 adsl <- data.frame(
   USUBJID = c("S1", "S2", "S3", "S4"),
   STUDYID = "My_study",
@@ -92,4 +105,5 @@ db <- dm::dm_add_fk(db, adsub, STUDYID, adsl)
 
 x <- join_adsub_adsl(adam_db = db)
 x <- join_adsub_adsl(adam_db = db, continuous_var = c("w", "h"), categorical_var = "h")
+}
 }

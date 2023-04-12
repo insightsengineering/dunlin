@@ -40,28 +40,29 @@ test_that("dm_unite works as expected with more than 2 columns", {
 # ls_unite ----
 
 test_that("ls_unite works as expected with factors", {
-  
   df1 <- data.frame(
     "Day" = factor(
       c("Tu", "Tu", "Th", "Sat", "Sat", "Sun"),
-      levels = c("Mon", "Tu", "Wed", "Th", "Fri", "Sat", "Sun")),
+      levels = c("Mon", "Tu", "Wed", "Th", "Fri", "Sat", "Sun")
+    ),
     "Month" = factor(
       c("Feb", "Apr", "Feb", "Jan", "Jan", "Jan"),
-      levels = c("Jan", "Feb", "Apr")),
+      levels = c("Jan", "Feb", "Apr")
+    ),
     "Timepoint" = factor(
       c("1", "2", "1", "0", "2", "1")
-      )
+    )
   )
-  
+
   df2 <- data.frame()
-  
+
   db <- list(
     df1 = df1,
     df2 = df2
   )
-  
+
   x <- ls_unite(db, "df1", c("Month", "Day"), new = "FUSION")
-  
+
   expected <- factor(
     paste(db$df1$Month, db$df1$Day, sep = "."),
     levels = c("Jan.Sat", "Jan.Sun", "Feb.Tu", "Feb.Th", "Apr.Tu")
@@ -75,28 +76,29 @@ test_that("ls_unite works as expected with factors", {
 })
 
 test_that("ls_unite works as expected with more than 2 columns", {
-  
   df1 <- data.frame(
     "Day" = factor(
       c("Tu", "Tu", "Th", "Sat", "Sat", "Sun"),
-      levels = c("Mon", "Tu", "Wed", "Th", "Fri", "Sat", "Sun")),
+      levels = c("Mon", "Tu", "Wed", "Th", "Fri", "Sat", "Sun")
+    ),
     "Month" = factor(
       c("Feb", "Apr", "Feb", "Jan", "Jan", "Jan"),
-      levels = c("Jan", "Feb", "Apr")),
+      levels = c("Jan", "Feb", "Apr")
+    ),
     "Timepoint" = factor(
       c("1", "2", "1", "0", "2", "1")
-      )
+    )
   )
-  
+
   df2 <- data.frame()
-  
+
   db <- list(
     df1 = df1,
     df2 = df2
   )
-  
+
   x <- ls_unite(db, "df1", c("Month", "Day", "Timepoint"), new = "FUSION")
-  
+
   expected <- factor(
     c("Feb.Tu.1", "Apr.Tu.2", "Feb.Th.1", "Jan.Sat.0", "Jan.Sat.2", "Jan.Sun.1"),
     levels = c("Jan.Sat.0", "Jan.Sat.2", "Jan.Sun.1", "Feb.Tu.1", "Feb.Th.1", "Apr.Tu.2")
@@ -108,5 +110,3 @@ test_that("ls_unite works as expected with more than 2 columns", {
     expected
   )
 })
-
-

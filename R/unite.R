@@ -10,8 +10,10 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' x <- dm_unite(dm::dm_nycflights13(), "airlines", c("carrier", "name"), new = "FUSION")
 #' x$airlines
+#' }
 dm_unite <- function(adam_db, dataset, cols, sep = ".", new = NULL) {
   .Deprecated("Use of `dm` object is deprecated, please use `ls_unite` with a `list` of `data.frame`.")
 

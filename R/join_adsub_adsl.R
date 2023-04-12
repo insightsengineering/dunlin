@@ -11,13 +11,20 @@
 #' @param continuous_suffix (`string`) the suffixes to add to the newly generated columns containing continuous values.
 #' @param categorical_suffix (`string`) the suffixes to add to the newly generated columns containing categorical
 #'   values.
+#' @param ... not used.
 #'
 #' @return a `dm` object or `list` of `data.frame` with new columns in the `adsl` table.
 #'
 #' @rdname join_adsub_adsl
 #' @export
 #'
-join_adsub_adsl <- function(obj, ...) {
+join_adsub_adsl <- function(adam_db,
+                            keys,
+                            continuous_var,
+                            categorical_var,
+                            continuous_suffix,
+                            categorical_suffix,
+                            ...) {
   UseMethod("join_adsub_adsl")
 }
 
@@ -49,7 +56,8 @@ join_adsub_adsl.list <- function(adam_db,
                                  continuous_var = "all",
                                  categorical_var = "all",
                                  continuous_suffix = "",
-                                 categorical_suffix = "_CAT") {
+                                 categorical_suffix = "_CAT",
+                                 ...) {
   checkmate::assert_list(adam_db, types = "data.frame")
   checkmate::assert_names(names(adam_db), must.include = c("adsl", "adsub"))
   checkmate::assert_names(names(adam_db$adsub), must.include = c("PARAM", "PARAMCD", "AVAL", "AVALC", keys))
@@ -116,6 +124,7 @@ join_adsub_adsl.list <- function(adam_db,
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' adsl <- data.frame(
 #'   USUBJID = c("S1", "S2", "S3", "S4"),
 #'   STUDYID = "My_study",
@@ -138,14 +147,16 @@ join_adsub_adsl.list <- function(adam_db,
 #'
 #' x <- join_adsub_adsl(adam_db = db)
 #' x <- join_adsub_adsl(adam_db = db, continuous_var = c("w", "h"), categorical_var = "h")
+#' }
 join_adsub_adsl.dm <- function(adam_db,
                                keys = c("USUBJID", "STUDYID"),
                                continuous_var = "all",
                                categorical_var = "all",
                                continuous_suffix = "",
-                               categorical_suffix = "_CAT") {
+                               categorical_suffix = "_CAT",
+                               ...) {
   .Deprecated(msg = "Use of `dm` object is deprecated, please use `list` of `data.frame`.")
-  
+
   checkmate::assert_class(adam_db, "dm")
   checkmate::assert_names(names(adam_db), must.include = c("adsl", "adsub"))
   checkmate::assert_names(names(adam_db$adsub), must.include = c("PARAM", "PARAMCD", "AVAL", "AVALC", keys))
