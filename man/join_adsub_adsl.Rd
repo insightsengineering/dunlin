@@ -12,8 +12,7 @@ join_adsub_adsl(
   continuous_var,
   categorical_var,
   continuous_suffix,
-  categorical_suffix,
-  ...
+  categorical_suffix
 )
 
 \method{join_adsub_adsl}{list}(
@@ -22,8 +21,7 @@ join_adsub_adsl(
   continuous_var = "all",
   categorical_var = "all",
   continuous_suffix = "",
-  categorical_suffix = "_CAT",
-  ...
+  categorical_suffix = "_CAT"
 )
 
 \method{join_adsub_adsl}{dm}(
@@ -32,8 +30,7 @@ join_adsub_adsl(
   continuous_var = "all",
   categorical_var = "all",
   continuous_suffix = "",
-  categorical_suffix = "_CAT",
-  ...
+  categorical_suffix = "_CAT"
 )
 }
 \arguments{
@@ -53,8 +50,6 @@ none are selected.}
 
 \item{categorical_suffix}{(\code{string}) the suffixes to add to the newly generated columns containing categorical
 values.}
-
-\item{...}{not used.}
 }
 \value{
 a \code{dm} object or \code{list} of \code{data.frame} with new columns in the \code{adsl} table.
