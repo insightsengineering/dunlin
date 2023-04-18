@@ -15,7 +15,7 @@
 #' @rdname propagate
 #' @export
 #'
-propagate <- function(db, from, add, by, safe = FALSE) {
+propagate <- function(db, from, add, by, safe = TRUE) {
   UseMethod("propagate")
 }
 
@@ -45,7 +45,7 @@ propagate <- function(db, from, add, by, safe = FALSE) {
 #' db <- list(df1 = df1, fd2 = df2, df3 = df3)
 #' propagate(db, from = "df1", add = c("int", "bool"), by = c("id1", "id2"))
 #'
-propagate.list <- function(db, from, add, by, safe = FALSE) {
+propagate.list <- function(db, from, add, by, safe = TRUE) {
   checkmate::assert_list(db, types = "data.frame", names = "unique")
   checkmate::assert_names(names(db), must.include = from)
   checkmate::assert_names(colnames(db[[from]]), must.include = add)
@@ -87,7 +87,7 @@ propagate.list <- function(db, from, add, by, safe = FALSE) {
 #' db <- dm::dm_nycflights13()
 #' res <- propagate(db, "airlines", "name", "carrier", safe = TRUE)
 #' }
-propagate.dm <- function(db, from, add, by, safe = FALSE) {
+propagate.dm <- function(db, from, add, by, safe = TRUE) {
   .Deprecated(msg = "Use of `dm` object is deprecated, please use `list` of `data.frame`.")
 
   checkmate::assert_class(db, "dm")

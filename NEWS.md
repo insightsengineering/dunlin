@@ -1,6 +1,5 @@
 # dunlin 0.1.2.9000
 
-* In active development
 * Deprecated the use of `dm`.
 
 # dunlin 0.1.2

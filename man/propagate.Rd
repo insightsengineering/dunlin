@@ -6,11 +6,11 @@
 \alias{propagate.dm}
 \title{Propagate Column}
 \usage{
-propagate(db, from, add, by, safe = FALSE)
+propagate(db, from, add, by, safe = TRUE)
 
-\method{propagate}{list}(db, from, add, by, safe = FALSE)
+\method{propagate}{list}(db, from, add, by, safe = TRUE)
 
-\method{propagate}{dm}(db, from, add, by, safe = FALSE)
+\method{propagate}{dm}(db, from, add, by, safe = TRUE)
 }
 \arguments{
 \item{db}{(\code{dm} or \code{list} of \code{data.frame}) object for which some variable need to be propagated.}
