@@ -14,6 +14,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' library(dm)
 #'
 #' df1 <- data.frame(
@@ -32,12 +33,17 @@
 #' dm_fact <- dm_explicit_na(db)
 #' dm_fact$df1
 #' dm_fact$df2
+#' }
 dm_explicit_na <- function(data,
                            omit_tables = NULL,
                            omit_columns = NULL,
                            char_as_factor = TRUE,
                            logical_as_factor = FALSE,
                            na_level = "<Missing>") {
+  .Deprecated(
+    "Use of `dm` object is deprecated, please use `lapply(data, tern::df_explicit_na)` on a `list` of `data.frame`."
+  )
+
   checkmate::assert_class(data, "dm")
   checkmate::assert_character(omit_tables, null.ok = TRUE)
   checkmate::assert_character(omit_columns, null.ok = TRUE)
