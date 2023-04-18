@@ -30,15 +30,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.2">v0.1.2</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.1">v0.1.1</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -116,12 +107,8 @@ all tables of a <code>dm</code> object. The <code>label</code> attribute of the 
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dm.cynkra.com/" class="external-link">dm</a></span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘dm’</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from ‘package:stats’:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     filter</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dm.cynkra.com/" class="external-link">dm</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"char"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="cn">NA</span>, <span class="st">"a"</span>, <span class="st">"k"</span>, <span class="st">"x"</span><span class="op">)</span>,</span></span>
@@ -138,21 +125,8 @@ all tables of a <code>dm</code> object. The <code>label</code> attribute of the 
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">dm_fact</span> <span class="op">&lt;-</span> <span class="fu">dm_explicit_na</span><span class="op">(</span><span class="va">db</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">dm_fact</span><span class="op">$</span><span class="va">df1</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        char      fact  logi</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         a        f1    NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2         b        f2 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 &lt;Missing&gt; &lt;Missing&gt;  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4         a &lt;Missing&gt;    NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5         k        f1 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6         x        f1    NA</span>
 <span class="r-in"><span><span class="va">dm_fact</span><span class="op">$</span><span class="va">df2</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        char      fact num</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         a        f1   1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2         b        f2   2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 &lt;Missing&gt; &lt;Missing&gt;   3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4         a &lt;Missing&gt;   4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5         k        f1   5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6         x        f1   6</span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

@@ -50,15 +50,6 @@
 <li class="nav-item">
   <a class="nav-link" href="news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.2">v0.1.2</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.1">v0.1.1</a> </div></li>
-<!-- end dropdown for versions -->
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
@@ -99,72 +90,67 @@
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dm.cynkra.com/" class="external-link">dm</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">dunlin</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">dunlin</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dm.cynkra.com/reference/dm_nycflights13.html" class="external-link">dm_nycflights13</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  <span class="st">"id"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="cn">NA</span>, <span class="st">"a"</span>, <span class="st">"k"</span>, <span class="st">"x"</span><span class="op">)</span>,</span>
+<span>  <span class="st">"id2"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"f1"</span>, <span class="st">"f2"</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="st">"f1"</span>, <span class="st">"f1"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="st">"val"</span> <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  <span class="st">"id"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="cn">NA</span>, <span class="st">"a"</span>, <span class="st">"k"</span>, <span class="st">"x"</span><span class="op">)</span>,</span>
+<span>  <span class="st">"id2"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"f1"</span>, <span class="st">"f2"</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="st">"f1"</span>, <span class="st">"f1"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="st">"num"</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">new_carrier</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="st">""</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">db</span><span class="op">$</span><span class="va">airlines</span><span class="op">$</span><span class="va">carrier</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">new_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="st">""</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">db</span><span class="op">$</span><span class="va">airlines</span><span class="op">$</span><span class="va">name</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>df1 <span class="op">=</span> <span class="va">df1</span>, df2 <span class="op">=</span> <span class="va">df2</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">db</span> <span class="op">&lt;-</span> <span class="va">db</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dm.cynkra.com/reference/dm_zoom_to.html" class="external-link">dm_zoom_to</a></span><span class="op">(</span><span class="st">"airlines"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>    carrier <span class="op">=</span> <span class="va">new_carrier</span>,</span>
-<span>    name <span class="op">=</span> <span class="va">new_name</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dm.cynkra.com/reference/dm_zoom_to.html" class="external-link">dm_update_zoomed</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">airlines</span></span></code></pre></div>
-<p>which returns <code>airlines</code> as</p>
-<pre class="text"><code># A tibble: 15 × 2
-   carrier name
-   &lt;chr&gt;   &lt;chr&gt;
- 1  NA      NA
- 2 ""      ""
- 3 "AS"    "Alaska Airlines Inc."
- 4 "B6"    "JetBlue Airways"
- 5 "DL"    "Delta Air Lines Inc."
- 6 "EV"    "ExpressJet Airlines Inc."
- 7 "F9"    "Frontier Airlines Inc."
- 8 "FL"    "AirTran Airways Corporation"
- 9 "HA"    "Hawaiian Airlines Inc."
-10 "MQ"    "Envoy Air"
-11 "UA"    "United Air Lines Inc."
-12 "US"    "US Airways Inc."
-13 "VX"    "Virgin America"
-14 "WN"    "Southwest Airlines Co."
-15 "YV"    "Mesa Airlines Inc."</code></pre>
+<span><span class="va">prop_db</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/propagate.html">propagate</a></span><span class="op">(</span><span class="va">db</span>, <span class="st">"df1"</span>, <span class="st">"val"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"id2"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>which returns <code>prop_db</code> as</p>
+<pre class="text"><code> $df1
+    id  id2 val
+1    a   f1   a
+2    b   f2   b
+3 &lt;NA&gt; &lt;NA&gt;   c
+4    a &lt;NA&gt;   d
+5    k   f1   e
+6    x   f1   f
+
+$df2
+    id  id2 num val
+1    a   f1   1   a
+2    b   f2   2   b
+3 &lt;NA&gt; &lt;NA&gt;   3   c
+4    a &lt;NA&gt;   4   d
+5    k   f1   5   e
+6    x   f1   6   f</code></pre>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_format</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  airlines <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    carrier <span class="op">=</span> <span class="fu"><a href="reference/rule.html">rule</a></span><span class="op">(</span><span class="st">"No Coding available"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="cn">NA</span>, <span class="st">"&lt;Missing&gt;"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    name <span class="op">=</span> <span class="fu"><a href="reference/rule.html">rule</a></span><span class="op">(</span><span class="st">"&lt;Missing&gt;"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="cn">NA</span>, <span class="st">"&lt;Missing&gt;"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  df1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    id <span class="op">=</span> <span class="fu"><a href="reference/rule.html">rule</a></span><span class="op">(</span><span class="st">"No ID available"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="cn">NA</span>, <span class="st">"&lt;Missing&gt;"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    id2 <span class="op">=</span> <span class="fu"><a href="reference/rule.html">rule</a></span><span class="op">(</span><span class="st">"&lt;Missing&gt;"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="cn">NA</span>, <span class="st">"&lt;Missing&gt;"</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu">dunlin</span><span class="fu">::</span><span class="fu"><a href="reference/reformat.html">reformat</a></span><span class="op">(</span><span class="va">db</span>, <span class="va">new_format</span>, na_last <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">airlines</span></span></code></pre></div>
-<p>which reformulates <code>airlines</code> as</p>
-<pre class="text"><code># A tibble: 15 × 2
-   carrier             name
-   &lt;fct&gt;               &lt;fct&gt;
- 1 No Coding available &lt;Missing&gt;
- 2 No Coding available &lt;Missing&gt;
- 3 AS                  Alaska Airlines Inc.
- 4 B6                  JetBlue Airways
- 5 DL                  Delta Air Lines Inc.
- 6 EV                  ExpressJet Airlines Inc.
- 7 F9                  Frontier Airlines Inc.
- 8 FL                  AirTran Airways Corporation
- 9 HA                  Hawaiian Airlines Inc.
-10 MQ                  Envoy Air
-11 UA                  United Air Lines Inc.
-12 US                  US Airways Inc.
-13 VX                  Virgin America
-14 WN                  Southwest Airlines Co.
-15 YV                  Mesa Airlines Inc.</code></pre>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">dunlin</span><span class="fu">::</span><span class="fu"><a href="reference/reformat.html">reformat</a></span><span class="op">(</span><span class="va">prop_db</span>, <span class="va">new_format</span>, na_last <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p>which result in <code>res</code> as</p>
+<pre class="text"><code>$df1
+               id       id2 val
+1               a        f1   a
+2               b        f2   b
+3 No ID available &lt;Missing&gt;   c
+4               a &lt;Missing&gt;   d
+5               k        f1   e
+6               x        f1   f
+
+$df2
+    id  id2 num val
+1    a   f1   1   a
+2    b   f2   2   b
+3 &lt;NA&gt; &lt;NA&gt;   3   c
+4    a &lt;NA&gt;   4   d
+5    k   f1   5   e
+6    x   f1   6   f</code></pre>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">
