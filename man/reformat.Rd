@@ -3,6 +3,7 @@
 \name{reformat}
 \alias{reformat}
 \alias{reformat.default}
+\alias{reformat.logical}
 \alias{reformat.character}
 \alias{reformat.factor}
 \alias{reformat.dm}
@@ -12,6 +13,8 @@
 reformat(obj, ...)
 
 \method{reformat}{default}(obj, format, ...)
+
+\method{reformat}{logical}(obj, format, bool_as_fct = FALSE, ...)
 
 \method{reformat}{character}(obj, format, string_as_fct = TRUE, na_last = TRUE, ...)
 
@@ -41,6 +44,13 @@ raised. The rest of the reformatting process (for instance the conversion to fac
 factors levels if \code{string_as_fct = TRUE}) is still carried out.
 }
 \examples{
+
+# Reformatting of character.
+obj <- c(TRUE, FALSE, TRUE, NA)
+attr(obj, "label") <- "my label"
+format <- rule("<Missing>" = NA)
+
+reformat(obj, format)
 
 # Reformatting of character.
 obj <- c("a", "b", "x", NA)
