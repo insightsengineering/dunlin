@@ -37,6 +37,7 @@ This is a helper function to encode missing entries across groups of categorical
 all tables of a \code{dm} object. The \code{label} attribute of the columns is preserved.
 }
 \examples{
+\dontrun{
 library(dm)
 
 df1 <- data.frame(
@@ -55,4 +56,5 @@ db <- dm(df1, df2)
 dm_fact <- dm_explicit_na(db)
 dm_fact$df1
 dm_fact$df2
+}
 }

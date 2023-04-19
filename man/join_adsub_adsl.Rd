@@ -2,9 +2,29 @@
 % Please edit documentation in R/join_adsub_adsl.R
 \name{join_adsub_adsl}
 \alias{join_adsub_adsl}
+\alias{join_adsub_adsl.list}
+\alias{join_adsub_adsl.dm}
 \title{Join \code{adsub} to \code{adsl}}
 \usage{
 join_adsub_adsl(
+  adam_db,
+  keys,
+  continuous_var,
+  categorical_var,
+  continuous_suffix,
+  categorical_suffix
+)
+
+\method{join_adsub_adsl}{list}(
+  adam_db,
+  keys = c("USUBJID", "STUDYID"),
+  continuous_var = "all",
+  categorical_var = "all",
+  continuous_suffix = "",
+  categorical_suffix = "_CAT"
+)
+
+\method{join_adsub_adsl}{dm}(
   adam_db,
   keys = c("USUBJID", "STUDYID"),
   continuous_var = "all",
@@ -14,7 +34,7 @@ join_adsub_adsl(
 )
 }
 \arguments{
-\item{adam_db}{(\code{dm}) object input with an \code{adsl} and \code{adsub} table.}
+\item{adam_db}{(\code{dm} or \code{list} of \code{data.frame}) object input with an \code{adsl} and \code{adsub} table.}
 
 \item{keys}{(\code{character}) the name of the columns in \code{adsl} uniquely identifying a row.}
 
@@ -32,12 +52,32 @@ none are selected.}
 values.}
 }
 \value{
-a \code{dm} object with new columns in the \code{adsl} table.
+a \code{dm} object or \code{list} of \code{data.frame} with new columns in the \code{adsl} table.
 }
 \description{
 Join \code{adsub} to \code{adsl}
 }
 \examples{
+adsl <- data.frame(
+  USUBJID = c("S1", "S2", "S3", "S4"),
+  STUDYID = "My_study",
+  AGE = c(60, 44, 23, 31)
+)
+
+adsub <- data.frame(
+  USUBJID = c("S1", "S2", "S3", "S4", "S1", "S2", "S3"),
+  STUDYID = "My_study",
+  PARAM = c("weight", "weight", "weight", "weight", "height", "height", "height"),
+  PARAMCD = c("w", "w", "w", "w", "h", "h", "h"),
+  AVAL = c(98, 75, 70, 71, 182, 155, 152),
+  AVALC = c(">80", "<=80", "<=80", "<=80", ">180", "<=180", "<=180")
+)
+
+db <- list(adsl = adsl, adsub = adsub)
+
+x <- join_adsub_adsl(adam_db = db)
+x <- join_adsub_adsl(adam_db = db, continuous_var = c("w", "h"), categorical_var = "h")
+\dontrun{
 adsl <- data.frame(
   USUBJID = c("S1", "S2", "S3", "S4"),
   STUDYID = "My_study",
@@ -60,4 +100,5 @@ db <- dm::dm_add_fk(db, adsub, STUDYID, adsl)
 
 x <- join_adsub_adsl(adam_db = db)
 x <- join_adsub_adsl(adam_db = db, continuous_var = c("w", "h"), categorical_var = "h")
+}
 }

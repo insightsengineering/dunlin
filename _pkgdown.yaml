@@ -28,8 +28,7 @@ reference:
     contents:
       - co_relevels
       - cut_by_group
-      - dm_explicit_na
-      - dm_unite
+      - ls_unite
       - join_adsub_adsl
       - mini_pivot_wider
       - multi_pivot_wider
@@ -57,3 +56,7 @@ reference:
   - title: Data
     contents:
       - standard_remap
+  - title: Deprecated Functions
+    contents:
+      - dm_unite
+      - dm_explicit_na
