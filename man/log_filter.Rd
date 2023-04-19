@@ -21,7 +21,7 @@ log_filter(data, condition, ...)
 
 \item{table}{(\code{string}) table name.}
 
-\item{by}{(\code{character}) variable names shared by adsl and other datasets for filtering.}
+\item{by}{(\code{character}) variable names shared by \code{adsl} and other datasets for filtering.}
 }
 \description{
 Filter Data with Log
