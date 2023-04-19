@@ -35,7 +35,7 @@ log_filter.data.frame <- function(data, condition, ...) {
 
 #' @rdname log_filter
 #' @param table (`string`) table name.
-#' @param by (`character`) variable names shared by adsl and other datasets for filtering.
+#' @param by (`character`) variable names shared by `adsl` and other datasets for filtering.
 #' @export
 #' @examples
 #' log_filter(list(iris = iris), Sepal.Length >= 7, "iris", character(0))
