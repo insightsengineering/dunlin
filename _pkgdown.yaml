@@ -38,6 +38,9 @@ reference:
       - empty_rule
       - list2rules
       - read_rules
+  - title: Filtering
+    contents:
+      - log_filter
   - title: Assertions
     contents:
       - assert_valid_format
