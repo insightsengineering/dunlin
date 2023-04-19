@@ -1,6 +1,5 @@
 #' Filter Data with Log
 #' @param data (`data.frame`) input data to subset, or named (`list`) of (`data.frame`).
-#' @param table (`string`) table name.
 #' @param condition (`call`) of subset condition. Must eval as logical.
 #' @param ... further arguments to be passed to or from other methods.
 #'
@@ -35,10 +34,12 @@ log_filter.data.frame <- function(data, condition, ...) {
 }
 
 #' @rdname log_filter
+#' @param table (`string`) table name.
+#' @param by (`character`) variable names shared by adsl and other datasets for filtering.
 #' @export
 #' @examples
-#' log_filter(list(iris = iris), "iris", Sepal.Length >= 7)
-log_filter.list <- function(data, table, condition, by = c("USUBJID", "STUDYID"), ...) {
+#' log_filter(list(iris = iris), Sepal.Length >= 7, "iris", character(0))
+log_filter.list <- function(data, condition, table, by = c("USUBJID", "STUDYID"), ...) {
   checkmate::assert_list(data, types = "data.frame", names = "unique")
   checkmate::assert_subset(table, names(data))
   checkmate::assert_names(colnames(data[[table]]), must.include = by)

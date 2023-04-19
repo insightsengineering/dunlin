@@ -10,7 +10,7 @@ log_filter(data, condition, ...)
 
 \method{log_filter}{data.frame}(data, condition, ...)
 
-\method{log_filter}{list}(data, table, condition, by = c("USUBJID", "STUDYID"), ...)
+\method{log_filter}{list}(data, condition, table, by = c("USUBJID", "STUDYID"), ...)
 }
 \arguments{
 \item{data}{(\code{data.frame}) input data to subset, or named (\code{list}) of (\code{data.frame}).}
@@ -20,6 +20,8 @@ log_filter(data, condition, ...)
 \item{...}{further arguments to be passed to or from other methods.}
 
 \item{table}{(\code{string}) table name.}
+
+\item{by}{(\code{character}) variable names shared by adsl and other datasets for filtering.}
 }
 \description{
 Filter Data with Log
@@ -33,5 +35,5 @@ other datasets with \code{USUBJID}.
 }
 \examples{
 log_filter(iris, Sepal.Length >= 7)
-log_filter(list(iris = iris), "iris", Sepal.Length >= 7)
+log_filter(list(iris = iris), Sepal.Length >= 7, "iris", character(0))
 }
