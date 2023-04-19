@@ -25,23 +25,26 @@ log_filter.data.frame <- function(data, condition, ...) {
   if (!all(var_in_env | var_in_data)) {
     stop(sprintf("Variable %s not found in data or environment.", toString(vars[!(var_in_data | var_in_env)])))
   }
-  res <- do.call(subset, list(x = data, subset = condition))
-  attr(res, "rows") <- c(attr(data, "rows"), list(c(nrow(data), nrow(res))))
+  res <- do.call(subset, list(x = data, subset = condition), envir = parent.frame())
+  rows <- list(c(nrow(data), nrow(res)))
+  names(rows) <- deparse(condition)
+  attr(res, "rows") <- c(attr(data, "rows"), rows)
   res
 }
 
 #' @export
 #' @example
 #' log_filter(list(iris = iris), "iris", Sepal.Length >= 7)
-log_filter.list <- function(data, table, condition, ...) {
+log_filter.list <- function(data, table, condition, by = c("USUBJID", "STUDYID"), ...) {
   checkmate::assert_list(data, types = "data.frame", names = "unique")
   checkmate::assert_subset(table, names(data))
+  checkmate::assert_names(colnames(data[[table]]), must.include = by)
   condition <- match.call()$condition
   data[[table]] <- eval(bquote(log_filter(data[[table]], .(condition))))
   if (identical(table, "adsl")) {
     for (k in setdiff(names(data), "adsl")) {
-      if ("USUBJID" %in% names(data[[k]]) && "USUBJID" %in% names(data[["adsl"]])) {
-        data[[k]] <- data[[k]][data[[k]]$USUBJID %in% data[["adsl"]]$USUBJID, ]
+      if (all(by %in% names(data[[k]]))) {
+        data[[k]] <- merge(data[[k]], data$adsl[by], by = by, all.x = FALSE, all.y = FALSE, sort = FALSE)
       }
     }
   }
