@@ -1,4 +1,4 @@
-# dunlin 0.1.2.9001
+# dunlin 0.1.2.9002
 
 * Add `log_filter` function for filtering with additional logs.
 * Deprecated the use of `dm`.
