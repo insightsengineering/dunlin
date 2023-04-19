@@ -2,6 +2,7 @@
 #' @param data (`data.frame`) input data to subset, or named (`list`) of (`data.frame`).
 #' @param table (`string`) table name.
 #' @param condition (`call`) of subset condition. Must eval as logical.
+#' @param ... further arguments to be passed to or from other methods.
 #'
 #' @details
 #' `log_filter` will filter the data/named list of data according to the `condition`.
@@ -14,8 +15,9 @@ log_filter <- function(data, condition, ...) {
   UseMethod("log_filter")
 }
 
+#' @rdname log_filter
 #' @export
-#' @example
+#' @examples
 #' log_filter(iris, Sepal.Length >= 7)
 log_filter.data.frame <- function(data, condition, ...) {
   condition <- match.call()$condition
@@ -32,8 +34,9 @@ log_filter.data.frame <- function(data, condition, ...) {
   res
 }
 
+#' @rdname log_filter
 #' @export
-#' @example
+#' @examples
 #' log_filter(list(iris = iris), "iris", Sepal.Length >= 7)
 log_filter.list <- function(data, table, condition, by = c("USUBJID", "STUDYID"), ...) {
   checkmate::assert_list(data, types = "data.frame", names = "unique")
