@@ -15,7 +15,7 @@ test_that("dm_explicit_na works as expected with default options.", {
 
   db <- dm::dm(df1, df2)
 
-  res <- dm_explicit_na(db)
+  expect_warning(res <- dm_explicit_na(db))
 
   checkmate::expect_data_frame(res$df1, types = c("factor", "logical"), nrows = nrow(df1), ncols = ncol(df1))
   checkmate::expect_factor(res$df1$char,
@@ -71,13 +71,13 @@ test_that("dm_explicit_na works as expected with optional arguments.", {
 
   db <- dm::dm(df1, df2)
 
-  res <- dm_explicit_na(db,
+  expect_warning(res <- dm_explicit_na(db,
     char_as_factor = FALSE,
     logical_as_factor = TRUE,
     omit_tables = "df2",
     omit_columns = "logi2",
     na_level = "Not Present"
-  )
+  ))
 
   checkmate::expect_data_frame(res$df1,
     types = c("character", "factor", "logical", "numeric", "logical"),
@@ -133,12 +133,12 @@ test_that("dm_explicit_na skip if all datasets excluded", {
   df2 <- attr_label_df(df2, LETTERS[1:3])
 
   db <- dm::dm(df1, df2)
-  res <- dm_explicit_na(db,
+  expect_warning(res <- dm_explicit_na(db,
     char_as_factor = FALSE,
     logical_as_factor = TRUE,
     omit_tables = c("df1", "df2"),
     omit_columns = "logi2",
     na_level = "Not Present"
-  )
+  ))
   expect_identical(res, db)
 })

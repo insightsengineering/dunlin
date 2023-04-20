@@ -34,80 +34,76 @@ remotes::install_github("insightsengineering/dunlin@*release")
 ## Usage
 
   ```r
-  library(dm)
   library(dunlin)
 
-  db <- dm_nycflights13()
+  df1 <- data.frame(
+    "id" = c("a", "b", NA, "a", "k", "x"),
+    "id2" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
+    "val" = letters[1:6]
+  )
+  df2 <- data.frame(
+    "id" = c("a", "b", NA, "a", "k", "x"),
+    "id2" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
+    "num" = 1:6
+  )
 
-  new_carrier <- c(NA, "", as.character(db$airlines$carrier[-c(1, 2)]))
-  new_name <- c(NA, "", as.character(db$airlines$name[-c(1, 2)]))
+  db <- list(df1 = df1, df2 = df2)
 
-  db <- db %>%
-    dm_zoom_to("airlines") %>%
-    mutate(
-      carrier = new_carrier,
-      name = new_name
-    ) %>%
-    dm_update_zoomed()
-
-  db$airlines
+  prop_db <- propagate(db, "df1", "val", c("id", "id2"))
   ```
 
-  which returns `airlines` as
+  which returns `prop_db` as
 
   ```text
-  # A tibble: 15 × 2
-     carrier name
-     <chr>   <chr>
-   1  NA      NA
-   2 ""      ""
-   3 "AS"    "Alaska Airlines Inc."
-   4 "B6"    "JetBlue Airways"
-   5 "DL"    "Delta Air Lines Inc."
-   6 "EV"    "ExpressJet Airlines Inc."
-   7 "F9"    "Frontier Airlines Inc."
-   8 "FL"    "AirTran Airways Corporation"
-   9 "HA"    "Hawaiian Airlines Inc."
-  10 "MQ"    "Envoy Air"
-  11 "UA"    "United Air Lines Inc."
-  12 "US"    "US Airways Inc."
-  13 "VX"    "Virgin America"
-  14 "WN"    "Southwest Airlines Co."
-  15 "YV"    "Mesa Airlines Inc."
+   $df1
+      id  id2 val
+  1    a   f1   a
+  2    b   f2   b
+  3 <NA> <NA>   c
+  4    a <NA>   d
+  5    k   f1   e
+  6    x   f1   f
+  
+  $df2
+      id  id2 num val
+  1    a   f1   1   a
+  2    b   f2   2   b
+  3 <NA> <NA>   3   c
+  4    a <NA>   4   d
+  5    k   f1   5   e
+  6    x   f1   6   f
   ```
 
   ```r
   new_format <- list(
-    airlines = list(
-      carrier = rule("No Coding available" = c("", NA, "<Missing>")),
-      name = rule("<Missing>" = c("", NA, "<Missing>"))
+    df1 = list(
+      id = rule("No ID available" = c("", NA, "<Missing>")),
+      id2 = rule("<Missing>" = c("", NA, "<Missing>"))
     )
   )
 
-  db <- dunlin::reformat(db, new_format, na_last = TRUE)
+  res <- dunlin::reformat(prop_db, new_format, na_last = TRUE)
 
-  db$airlines
   ```
 
-  which reformulates `airlines` as
+  which result in `res` as
 
   ```text
-  # A tibble: 15 × 2
-     carrier             name
-     <fct>               <fct>
-   1 No Coding available <Missing>
-   2 No Coding available <Missing>
-   3 AS                  Alaska Airlines Inc.
-   4 B6                  JetBlue Airways
-   5 DL                  Delta Air Lines Inc.
-   6 EV                  ExpressJet Airlines Inc.
-   7 F9                  Frontier Airlines Inc.
-   8 FL                  AirTran Airways Corporation
-   9 HA                  Hawaiian Airlines Inc.
-  10 MQ                  Envoy Air
-  11 UA                  United Air Lines Inc.
-  12 US                  US Airways Inc.
-  13 VX                  Virgin America
-  14 WN                  Southwest Airlines Co.
-  15 YV                  Mesa Airlines Inc.
+  $df1
+                 id       id2 val
+  1               a        f1   a
+  2               b        f2   b
+  3 No ID available <Missing>   c
+  4               a <Missing>   d
+  5               k        f1   e
+  6               x        f1   f
+  
+  $df2
+      id  id2 num val
+  1    a   f1   1   a
+  2    b   f2   2   b
+  3 <NA> <NA>   3   c
+  4    a <NA>   4   d
+  5    k   f1   5   e
+  6    x   f1   6   f
   ```

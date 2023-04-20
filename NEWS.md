@@ -1,6 +1,7 @@
-# dunlin 0.1.2.9000
+# dunlin 0.1.2.9003
 
-* In active development
+* Add `log_filter` function for filtering with additional logs.
+* Deprecated the use of `dm`.
 
 # dunlin 0.1.2
 
