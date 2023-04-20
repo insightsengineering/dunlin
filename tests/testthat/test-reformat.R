@@ -5,7 +5,7 @@
 test_that("reformat fails for numeric or logical", {
   x <- c(0, 1, 2)
   r <- rule(a = 1, b = 2)
-  expect_warning(res <- reformat(x, r), "Not implemented! Only empty rule allowed.")
+  expect_warning(res <- reformat(x, r), "Not implemented for class: numeric! Only empty rule allowed.")
 })
 
 ## reformat character ----

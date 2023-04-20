@@ -14,7 +14,7 @@ reformat(obj, ...)
 
 \method{reformat}{default}(obj, format, ...)
 
-\method{reformat}{logical}(obj, format, bool_as_fct = FALSE, ...)
+\method{reformat}{logical}(obj, format, bool_as_fct = FALSE, na_last = TRUE, ...)
 
 \method{reformat}{character}(obj, format, string_as_fct = TRUE, na_last = TRUE, ...)
 
@@ -31,9 +31,9 @@ reformat(obj, ...)
 
 \item{format}{(\code{rule}) or (\code{list}) of \code{rule} depending on the class of obj.}
 
-\item{string_as_fct}{(\code{flag}) whether the reformatted character object should be converted to factor.}
-
 \item{na_last}{(\code{flag}) whether the level replacing \code{NA} should be last.}
+
+\item{string_as_fct}{(\code{flag}) whether the reformatted character object should be converted to factor.}
 }
 \description{
 Reformat Values
@@ -51,6 +51,7 @@ attr(obj, "label") <- "my label"
 format <- rule("<Missing>" = NA)
 
 reformat(obj, format)
+reformat(obj, format, bool_as_fct = TRUE)
 
 # Reformatting of character.
 obj <- c("a", "b", "x", NA)
@@ -62,7 +63,7 @@ reformat(obj, format)
 # Reformatting of factor.
 obj <- factor(c("a", "aa", "b", "x", NA), levels = c("x", "b", "aa", "a", "z"))
 attr(obj, "label") <- "my label"
-format <- rule("A" = c("a", "aa"), "NN" = c(NA, "x"), "Not Present" = "z")
+format <- rule("A" = c("a", "aa"), "NN" = c(NA, "x"), "Not Present" = "z", "Not A level" = "P")
 
 reformat(obj, format)
 reformat(obj, format, na_last = TRUE)

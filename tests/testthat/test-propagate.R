@@ -31,7 +31,7 @@ test_that("propagate.list works as expected in safe mode", {
   db <- list(df1 = df1, df2 = df2)
 
   expect_error(propagate(db, "df1", "val", c("id", "id2"), safe = TRUE), "Duplicated key")
-  res <- propagate(db, "df1", "val", c("id", "id2"), safe = FALSE)
+  expect_warning(res <- propagate(db, "df1", "val", c("id", "id2"), safe = FALSE))
   expect_snapshot(res)
 })
 

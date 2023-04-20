@@ -21,7 +21,7 @@ reformat <- function(obj, ...) {
 #' @rdname reformat
 reformat.default <- function(obj, format, ...) {
   if (!is(format, "empty_rule")) {
-    warning(paste0(c("Not implemented for class: ", class(obj), "! Only empty rule allowed.")))
+    warning(paste0(c("Not implemented for class: ", toString(class(obj)), "! Only empty rule allowed.")))
   }
   return(obj)
 }
@@ -37,15 +37,26 @@ reformat.default <- function(obj, format, ...) {
 #' format <- rule("<Missing>" = NA)
 #'
 #' reformat(obj, format)
-reformat.logical <- function(obj, format, bool_as_fct = FALSE, ...) {
+#' reformat(obj, format, bool_as_fct = TRUE)
+reformat.logical <- function(obj, format, bool_as_fct = FALSE, na_last = TRUE, ...) {
   checkmate::assert_class(format, "rule")
   checkmate::assert_flag(bool_as_fct)
 
-  if (!bool_as_fct) {
+  if (bool_as_fct) {
+    # Keep attributes.
+    att <- attributes(obj)
+    obj_fact <- as.factor(obj)
+    supp_att_name <- setdiff(names(att), attributes(obj_fact))
+    supp_att <- att[supp_att_name]
+    attributes(obj_fact) <- c(attributes(obj_fact), supp_att)
+
+    if (is(format, "empty_rule")) {
+      return(obj_fact)
+    }
+    reformat(obj_fact, format, na_last = na_last)
+  } else {
     return(obj)
   }
-  obj <- as.factor(obj)
-  reformat(obj, format)
 }
 
 #' @export
@@ -97,7 +108,7 @@ reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE
 #' # Reformatting of factor.
 #' obj <- factor(c("a", "aa", "b", "x", NA), levels = c("x", "b", "aa", "a", "z"))
 #' attr(obj, "label") <- "my label"
-#' format <- rule("A" = c("a", "aa"), "NN" = c(NA, "x"), "Not Present" = "z")
+#' format <- rule("A" = c("a", "aa"), "NN" = c(NA, "x"), "Not Present" = "z", "Not A level" = "P")
 #'
 #' reformat(obj, format)
 #' reformat(obj, format, na_last = TRUE)
@@ -108,8 +119,11 @@ reformat.factor <- function(obj, format, na_last = TRUE, ...) {
   if (is(format, "empty_rule")) {
     return(obj)
   }
+
+  any_na <- anyNA(obj)
+
   checkmate::assert_class(format, "rule")
-  if (any(is.na(format))) {
+  if (any(is.na(format)) && any_na) {
     obj <- forcats::fct_na_value_to_level(obj)
   }
 

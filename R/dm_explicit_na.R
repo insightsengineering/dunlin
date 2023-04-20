@@ -169,7 +169,7 @@ ls_explicit_na <- function(db,
 #' @keywords internal
 #'
 #' @examples
-#' @examples
+#' \dontrun{
 #' df <- data.frame(
 #'   "char" = c("a", "b", NA, "a", "k", "x"),
 #'   "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
@@ -179,18 +179,29 @@ ls_explicit_na <- function(db,
 #'
 #' h_df_explicit(df)
 #' h_df_explicit(df, logical_as_factor = TRUE)
+#' }
 h_df_explicit <- function(df,
                           omit_columns = NULL,
                           char_as_factor = TRUE,
                           logical_as_factor = FALSE,
                           na_level = "<Missing>") {
-  na_rule <- rule("<Missing>" = c("", NA))
+  na_list <- list(x = c("", NA))
+  names(na_list) <- na_level
+  na_rule <- rule(.lst = na_list)
   numeric_col <- colnames(df)[vapply(df, is.numeric, logical(1))]
   keep_columns <- setdiff(colnames(df), c(omit_columns, numeric_col))
 
   ls_res <- lapply(
     df[, keep_columns, drop = FALSE],
-    function(x) reformat(x, format = na_rule, string_as_fct = char_as_factor, bool_as_fct = logical_as_factor)
+    function(x) {
+      reformat(
+        x,
+        format = na_rule,
+        string_as_fct = char_as_factor,
+        bool_as_fct = logical_as_factor,
+        na_last = TRUE
+      )
+    }
   )
 
   df[, keep_columns] <- as.data.frame(ls_res)

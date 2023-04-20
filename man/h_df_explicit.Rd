@@ -25,6 +25,7 @@ h_df_explicit(
 Encode Categorical Missing Values in a \code{data.frame}.
 }
 \examples{
+\dontrun{
 df <- data.frame(
   "char" = c("a", "b", NA, "a", "k", "x"),
   "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
@@ -34,5 +35,6 @@ df <- data.frame(
 
 h_df_explicit(df)
 h_df_explicit(df, logical_as_factor = TRUE)
+}
 }
 \keyword{internal}
