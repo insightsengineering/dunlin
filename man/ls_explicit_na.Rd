@@ -5,7 +5,7 @@
 \title{Encode Categorical Missing Values in a \code{list} of \code{data.frame}}
 \usage{
 ls_explicit_na(
-  db,
+  data,
   omit_tables = NULL,
   omit_columns = NULL,
   char_as_factor = TRUE,
@@ -14,6 +14,8 @@ ls_explicit_na(
 )
 }
 \arguments{
+\item{data}{(\code{list} of \code{data.frame}) to be transformed.}
+
 \item{omit_tables}{(\code{character}) the names of the table to omit from processing.}
 
 \item{omit_columns}{(\code{character}) the names of the columns to omit from processing.}
@@ -23,8 +25,6 @@ ls_explicit_na(
 \item{logical_as_factor}{(\code{logical}) should logical columns be transformed into factor.}
 
 \item{na_level}{(\code{character}) the label to encode missing levels.}
-
-\item{data}{(\code{list} of \code{data.frame}) to be transformed.}
 }
 \value{
 \code{list} of \code{data.frame} object with explicit missing levels.

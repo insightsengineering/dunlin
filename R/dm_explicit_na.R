@@ -135,24 +135,24 @@ dm_explicit_na <- function(data,
 #' ls_explicit_na(db)
 #' ls_explicit_na(db, logical_as_factor = TRUE, omit_tables = "df3", omit_columns = "char2")
 #'
-ls_explicit_na <- function(db,
+ls_explicit_na <- function(data,
                            omit_tables = NULL,
                            omit_columns = NULL,
                            char_as_factor = TRUE,
                            logical_as_factor = FALSE,
                            na_level = "<Missing>") {
-  checkmate::assert_list(db, types = "data.frame", names = "unique")
+  checkmate::assert_list(data, types = "data.frame", names = "unique")
   checkmate::assert_flag(char_as_factor)
   checkmate::assert_flag(logical_as_factor)
   checkmate::assert_string(na_level)
 
-  modif_tab <- setdiff(names(db), omit_tables)
+  modif_tab <- setdiff(names(data), omit_tables)
   if (length(modif_tab) < 1) {
-    return(db)
+    return(data)
   }
 
-  db[modif_tab] <- lapply(
-    db[modif_tab],
+  data[modif_tab] <- lapply(
+    data[modif_tab],
     h_df_explicit,
     omit_columns = omit_columns,
     char_as_factor = char_as_factor,
@@ -160,7 +160,7 @@ ls_explicit_na <- function(db,
     na_level = na_level
   )
 
-  db
+  data
 }
 
 #' Encode Categorical Missing Values in a `data.frame`.

@@ -31,6 +31,8 @@ reformat(obj, ...)
 
 \item{format}{(\code{rule}) or (\code{list}) of \code{rule} depending on the class of obj.}
 
+\item{bool_as_fct}{(\code{flag}) whether to reformat an object of class \code{logical}.}
+
 \item{na_last}{(\code{flag}) whether the level replacing \code{NA} should be last.}
 
 \item{string_as_fct}{(\code{flag}) whether the reformatted character object should be converted to factor.}
