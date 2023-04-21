@@ -1,9 +1,9 @@
 # Dunlin: Data tools for Pharma
 
 <!-- start badges -->
-[![Check 🛠](https://github.com/insightsengineering/dunlin/actions/workflows/check.yaml/badge.svg)](https://github.com/insightsengineering/dunlin/actions/workflows/check.yaml)
+[![Check 🛠](https://github.com/insightsengineering/dunlin/actions/workflows/check.yaml/badge.svg)](https://insightsengineering.github.io/dunlin/main/unit-test-report/)
 [![Docs 📚](https://github.com/insightsengineering/dunlin/actions/workflows/docs.yaml/badge.svg)](https://insightsengineering.github.io/dunlin/)
-[![Code Coverage 📔](https://raw.githubusercontent.com/insightsengineering/dunlin/_xml_coverage_reports/data/main/badge.svg)](https://raw.githubusercontent.com/insightsengineering/dunlin/_xml_coverage_reports/data/main/coverage.xml)
+[![Code Coverage 📔](https://raw.githubusercontent.com/insightsengineering/dunlin/_xml_coverage_reports/data/main/badge.svg)](https://insightsengineering.github.io/dunlin/main/coverage-report/)
 
 ![GitHub forks](https://img.shields.io/github/forks/insightsengineering/dunlin?style=social)
 ![GitHub Repo stars](https://img.shields.io/github/stars/insightsengineering/dunlin?style=social)
