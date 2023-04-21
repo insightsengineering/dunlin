@@ -24,7 +24,7 @@ test_that("reformat for characters works as expected when string_as_fct is TRUE"
   r <- rule(x = "a", y = "", z = NA)
   expect_identical(
     reformat(x, r, string_as_fct = TRUE),
-    factor(c("b", "x", "b", "y", "z", "x"), levels = c("y", "x", "b", "z"))
+    factor(c("b", "x", "b", "y", "z", "x"), levels = c("x", "y", "b", "z"))
   )
 })
 
@@ -33,14 +33,14 @@ test_that("reformat for characters works as expected when string_as_fct is TRUE 
   r <- rule(x = "a", y = "", z = NA)
   expect_identical(
     reformat(x, r, string_as_fct = TRUE, na_last = FALSE),
-    factor(c("b", "x", "b", "y", "z", "x"), levels = c("y", "x", "b", "z"))
+    factor(c("b", "x", "b", "y", "z", "x"), levels = c("x", "y", "z", "b"))
   )
 
   x <- c("b", "a", "b", "", NA, "a")
   r <- rule(x = "a", y = c("", NA))
   expect_identical(
     reformat(x, r, string_as_fct = TRUE, na_last = FALSE),
-    factor(c("b", "x", "b", "y", "y", "x"), levels = c("y", "x", "b"))
+    factor(c("b", "x", "b", "y", "y", "x"), levels = c("x", "y", "b"))
   )
 })
 
@@ -71,7 +71,7 @@ test_that("reformat factor works as expected when the level doesn't exist", {
   expect_silent(res <- reformat(x, r))
   expect_identical(
     res,
-    factor(c("x", "x", "b", "y", "z"), levels = c("x", "b", "y", "z"))
+    factor(c("x", "x", "b", "y", "z"), levels = c("x", "y", "b", "z"))
   )
 })
 
@@ -114,7 +114,7 @@ test_that("reformat for list works as expected", {
   )
 
   expect_silent(res <- reformat(db, test_map))
-  expected <- factor(c("Empty", "B", "Not Available", "a", "k", "x"), c("Empty", "a", "B", "k", "x", "Not Available"))
+  expected <- factor(c("Empty", "B", "Not Available", "a", "k", "x"), c("Empty", "B", "a", "k", "x", "Not Available"))
   attr(expected, "label") <- "my label"
 
   expect_identical(res$df1$char, expected) # normal reformatting keeps attribute.
@@ -198,7 +198,7 @@ test_that("reformat for dm works as expected", {
   )
 
   expect_silent(res <- reformat(db, test_map))
-  expected <- factor(c("Empty", "B", "Not Available", "a", "k", "x"), c("Empty", "a", "B", "k", "x", "Not Available"))
+  expected <- factor(c("Empty", "B", "Not Available", "a", "k", "x"), c("Empty", "B", "a", "k", "x", "Not Available"))
   attr(expected, "label") <- "my label"
 
   expect_identical(res$df1$char, expected) # normal reformatting keeps attribute.

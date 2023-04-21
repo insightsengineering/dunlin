@@ -106,7 +106,7 @@ reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE
 #' @examples
 #'
 #' # Reformatting of factor.
-#' obj <- factor(c("a", "aa", "b", "x", NA), levels = c("x", "b", "aa", "a", "z"))
+#' obj <- factor(c("first", "a", "aa", "b", "x", NA), levels = c("first", "x", "b", "aa", "a", "z"))
 #' attr(obj, "label") <- "my label"
 #' format <- rule("A" = c("a", "aa"), "NN" = c(NA, "x"), "Not Present" = "z", "Not A level" = "P")
 #'
@@ -128,8 +128,8 @@ reformat.factor <- function(obj, format, na_last = TRUE, ...) {
   }
 
   format <- format[format %in% levels(obj)]
-
   res <- forcats::fct_recode(obj, !!!format)
+  res <- forcats::fct_relevel(res, unique(names(format)))
 
   if (any(is.na(format)) && na_last) {
     na_lvl <- names(format)[is.na(format)]
