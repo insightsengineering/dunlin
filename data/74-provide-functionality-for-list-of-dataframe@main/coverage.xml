@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.993431855500821" branch-rate="0" lines-covered="605" lines-valid="609" branches-covered="0" branches-valid="0" complexity="0" version="3.6.2" timestamp="2023-04-24 10:09:14">
+<coverage line-rate="0.993421052631579" branch-rate="0" lines-covered="604" lines-valid="608" branches-covered="0" branches-valid="0" complexity="0" version="3.6.2" timestamp="2023-04-24 11:40:43">
   <sources>
     <source>/__w/dunlin/dunlin/dunlin</source>
   </sources>
   <packages>
-    <package name="dunlin" line-rate="0.993431855500821" branch-rate="0" complexity="0">
+    <package name="dunlin" line-rate="0.993421052631579" branch-rate="0" complexity="0">
       <classes>
         <class name="assertions.R" filename="R/assertions.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
@@ -296,8 +296,7 @@
                 <line number="197" hits="3" branch="false"/>
                 <line number="198" hits="3" branch="false"/>
                 <line number="199" hits="3" branch="false"/>
-                <line number="200" hits="3" branch="false"/>
-                <line number="202" hits="3" branch="false"/>
+                <line number="201" hits="3" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -373,8 +372,7 @@
             <line number="197" hits="3" branch="false"/>
             <line number="198" hits="3" branch="false"/>
             <line number="199" hits="3" branch="false"/>
-            <line number="200" hits="3" branch="false"/>
-            <line number="202" hits="3" branch="false"/>
+            <line number="201" hits="3" branch="false"/>
           </lines>
         </class>
         <class name="filter.R" filename="R/filter.R" line-rate="1" branch-rate="0" complexity="0">
