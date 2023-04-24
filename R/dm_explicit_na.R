@@ -191,7 +191,6 @@ h_df_explicit <- function(df,
         x,
         format = na_rule,
         string_as_fct = char_as_factor,
-        bool_as_fct = logical_as_factor,
         na_last = TRUE
       )
     },
