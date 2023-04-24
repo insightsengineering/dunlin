@@ -3,7 +3,6 @@
 \name{reformat}
 \alias{reformat}
 \alias{reformat.default}
-\alias{reformat.logical}
 \alias{reformat.character}
 \alias{reformat.factor}
 \alias{reformat.dm}
@@ -13,8 +12,6 @@
 reformat(obj, ...)
 
 \method{reformat}{default}(obj, format, ...)
-
-\method{reformat}{logical}(obj, format, bool_as_fct = FALSE, na_last = TRUE, ...)
 
 \method{reformat}{character}(obj, format, string_as_fct = TRUE, na_last = TRUE, ...)
 
@@ -31,11 +28,9 @@ reformat(obj, ...)
 
 \item{format}{(\code{rule}) or (\code{list}) of \code{rule} depending on the class of obj.}
 
-\item{bool_as_fct}{(\code{flag}) whether to reformat an object of class \code{logical}.}
+\item{string_as_fct}{(\code{flag}) whether the reformatted character object should be converted to factor.}
 
 \item{na_last}{(\code{flag}) whether the level replacing \code{NA} should be last.}
-
-\item{string_as_fct}{(\code{flag}) whether the reformatted character object should be converted to factor.}
 }
 \description{
 Reformat Values
@@ -46,14 +41,6 @@ raised. The rest of the reformatting process (for instance the conversion to fac
 factors levels if \code{string_as_fct = TRUE}) is still carried out.
 }
 \examples{
-
-# Reformatting of character.
-obj <- c(TRUE, FALSE, TRUE, NA)
-attr(obj, "label") <- "my label"
-format <- rule("<Missing>" = NA)
-
-reformat(obj, format)
-reformat(obj, format, bool_as_fct = TRUE)
 
 # Reformatting of character.
 obj <- c("a", "b", "x", NA)

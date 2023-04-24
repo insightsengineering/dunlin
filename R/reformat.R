@@ -2,7 +2,6 @@
 #' @param obj object to reformat.
 #' @param format (`rule`) or (`list`) of `rule` depending on the class of obj.
 #' @param string_as_fct (`flag`) whether the reformatted character object should be converted to factor.
-#' @param bool_as_fct (`flag`) whether to reformat an object of class `logical`.
 #'
 #' @param na_last (`flag`) whether the level replacing `NA` should be last.
 #' @param ... not used. Only for compatibility between methods.
@@ -25,39 +24,6 @@ reformat.default <- function(obj, format, ...) {
     warning(paste0(c("Not implemented for class: ", toString(class(obj)), "! Only empty rule allowed.")))
   }
   return(obj)
-}
-
-#' @export
-#' @rdname reformat
-#'
-#' @examples
-#'
-#' # Reformatting of character.
-#' obj <- c(TRUE, FALSE, TRUE, NA)
-#' attr(obj, "label") <- "my label"
-#' format <- rule("<Missing>" = NA)
-#'
-#' reformat(obj, format)
-#' reformat(obj, format, bool_as_fct = TRUE)
-reformat.logical <- function(obj, format, bool_as_fct = FALSE, na_last = TRUE, ...) {
-  checkmate::assert_class(format, "rule")
-  checkmate::assert_flag(bool_as_fct)
-
-  if (bool_as_fct) {
-    # Keep attributes.
-    att <- attributes(obj)
-    obj_fact <- as.factor(obj)
-    supp_att_name <- setdiff(names(att), attributes(obj_fact))
-    supp_att <- att[supp_att_name]
-    attributes(obj_fact) <- c(attributes(obj_fact), supp_att)
-
-    if (is(format, "empty_rule")) {
-      return(obj_fact)
-    }
-    reformat(obj_fact, format, na_last = na_last)
-  } else {
-    return(obj)
-  }
 }
 
 #' @export

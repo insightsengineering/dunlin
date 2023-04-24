@@ -56,7 +56,7 @@ test_that("dm_explicit_na works as expected with optional arguments.", {
     "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
     "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA),
     "num" = 1:6,
-    "logi2" = c(NA, FALSE, TRUE, NA, FALSE, NA)
+    "char2" = c(NA, FALSE, TRUE, NA, FALSE, NA)
   )
 
   df1 <- attr_label_df(df1, letters[1:5])
@@ -75,7 +75,7 @@ test_that("dm_explicit_na works as expected with optional arguments.", {
     char_as_factor = FALSE,
     logical_as_factor = TRUE,
     omit_tables = "df2",
-    omit_columns = "logi2",
+    omit_columns = "char2",
     na_level = "Not Present"
   ))
 
@@ -99,7 +99,7 @@ test_that("dm_explicit_na works as expected with optional arguments.", {
     any.missing = TRUE
   )
   checkmate::expect_integer(res$df1$num, any.missing = FALSE)
-  checkmate::expect_logical(res$df1$logi2, any.missing = TRUE)
+  checkmate::expect_logical(res$df1$char2, any.missing = TRUE)
 
   checkmate::expect_data_frame(
     res$df2,
@@ -119,7 +119,7 @@ test_that("dm_explicit_na skip if all datasets excluded", {
     "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
     "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA),
     "num" = 1:6,
-    "logi2" = c(NA, FALSE, TRUE, NA, FALSE, NA)
+    "char2" = c("a", "b", NA, "a", "k", "x")
   )
 
   df1 <- attr_label_df(df1, letters[1:5])
@@ -137,7 +137,7 @@ test_that("dm_explicit_na skip if all datasets excluded", {
     char_as_factor = FALSE,
     logical_as_factor = TRUE,
     omit_tables = c("df1", "df2"),
-    omit_columns = "logi2",
+    omit_columns = "char2",
     na_level = "Not Present"
   ))
   expect_identical(res, db)
@@ -201,7 +201,7 @@ test_that("ls_explicit_na works as expected with optional arguments.", {
     "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
     "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA),
     "num" = 1:6,
-    "logi2" = c(NA, FALSE, TRUE, NA, FALSE, NA)
+    "char2" = c("a", "b", NA, "a", "k", "x")
   )
 
   df1 <- attr_label_df(df1, letters[1:5])
@@ -218,9 +218,8 @@ test_that("ls_explicit_na works as expected with optional arguments.", {
 
   res <- ls_explicit_na(db,
     char_as_factor = FALSE,
-    logical_as_factor = TRUE,
     omit_tables = "df2",
-    omit_columns = "logi2",
+    omit_columns = "char2",
     na_level = "Not Present"
   )
 
@@ -237,14 +236,12 @@ test_that("ls_explicit_na works as expected with optional arguments.", {
     empty.levels.ok = FALSE,
     any.missing = FALSE
   )
-  checkmate::expect_factor(
+  checkmate::expect_logical(
     res$df1$logi,
-    levels = c("FALSE", "TRUE", "Not Present"),
-    empty.levels.ok = FALSE,
     any.missing = TRUE
   )
   checkmate::expect_integer(res$df1$num, any.missing = FALSE)
-  checkmate::expect_logical(res$df1$logi2, any.missing = TRUE)
+  expect_identical(res$df1$char2, db$df1$char2)
 
   checkmate::expect_data_frame(
     res$df2,
@@ -264,7 +261,7 @@ test_that("ls_explicit_na skip if all datasets excluded", {
     "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
     "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA),
     "num" = 1:6,
-    "logi2" = c(NA, FALSE, TRUE, NA, FALSE, NA)
+    "char2" = c("a", "b", NA, "a", "k", "x")
   )
 
   df1 <- attr_label_df(df1, letters[1:5])
@@ -280,9 +277,8 @@ test_that("ls_explicit_na skip if all datasets excluded", {
   db <- list(df1 = df1, df2 = df2)
   res <- expect_silent(ls_explicit_na(db,
     char_as_factor = FALSE,
-    logical_as_factor = TRUE,
     omit_tables = c("df1", "df2"),
-    omit_columns = "logi2",
+    omit_columns = "char2",
     na_level = "Not Present"
   ))
   expect_identical(res, db)

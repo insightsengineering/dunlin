@@ -9,22 +9,19 @@ ls_explicit_na(
   omit_tables = NULL,
   omit_columns = NULL,
   char_as_factor = TRUE,
-  logical_as_factor = FALSE,
   na_level = "<Missing>"
 )
 }
 \arguments{
 \item{data}{(\code{list} of \code{data.frame}) to be transformed.}
 
-\item{omit_tables}{(\code{character}) the names of the table to omit from processing.}
+\item{omit_tables}{(\code{character}) the names of the tables to omit from processing.}
 
 \item{omit_columns}{(\code{character}) the names of the columns to omit from processing.}
 
-\item{char_as_factor}{(\code{logical}) should character columns be transformed into factor.}
+\item{char_as_factor}{(\code{logical}) should character columns be converted into factor.}
 
-\item{logical_as_factor}{(\code{logical}) should logical columns be transformed into factor.}
-
-\item{na_level}{(\code{character}) the label to encode missing levels.}
+\item{na_level}{(\code{string}) the label to encode missing levels.}
 }
 \value{
 \code{list} of \code{data.frame} object with explicit missing levels.
@@ -33,8 +30,8 @@ ls_explicit_na(
 Encode Categorical Missing Values in a \code{list} of \code{data.frame}
 }
 \details{
-This is a helper function to encode missing entries across groups of categorical variables in potentially
-all tables of a \code{list} object. The \code{label} attribute of the columns is preserved.
+This is a helper function to encode missing values (i.e \code{NA} and \verb{empty string}) of every \code{character} and
+\code{factor} variable found in a \code{list} of \code{data.frame}. The \code{label} attribute of the columns is preserved.
 }
 \examples{
 
@@ -56,6 +53,6 @@ df3 <- data.frame(
 db <- list(df1 = df1, df2 = df2, df3 = df3)
 
 ls_explicit_na(db)
-ls_explicit_na(db, logical_as_factor = TRUE, omit_tables = "df3", omit_columns = "char2")
+ls_explicit_na(db, omit_tables = "df3", omit_columns = "char2")
 
 }

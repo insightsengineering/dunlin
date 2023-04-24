@@ -8,18 +8,15 @@ h_df_explicit(
   df,
   omit_columns = NULL,
   char_as_factor = TRUE,
-  logical_as_factor = FALSE,
   na_level = "<Missing>"
 )
 }
 \arguments{
 \item{omit_columns}{(\code{character}) the names of the columns to omit from processing.}
 
-\item{char_as_factor}{(\code{logical}) should character columns be transformed into factor.}
+\item{char_as_factor}{(\code{logical}) should character columns be converted into factor.}
 
-\item{logical_as_factor}{(\code{logical}) should logical columns be transformed into factor.}
-
-\item{na_level}{(\code{character}) the label to encode missing levels.}
+\item{na_level}{(\code{string}) the label to encode missing levels.}
 }
 \description{
 Encode Categorical Missing Values in a \code{data.frame}.
@@ -34,7 +31,6 @@ df <- data.frame(
 )
 
 h_df_explicit(df)
-h_df_explicit(df, logical_as_factor = TRUE)
 }
 }
 \keyword{internal}
