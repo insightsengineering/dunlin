@@ -184,19 +184,8 @@ h_df_explicit <- function(df,
 
   sel_col <- setdiff(colnames(df), omit_columns)
 
-  df[, sel_col] <- rapply(
-    df[, sel_col, drop = FALSE],
-    function(x) {
-      reformat(
-        x,
-        format = na_rule,
-        string_as_fct = char_as_factor,
-        na_last = TRUE
-      )
-    },
-    classes = c("character", "factor"),
-    how = "replace"
-  )
+  df %>%
+    mutate(across(where(is.character) & !all_of(omit_columns),  ~ reformat(.x, format = na_rule, string_as_fct = character_as_factor, na_last = TRUE)))
 
   df
 }
