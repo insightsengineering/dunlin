@@ -67,6 +67,9 @@
     <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/h_as_factor.html</loc>
   </url>
   <url>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/h_df_explicit.html</loc>
+  </url>
+  <url>
     <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/h_ws_to_explicit_na.html</loc>
   </url>
   <url>
@@ -83,6 +86,9 @@
   </url>
   <url>
     <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/log_filter.html</loc>
+  </url>
+  <url>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/ls_explicit_na.html</loc>
   </url>
   <url>
     <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/ls_unite.html</loc>
