@@ -48,7 +48,7 @@ df1 <- data.frame(
 df2 <- data.frame(
   "char" = c("a", "b", NA, "a", "k", "x"),
   "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
-  "num" = 1:6
+  "num" = c(1:5, NA)
 )
 
 db <- dm(df1, df2)

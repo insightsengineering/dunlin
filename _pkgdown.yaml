@@ -28,6 +28,7 @@ reference:
     contents:
       - co_relevels
       - cut_by_group
+      - ls_explicit_na
       - ls_unite
       - join_adsub_adsl
       - mini_pivot_wider

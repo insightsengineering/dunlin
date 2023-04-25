@@ -1,5 +1,5 @@
 Package: dunlin
-Title: Preprocessing tools for clinical trial data
+Title: Preprocessing Tools for Clinical Trial Data
 Version: 0.1.2.9004
 Date: 2023-04-20
 Authors@R: c(
