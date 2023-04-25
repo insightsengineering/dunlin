@@ -173,6 +173,7 @@ ls_explicit_na <- function(data,
 #' )
 #'
 #' h_df_explicit(df)
+#' h_df_explicit(df, omit_columns = c("fact", "x"))
 #' }
 h_df_explicit <- function(df,
                           omit_columns = NULL,
@@ -182,10 +183,11 @@ h_df_explicit <- function(df,
   names(na_list) <- na_level
   na_rule <- rule(.lst = na_list)
 
-  sel_col <- setdiff(colnames(df), omit_columns)
-
   df %>%
-    mutate(across(where(is.character) & !all_of(omit_columns),  ~ reformat(.x, format = na_rule, string_as_fct = character_as_factor, na_last = TRUE)))
-
-  df
+    mutate(
+      across(
+        where(~ is.character(.x) | is.factor(.x)) & !any_of(.env$omit_columns),
+        ~ reformat(.x, format = .env$na_rule, string_as_fct = .env$char_as_factor, na_last = TRUE)
+      )
+    )
 }

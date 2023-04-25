@@ -218,8 +218,8 @@ test_that("ls_explicit_na works as expected with optional arguments.", {
 
   res <- ls_explicit_na(db,
     char_as_factor = FALSE,
-    omit_tables = "df2",
-    omit_columns = "char2",
+    omit_tables = c("df2", "non existing table"),
+    omit_columns = c("char2", "non existing column"),
     na_level = "Not Present"
   )
 

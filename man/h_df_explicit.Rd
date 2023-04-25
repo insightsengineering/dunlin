@@ -31,6 +31,7 @@ df <- data.frame(
 )
 
 h_df_explicit(df)
+h_df_explicit(df, omit_columns = "x")
 }
 }
 \keyword{internal}
