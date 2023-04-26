@@ -48,9 +48,8 @@ log_filter.list <- function(data, condition, table, by = c("USUBJID", "STUDYID")
   if (identical(table, "adsl")) {
     for (k in setdiff(names(data), "adsl")) {
       if (all(by %in% names(data[[k]]))) {
-        
-        if(length(by) == 0) by <- intersect(names(data[[k]]), names(data$adsl))
-        
+        if (length(by) == 0) by <- intersect(names(data[[k]]), names(data$adsl))
+
         ori_n <- nrow(data[[k]])
         ori_att <- attr(data[[k]], "rows")
 
@@ -117,7 +116,7 @@ get_log.list <- function(data, incl = TRUE, ...) {
 # Print Log ----
 
 #' Print Log
-#' 
+#'
 #' @inheritParams get_log
 #'
 #' @export

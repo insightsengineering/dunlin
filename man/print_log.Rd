@@ -12,12 +12,19 @@ print_log(data, ...)
 
 \method{print_log}{list}(data, incl = TRUE, ...)
 }
+\arguments{
+\item{data}{(\code{list} of \code{data.frame} or \code{data.frame}) filtered with \code{log_filter}.}
+
+\item{...}{}
+
+\item{incl}{(\code{flag}) should information about unfiltered \code{data.frame} be printed.}
+}
 \description{
 Print Log
 }
 \examples{
 data <- log_filter(iris, Sepal.Length >= 7)
 print_log(data)
-data <- log_filter(list(iris1 = iris, iris2 = iris), Sepal.Length >= 7, "iris1", character(0))
+data <- log_filter(list(adsl = iris, iris2 = iris), Sepal.Length >= 7, "adsl", character(0))
 print_log(data)
 }
