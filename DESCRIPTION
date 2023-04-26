@@ -37,3 +37,18 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Collate: 
+    'assertions.R'
+    'co_relevels.R'
+    'cut_by_group.R'
+    'data.R'
+    'dunlin-package.R'
+    'explicit_na.R'
+    'filter.R'
+    'join_adsub_adsl.R'
+    'pivot.R'
+    'propagate.R'
+    'reformat.R'
+    'rules.R'
+    'unite.R'
+    'utils.R'

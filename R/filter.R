@@ -48,9 +48,125 @@ log_filter.list <- function(data, condition, table, by = c("USUBJID", "STUDYID")
   if (identical(table, "adsl")) {
     for (k in setdiff(names(data), "adsl")) {
       if (all(by %in% names(data[[k]]))) {
+        
+        if(length(by) == 0) by <- intersect(names(data[[k]]), names(data$adsl))
+        
+        ori_n <- nrow(data[[k]])
+        ori_att <- attr(data[[k]], "rows")
+
         data[[k]] <- merge(data[[k]], data$adsl[by], by = by, all.x = FALSE, all.y = FALSE, sort = FALSE)
+
+        rows <- list(c(ori_n, nrow(data[[k]])))
+        names(rows) <- paste0("Filtered by adsl: ", deparse(condition), collapse = "")
+        attr(data[[k]], "rows") <- c(ori_att, rows)
       }
     }
   }
   return(data)
+}
+
+# Get Log ----
+
+#' Get Log
+#'
+#' @param data (`list` of `data.frame` or `data.frame`) filtered with `log_filter`.
+#' @param incl (`flag`) should information about unfiltered `data.frame` be printed.
+#' @param ...
+#'
+#' @export
+get_log <- function(data, ...) {
+  UseMethod("get_log")
+}
+
+#' @rdname get_log
+#' @export
+#' @examples
+#' data <- log_filter(iris, Sepal.Length >= 7)
+#' get_log(data)
+#'
+get_log.data.frame <- function(data, incl = TRUE, ...) {
+  checkmate::assert_flag(incl)
+
+  att <- attr(data, "rows")
+
+  if (!is.null(att)) {
+    start_row <- lapply(att, "[[", 1)
+    end_row <- lapply(att, "[[", 2)
+    paste0(names(att), " [", start_row, " --> ", end_row, " rows.]")
+  } else if (incl) {
+    paste0("No filtering [", nrow(data), " rows.]")
+  } else {
+    NULL
+  }
+}
+
+
+#' @rdname get_log
+#' @export
+#' @examples
+#' data <- log_filter(list(iris1 = iris, iris2 = iris), Sepal.Length >= 7, "iris1", character(0))
+#' get_log(data)
+#'
+get_log.list <- function(data, incl = TRUE, ...) {
+  checkmate::assert_list(data, types = "data.frame", names = "unique")
+  checkmate::assert_flag(incl)
+
+  lapply(data, get_log, incl = incl)
+}
+
+# Print Log ----
+
+#' Print Log
+#' 
+#' @inheritParams get_log
+#'
+#' @export
+print_log <- function(data, ...) {
+  UseMethod("print_log")
+}
+
+#' @rdname print_log
+#' @export
+#' @examples
+#' data <- log_filter(iris, Sepal.Length >= 7)
+#' print_log(data)
+print_log.data.frame <- function(data, incl = TRUE, ...) {
+  checkmate::assert_flag(incl)
+
+  cat("Filter Log:")
+  cat(paste0("\n  ", get_log(data, incl = incl)))
+
+  invisible()
+}
+
+#' @rdname print_log
+#' @export
+#' @examples
+#' data <- log_filter(list(adsl = iris, iris2 = iris), Sepal.Length >= 7, "adsl", character(0))
+#' print_log(data)
+print_log.list <- function(data, incl = TRUE, ...) {
+  checkmate::assert_list(data, types = "data.frame", names = "unique")
+  checkmate::assert_flag(incl)
+
+  filter_log <- get_log(data, incl = incl)
+
+  if (!incl) {
+    filter_log <- filter_log[!vapply(filter_log, is.null, logical(1))]
+  }
+
+  cat("Filter Log:")
+  if (length(filter_log) == 0) {
+    cat("\n  No filtering")
+  } else {
+    mapply(
+      function(x, y) {
+        cat(paste0("\n  - ", x, ":"))
+        cat(paste0("\n  ", y, ""))
+      },
+      as.list(names(filter_log)),
+      filter_log
+    )
+  }
+
+  invisible()
 }
