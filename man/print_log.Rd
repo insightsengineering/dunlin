@@ -6,16 +6,14 @@
 \alias{print_log.list}
 \title{Print Log}
 \usage{
-print_log(data, ...)
+print_log(data, incl)
 
-\method{print_log}{data.frame}(data, incl = TRUE, ...)
+\method{print_log}{data.frame}(data, incl = TRUE)
 
-\method{print_log}{list}(data, incl = TRUE, ...)
+\method{print_log}{list}(data, incl = TRUE)
 }
 \arguments{
 \item{data}{(\code{list} of \code{data.frame} or \code{data.frame}) filtered with \code{log_filter}.}
-
-\item{...}{}
 
 \item{incl}{(\code{flag}) should information about unfiltered \code{data.frame} be printed.}
 }

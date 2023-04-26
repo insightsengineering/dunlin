@@ -70,10 +70,9 @@ log_filter.list <- function(data, condition, table, by = c("USUBJID", "STUDYID")
 #'
 #' @param data (`list` of `data.frame` or `data.frame`) filtered with `log_filter`.
 #' @param incl (`flag`) should information about unfiltered `data.frame` be printed.
-#' @param ...
 #'
 #' @export
-get_log <- function(data, ...) {
+get_log <- function(data, incl) {
   UseMethod("get_log")
 }
 
@@ -83,7 +82,7 @@ get_log <- function(data, ...) {
 #' data <- log_filter(iris, Sepal.Length >= 7)
 #' get_log(data)
 #'
-get_log.data.frame <- function(data, incl = TRUE, ...) {
+get_log.data.frame <- function(data, incl = TRUE) {
   checkmate::assert_flag(incl)
 
   att <- attr(data, "rows")
@@ -106,7 +105,7 @@ get_log.data.frame <- function(data, incl = TRUE, ...) {
 #' data <- log_filter(list(iris1 = iris, iris2 = iris), Sepal.Length >= 7, "iris1", character(0))
 #' get_log(data)
 #'
-get_log.list <- function(data, incl = TRUE, ...) {
+get_log.list <- function(data, incl = TRUE) {
   checkmate::assert_list(data, types = "data.frame", names = "unique")
   checkmate::assert_flag(incl)
 
@@ -120,7 +119,7 @@ get_log.list <- function(data, incl = TRUE, ...) {
 #' @inheritParams get_log
 #'
 #' @export
-print_log <- function(data, ...) {
+print_log <- function(data, incl) {
   UseMethod("print_log")
 }
 
@@ -129,7 +128,7 @@ print_log <- function(data, ...) {
 #' @examples
 #' data <- log_filter(iris, Sepal.Length >= 7)
 #' print_log(data)
-print_log.data.frame <- function(data, incl = TRUE, ...) {
+print_log.data.frame <- function(data, incl = TRUE) {
   checkmate::assert_flag(incl)
 
   cat("Filter Log:")
@@ -143,7 +142,7 @@ print_log.data.frame <- function(data, incl = TRUE, ...) {
 #' @examples
 #' data <- log_filter(list(adsl = iris, iris2 = iris), Sepal.Length >= 7, "adsl", character(0))
 #' print_log(data)
-print_log.list <- function(data, incl = TRUE, ...) {
+print_log.list <- function(data, incl = TRUE) {
   checkmate::assert_list(data, types = "data.frame", names = "unique")
   checkmate::assert_flag(incl)
 

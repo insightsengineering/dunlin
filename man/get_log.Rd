@@ -6,16 +6,14 @@
 \alias{get_log.list}
 \title{Get Log}
 \usage{
-get_log(data, ...)
+get_log(data, incl)
 
-\method{get_log}{data.frame}(data, incl = TRUE, ...)
+\method{get_log}{data.frame}(data, incl = TRUE)
 
-\method{get_log}{list}(data, incl = TRUE, ...)
+\method{get_log}{list}(data, incl = TRUE)
 }
 \arguments{
 \item{data}{(\code{list} of \code{data.frame} or \code{data.frame}) filtered with \code{log_filter}.}
-
-\item{...}{}
 
 \item{incl}{(\code{flag}) should information about unfiltered \code{data.frame} be printed.}
 }
