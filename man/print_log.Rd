@@ -23,6 +23,6 @@ Print Log
 \examples{
 data <- log_filter(iris, Sepal.Length >= 7)
 print_log(data)
-data <- log_filter(list(adsl = iris, iris2 = iris), Sepal.Length >= 7, "adsl", character(0))
+data <- log_filter(list(adsl = iris, iris2 = iris), Sepal.Length >= 7, "adsl", character(0), "my filter")
 print_log(data)
 }

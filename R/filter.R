@@ -1,6 +1,7 @@
 #' Filter Data with Log
 #' @param data (`data.frame`) input data to subset, or named (`list`) of (`data.frame`).
 #' @param condition (`call`) of subset condition. Must eval as logical.
+#' @param suffix (`string`) optional argument describing the filter.
 #' @param ... further arguments to be passed to or from other methods.
 #'
 #' @details
@@ -10,7 +11,7 @@
 #' For named list of data, if `adsl` is available, `log_filter` will also try to subset all
 #' other datasets with `USUBJID`.
 #' @export
-log_filter <- function(data, condition, ...) {
+log_filter <- function(data, condition, suffix = NULL, ...) {
   UseMethod("log_filter")
 }
 
@@ -18,7 +19,9 @@ log_filter <- function(data, condition, ...) {
 #' @export
 #' @examples
 #' log_filter(iris, Sepal.Length >= 7)
-log_filter.data.frame <- function(data, condition, ...) {
+log_filter.data.frame <- function(data, condition, suffix = NULL, ...) {
+  checkmate::assert_string(suffix, null.ok = TRUE)
+  
   condition <- match.call()$condition
   vars <- all.vars(condition)
   var_in_env <- vapply(vars, exists, envir = parent.frame(), inherits = TRUE, FUN.VALUE = TRUE)
@@ -28,7 +31,8 @@ log_filter.data.frame <- function(data, condition, ...) {
   }
   res <- do.call(subset, list(x = data, subset = condition), envir = parent.frame())
   rows <- list(c(nrow(data), nrow(res)))
-  names(rows) <- deparse(condition)
+  add_suffix <- ifelse(!is.null(suffix), paste0("(", suffix, ")"), "")
+  names(rows) <- paste(add_suffix, deparse(condition))
   attr(res, "rows") <- c(attr(data, "rows"), rows)
   res
 }
@@ -39,12 +43,12 @@ log_filter.data.frame <- function(data, condition, ...) {
 #' @export
 #' @examples
 #' log_filter(list(iris = iris), Sepal.Length >= 7, "iris", character(0))
-log_filter.list <- function(data, condition, table, by = c("USUBJID", "STUDYID"), ...) {
+log_filter.list <- function(data, condition, table, by = c("USUBJID", "STUDYID"), suffix = NULL, ...) {
   checkmate::assert_list(data, types = "data.frame", names = "unique")
   checkmate::assert_subset(table, names(data))
   checkmate::assert_names(colnames(data[[table]]), must.include = by)
   condition <- match.call()$condition
-  data[[table]] <- eval(bquote(log_filter(data[[table]], .(condition))))
+  data[[table]] <- eval(bquote(log_filter(data[[table]], .(condition), .(suffix))))
   if (identical(table, "adsl")) {
     for (k in setdiff(names(data), "adsl")) {
       if (all(by %in% names(data[[k]]))) {
@@ -56,7 +60,8 @@ log_filter.list <- function(data, condition, table, by = c("USUBJID", "STUDYID")
         data[[k]] <- merge(data[[k]], data$adsl[by], by = by, all.x = FALSE, all.y = FALSE, sort = FALSE)
 
         rows <- list(c(ori_n, nrow(data[[k]])))
-        names(rows) <- paste0("Filtered by adsl: ", deparse(condition), collapse = "")
+        add_suffix <- ifelse(!is.null(suffix), paste0("(", suffix, ") "), "")
+        names(rows) <- paste0("Filtered by adsl: ", add_suffix, deparse(condition), collapse = "")
         attr(data[[k]], "rows") <- c(ori_att, rows)
       }
     }
@@ -140,7 +145,7 @@ print_log.data.frame <- function(data, incl = TRUE) {
 #' @rdname print_log
 #' @export
 #' @examples
-#' data <- log_filter(list(adsl = iris, iris2 = iris), Sepal.Length >= 7, "adsl", character(0))
+#' data <- log_filter(list(adsl = iris, iris2 = iris), Sepal.Length >= 7, "adsl", character(0), "my filter")
 #' print_log(data)
 print_log.list <- function(data, incl = TRUE) {
   checkmate::assert_list(data, types = "data.frame", names = "unique")
