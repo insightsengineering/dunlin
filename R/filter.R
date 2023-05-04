@@ -114,7 +114,13 @@ get_log.data.frame <- function(data, incl = TRUE, incl.adsl = TRUE) {
 #' @rdname get_log
 #' @export
 #' @examples
-#' data <- log_filter(list(iris1 = iris, iris2 = iris), Sepal.Length >= 7, "iris1", character(0), "Sep")
+#' data <- log_filter(
+#'   list(iris1 = iris, iris2 = iris),
+#'   Sepal.Length >= 7,
+#'   "iris1",
+#'   character(0),
+#'   "Sep"
+#' )
 #' get_log(data)
 #'
 get_log.list <- function(data, incl = TRUE, incl.adsl = TRUE) {

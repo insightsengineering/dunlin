@@ -28,7 +28,13 @@ data <- log_filter(data, Sepal.Length < 2)
 data <- log_filter(data, Sepal.Length >= 2, "yy")
 get_log(data)
 
-data <- log_filter(list(iris1 = iris, iris2 = iris), Sepal.Length >= 7, "iris1", character(0), "Sep")
+data <- log_filter(
+  list(iris1 = iris, iris2 = iris),
+  Sepal.Length >= 7,
+  "iris1",
+  character(0),
+  "Sep"
+)
 get_log(data)
 
 }
