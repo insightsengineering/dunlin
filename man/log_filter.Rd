@@ -8,9 +8,16 @@
 \usage{
 log_filter(data, condition, ...)
 
-\method{log_filter}{data.frame}(data, condition, ...)
+\method{log_filter}{data.frame}(data, condition, suffix = NULL, ...)
 
-\method{log_filter}{list}(data, condition, table, by = c("USUBJID", "STUDYID"), ...)
+\method{log_filter}{list}(
+  data,
+  condition,
+  table,
+  by = c("USUBJID", "STUDYID"),
+  suffix = NULL,
+  ...
+)
 }
 \arguments{
 \item{data}{(\code{data.frame}) input data to subset, or named (\code{list}) of (\code{data.frame}).}
@@ -18,6 +25,8 @@ log_filter(data, condition, ...)
 \item{condition}{(\code{call}) of subset condition. Must eval as logical.}
 
 \item{...}{further arguments to be passed to or from other methods.}
+
+\item{suffix}{(\code{string}) optional argument describing the filter.}
 
 \item{table}{(\code{string}) table name.}
 

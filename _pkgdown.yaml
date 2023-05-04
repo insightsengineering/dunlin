@@ -53,6 +53,8 @@ reference:
   - title: Filtering
     contents:
       - log_filter
+      - get_log
+      - print_log
   - title: Assertions
     contents:
       - assert_valid_format
