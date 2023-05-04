@@ -64,6 +64,9 @@
     <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/empty_rule.html</loc>
   </url>
   <url>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/get_log.html</loc>
+  </url>
+  <url>
     <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/h_as_factor.html</loc>
   </url>
   <url>
@@ -101,6 +104,9 @@
   </url>
   <url>
     <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/poly_pivot_wider.html</loc>
+  </url>
+  <url>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/print_log.html</loc>
   </url>
   <url>
     <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/propagate.html</loc>
