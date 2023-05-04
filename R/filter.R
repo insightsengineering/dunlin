@@ -151,7 +151,7 @@ print_log.data.frame <- function(data, incl = TRUE, incl.adsl = TRUE) {
 
   cat("Filter Log:")
   cat(paste0("\n  ", get_log(data, incl = incl, incl.adsl = incl.adsl)))
-
+  cat("\n")
   invisible()
 }
 
@@ -197,6 +197,7 @@ print_log.list <- function(data, incl = TRUE, incl.adsl = TRUE) {
       filter_log
     )
   }
+  cat("\n")
 
   invisible()
 }
