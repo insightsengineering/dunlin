@@ -6,23 +6,39 @@
 \alias{print_log.list}
 \title{Print Log}
 \usage{
-print_log(data, incl)
+print_log(data, incl, incl.adsl)
 
-\method{print_log}{data.frame}(data, incl = TRUE)
+\method{print_log}{data.frame}(data, incl = TRUE, incl.adsl = TRUE)
 
-\method{print_log}{list}(data, incl = TRUE)
+\method{print_log}{list}(data, incl = TRUE, incl.adsl = TRUE)
 }
 \arguments{
 \item{data}{(\code{list} of \code{data.frame} or \code{data.frame}) filtered with \code{log_filter}.}
 
 \item{incl}{(\code{flag}) should information about unfiltered \code{data.frame} be printed.}
+
+\item{incl.adsl}{(\code{flag}) should indication  of filtering performed through \code{adsl} be printed.}
 }
 \description{
 Print Log
 }
 \examples{
-data <- log_filter(iris, Sepal.Length >= 7)
+data <- log_filter(iris, Sepal.Length >= 7, "Sep")
 print_log(data)
-data <- log_filter(list(adsl = iris, iris2 = iris), Sepal.Length >= 7, "adsl", character(0), "my filter")
+data <- log_filter(
+  list(
+    adsl = iris,
+    iris2 = iris,
+    mtcars = mtcars,
+    iris3 = iris
+  ),
+  Sepal.Length >= 7,
+  "adsl",
+  character(0),
+  "adsl filter"
+)
+data <- log_filter(data, Sepal.Length >= 7, "iris2", character(0), "iris2 filter")
 print_log(data)
+print_log(data, incl = FALSE)
+print_log(data, incl.adsl = FALSE, incl = FALSE)
 }

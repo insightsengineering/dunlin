@@ -11,7 +11,7 @@
 #' For named list of data, if `adsl` is available, `log_filter` will also try to subset all
 #' other datasets with `USUBJID`.
 #' @export
-log_filter <- function(data, condition, suffix = NULL, ...) {
+log_filter <- function(data, condition, ...) {
   UseMethod("log_filter")
 }
 
@@ -21,7 +21,7 @@ log_filter <- function(data, condition, suffix = NULL, ...) {
 #' log_filter(iris, Sepal.Length >= 7)
 log_filter.data.frame <- function(data, condition, suffix = NULL, ...) {
   checkmate::assert_string(suffix, null.ok = TRUE)
-  
+
   condition <- match.call()$condition
   vars <- all.vars(condition)
   var_in_env <- vapply(vars, exists, envir = parent.frame(), inherits = TRUE, FUN.VALUE = TRUE)
@@ -30,9 +30,8 @@ log_filter.data.frame <- function(data, condition, suffix = NULL, ...) {
     stop(sprintf("Variable %s not found in data or environment.", toString(vars[!(var_in_data | var_in_env)])))
   }
   res <- do.call(subset, list(x = data, subset = condition), envir = parent.frame())
-  rows <- list(c(nrow(data), nrow(res)))
-  add_suffix <- ifelse(!is.null(suffix), paste0("(", suffix, ")"), "")
-  names(rows) <- paste(add_suffix, deparse(condition))
+  rows <- list(list(init = nrow(data), final = nrow(res), suffix = suffix))
+  names(rows) <- deparse(condition)
   attr(res, "rows") <- c(attr(data, "rows"), rows)
   res
 }
@@ -59,9 +58,8 @@ log_filter.list <- function(data, condition, table, by = c("USUBJID", "STUDYID")
 
         data[[k]] <- merge(data[[k]], data$adsl[by], by = by, all.x = FALSE, all.y = FALSE, sort = FALSE)
 
-        rows <- list(c(ori_n, nrow(data[[k]])))
-        add_suffix <- ifelse(!is.null(suffix), paste0("(", suffix, ") "), "")
-        names(rows) <- paste0("Filtered by adsl: ", add_suffix, deparse(condition), collapse = "")
+        rows <- list(list(init = ori_n, final = nrow(data[[k]]), suffix = suffix))
+        names(rows) <- paste0("Filtered by adsl: ", deparse(condition), collapse = "")
         attr(data[[k]], "rows") <- c(ori_att, rows)
       }
     }
@@ -75,27 +73,36 @@ log_filter.list <- function(data, condition, table, by = c("USUBJID", "STUDYID")
 #'
 #' @param data (`list` of `data.frame` or `data.frame`) filtered with `log_filter`.
 #' @param incl (`flag`) should information about unfiltered `data.frame` be printed.
+#' @param incl.adsl (`flag`) should indication  of filtering performed through `adsl` be printed.
 #'
 #' @export
-get_log <- function(data, incl) {
+get_log <- function(data, incl, incl.adsl) {
   UseMethod("get_log")
 }
 
 #' @rdname get_log
 #' @export
 #' @examples
-#' data <- log_filter(iris, Sepal.Length >= 7)
+#' data <- log_filter(iris, Sepal.Length >= 7, "xx")
+#' data <- log_filter(data, Sepal.Length < 2)
+#' data <- log_filter(data, Sepal.Length >= 2, "yy")
 #' get_log(data)
 #'
-get_log.data.frame <- function(data, incl = TRUE) {
+get_log.data.frame <- function(data, incl = TRUE, incl.adsl = TRUE) {
   checkmate::assert_flag(incl)
 
   att <- attr(data, "rows")
+  if (!incl.adsl) {
+    sel <- grepl("Filtered by adsl", names(att))
+    att <- att[!sel]
+  }
 
-  if (!is.null(att)) {
-    start_row <- lapply(att, "[[", 1)
-    end_row <- lapply(att, "[[", 2)
-    paste0(names(att), " [", start_row, " --> ", end_row, " rows.]")
+  if (length(att) != 0L) {
+    start_row <- lapply(att, "[[", "init")
+    end_row <- lapply(att, "[[", "final")
+    suffix <- lapply(att, "[[", "suffix")
+    suffix <- vapply(suffix, function(x) ifelse(is.null(x), "", paste0(x, ": ")), character(1))
+    res <- paste0(suffix, names(att), " [", start_row, " --> ", end_row, " rows.]")
   } else if (incl) {
     paste0("No filtering [", nrow(data), " rows.]")
   } else {
@@ -107,14 +114,14 @@ get_log.data.frame <- function(data, incl = TRUE) {
 #' @rdname get_log
 #' @export
 #' @examples
-#' data <- log_filter(list(iris1 = iris, iris2 = iris), Sepal.Length >= 7, "iris1", character(0))
+#' data <- log_filter(list(iris1 = iris, iris2 = iris), Sepal.Length >= 7, "iris1", character(0), "Sep")
 #' get_log(data)
 #'
-get_log.list <- function(data, incl = TRUE) {
+get_log.list <- function(data, incl = TRUE, incl.adsl = TRUE) {
   checkmate::assert_list(data, types = "data.frame", names = "unique")
   checkmate::assert_flag(incl)
 
-  lapply(data, get_log, incl = incl)
+  lapply(data, get_log, incl = incl, incl.adsl = incl.adsl)
 }
 
 # Print Log ----
@@ -122,22 +129,22 @@ get_log.list <- function(data, incl = TRUE) {
 #' Print Log
 #'
 #' @inheritParams get_log
-#'
 #' @export
-print_log <- function(data, incl) {
+#'
+print_log <- function(data, incl, incl.adsl) {
   UseMethod("print_log")
 }
 
 #' @rdname print_log
 #' @export
 #' @examples
-#' data <- log_filter(iris, Sepal.Length >= 7)
+#' data <- log_filter(iris, Sepal.Length >= 7, "Sep")
 #' print_log(data)
-print_log.data.frame <- function(data, incl = TRUE) {
+print_log.data.frame <- function(data, incl = TRUE, incl.adsl = TRUE) {
   checkmate::assert_flag(incl)
 
   cat("Filter Log:")
-  cat(paste0("\n  ", get_log(data, incl = incl)))
+  cat(paste0("\n  ", get_log(data, incl = incl, incl.adsl = incl.adsl)))
 
   invisible()
 }
@@ -145,13 +152,27 @@ print_log.data.frame <- function(data, incl = TRUE) {
 #' @rdname print_log
 #' @export
 #' @examples
-#' data <- log_filter(list(adsl = iris, iris2 = iris), Sepal.Length >= 7, "adsl", character(0), "my filter")
+#' data <- log_filter(
+#'   list(
+#'     adsl = iris,
+#'     iris2 = iris,
+#'     mtcars = mtcars,
+#'     iris3 = iris
+#'   ),
+#'   Sepal.Length >= 7,
+#'   "adsl",
+#'   character(0),
+#'   "adsl filter"
+#' )
+#' data <- log_filter(data, Sepal.Length >= 7, "iris2", character(0), "iris2 filter")
 #' print_log(data)
-print_log.list <- function(data, incl = TRUE) {
+#' print_log(data, incl = FALSE)
+#' print_log(data, incl.adsl = FALSE, incl = FALSE)
+print_log.list <- function(data, incl = TRUE, incl.adsl = TRUE) {
   checkmate::assert_list(data, types = "data.frame", names = "unique")
   checkmate::assert_flag(incl)
 
-  filter_log <- get_log(data, incl = incl)
+  filter_log <- get_log(data, incl = incl, incl.adsl = incl.adsl)
 
   if (!incl) {
     filter_log <- filter_log[!vapply(filter_log, is.null, logical(1))]

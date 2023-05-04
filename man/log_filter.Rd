@@ -6,7 +6,7 @@
 \alias{log_filter.list}
 \title{Filter Data with Log}
 \usage{
-log_filter(data, condition, suffix = NULL, ...)
+log_filter(data, condition, ...)
 
 \method{log_filter}{data.frame}(data, condition, suffix = NULL, ...)
 
@@ -24,9 +24,9 @@ log_filter(data, condition, suffix = NULL, ...)
 
 \item{condition}{(\code{call}) of subset condition. Must eval as logical.}
 
-\item{suffix}{(\code{string}) optional argument describing the filter.}
-
 \item{...}{further arguments to be passed to or from other methods.}
+
+\item{suffix}{(\code{string}) optional argument describing the filter.}
 
 \item{table}{(\code{string}) table name.}
 
