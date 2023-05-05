@@ -75,10 +75,10 @@ reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE
 #' # Reformatting of factor.
 #' obj <- factor(c("first", "a", "aa", "b", "x", NA), levels = c("first", "x", "b", "aa", "a", "z"))
 #' attr(obj, "label") <- "my label"
-#' format <- rule("A" = c("a", "aa"), "NN" = c(NA, "x"), "Not Present" = "z", "Not A level" = "P")
+#' format <- rule("A" = c("a", "aa"), "NN" = c(NA, "x"), "Not_present" = "z", "Not_a_level" = "P")
 #'
 #' reformat(obj, format)
-#' reformat(obj, format, na_last = TRUE)
+#' reformat(obj, format, na_last = FALSE)
 reformat.factor <- function(obj, format, na_last = TRUE, ...) {
   checkmate::assert_class(format, "rule")
   checkmate::assert_flag(na_last)
@@ -94,8 +94,10 @@ reformat.factor <- function(obj, format, na_last = TRUE, ...) {
     obj <- forcats::fct_na_value_to_level(obj)
   }
 
-  format <- format[format %in% levels(obj)]
-  res <- forcats::fct_recode(obj, !!!format)
+  absent_format <- format[!format %in% levels(obj)]
+  sel_format <- format[format %in% levels(obj)]
+  res <- forcats::fct_recode(obj, !!!sel_format)
+  res <- forcats::fct_expand(res, unique(names(absent_format)))
   res <- forcats::fct_relevel(res, unique(names(format)))
 
   if (any(is.na(format)) && na_last) {

@@ -71,7 +71,7 @@ test_that("reformat factor works as expected when the level doesn't exist", {
   expect_silent(res <- reformat(x, r))
   expect_identical(
     res,
-    factor(c("x", "x", "b", "y", "z"), levels = c("x", "y", "b", "z"))
+    factor(c("x", "x", "b", "y", "z"), levels = c("x", "y", "Not a level", "b", "z"))
   )
 })
 
@@ -82,6 +82,16 @@ test_that("reformat factor works as expected when na_last = FALSE", {
   expect_identical(
     res,
     factor(c("x", "x", "b", "y", "y"), levels = c("x", "y", "b"))
+  )
+})
+
+test_that("reformat factor works as expected when the level doesn't exist and na_last is false.", {
+  x <- factor(c("a", "a", "b", "", NA), levels = c("a", "b", ""))
+  r <- rule(x = "a", y = "", z = NA, "Not a level" = "Not here")
+  expect_silent(res <- reformat(x, r, na_last = FALSE))
+  expect_identical(
+    res,
+    factor(c("x", "x", "b", "y", "z"), levels = c("x", "y", "z", "Not a level", "b"))
   )
 })
 
