@@ -176,8 +176,8 @@ test_that("ls_explicit_na works as expected with default options.", {
   )
   checkmate::expect_logical(res$df1$logi, any.missing = TRUE)
   checkmate::expect_factor(res$df1$no_missing,
-    levels = c(letters[1:6]), # To discuss
-    empty.levels.ok = FALSE,
+    levels = c(letters[1:6], "<Missing>"), # To discuss
+    empty.levels.ok = TRUE,
     any.missing = FALSE
   )
 
