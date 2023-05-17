@@ -10,10 +10,23 @@ test_that("propagate.list works as expected", {
     "num" = 1:6
   )
 
-  db <- list(df1 = df1, df2 = df2)
+  df3 <- data.frame(
+    x = "x"
+  )
 
-  res <- propagate(db, "df1", "val", c("id", "id2"))
+  db <- list(df1 = df1, df2 = df2, df3 = df3)
+
+  msg <- capture.output(res <- propagate(db, "df1", "val", c("id", "id2")))
   expect_snapshot(res)
+
+  expect_identical(
+    msg,
+    c(
+      "",
+      "Updating: df2 with: val",
+      "Skipping: df3"
+    )
+  )
 })
 
 test_that("propagate.list works as expected in safe mode", {
@@ -50,10 +63,23 @@ test_that("propagate.dm works as expected", {
     "num" = 1:6
   )
 
-  db <- dm::dm(df1, df2)
+  df3 <- data.frame(
+    x = "x"
+  )
 
-  expect_warning(res <- propagate(db, "df1", "val", c("id", "id2")))
+  db <- dm::dm(df1, df2, df3)
+
+  msg <- capture.output(expect_warning(res <- propagate(db, "df1", "val", c("id", "id2"))))
   expect_snapshot(res)
+
+  expect_identical(
+    msg,
+    c(
+      "",
+      "Updating: df2 with: val",
+      "Skipping: df3"
+    )
+  )
 })
 
 test_that("propagate.dm works as expected in safe mode", {

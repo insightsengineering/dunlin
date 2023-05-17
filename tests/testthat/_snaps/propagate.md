@@ -21,6 +21,10 @@
       5    k   f1   5   e
       6    x   f1   6   f
       
+      $df3
+        x
+      1 x
+      
 
 # propagate.list works as expected in safe mode
 
@@ -53,8 +57,8 @@
       res
     Output
       -- Metadata --------------------------------------------------------------------
-      Tables: `df1`, `df2`
-      Columns: 7
+      Tables: `df1`, `df2`, `df3`
+      Columns: 8
       Primary keys: 0
       Foreign keys: 0
 
