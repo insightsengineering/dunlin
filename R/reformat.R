@@ -91,7 +91,7 @@ reformat.factor <- function(obj, format, na_last = TRUE, empty_as_na = TRUE, ...
     return(obj)
   }
   if (empty_as_na) {
-    obj <- forcats::fct_na_level_to_value(obj, '')
+    obj <- forcats::fct_na_level_to_value(obj, "")
   }
 
   any_na <- anyNA(obj)
