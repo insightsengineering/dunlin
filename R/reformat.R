@@ -4,6 +4,7 @@
 #' @param string_as_fct (`flag`) whether the reformatted character object should be converted to factor.
 #'
 #' @param na_last (`flag`) whether the level replacing `NA` should be last.
+#' @param empty_as_na (`flag`) whether to convert empty string "" to NA.
 #' @param ... not used. Only for compatibility between methods.
 #'
 #' @export
@@ -37,11 +38,14 @@ reformat.default <- function(obj, format, ...) {
 #' format <- rule("A" = "a", "NN" = NA)
 #'
 #' reformat(obj, format)
-reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) {
+reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, empty_as_na = TRUE, ...) {
   checkmate::assert_class(format, "rule")
   checkmate::assert_flag(string_as_fct)
   checkmate::assert_flag(na_last)
-
+  checkmate::assert_flag(empty_as_na)
+  if (empty_as_na) {
+    obj[obj == ""] <- NA_character_
+  }
   if (string_as_fct) {
     # Keep attributes.
     att <- attributes(obj)
@@ -79,12 +83,15 @@ reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE
 #'
 #' reformat(obj, format)
 #' reformat(obj, format, na_last = FALSE)
-reformat.factor <- function(obj, format, na_last = TRUE, ...) {
+reformat.factor <- function(obj, format, na_last = TRUE, empty_as_na = TRUE, ...) {
   checkmate::assert_class(format, "rule")
   checkmate::assert_flag(na_last)
 
   if (is(format, "empty_rule")) {
     return(obj)
+  }
+  if (empty_as_na) {
+    obj <- forcats::fct_na_level_to_value(obj, '')
   }
 
   any_na <- anyNA(obj)

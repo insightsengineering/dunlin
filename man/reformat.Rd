@@ -13,9 +13,16 @@ reformat(obj, ...)
 
 \method{reformat}{default}(obj, format, ...)
 
-\method{reformat}{character}(obj, format, string_as_fct = TRUE, na_last = TRUE, ...)
+\method{reformat}{character}(
+  obj,
+  format,
+  string_as_fct = TRUE,
+  na_last = TRUE,
+  empty_as_na = TRUE,
+  ...
+)
 
-\method{reformat}{factor}(obj, format, na_last = TRUE, ...)
+\method{reformat}{factor}(obj, format, na_last = TRUE, empty_as_na = TRUE, ...)
 
 \method{reformat}{dm}(obj, format, string_as_fct = TRUE, na_last = TRUE, ...)
 
@@ -31,6 +38,8 @@ reformat(obj, ...)
 \item{string_as_fct}{(\code{flag}) whether the reformatted character object should be converted to factor.}
 
 \item{na_last}{(\code{flag}) whether the level replacing \code{NA} should be last.}
+
+\item{empty_as_na}{(\code{flag}) whether to convert empty string "" to NA.}
 }
 \description{
 Reformat Values
