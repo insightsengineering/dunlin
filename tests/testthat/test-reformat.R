@@ -24,7 +24,7 @@ test_that("reformat for characters works as expected when empty_as_na is TRUE", 
   r <- rule(x = "a", y = "", z = NA)
   expect_identical(
     reformat(x, r, string_as_fct = FALSE),
-    c("b", "x", "b", "z", "z", "x")
+    c("b", "x", "b", "y", "z", "x")
   )
 })
 
