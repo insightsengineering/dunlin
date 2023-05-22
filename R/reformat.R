@@ -113,66 +113,6 @@ reformat.factor <- function(obj, format, na_last = TRUE, ...) {
 #'
 #' @examples
 #'
-#' # Reformatting of dm.
-#' library(dm)
-#'
-#' df1 <- data.frame(
-#'   var1 = c("a", "b", NA),
-#'   var2 = factor(c("F1", "F2", NA))
-#' )
-#'
-#' df2 <- data.frame(
-#'   var1 = c("x", NA, "y"),
-#'   var2 = factor(c("F11", NA, "F22"))
-#' )
-#'
-#' db <- dm(df1 = df1, df2 = df2)
-#'
-#' format <- list(
-#'   df1 = list(
-#'     var1 = rule("X" = "x", "N" = NA)
-#'   ),
-#'   df2 = list(
-#'     var1 = empty_rule,
-#'     var2 = rule("f11" = "F11", "NN" = NA)
-#'   )
-#' )
-#'
-#' reformat(db, format)
-reformat.dm <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) {
-  assert_valid_format(format)
-  checkmate::assert_flag(string_as_fct)
-  checkmate::assert_flag(na_last)
-
-  pk <- dm::dm_get_all_pks(obj)
-  fk <- dm::dm_get_all_fks(obj)
-
-  obj <- as.list(obj)
-  obj <- reformat(obj, format = format, string_as_fct = string_as_fct, na_last = na_last)
-  obj <- as_dm(obj)
-
-  for (i in seq_len(nrow(pk))) {
-    obj <- dm_add_pk(obj, !!pk[["table"]][i], !!pk[["pk_col"]][[i]])
-  }
-
-  for (i in seq_len(nrow(fk))) {
-    obj <- dm::dm_add_fk(
-      obj,
-      !!fk[["child_table"]][i],
-      !!fk[["child_fk_cols"]][[i]],
-      !!fk[["parent_table"]][i],
-      !!fk[["parent_key_cols"]][[i]]
-    )
-  }
-
-  obj
-}
-
-#' @export
-#' @rdname reformat
-#'
-#' @examples
-#'
 #' # Reformatting of list of data.frame.
 #' df1 <- data.frame(
 #'   var1 = c("a", "b", NA),

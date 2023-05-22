@@ -62,7 +62,3 @@ reference:
   - title: Data
     contents:
       - standard_remap
-  - title: Deprecated Functions
-    contents:
-      - dm_unite
-      - dm_explicit_na

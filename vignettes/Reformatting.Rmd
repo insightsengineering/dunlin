@@ -69,45 +69,48 @@ The `NA` values are also not changed.
 However, if we including reformatting for the `NA`, there is something different:
 
 ```{r}
-r <- rule(A = "a", B = c("c", "d"), C = NA)
+r <- rule(A = "a", C = NA, B = c("c", "d"))
 reformat(factor(c("a", "c", "d", NA)), r)
 ```
 
-Please note that the level for `NA` is always the last one, if that new level only has `NA`.
-
-For `dm` objects, the `format` argument is actually a nested list of rule.
-The first layer indicates the table names, the second layer indicates the variables in that table.
-
-The `All` keyword, in first layer, lower or Mixed case, can be used instead of a table name to
-indicate that a particular variable should be changed in every table where it appears.
-
-#### Example of Reformatting Map
+By default, the level replacing `NA` is set as the last one. This can be changed by setting `na_last = FALSE`.
 
 ```{r}
-my_map <- list(
-  # This is the Table Name.
-  airlines = list(
-    # This is the Variable Name.
-    name = rule(
-      "AE" = c("American Airlines Inc."),
-      "Alaska and Hawaiian Airlines" = c("Alaska Airlines Inc.", "Hawaiian Airlines Inc.")
-    )
+r <- rule(A = "a", C = NA, B = c("c", "d"))
+reformat(factor(c("a", "c", "d", NA)), r, na_last = FALSE)
+```
+
+For `list` of `data.frames`, the `format` argument is actually a nested list of rule.
+The first layer indicates the table names, the second layer indicates the variables in that table.
+Reformatting is only available for columns of characters or factors, reformatting columns of another types will result in a warning.
+
+#### Example
+
+```{r}
+df1 <- data.frame(
+  "char" = c("", "b", NA, "a", "k", "x"),
+  "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f2", "f1")),
+  "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
+)
+df2 <- data.frame(
+  "char" = c("a", "b", NA, "a", "k", "x"),
+  "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
+)
+
+db <- list(df1 = df1, df2 = df2)
+attr(db$df1$char, "label") <- "my label"
+
+rule_map <- list(
+  df1 = list(
+    char = rule("Empty" = "", "B" = "b", "Not Available" = NA),
+    fact = rule("F1" = "f1"),
+    logi = rule()
   ),
-  planes = list(
-    manufacturer = rule(
-      "Airbus" = "AIRBUS INDUSTRIE",
-      "New Level" = "new_level",
-      "<Missing>" = NA
-    ),
-    model = rule(
-      "EMB-145" = c("EMB-145XR"),
-      "Other 737" = c("737-824", "737-724", "737-732")
-    )
+  df2 = list(
+    char = rule("Empty" = "", "A" = "a", "Not Available" = NA)
   )
 )
 
-db <- dm::dm_nycflights13()
-
-db_formatted <- reformat(db, my_map)
-head(db_formatted$planes$model)
+res <- reformat(db, rule_map, na_last = TRUE)
+res
 ```
