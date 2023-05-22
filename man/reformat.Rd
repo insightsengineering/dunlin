@@ -12,9 +12,16 @@ reformat(obj, ...)
 
 \method{reformat}{default}(obj, format, ...)
 
-\method{reformat}{character}(obj, format, string_as_fct = TRUE, na_last = TRUE, ...)
+\method{reformat}{character}(
+  obj,
+  format,
+  string_as_fct = TRUE,
+  na_last = TRUE,
+  empty_as_na = FALSE,
+  ...
+)
 
-\method{reformat}{factor}(obj, format, na_last = TRUE, ...)
+\method{reformat}{factor}(obj, format, na_last = TRUE, empty_as_na = FALSE, ...)
 
 \method{reformat}{list}(obj, format, string_as_fct = TRUE, na_last = TRUE, ...)
 }
@@ -28,6 +35,8 @@ reformat(obj, ...)
 \item{string_as_fct}{(\code{flag}) whether the reformatted character object should be converted to factor.}
 
 \item{na_last}{(\code{flag}) whether the level replacing \code{NA} should be last.}
+
+\item{empty_as_na}{(\code{flag}) whether to convert empty string "" to NA.}
 }
 \description{
 Reformat Values
@@ -36,6 +45,9 @@ Reformat Values
 When the rule is empty rule or when values subject to reformatting are absent from the object, no error is
 raised. The rest of the reformatting process (for instance the conversion to factor  and the reformatting of
 factors levels if \code{string_as_fct = TRUE}) is still carried out.
+Empty strings, "", is also considered as NA in dunlin. Empty strings will be replaced by NA if \code{empty_as_na} is
+set to TRUE, prior to conduct rule based formatting. So if your data contains "" but your rule did not cover the
+conversion of NA values, you will get NA in your data.
 }
 \examples{
 
