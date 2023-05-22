@@ -73,6 +73,38 @@ test_that("ls_unite works as expected with factors", {
     x$df1$FUSION,
     expected
   )
+
+  y <- ls_unite(db, "df1", c("Month", "Day"))
+
+  expect_identical(x$df1$FUSION, y$df1$Month.Day)
+})
+
+test_that("ls_unite works as expected with character", {
+  df1 <- data.frame(
+    "Day" = c("Tu", "Tu", "Th", "Sat", "Sat", "Sun"),
+    "Month" = c("Feb", "Apr", "Feb", "Jan", "Jan", "Jan"),
+    "Timepoint" = c("1", "2", "1", "0", "2", "1")
+  )
+
+  df2 <- data.frame()
+
+  db <- list(
+    df1 = df1,
+    df2 = df2
+  )
+
+  x <- ls_unite(db, "df1", c("Month", "Day"), new = "FUSION")
+
+  expected <- factor(
+    c("Feb.Tu", "Apr.Tu", "Feb.Th", "Jan.Sat", "Jan.Sat", "Jan.Sun"),
+    levels = c("Feb.Tu", "Feb.Th", "Apr.Tu", "Jan.Sat", "Jan.Sun")
+  )
+
+  checkmate::expect_factor(x$df1$FUSION)
+  expect_identical(
+    x$df1$FUSION,
+    expected
+  )
 })
 
 test_that("ls_unite works as expected with more than 2 columns", {

@@ -81,6 +81,10 @@ test_that("log_filter subset USUBJID for list of data.frame", {
     attr(df1$dfb, "rows"),
     list("Filtered by adsl: b >= 7" = list(init = 10L, final = 4L, suffix = NULL))
   )
+
+  # The by argument can be automatically determined.
+  df2 <- expect_silent(log_filter(df_raw, b >= 7, "adsl", by = NULL))
+  expect_identical(df1, df2)
 })
 
 # get_log ----
@@ -102,6 +106,17 @@ test_that("get_log works as expected", {
   expect_identical(res2$dfb, c("Filtered by adsl: b >= 7 [10 --> 4 rows.]", "c >= 3 [4 --> 2 rows.]"))
 })
 
+test_that("get_log works as expected when incl.adsl = FALSE", {
+  dfa <- data.frame(USUBJID = letters[1:10], b = 1:10)
+  dfb <- data.frame(USUBJID = letters[1:10], c = 10:1)
+  df_raw <- list(adsl = dfa, dfb = dfb)
+  df1 <- expect_silent(log_filter(df_raw, b >= 7, "adsl", by = "USUBJID"))
+  res <- expect_silent(get_log(df1, incl.adsl = FALSE))
+
+  expect_identical(res$adsl, "b >= 7 [10 --> 4 rows.]")
+  expect_identical(res$dfb, "No filtering [4 rows.]")
+})
+
 test_that("get_log works as expected with suffix", {
   dfa <- data.frame(USUBJID = letters[1:10], b = 1:10)
   dfb <- data.frame(USUBJID = letters[1:10], c = 10:1)
@@ -121,7 +136,7 @@ test_that("get_log works as expected with suffix", {
 
 # print_log ----
 
-test_that("print_log works as expected", {
+test_that("print_log.list works as expected", {
   dfa <- data.frame(USUBJID = letters[1:10], b = 1:10)
   dfb <- data.frame(USUBJID = letters[1:10], c = 10:1)
   df_raw <- list(adsl = dfa, dfb = dfb)
@@ -157,7 +172,7 @@ test_that("print_log works as expected", {
 })
 
 
-test_that("print_log works as expect when no filtering is performed", {
+test_that("print_log.list works as expect when no filtering is performed", {
   dfa <- data.frame(USUBJID = letters[1:10], b = 1:10)
   dfb <- data.frame(USUBJID = letters[1:10], c = 10:1)
   df_raw <- list(adsl = dfa, dfb = dfb)
@@ -220,6 +235,41 @@ test_that("print_log works as expect when no filtering is performed", {
       "  No filtering [10 rows.]",
       "  - dfb:",
       "  C filter: c >= 7 [10 --> 4 rows.]"
+    )
+  )
+})
+
+test_that("print_log.data.frame works as expected", {
+  dfa <- data.frame(USUBJID = letters[1:10], b = 1:10)
+  dfb <- data.frame(USUBJID = letters[1:10], c = 10:1)
+  df_raw <- list(adsl = dfa, dfb = dfb)
+
+  df1 <- expect_silent(log_filter(df_raw, b >= 7, "adsl", by = "USUBJID"))
+
+  res <- capture.output(print_log(df1[["dfb"]]))
+  expect_identical(
+    res,
+    c(
+      "Filter Log:",
+      "  Filtered by adsl: b >= 7 [10 --> 4 rows.]"
+    )
+  )
+
+  res <- capture.output(print_log(df1[["dfb"]], incl.adsl = FALSE))
+  expect_identical(
+    res,
+    c(
+      "Filter Log:",
+      "  No filtering [4 rows.]"
+    )
+  )
+
+  res <- capture.output(print_log(df1[["dfb"]], incl = FALSE, incl.adsl = FALSE))
+  expect_identical(
+    res,
+    c(
+      "Filter Log:",
+      "  "
     )
   )
 })
