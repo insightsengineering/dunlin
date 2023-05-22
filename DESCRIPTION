@@ -23,8 +23,6 @@ Imports:
     tibble,
     yaml
 Suggests:
-    DiagrammeR,
-    DiagrammeRsvg,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
