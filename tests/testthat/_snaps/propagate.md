@@ -21,6 +21,10 @@
       5    k   f1   5   e
       6    x   f1   6   f
       
+      $df3
+        x
+      1 x
+      
 
 # propagate.list works as expected in safe mode
 
