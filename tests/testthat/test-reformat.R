@@ -19,6 +19,15 @@ test_that("reformat for characters works as expected when string_as_fct is FALSE
   )
 })
 
+test_that("reformat for characters works as expected when empty_as_na is TRUE", {
+  x <- c("b", "a", "b", "", NA, "a")
+  r <- rule(x = "a", y = "", z = NA)
+  expect_identical(
+    reformat(x, r, string_as_fct = FALSE),
+    c("b", "x", "b", "z", "z", "x")
+  )
+})
+
 test_that("reformat for characters works as expected when string_as_fct is TRUE", {
   x <- c("b", "a", "b", "", NA, "a")
   r <- rule(x = "a", y = "", z = NA)
@@ -82,6 +91,16 @@ test_that("reformat factor works as expected when na_last = FALSE", {
   expect_identical(
     res,
     factor(c("x", "x", "b", "y", "y"), levels = c("x", "y", "b"))
+  )
+})
+
+test_that("reformat factor works as expected when empty_as_na is TRUE", {
+  x <- factor(c("a", "a", "b", "", NA), levels = c("a", "", "b"))
+  r <- rule(x = "a", z = NA)
+  expect_silent(res <- reformat(x, r, na_last = FALSE, empty_as_na = TRUE))
+  expect_identical(
+    res,
+    factor(c("x", "x", "b", "z", "z"), levels = c("x", "z", "b"))
   )
 })
 

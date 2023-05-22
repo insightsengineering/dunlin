@@ -11,6 +11,9 @@
 #' @note When the rule is empty rule or when values subject to reformatting are absent from the object, no error is
 #'   raised. The rest of the reformatting process (for instance the conversion to factor  and the reformatting of
 #'   factors levels if `string_as_fct = TRUE`) is still carried out.
+#'   Empty strings, "", is also considered as NA in dunlin. Empty strings will be replaced by NA if `empty_as_na` is
+#'   set to TRUE, prior to conduct rule based formatting. So if your data contains "" but your rule did not cover the
+#'   conversion of NA values, you will get NA in your data.
 #'
 #' @rdname reformat
 #'
@@ -38,7 +41,7 @@ reformat.default <- function(obj, format, ...) {
 #' format <- rule("A" = "a", "NN" = NA)
 #'
 #' reformat(obj, format)
-reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, empty_as_na = TRUE, ...) {
+reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, empty_as_na = FALSE, ...) {
   checkmate::assert_class(format, "rule")
   checkmate::assert_flag(string_as_fct)
   checkmate::assert_flag(na_last)
@@ -83,7 +86,7 @@ reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE
 #'
 #' reformat(obj, format)
 #' reformat(obj, format, na_last = FALSE)
-reformat.factor <- function(obj, format, na_last = TRUE, empty_as_na = TRUE, ...) {
+reformat.factor <- function(obj, format, na_last = TRUE, empty_as_na = FALSE, ...) {
   checkmate::assert_class(format, "rule")
   checkmate::assert_flag(na_last)
 
