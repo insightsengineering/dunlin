@@ -15,7 +15,6 @@ Depends:
     R (>= 4.0.0)
 Imports:
     checkmate (>= 2.0),
-    dm (>= 1.0),
     dplyr,
     forcats (>= 1.0.0),
     magrittr,
@@ -24,8 +23,6 @@ Imports:
     tibble,
     yaml
 Suggests:
-    DiagrammeR,
-    DiagrammeRsvg,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)

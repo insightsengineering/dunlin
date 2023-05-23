@@ -3,17 +3,14 @@
 \name{propagate}
 \alias{propagate}
 \alias{propagate.list}
-\alias{propagate.dm}
 \title{Propagate Column}
 \usage{
 propagate(db, from, add, by, safe = TRUE)
 
 \method{propagate}{list}(db, from, add, by, safe = TRUE)
-
-\method{propagate}{dm}(db, from, add, by, safe = TRUE)
 }
 \arguments{
-\item{db}{(\code{dm} or \code{list} of \code{data.frame}) object for which some variable need to be propagated.}
+\item{db}{(\code{list} of \code{data.frame}) object for which some variable need to be propagated.}
 
 \item{from}{(\code{string}) the name of the table where the variables to propagate are stored.}
 
@@ -24,10 +21,10 @@ propagate(db, from, add, by, safe = TRUE)
 \item{safe}{(\code{flag}) should the key be checked for uniqueness in the \code{from} table.}
 }
 \value{
-updates \code{dm} object or \code{list} of \code{data.frame}.
+updated \code{list} of \code{data.frame}.
 }
 \description{
-\code{propagate}copy columns from a given table of a \code{list} of \code{data.frame} or \code{dm} object to all tables based on other
+\code{propagate}copy columns from a given table of a \code{list} of \code{data.frame} to all tables based on other
 common columns. If several rows are associated with the same key, the rows will be duplicated in the receiving
 tables. In safe mode, the key must be unique in the original table.
 }
@@ -53,8 +50,4 @@ df3 <- data.frame(
 db <- list(df1 = df1, fd2 = df2, df3 = df3)
 propagate(db, from = "df1", add = c("int", "bool"), by = c("id1", "id2"))
 
-\dontrun{
-db <- dm::dm_nycflights13()
-res <- propagate(db, "airlines", "name", "carrier", safe = TRUE)
-}
 }

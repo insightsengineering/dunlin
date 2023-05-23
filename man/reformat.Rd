@@ -5,7 +5,6 @@
 \alias{reformat.default}
 \alias{reformat.character}
 \alias{reformat.factor}
-\alias{reformat.dm}
 \alias{reformat.list}
 \title{Reformat Values}
 \usage{
@@ -23,8 +22,6 @@ reformat(obj, ...)
 )
 
 \method{reformat}{factor}(obj, format, na_last = TRUE, empty_as_na = FALSE, ...)
-
-\method{reformat}{dm}(obj, format, string_as_fct = TRUE, na_last = TRUE, ...)
 
 \method{reformat}{list}(obj, format, string_as_fct = TRUE, na_last = TRUE, ...)
 }
@@ -68,33 +65,6 @@ format <- rule("A" = c("a", "aa"), "NN" = c(NA, "x"), "Not_present" = "z", "Not_
 
 reformat(obj, format)
 reformat(obj, format, na_last = FALSE)
-
-# Reformatting of dm.
-library(dm)
-
-df1 <- data.frame(
-  var1 = c("a", "b", NA),
-  var2 = factor(c("F1", "F2", NA))
-)
-
-df2 <- data.frame(
-  var1 = c("x", NA, "y"),
-  var2 = factor(c("F11", NA, "F22"))
-)
-
-db <- dm(df1 = df1, df2 = df2)
-
-format <- list(
-  df1 = list(
-    var1 = rule("X" = "x", "N" = NA)
-  ),
-  df2 = list(
-    var1 = empty_rule,
-    var2 = rule("f11" = "F11", "NN" = NA)
-  )
-)
-
-reformat(db, format)
 
 # Reformatting of list of data.frame.
 df1 <- data.frame(
