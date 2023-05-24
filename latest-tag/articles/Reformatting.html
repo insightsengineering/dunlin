@@ -27,7 +27,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">dunlin</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.3</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,9 +54,17 @@
           aria-expanded="false" aria-haspopup="true"
           id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/main">main</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/latest-tag">latest-tag</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.3">v0.1.3</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.2">v0.1.2</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.1">v0.1.1</a> </div></li>
 <!-- end dropdown for versions -->
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-reports">Reports</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-reports">
+    <a class="dropdown-item" href="../coverage-report/">Coverage report</a>
+    <a class="dropdown-item" href="../unit-test-report/">Unit test report</a>
+  </div>
+</li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
@@ -143,50 +151,70 @@ labels will be unchanged.</p>
 including reformatting for the <code>NA</code>, there is something
 different:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rule.html">rule</a></span><span class="op">(</span>A <span class="op">=</span> <span class="st">"a"</span>, B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="st">"d"</span><span class="op">)</span>, C <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rule.html">rule</a></span><span class="op">(</span>A <span class="op">=</span> <span class="st">"a"</span>, C <span class="op">=</span> <span class="cn">NA</span>, B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="st">"d"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/reformat.html">reformat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span>, <span class="va">r</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] A B B C</span></span>
 <span><span class="co">#&gt; Levels: A B C</span></span></code></pre></div>
-<p>Please note that the level for <code>NA</code> is always the last
-one, if that new level only has <code>NA</code>.</p>
-<p>For <code>dm</code> objects, the <code>format</code> argument is
-actually a nested list of rule. The first layer indicates the table
-names, the second layer indicates the variables in that table.</p>
-<p>The <code>All</code> keyword, in first layer, lower or Mixed case,
-can be used instead of a table name to indicate that a particular
-variable should be changed in every table where it appears.</p>
-<div class="section level4">
-<h4 id="example-of-reformatting-map">Example of Reformatting Map<a class="anchor" aria-label="anchor" href="#example-of-reformatting-map"></a>
-</h4>
+<p>By default, the level replacing <code>NA</code> is set as the last
+one. This can be changed by setting <code>na_last = FALSE</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">my_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="co"># This is the Table Name.</span></span>
-<span>  airlines <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="co"># This is the Variable Name.</span></span>
-<span>    name <span class="op">=</span> <span class="fu"><a href="../reference/rule.html">rule</a></span><span class="op">(</span></span>
-<span>      <span class="st">"AE"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"American Airlines Inc."</span><span class="op">)</span>,</span>
-<span>      <span class="st">"Alaska and Hawaiian Airlines"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Alaska Airlines Inc."</span>, <span class="st">"Hawaiian Airlines Inc."</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rule.html">rule</a></span><span class="op">(</span>A <span class="op">=</span> <span class="st">"a"</span>, C <span class="op">=</span> <span class="cn">NA</span>, B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="st">"d"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/reformat.html">reformat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span>, <span class="va">r</span>, na_last <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] A B B C</span></span>
+<span><span class="co">#&gt; Levels: A C B</span></span></code></pre></div>
+<p>For <code>list</code> of <code>data.frames</code>, the
+<code>format</code> argument is actually a nested list of rule. The
+first layer indicates the table names, the second layer indicates the
+variables in that table. Reformatting is only available for columns of
+characters or factors, reformatting columns of another types will result
+in a warning.</p>
+<div class="section level4">
+<h4 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h4>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  <span class="st">"char"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"b"</span>, <span class="cn">NA</span>, <span class="st">"a"</span>, <span class="st">"k"</span>, <span class="st">"x"</span><span class="op">)</span>,</span>
+<span>  <span class="st">"fact"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"f1"</span>, <span class="st">"f2"</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="st">"f1"</span>, <span class="st">"f1"</span><span class="op">)</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"f2"</span>, <span class="st">"f1"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="st">"logi"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">NA</span>, <span class="cn">FALSE</span>, <span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  <span class="st">"char"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="cn">NA</span>, <span class="st">"a"</span>, <span class="st">"k"</span>, <span class="st">"x"</span><span class="op">)</span>,</span>
+<span>  <span class="st">"fact"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"f1"</span>, <span class="st">"f2"</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="st">"f1"</span>, <span class="st">"f1"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>df1 <span class="op">=</span> <span class="va">df1</span>, df2 <span class="op">=</span> <span class="va">df2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">db</span><span class="op">$</span><span class="va">df1</span><span class="op">$</span><span class="va">char</span>, <span class="st">"label"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"my label"</span></span>
+<span></span>
+<span><span class="va">rule_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  df1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    char <span class="op">=</span> <span class="fu"><a href="../reference/rule.html">rule</a></span><span class="op">(</span><span class="st">"Empty"</span> <span class="op">=</span> <span class="st">""</span>, <span class="st">"B"</span> <span class="op">=</span> <span class="st">"b"</span>, <span class="st">"Not Available"</span> <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,</span>
+<span>    fact <span class="op">=</span> <span class="fu"><a href="../reference/rule.html">rule</a></span><span class="op">(</span><span class="st">"F1"</span> <span class="op">=</span> <span class="st">"f1"</span><span class="op">)</span>,</span>
+<span>    logi <span class="op">=</span> <span class="fu"><a href="../reference/rule.html">rule</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  planes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    manufacturer <span class="op">=</span> <span class="fu"><a href="../reference/rule.html">rule</a></span><span class="op">(</span></span>
-<span>      <span class="st">"Airbus"</span> <span class="op">=</span> <span class="st">"AIRBUS INDUSTRIE"</span>,</span>
-<span>      <span class="st">"New Level"</span> <span class="op">=</span> <span class="st">"new_level"</span>,</span>
-<span>      <span class="st">"&lt;Missing&gt;"</span> <span class="op">=</span> <span class="cn">NA</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    model <span class="op">=</span> <span class="fu"><a href="../reference/rule.html">rule</a></span><span class="op">(</span></span>
-<span>      <span class="st">"EMB-145"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"EMB-145XR"</span><span class="op">)</span>,</span>
-<span>      <span class="st">"Other 737"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"737-824"</span>, <span class="st">"737-724"</span>, <span class="st">"737-732"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<span>  df2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    char <span class="op">=</span> <span class="fu"><a href="../reference/rule.html">rule</a></span><span class="op">(</span><span class="st">"Empty"</span> <span class="op">=</span> <span class="st">""</span>, <span class="st">"A"</span> <span class="op">=</span> <span class="st">"a"</span>, <span class="st">"Not Available"</span> <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu">dm</span><span class="fu">::</span><span class="fu"><a href="https://dm.cynkra.com/reference/dm_nycflights13.html" class="external-link">dm_nycflights13</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">db_formatted</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reformat.html">reformat</a></span><span class="op">(</span><span class="va">db</span>, <span class="va">my_map</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">db_formatted</span><span class="op">$</span><span class="va">planes</span><span class="op">$</span><span class="va">model</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] EMB-145   A320-214  EMB-145LR A320-214  A320-214  EMB-145  </span></span>
-<span><span class="co">#&gt; 55 Levels: 150 172N 65-A90 717-200 737-3H4 737-401 737-524 ... R66</span></span></code></pre></div>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reformat.html">reformat</a></span><span class="op">(</span><span class="va">db</span>, <span class="va">rule_map</span>, na_last <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">res</span></span>
+<span><span class="co">#&gt; $df1</span></span>
+<span><span class="co">#&gt;            char fact  logi</span></span>
+<span><span class="co">#&gt; 1         Empty   F1    NA</span></span>
+<span><span class="co">#&gt; 2             B   f2 FALSE</span></span>
+<span><span class="co">#&gt; 3 Not Available &lt;NA&gt;  TRUE</span></span>
+<span><span class="co">#&gt; 4             a &lt;NA&gt;    NA</span></span>
+<span><span class="co">#&gt; 5             k   F1 FALSE</span></span>
+<span><span class="co">#&gt; 6             x   F1    NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $df2</span></span>
+<span><span class="co">#&gt;            char fact</span></span>
+<span><span class="co">#&gt; 1             A   f1</span></span>
+<span><span class="co">#&gt; 2             b   f2</span></span>
+<span><span class="co">#&gt; 3 Not Available &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 4             A &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5             k   f1</span></span>
+<span><span class="co">#&gt; 6             x   f1</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
