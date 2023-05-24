@@ -1,4 +1,4 @@
-# dunlin 0.1.2.9011
+# dunlin 0.1.3
 
 * Add `log_filter` function for filtering with additional logs.
 * Remove the use of `dm`.
