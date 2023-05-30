@@ -24,7 +24,7 @@ Imports:
     yaml (>= 2.1.19)
 Suggests:
     knitr (>= 1.42),
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.4)
 VignetteBuilder:
     knitr
 Remotes:
