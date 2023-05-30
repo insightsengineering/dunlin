@@ -19,7 +19,7 @@ Imports:
     forcats (>= 1.0.0),
     magrittr (>= 1.5),
     methods,
-    rlang (>= 1.0.6),
+    rlang (>= 1.1.0),
     tibble (>= 2.1.3),
     yaml (>= 2.1.19)
 Suggests:
