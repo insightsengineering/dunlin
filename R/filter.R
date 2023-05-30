@@ -25,8 +25,6 @@ log_filter <- function(data, condition, ...) {
 log_filter.data.frame <- function(data, condition, suffix = NULL, ...) {
   checkmate::assert_string(suffix, null.ok = TRUE)
 
-  lab <- lapply(data, attr, which = "label")
-
   condition <- match.call()$condition
   vars <- all.vars(condition)
   var_in_env <- vapply(vars, exists, envir = parent.frame(), inherits = TRUE, FUN.VALUE = TRUE)
@@ -34,14 +32,10 @@ log_filter.data.frame <- function(data, condition, suffix = NULL, ...) {
   if (!all(var_in_env | var_in_data)) {
     stop(sprintf("Variable %s not found in data or environment.", toString(vars[!(var_in_data | var_in_env)])))
   }
-  res <- do.call(subset, list(x = data, subset = condition), envir = parent.frame())
+  res <- eval(bquote(dplyr::filter(data, .(condition))))
   rows <- list(list(init = nrow(data), final = nrow(res), suffix = suffix))
   names(rows) <- deparse(condition)
   attr(res, "rows") <- c(attr(data, "rows"), rows)
-
-  for (i in colnames(res)) {
-    attr(res[[i]], "label") <- lab[[i]]
-  }
 
   res
 }
@@ -65,13 +59,9 @@ log_filter.list <- function(data, condition, table, by = c("USUBJID", "STUDYID")
 
         ori_n <- nrow(data[[k]])
         ori_att <- attr(data[[k]], "rows")
-        ori_lab <- lapply(data[[k]], attr, which = "label")
 
-        data[[k]] <- merge(data[[k]], data$adsl[by], by = by, all.x = FALSE, all.y = FALSE, sort = FALSE)
+        data[[k]] <- dplyr::right_join(data[[k]], data$adsl[by], by = by, keep = FALSE)
 
-        for (i in colnames(data[[k]])) {
-          attr(data[[k]][[i]], "label") <- ori_lab[[i]]
-        }
         rows <- list(list(init = ori_n, final = nrow(data[[k]]), suffix = suffix))
         names(rows) <- paste0("Filtered by adsl: ", deparse(condition), collapse = "")
         attr(data[[k]], "rows") <- c(ori_att, rows)
