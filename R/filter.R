@@ -60,7 +60,7 @@ log_filter.list <- function(data, condition, table, by = c("USUBJID", "STUDYID")
         ori_n <- nrow(data[[k]])
         ori_att <- attr(data[[k]], "rows")
 
-        data[[k]] <- dplyr::right_join(data[[k]], data$adsl[by], by = by, keep = FALSE)
+        data[[k]] <- dplyr::semi_join(data[[k]], data$adsl, by = by)
 
         rows <- list(list(init = ori_n, final = nrow(data[[k]]), suffix = suffix))
         names(rows) <- paste0("Filtered by adsl: ", deparse(condition), collapse = "")
