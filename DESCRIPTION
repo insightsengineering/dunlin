@@ -23,7 +23,7 @@ Imports:
     tibble,
     yaml (>= 2.1.19)
 Suggests:
-    knitr (>= 1.34),
+    knitr (>= 1.42),
     testthat (>= 3.0.0)
 VignetteBuilder:
     knitr
@@ -34,7 +34,6 @@ Remotes:
     tidyverse/magrittr@*release,
     r-lib/rlang@*release,
     tidyverse/tibble@*release,
-    vubiostat/r-yaml@*release,
     yihui/knitr@*release,
     r-lib/testthat@*release
 Config/Needs/website: insightsengineering/nesttemplate
