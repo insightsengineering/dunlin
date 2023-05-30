@@ -18,9 +18,14 @@ log_filter <- function(data, condition, ...) {
 #' @rdname log_filter
 #' @export
 #' @examples
-#' log_filter(iris, Sepal.Length >= 7)
+#' data <- iris
+#' attr(data$Sepal.Length, "label") <- "cm"
+#' log_filter(data, Sepal.Length >= 7)
+#'
 log_filter.data.frame <- function(data, condition, suffix = NULL, ...) {
   checkmate::assert_string(suffix, null.ok = TRUE)
+
+  lab <- lapply(data, attr, which = "label")
 
   condition <- match.call()$condition
   vars <- all.vars(condition)
@@ -33,6 +38,11 @@ log_filter.data.frame <- function(data, condition, suffix = NULL, ...) {
   rows <- list(list(init = nrow(data), final = nrow(res), suffix = suffix))
   names(rows) <- deparse(condition)
   attr(res, "rows") <- c(attr(data, "rows"), rows)
+
+  for (i in colnames(res)) {
+    attr(res[[i]], "label") <- lab[[i]]
+  }
+
   res
 }
 
@@ -55,9 +65,13 @@ log_filter.list <- function(data, condition, table, by = c("USUBJID", "STUDYID")
 
         ori_n <- nrow(data[[k]])
         ori_att <- attr(data[[k]], "rows")
+        ori_lab <- lapply(data[[k]], attr, which = "label")
 
         data[[k]] <- merge(data[[k]], data$adsl[by], by = by, all.x = FALSE, all.y = FALSE, sort = FALSE)
 
+        for (i in colnames(data[[k]])) {
+          attr(data[[k]][[i]], "label") <- ori_lab[[i]]
+        }
         rows <- list(list(init = ori_n, final = nrow(data[[k]]), suffix = suffix))
         names(rows) <- paste0("Filtered by adsl: ", deparse(condition), collapse = "")
         attr(data[[k]], "rows") <- c(ori_att, rows)

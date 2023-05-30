@@ -87,6 +87,34 @@ test_that("log_filter subset USUBJID for list of data.frame", {
   expect_identical(df1, df2)
 })
 
+test_that("log_filter preserves label attribute in all tables", {
+  dfa <- data.frame(USUBJID = letters[1:10], b = 1:10)
+  dfb <- data.frame(USUBJID = letters[1:10], c = 10:1)
+
+  attr(dfa$USUBJID, "label") <- "usubjid_dfa"
+  attr(dfb$USUBJID, "label") <- "usubjid_dfb"
+
+  df_raw <- list(adsl = dfa, dfb = dfb)
+  res <- expect_silent(log_filter(df_raw, b >= 7, "adsl", by = "USUBJID"))
+
+  expected_adsl <- c("g", "h", "i", "j")
+  attr(expected_adsl, "label") <- "usubjid_dfa"
+  expect_identical(res$adsl$USUBJID, expected_adsl)
+
+  expected_dfb <- c("g", "h", "i", "j")
+  attr(expected_dfb, "label") <- "usubjid_dfb"
+  expect_identical(res$dfb$USUBJID, expected_dfb)
+
+  df_raw <- list(adsl = dfa, dfb = dfb)
+  res <- expect_silent(log_filter(df_raw, c >= 7, "dfb", by = "USUBJID"))
+
+  expect_identical(res$adsl$USUBJID, df_raw$adsl$USUBJID)
+
+  expected_dfb <- c("a", "b", "c", "d")
+  attr(expected_dfb, "label") <- "usubjid_dfb"
+  expect_identical(res$dfb$USUBJID, expected_dfb)
+})
+
 # get_log ----
 
 test_that("get_log works as expected", {
