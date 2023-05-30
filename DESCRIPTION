@@ -17,10 +17,10 @@ Imports:
     checkmate (>= 2.0),
     dplyr (>= 1.0.0),
     forcats (>= 1.0.0),
-    magrittr,
+    magrittr (>= 1.5),
     methods,
     rlang (>= 1.0.6),
-    tibble,
+    tibble (>= 2.1.3),
     yaml (>= 2.1.19)
 Suggests:
     knitr (>= 1.42),
