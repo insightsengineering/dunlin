@@ -25,7 +25,8 @@ Imports:
 Suggests:
     knitr,
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    withr
 VignetteBuilder:
     knitr
 Config/Needs/website: insightsengineering/nesttemplate

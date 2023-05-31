@@ -43,6 +43,9 @@ For named list of data, if \code{adsl} is available, \code{log_filter} will also
 other datasets with \code{USUBJID}.
 }
 \examples{
-log_filter(iris, Sepal.Length >= 7)
+data <- iris
+attr(data$Sepal.Length, "label") <- "cm"
+log_filter(data, Sepal.Length >= 7)
+
 log_filter(list(iris = iris), Sepal.Length >= 7, "iris", character(0))
 }
