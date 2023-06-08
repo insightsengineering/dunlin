@@ -1,6 +1,6 @@
 # log_filter ----
 
-test_that("log_filter works for single data.frame", {
+test_that("log_filter.data.frame works as expected", {
   df1 <- expect_silent(log_filter(iris, Sepal.Length >= 7))
   df2 <- subset(iris, Sepal.Length >= 7)
   expect_identical(df1, df2, ignore_attr = TRUE)
@@ -31,14 +31,18 @@ test_that("log_filter works for single data.frame", {
     )
   )
 })
-
-test_that("log_filter fails if variable outside data/environment", {
+test_that("log_filter.data.frame fails if variable outside data/environment", {
   expect_error(log_filter(iris, a >= 7), "Variable a not found")
-  threshold <- 7
-  expect_silent(log_filter(iris, Sepal.Width >= threshold))
+  x <- list(threshold = 3.9)
+  expect_silent(
+    withr::with_environment(
+      x,
+      log_filter(iris, Sepal.Width >= threshold)
+    )
+  )
 })
 
-test_that("log_filter works for list of data.frame", {
+test_that("log_filter.list works as expected", {
   df_raw <- list(iris = iris)
   df1 <- expect_silent(log_filter(df_raw, Sepal.Length >= 7, "iris", by = NULL))
   df2 <- subset(iris, Sepal.Length >= 7)
@@ -68,7 +72,7 @@ test_that("log_filter works for list of data.frame", {
   )
 })
 
-test_that("log_filter subset USUBJID for list of data.frame", {
+test_that("log_filter.list subsets USUBJID", {
   dfa <- data.frame(USUBJID = letters[1:10], b = 1:10)
   dfb <- data.frame(USUBJID = letters[1:10], c = 10:1)
   df_raw <- list(adsl = dfa, dfb = dfb)
@@ -85,6 +89,34 @@ test_that("log_filter subset USUBJID for list of data.frame", {
   # The by argument can be automatically determined.
   df2 <- expect_silent(log_filter(df_raw, b >= 7, "adsl", by = NULL))
   expect_identical(df1, df2)
+})
+
+test_that("log_filter.list preserves label attribute in all tables", {
+  dfa <- data.frame(USUBJID = letters[1:10], b = 1:10)
+  dfb <- data.frame(USUBJID = letters[1:10], c = 10:1)
+
+  attr(dfa$USUBJID, "label") <- "usubjid_dfa"
+  attr(dfb$USUBJID, "label") <- "usubjid_dfb"
+
+  df_raw <- list(adsl = dfa, dfb = dfb)
+  res <- expect_silent(log_filter(df_raw, b >= 7, "adsl", by = "USUBJID"))
+
+  expected_adsl <- c("g", "h", "i", "j")
+  attr(expected_adsl, "label") <- "usubjid_dfa"
+  expect_identical(res$adsl$USUBJID, expected_adsl)
+
+  expected_dfb <- c("g", "h", "i", "j")
+  attr(expected_dfb, "label") <- "usubjid_dfb"
+  expect_identical(res$dfb$USUBJID, expected_dfb)
+
+  df_raw <- list(adsl = dfa, dfb = dfb)
+  res <- expect_silent(log_filter(df_raw, c >= 7, "dfb", by = "USUBJID"))
+
+  expect_identical(res$adsl$USUBJID, df_raw$adsl$USUBJID)
+
+  expected_dfb <- c("a", "b", "c", "d")
+  attr(expected_dfb, "label") <- "usubjid_dfb"
+  expect_identical(res$dfb$USUBJID, expected_dfb)
 })
 
 # get_log ----
