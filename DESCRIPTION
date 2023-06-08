@@ -27,15 +27,16 @@ Suggests:
     testthat (>= 3.0.4)
 VignetteBuilder:
     knitr
-Remotes:
-    mllg/checkmate@*release,
-    tidyverse/dplyr@*release,
-    tidyverse/forcats@*release,
-    tidyverse/magrittr@*release,
-    r-lib/rlang@*release,
-    tidyverse/tibble@*release,
-    yihui/knitr@*release,
-    r-lib/testthat@*release
+Config/Needs/verdepcheck:
+    mllg/checkmate,
+    tidyverse/dplyr,
+    tidyverse/forcats,
+    tidyverse/magrittr,
+    r-lib/rlang,
+    tidyverse/tibble,
+    yaml=vubiostat/r-yaml,
+    yihui/knitr,
+    r-lib/testthat
 Config/Needs/website: insightsengineering/nesttemplate
 Config/testthat/edition: 3
 Encoding: UTF-8
