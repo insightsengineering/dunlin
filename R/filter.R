@@ -1,6 +1,6 @@
 #' Filter Data with Log
 #' @param data (`data.frame`) input data to subset, or named (`list`) of (`data.frame`).
-#' @param condition (`call`) of subset condition. Must eval as logical.
+#' @param condition (`call`) of subset condition. Must evaluate as logical.
 #' @param suffix (`string`) optional argument describing the filter.
 #' @param ... further arguments to be passed to or from other methods.
 #'
@@ -8,7 +8,7 @@
 #' `log_filter` will filter the data/named list of data according to the `condition`.
 #' All the variables in `condition` must exist in the data (as variables) or in the parent
 #' frame(e.g., in global environment).
-#' For named list of data, if `adsl` is available, `log_filter` will also try to subset all
+#' For named list of data, if `ADSL` is available, `log_filter` will also try to subset all
 #' other datasets with `USUBJID`.
 #' @export
 log_filter <- function(data, condition, ...) {
