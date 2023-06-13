@@ -2,13 +2,13 @@
 % Please edit documentation in R/rules.R
 \name{read_rules}
 \alias{read_rules}
-\title{Read yaml File describing \code{rule}}
+\title{Read \code{YAML} File describing \code{rule}}
 \usage{
 read_rules(file)
 }
 \arguments{
-\item{file}{(\code{string}) of path to the rule yaml file.}
+\item{file}{(\code{string}) of path to the rule \code{YAML} file.}
 }
 \description{
-Read yaml File describing \code{rule}
+Read \code{YAML} File describing \code{rule}
 }

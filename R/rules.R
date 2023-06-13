@@ -79,8 +79,8 @@ print.empty_rule <- function(x, ...) {
   cat("Empty mapping\n")
 }
 
-#' Read yaml File describing `rule`
-#' @param file (`string`) of path to the rule yaml file.
+#' Read `YAML` File describing `rule`
+#' @param file (`string`) of path to the rule `YAML` file.
 #' @export
 read_rules <- function(file) {
   checkmate::assert_file_exists(file)

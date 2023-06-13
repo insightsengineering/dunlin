@@ -22,7 +22,7 @@ log_filter(data, condition, ...)
 \arguments{
 \item{data}{(\code{data.frame}) input data to subset, or named (\code{list}) of (\code{data.frame}).}
 
-\item{condition}{(\code{call}) of subset condition. Must eval as logical.}
+\item{condition}{(\code{call}) of subset condition. Must evaluate as logical.}
 
 \item{...}{further arguments to be passed to or from other methods.}
 
@@ -39,7 +39,7 @@ Filter Data with Log
 \code{log_filter} will filter the data/named list of data according to the \code{condition}.
 All the variables in \code{condition} must exist in the data (as variables) or in the parent
 frame(e.g., in global environment).
-For named list of data, if \code{adsl} is available, \code{log_filter} will also try to subset all
+For named list of data, if \code{ADSL} is available, \code{log_filter} will also try to subset all
 other datasets with \code{USUBJID}.
 }
 \examples{
