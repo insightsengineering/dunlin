@@ -9,6 +9,7 @@
 #' @importFrom magrittr %>%
 #' @importFrom methods is
 #' @importFrom stats setNames
+#' @importFrom stringr str_replace_all
 #' @importFrom utils modifyList
 #' @importFrom yaml read_yaml
 "_PACKAGE"
