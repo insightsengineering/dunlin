@@ -119,6 +119,12 @@ test_that("log_filter.list preserves label attribute in all tables", {
   expect_identical(res$dfb$USUBJID, expected_dfb)
 })
 
+test_that("log_filter works with long conditions", {
+  df1 <- expect_silent(log_filter(iris, Sepal.Length >= 7 & Sepal.Length >= 7 & Sepal.Length >= 7 & Sepal.Length >= 7))
+  df2 <- subset(iris, Sepal.Length >= 7)
+  expect_identical(df1, df2, ignore_attr = TRUE)
+})
+
 # get_log ----
 
 test_that("get_log works as expected", {

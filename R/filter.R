@@ -34,7 +34,9 @@ log_filter.data.frame <- function(data, condition, suffix = NULL, ...) {
   }
   res <- eval(bquote(dplyr::filter(data, .(condition))))
   rows <- list(list(init = nrow(data), final = nrow(res), suffix = suffix))
-  names(rows) <- paste0(deparse(condition), collapse = "")
+  rlbl <- paste0(deparse(condition), collapse = "")
+  rlbl <- stringr::str_replace_all(rlbl, "\\s+", " ")
+  names(rows) <- rlbl
   attr(res, "rows") <- c(attr(data, "rows"), rows)
 
   res
