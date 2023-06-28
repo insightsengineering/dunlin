@@ -19,12 +19,21 @@ test_that("reformat for characters works as expected when string_as_fct is FALSE
   )
 })
 
-test_that("reformat for characters works as expected when empty_as_na is TRUE", {
+test_that("reformat for characters works as expected when to_NA is NULL", {
   x <- c("b", "a", "b", "", NA, "a")
   r <- rule(x = "a", y = "", z = NA)
   expect_identical(
     reformat(x, r, string_as_fct = FALSE),
     c("b", "x", "b", "y", "z", "x")
+  )
+})
+
+test_that("reformat for characters works as expected when to_NA is not NULL", {
+  x <- c("b", "a", "b", "", NA, "a")
+  r <- rule(x = "a", y = "", z = NA)
+  expect_identical(
+    reformat(x, r, string_as_fct = FALSE, to_NA = "b"),
+    c(NA, "x", NA, "y", "z", "x")
   )
 })
 

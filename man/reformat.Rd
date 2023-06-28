@@ -17,7 +17,8 @@ reformat(obj, ...)
   format,
   string_as_fct = TRUE,
   na_last = TRUE,
-  empty_as_na = FALSE,
+  to_NA = NULL,
+  drop = FALSE,
   ...
 )
 
@@ -48,10 +49,10 @@ Reformat Values
 \note{
 When the rule is empty rule or when values subject to reformatting are absent from the object, no error is
 raised. The rest of the reformatting process (for instance the conversion to factor  and the reformatting of
-factors levels if \code{string_as_fct = TRUE}) is still carried out.
-Empty strings, "", is also considered as NA in dunlin. Empty strings will be replaced by NA if \code{empty_as_na} is
-set to TRUE, prior to conduct rule based formatting. So if your data contains "" but your rule did not cover the
-conversion of NA values, you will get NA in your data.
+factors levels if \code{string_as_fct = TRUE}) is still carried out. The conversion of the levels declared in \code{to_NA} to
+\code{NA} values occurs after the remapping. \code{NA} values created this way are not affected by a rule declaring a
+remapping of \code{NA} values. For factors, level dropping is the last step, hence, levels converted to \code{NA} by the \code{to_NA} argument,
+will be removed if \code{drop} is \code{TRUE}.
 }
 \examples{
 
@@ -61,6 +62,8 @@ attr(obj, "label") <- "my label"
 format <- rule("A" = "a", "NN" = NA)
 
 reformat(obj, format)
+reformat(obj, format, string_as_fct = FALSE, to_NA = "x")
+
 
 # Reformatting of factor.
 obj <- factor(c("first", "a", "aa", "b", "x", NA), levels = c("first", "x", "b", "aa", "a", "z"))
