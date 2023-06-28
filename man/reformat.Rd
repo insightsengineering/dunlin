@@ -51,8 +51,8 @@ When the rule is empty rule or when values subject to reformatting are absent fr
 raised. The rest of the reformatting process (for instance the conversion to factor  and the reformatting of
 factors levels if \code{string_as_fct = TRUE}) is still carried out. The conversion of the levels declared in \code{to_NA} to
 \code{NA} values occurs after the remapping. \code{NA} values created this way are not affected by a rule declaring a
-remapping of \code{NA} values. For factors, level dropping is the last step, hence, levels converted to \code{NA} by the \code{to_NA} argument,
-will be removed if \code{drop} is \code{TRUE}.
+remapping of \code{NA} values. For factors, level dropping is the last step, hence, levels converted to \code{NA} by the
+\code{to_NA} argument, will be removed if \code{drop} is \code{TRUE}.
 }
 \examples{
 

@@ -14,8 +14,8 @@
 #'   raised. The rest of the reformatting process (for instance the conversion to factor  and the reformatting of
 #'   factors levels if `string_as_fct = TRUE`) is still carried out. The conversion of the levels declared in `to_NA` to
 #'   `NA` values occurs after the remapping. `NA` values created this way are not affected by a rule declaring a
-#'   remapping of `NA` values. For factors, level dropping is the last step, hence, levels converted to `NA` by the `to_NA` argument,
-#'   will be removed if `drop` is `TRUE`.
+#'   remapping of `NA` values. For factors, level dropping is the last step, hence, levels converted to `NA` by the
+#'   `to_NA` argument, will be removed if `drop` is `TRUE`.
 #'
 #' @rdname reformat
 #'
@@ -44,7 +44,7 @@ reformat.default <- function(obj, format, ...) {
 #'
 #' reformat(obj, format)
 #' reformat(obj, format, string_as_fct = FALSE, to_NA = "x")
-#' 
+#'
 reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, to_NA = NULL, drop = FALSE, ...) {
   checkmate::assert_class(format, "rule")
   checkmate::assert_flag(string_as_fct)
@@ -58,21 +58,21 @@ reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE
     supp_att_name <- setdiff(names(att), attributes(obj_fact))
     supp_att <- att[supp_att_name]
     attributes(obj_fact) <- c(attributes(obj_fact), supp_att)
-    
+
     if (is(format, "empty_rule")) {
       return(obj_fact)
     }
-    
+
     reformat(obj_fact, format, na_last = na_last, to_NA = to_NA, drop = drop)
   } else {
     if (is(format, "empty_rule")) {
       return(obj)
     }
-    
+
     value_match <- unlist(format)
     m <- match(obj, value_match)
     obj[!is.na(m)] <- names(format)[m[!is.na(m)]]
-    
+
     val_to_NA <- to_NA %||% attr(format, "to_NA")
     obj <- if (!is.null(val_to_NA)) {
       obj[obj %in% val_to_NA] <- NA_character_
@@ -80,7 +80,7 @@ reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE
     } else {
       obj
     }
-    
+
     obj
   }
 }
