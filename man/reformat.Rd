@@ -37,8 +37,8 @@ reformat(obj, ...)
 
 \item{na_last}{(\code{flag}) whether the level replacing \code{NA} should be last.}
 
-\item{to_NA}{(\code{character}) values that should be converted to \code{NA}. If \code{NULL}, the argument will be taken from the
-\code{to_NA}attribute of the rule.}
+\item{to_NA}{(\code{character}) values that should be converted to \code{NA}. For \code{factor}, the corresponding levels are
+dropped. If \code{NULL}, the argument will be taken from the \code{to_NA}attribute of the rule.}
 
 \item{drop}{(\code{flag}) whether to drop empty levels. If \code{NULL}, the argument will be taken from the \code{drop}attribute of
 the rule.}

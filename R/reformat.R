@@ -3,8 +3,8 @@
 #' @param format (`rule`) or (`list`) of `rule` depending on the class of obj.
 #' @param string_as_fct (`flag`) whether the reformatted character object should be converted to factor.
 #' @param na_last (`flag`) whether the level replacing `NA` should be last.
-#' @param to_NA (`character`) values that should be converted to `NA`. If `NULL`, the argument will be taken from the
-#'   `to_NA`attribute of the rule.
+#' @param to_NA (`character`) values that should be converted to `NA`. For `factor`, the corresponding levels are
+#'   dropped. If `NULL`, the argument will be taken from the `to_NA`attribute of the rule.
 #' @param drop (`flag`) whether to drop empty levels. If `NULL`, the argument will be taken from the `drop`attribute of
 #'   the rule.
 #' @param ... not used. Only for compatibility between methods.
