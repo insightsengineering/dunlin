@@ -124,6 +124,6 @@ test_that("cut_by_group fails when the number of labels doesn't fit the number o
 
   expect_error(
     cut_by_group(data, "AVAL", "PARAM", group, "my_new_categories"),
-    "lengths of 'breaks' and 'labels' differ"
+    "number of intervals and length of 'labels' differ"
   )
 })

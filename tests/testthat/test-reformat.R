@@ -84,6 +84,23 @@ test_that("reformat factor works as expected when the level doesn't exist", {
   )
 })
 
+test_that("reformat factor works as expected when the level doesn't exist and drop = TRUE", {
+  x <- factor(c("a", "a", "b", "", NA), levels = c("a", "b", ""))
+  r <- rule(x = "a", y = "", z = NA, "Not a level" = "Not here")
+  expect_silent(res <- reformat(x, r, drop = TRUE))
+  expect_identical(
+    res,
+    factor(c("x", "x", "b", "y", "z"), levels = c("x", "y", "b", "z"))
+  )
+
+  r <- rule(x = "a", y = "", z = NA, "Not a level" = "Not here", drop = TRUE)
+  expect_silent(res <- reformat(x, r, drop = TRUE))
+  expect_identical(
+    res,
+    factor(c("x", "x", "b", "y", "z"), levels = c("x", "y", "b", "z"))
+  )
+})
+
 test_that("reformat factor works as expected when na_last = FALSE", {
   x <- factor(c("a", "a", "b", "", NA), levels = c("a", "", "b"))
   r <- rule(x = "a", y = c("", NA))
@@ -94,15 +111,26 @@ test_that("reformat factor works as expected when na_last = FALSE", {
   )
 })
 
-test_that("reformat factor works as expected when empty_as_na is TRUE", {
+test_that("reformat factor works as expected when to_NA is not NULL", {
   x <- factor(c("a", "a", "b", "", NA), levels = c("a", "", "b"))
   r <- rule(x = "a", z = NA)
-  expect_silent(res <- reformat(x, r, na_last = FALSE, empty_as_na = TRUE))
+  expect_silent(res <- reformat(x, r, na_last = FALSE, to_NA = ""))
   expect_identical(
     res,
-    factor(c("x", "x", "b", "z", "z"), levels = c("x", "z", "b"))
+    factor(c("x", "x", "b", NA, "z"), levels = c("x", "z", "b"))
   )
 })
+
+test_that("reformat factor works as expected when to_NA is passed via a rule", {
+  x <- factor(c("a", "a", "b", "", NA), levels = c("a", "", "b"))
+  r <- rule(x = "a", z = NA, to_NA = "")
+  expect_silent(res <- reformat(x, r, na_last = FALSE))
+  expect_identical(
+    res,
+    factor(c("x", "x", "b", NA, "z"), levels = c("x", "z", "b"))
+  )
+})
+
 
 test_that("reformat factor works as expected when the level doesn't exist and na_last is false.", {
   x <- factor(c("a", "a", "b", "", NA), levels = c("a", "b", ""))

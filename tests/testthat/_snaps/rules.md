@@ -6,6 +6,7 @@
       Mapping of:
       a  <-  1 
       b  <-  NA 
+      Drop unused level: FALSE 
 
 # emtpy_rule printed correctly
 
