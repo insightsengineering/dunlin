@@ -74,13 +74,9 @@ reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE
     obj[!is.na(m)] <- names(format)[m[!is.na(m)]]
 
     val_to_NA <- to_NA %||% attr(format, "to_NA")
-    obj <- if (!is.null(val_to_NA)) {
+    if (!is.null(val_to_NA)) {
       obj[obj %in% val_to_NA] <- NA_character_
-      obj
-    } else {
-      obj
     }
-
     obj
   }
 }
@@ -121,11 +117,9 @@ reformat.factor <- function(obj, format, na_last = TRUE, to_NA = NULL, drop = NU
   res <- forcats::fct_expand(res, unique(names(absent_format)))
   res <- forcats::fct_relevel(res, unique(names(format)))
 
-  res <- if (any(is.na(format)) && na_last) {
+  if (any(is.na(format)) && na_last) {
     na_lvl <- names(format)[is.na(format)]
-    forcats::fct_relevel(res, na_lvl, after = Inf)
-  } else {
-    res
+    res <- forcats::fct_relevel(res, na_lvl, after = Inf)
   }
 
   val_to_NA <- to_NA %||% attr(format, "to_NA")
