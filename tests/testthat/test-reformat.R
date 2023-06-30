@@ -37,6 +37,24 @@ test_that("reformat for characters works as expected when .to_NA is not NULL", {
   )
 })
 
+test_that("reformat for characters works as expected when the .to_NA rule attribute is not NULL ", {
+  x <- c("b", "a", "b", "", NA, "a")
+  r <- rule(x = "a", y = "", z = NA, .to_NA = "b")
+  expect_identical(
+    reformat(x, r, string_as_fct = FALSE),
+    c(NA, "x", NA, "y", "z", "x")
+  )
+})
+
+test_that("reformat arguments have priorities over the rule attributes", {
+  x <- c("b", "a", "b", "", NA, "a")
+  r <- rule(x = "a", y = "", z = NA, .to_NA = "xxx")
+  expect_identical(
+    reformat(x, r, string_as_fct = FALSE, .to_NA = "b"),
+    c(NA, "x", NA, "y", "z", "x")
+  )
+})
+
 test_that("reformat for characters works as expected when string_as_fct is TRUE", {
   x <- c("b", "a", "b", "", NA, "a")
   r <- rule(x = "a", y = "", z = NA)

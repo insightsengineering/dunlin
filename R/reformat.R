@@ -61,21 +61,20 @@ reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE
     if (is(format, "empty_rule")) {
       return(obj_fact)
     }
-    
-    reformat(obj_fact, format, na_last = na_last, ...)
 
+    reformat(obj_fact, format, na_last = na_last, ...)
   } else {
     if (is(format, "empty_rule")) {
       return(obj)
     }
-    
+
     format <- modify_rule_attr(..., format = format)
 
     value_match <- unlist(format)
     m <- match(obj, value_match)
     obj[!is.na(m)] <- names(format)[m[!is.na(m)]]
-    
-    
+
+
     val_to_NA <- attr(format, "arg")[[".to_NA"]]
     if (!is.null(val_to_NA)) {
       obj[obj %in% val_to_NA] <- NA_character_
@@ -104,7 +103,7 @@ reformat.factor <- function(obj, format, na_last = TRUE, ...) {
   if (is(format, "empty_rule")) {
     return(obj)
   }
-  
+
   format <- modify_rule_attr(..., format = format)
 
   any_na <- anyNA(obj)

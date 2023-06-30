@@ -63,7 +63,7 @@ attr(obj, "label") <- "my label"
 format <- rule("A" = c("a", "aa"), "NN" = c(NA, "x"), "Not_present" = "z", "Not_a_level" = "P")
 
 reformat(obj, format)
-reformat(obj, format, na_last = FALSE, .to_NA = "b")
+reformat(obj, format, na_last = FALSE, .to_NA = "b", .drop = TRUE)
 
 
 # Reformatting of list of data.frame.
@@ -81,7 +81,7 @@ db <- list(df1 = df1, df2 = df2)
 
 format <- list(
   df1 = list(
-    var1 = rule("X" = "x", "N" = NA)
+    var1 = rule("X" = "x", "N" = NA, .to_NA = "b")
   ),
   df2 = list(
     var1 = empty_rule,

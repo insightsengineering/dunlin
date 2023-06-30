@@ -37,7 +37,7 @@ test_that("rule fails when one value is mapped to multiple", {
 test_that("rule fails for values that is not character/logical/numeric", {
   expect_error(
     rule(a = list(1)),
-    "May only contain the following types: \\{character,numeric,logical\\}"
+    "May only contain the following types: \\{character,numeric,logical,NULL\\}"
   )
 })
 

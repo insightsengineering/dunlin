@@ -14,12 +14,17 @@
 #' rule("X" = "x", "Y" = c("y", "z"), .drop = TRUE, .to_NA = c("a", "b"))
 #'
 rule <- function(..., .lst = list(...)) {
-  checkmate::assert_list(.lst, types = c("character", "numeric", "logical"))
+  checkmate::assert_list(.lst, types = c("character", "numeric", "logical", "NULL"))
 
-  if (length(.lst) == 0) {
+  map <- .lst[setdiff(names(.lst), c(".drop", ".to_NA"))]
+
+  if (length(map) == 0) {
     return(empty_rule)
   } else {
-    map <- .lst[setdiff(names(.lst), c(".drop", ".to_NA"))]
+    if (!checkmate::test_list(map, types = c("character", "numeric", "logical"))) {
+      stop("Value mapping may only contain the following types: {character,numeric,logical}")
+    }
+
     vals <- as.character(unlist(map, use.names = FALSE))
     checkmate::assert_character(vals, unique = TRUE)
     nms <- unlist(lapply(seq_len(length(map)), function(x) {
@@ -36,13 +41,12 @@ rule <- function(..., .lst = list(...)) {
       )
     )
 
-  names_arg <-  intersect(names(.lst), names(attr(res, "arg")))
-  for (i in names_arg) {
-    attr(res, "arg")[i] <- .lst[[i]]
-  }
-  
-  res
-    
+    names_arg <- intersect(names(.lst), names(attr(res, "arg")))
+    for (i in names_arg) {
+      attr(res, "arg")[i] <- ifelse(is.null(.lst[[i]]), list(NULL), .lst[[i]])
+    }
+
+    res
   }
 }
 
@@ -103,11 +107,11 @@ as.list.rule <- function(x, ...) {
   res <- lapply(unames, function(i) {
     unname(x[nms == i])
   })
-  
+
   arg <- attr(x, "arg")
   res <- c(res, unname(arg))
   unames <- c(unames, names(arg))
-  
+
   setNames(res, unames)
 }
 
