@@ -2,20 +2,20 @@
 #' @param ... Mapping pairs, the argument name is the transformed while
 #' its values are original values.
 #' @param .lst (`list`) of mapping.
-#' @param drop (`flag`) whether to drop empty levels.
-#' @param to_NA (`character`) values that should be converted to `NA`.
+#' @param .drop (`flag`) whether to drop empty levels.
+#' @param .to_NA (`character`) values that should be converted to `NA`.
 #'
 #' @note Conversion to `NA` is the last step of the remapping process.
 #'
 #' @export
 #' @examples
-#' rr <- rule("X" = "x", "Y" = c("y", "z"), to_NA = c("a", "b"))
+#' rr <- rule("X" = "x", "Y" = c("y", "z"), .to_NA = c("a", "b"))
 #' rr
 #'
-rule <- function(..., .lst = list(...), drop = FALSE, to_NA = NULL) {
+rule <- function(..., .lst = list(...), .drop = FALSE, .to_NA = NULL) {
   checkmate::assert_list(.lst, types = c("character", "numeric", "logical"), any.missing = FALSE)
-  checkmate::assert_flag(drop)
-  checkmate::assert_character(to_NA, null.ok = TRUE, any.missing = FALSE)
+  checkmate::assert_flag(.drop)
+  checkmate::assert_character(.to_NA, null.ok = TRUE, any.missing = FALSE)
 
   if (length(.lst) == 0) {
     return(empty_rule)
@@ -28,8 +28,8 @@ rule <- function(..., .lst = list(...), drop = FALSE, to_NA = NULL) {
     structure(
       setNames(vals, nms),
       class = c("rule", "character"),
-      drop = drop,
-      to_NA = to_NA
+      .drop = .drop,
+      .to_NA = .to_NA
     )
   }
 }
@@ -49,8 +49,8 @@ print.rule <- function(x, ...) {
   for (i in seq_len(length(x))) {
     cat(nms[i], " <- ", if (length(x[[i]]) > 1) sprintf("[%s]", toString(x[[i]])) else x[[i]], "\n")
   }
-  if (!is.null(attr(x, "to_NA"))) cat("NA <- ", toString(attr(x, "to_NA")), "\n")
-  cat("Drop unused level:", attr(x, "drop"), "\n")
+  if (!is.null(attr(x, ".to_NA"))) cat("NA <- ", toString(attr(x, ".to_NA")), "\n")
+  cat("Drop unused level:", attr(x, ".drop"), "\n")
 }
 
 #' Convert nested list into list of `rule`

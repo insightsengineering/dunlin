@@ -3,9 +3,9 @@
 #' @param format (`rule`) or (`list`) of `rule` depending on the class of obj.
 #' @param string_as_fct (`flag`) whether the reformatted character object should be converted to factor.
 #' @param na_last (`flag`) whether the level replacing `NA` should be last.
-#' @param to_NA (`character`) values that should be converted to `NA`. For `factor`, the corresponding levels are
+#' @param .to_NA (`character`) values that should be converted to `NA`. For `factor`, the corresponding levels are
 #'   dropped. If `NULL`, the argument will be taken from the `to_NA`attribute of the rule.
-#' @param drop (`flag`) whether to drop empty levels. If `NULL`, the argument will be taken from the `drop`attribute of
+#' @param .drop (`flag`) whether to drop empty levels. If `NULL`, the argument will be taken from the `drop`attribute of
 #'   the rule.
 #' @param ... not used. Only for compatibility between methods.
 #'
@@ -43,13 +43,13 @@ reformat.default <- function(obj, format, ...) {
 #' format <- rule("A" = "a", "NN" = NA)
 #'
 #' reformat(obj, format)
-#' reformat(obj, format, string_as_fct = FALSE, to_NA = "x")
+#' reformat(obj, format, string_as_fct = FALSE, .to_NA = "x")
 #'
-reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, to_NA = NULL, drop = FALSE, ...) {
+reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, .to_NA = NULL, .drop = FALSE, ...) {
   checkmate::assert_class(format, "rule")
   checkmate::assert_flag(string_as_fct)
   checkmate::assert_flag(na_last)
-  checkmate::assert_character(to_NA, null.ok = TRUE, any.missing = FALSE)
+  checkmate::assert_character(.to_NA, null.ok = TRUE, any.missing = FALSE)
 
   if (string_as_fct) {
     # Keep attributes.
@@ -63,7 +63,7 @@ reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE
       return(obj_fact)
     }
 
-    reformat(obj_fact, format, na_last = na_last, to_NA = to_NA, drop = drop)
+    reformat(obj_fact, format, na_last = na_last, to_NA = .to_NA, .drop = .drop)
   } else {
     if (is(format, "empty_rule")) {
       return(obj)
@@ -73,7 +73,7 @@ reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE
     m <- match(obj, value_match)
     obj[!is.na(m)] <- names(format)[m[!is.na(m)]]
 
-    val_to_NA <- to_NA %||% attr(format, "to_NA")
+    val_to_NA <- .to_NA %||% attr(format, ".to_NA")
     if (!is.null(val_to_NA)) {
       obj[obj %in% val_to_NA] <- NA_character_
     }
@@ -92,13 +92,13 @@ reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE
 #' format <- rule("A" = c("a", "aa"), "NN" = c(NA, "x"), "Not_present" = "z", "Not_a_level" = "P")
 #'
 #' reformat(obj, format)
-#' reformat(obj, format, na_last = FALSE, to_NA = "b")
+#' reformat(obj, format, na_last = FALSE, .to_NA = "b")
 #'
-reformat.factor <- function(obj, format, na_last = TRUE, to_NA = NULL, drop = NULL, ...) {
+reformat.factor <- function(obj, format, na_last = TRUE, .to_NA = NULL, .drop = NULL, ...) {
   checkmate::assert_class(format, "rule")
   checkmate::assert_flag(na_last)
-  checkmate::assert_character(to_NA, null.ok = TRUE, any.missing = FALSE)
-  checkmate::assert_flag(drop, null.ok = TRUE)
+  checkmate::assert_character(.to_NA, null.ok = TRUE, any.missing = FALSE)
+  checkmate::assert_flag(.drop, null.ok = TRUE)
 
   if (is(format, "empty_rule")) {
     return(obj)
@@ -122,14 +122,14 @@ reformat.factor <- function(obj, format, na_last = TRUE, to_NA = NULL, drop = NU
     res <- forcats::fct_relevel(res, na_lvl, after = Inf)
   }
 
-  val_to_NA <- to_NA %||% attr(format, "to_NA")
+  val_to_NA <- .to_NA %||% attr(format, ".to_NA")
   res <- if (!is.null(val_to_NA)) {
     forcats::fct_na_level_to_value(res, val_to_NA)
   } else {
     res
   }
 
-  drop_lvl <- drop %||% attr(format, "drop")
+  drop_lvl <- .drop %||% attr(format, ".drop")
   res <- if (drop_lvl) {
     forcats::fct_drop(res)
   } else {
