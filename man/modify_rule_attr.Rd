@@ -10,8 +10,6 @@ modify_rule_attr(..., format)
 \item{...}{argument to be passed to the rule.}
 
 \item{format}{(\code{rule}) whose default attributes have to be modified.}
-
-\item{att}{(\code{string}) the name of the attribute to modify.}
 }
 \description{
 Extract Rule Parameter from reformat argument
@@ -20,7 +18,6 @@ Extract Rule Parameter from reformat argument
 NULL can be passed as argument value.
 }
 \examples{
-
 format <- rule("X" = "x", "Y" = "y", .drop = FALSE)
 modify_rule_attr(.drop = TRUE, not_att = "--", .to_NA = c(" "), format = format)
 

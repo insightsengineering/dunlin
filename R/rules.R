@@ -31,7 +31,7 @@ rule <- function(..., .lst = list(...)) {
       rep(names(map)[x], length(map[[x]]))
     }))
 
-    # Set default value of the rule
+    # Set default value of the rule.
     res <- structure(
       setNames(vals, nms),
       class = c("rule", "character"),
@@ -43,6 +43,7 @@ rule <- function(..., .lst = list(...)) {
 
     names_arg <- intersect(names(.lst), names(attr(res, "arg")))
     for (i in names_arg) {
+      # Allow value to be NULL.
       attr(res, "arg")[i] <- ifelse(is.null(.lst[[i]]), list(NULL), .lst[[i]])
     }
 

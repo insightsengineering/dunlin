@@ -152,15 +152,12 @@ attr_label_df <- function(df, label) {
 #'
 #' @param ... argument to be passed to the rule.
 #' @param format (`rule`) whose default attributes have to be modified.
-#' @param att (`string`) the name of the attribute to modify.
-#'
 #'
 #' @note NULL can be passed as argument value.
 #'
 #' @export
 #' @keywords internal
 #' @examples
-#'
 #' format <- rule("X" = "x", "Y" = "y", .drop = FALSE)
 #' modify_rule_attr(.drop = TRUE, not_att = "--", .to_NA = c(" "), format = format)
 #'
