@@ -12,36 +12,28 @@ reformat(obj, ...)
 
 \method{reformat}{default}(obj, format, ...)
 
-\method{reformat}{character}(
-  obj,
-  format,
-  string_as_fct = TRUE,
-  na_last = TRUE,
-  .to_NA = NULL,
-  .drop = FALSE,
-  ...
-)
+\method{reformat}{character}(obj, format, string_as_fct = TRUE, na_last = TRUE, ...)
 
-\method{reformat}{factor}(obj, format, na_last = TRUE, .to_NA = NULL, .drop = NULL, ...)
+\method{reformat}{factor}(obj, format, na_last = TRUE, ...)
 
 \method{reformat}{list}(obj, format, string_as_fct = TRUE, na_last = TRUE, ...)
 }
 \arguments{
 \item{obj}{object to reformat.}
 
-\item{...}{not used. Only for compatibility between methods.}
+\item{...}{used to pass additional arguments
+\itemize{
+\item \code{.to_NA} (\code{character}) values that should be converted to \code{NA}. For \code{factor}, the corresponding levels are
+dropped. If \code{NULL}, the argument will be taken from the \code{to_NA}attribute of the rule.
+\item \code{.drop} (\code{flag}) whether to drop empty levels. If \code{NULL}, the argument will be taken from the \code{drop}attribute of
+the rule.
+}}
 
 \item{format}{(\code{rule}) or (\code{list}) of \code{rule} depending on the class of obj.}
 
 \item{string_as_fct}{(\code{flag}) whether the reformatted character object should be converted to factor.}
 
 \item{na_last}{(\code{flag}) whether the level replacing \code{NA} should be last.}
-
-\item{.to_NA}{(\code{character}) values that should be converted to \code{NA}. For \code{factor}, the corresponding levels are
-dropped. If \code{NULL}, the argument will be taken from the \code{to_NA}attribute of the rule.}
-
-\item{.drop}{(\code{flag}) whether to drop empty levels. If \code{NULL}, the argument will be taken from the \code{drop}attribute of
-the rule.}
 }
 \description{
 Reformat Values

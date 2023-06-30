@@ -145,3 +145,34 @@ attr_label_df <- function(df, label) {
   res <- mapply(attr_label, var = df, label = as.list(label), SIMPLIFY = FALSE)
   as.data.frame(res)
 }
+
+
+
+#' Extract Rule Parameter from reformat argument 
+#' 
+#' @param ... argument to be passed to the rule.
+#' @param format (`rule`) whose default attributes have to be modified.
+#' @param att (`string`) the name of the attribute to modify.
+#' 
+#' 
+#' @note NULL can be passed as argument value.
+#'
+#' @export
+#' @keywords internal
+#' @examples
+#' 
+#' format <- rule("X" = "x", "Y" = "y", .drop = FALSE)
+#' modify_rule_attr(.drop = TRUE, not_att = "--", .to_NA = c(" "), format = format)
+#'
+modify_rule_attr <- function(..., format) {
+  checkmate::assert_class(format, "rule")
+  ls_arg <- list(...)
+  names_arg <- names(ls_arg)
+  names_arg <- intersect(names_arg, names(attr(format, "arg")))
+  
+  for (i in names_arg) {
+    attr(format, "arg")[i] <- ls_arg[[i]]
+  }
+  
+  format
+}

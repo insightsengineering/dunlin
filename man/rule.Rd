@@ -4,7 +4,7 @@
 \alias{rule}
 \title{Create rule based on mappings}
 \usage{
-rule(..., .lst = list(...), drop = FALSE, to_NA = NULL)
+rule(..., .lst = list(...), .drop = FALSE, .to_NA = NULL)
 }
 \arguments{
 \item{...}{Mapping pairs, the argument name is the transformed while
@@ -12,9 +12,9 @@ its values are original values.}
 
 \item{.lst}{(\code{list}) of mapping.}
 
-\item{drop}{(\code{flag}) whether to drop empty levels.}
+\item{.drop}{(\code{flag}) whether to drop empty levels.}
 
-\item{to_NA}{(\code{character}) values that should be converted to \code{NA}.}
+\item{.to_NA}{(\code{character}) values that should be converted to \code{NA}.}
 }
 \description{
 Create rule based on mappings
@@ -23,7 +23,7 @@ Create rule based on mappings
 Conversion to \code{NA} is the last step of the remapping process.
 }
 \examples{
-rr <- rule("X" = "x", "Y" = c("y", "z"), to_NA = c("a", "b"))
+rr <- rule("X" = "x", "Y" = c("y", "z"))
 rr
 
 }

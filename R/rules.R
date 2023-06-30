@@ -2,35 +2,47 @@
 #' @param ... Mapping pairs, the argument name is the transformed while
 #' its values are original values.
 #' @param .lst (`list`) of mapping.
-#' @param .drop (`flag`) whether to drop empty levels.
-#' @param .to_NA (`character`) values that should be converted to `NA`.
 #'
 #' @note Conversion to `NA` is the last step of the remapping process.
+#' @note Special mapping values include:
+#' * `.drop` (`flag`) whether to drop empty levels.
+#' * `.to_NA` (`character`) values that should be converted to `NA`.
 #'
 #' @export
 #' @examples
-#' rr <- rule("X" = "x", "Y" = c("y", "z"), .to_NA = c("a", "b"))
-#' rr
+#' rule("X" = "x", "Y" = c("y", "z"))
+#' rule("X" = "x", "Y" = c("y", "z"), .drop = TRUE, .to_NA = c("a", "b"))
 #'
-rule <- function(..., .lst = list(...), .drop = FALSE, .to_NA = NULL) {
-  checkmate::assert_list(.lst, types = c("character", "numeric", "logical"), any.missing = FALSE)
-  checkmate::assert_flag(.drop)
-  checkmate::assert_character(.to_NA, null.ok = TRUE, any.missing = FALSE)
+rule <- function(..., .lst = list(...)) {
+  checkmate::assert_list(.lst, types = c("character", "numeric", "logical"))
 
   if (length(.lst) == 0) {
     return(empty_rule)
   } else {
-    vals <- as.character(unlist(.lst, use.names = FALSE))
+    map <- .lst[setdiff(names(.lst), c(".drop", ".to_NA"))]
+    vals <- as.character(unlist(map, use.names = FALSE))
     checkmate::assert_character(vals, unique = TRUE)
-    nms <- unlist(lapply(seq_len(length(.lst)), function(x) {
-      rep(names(.lst)[x], length(.lst[[x]]))
+    nms <- unlist(lapply(seq_len(length(map)), function(x) {
+      rep(names(map)[x], length(map[[x]]))
     }))
-    structure(
+
+    # Set default value of the rule
+    res <- structure(
       setNames(vals, nms),
       class = c("rule", "character"),
-      .drop = .drop,
-      .to_NA = .to_NA
+      arg = list(
+        .drop = FALSE,
+        .to_NA = NULL
+      )
     )
+
+  names_arg <-  intersect(names(.lst), names(attr(res, "arg")))
+  for (i in names_arg) {
+    attr(res, "arg")[i] <- .lst[[i]]
+  }
+  
+  res
+    
   }
 }
 
@@ -49,8 +61,8 @@ print.rule <- function(x, ...) {
   for (i in seq_len(length(x))) {
     cat(nms[i], " <- ", if (length(x[[i]]) > 1) sprintf("[%s]", toString(x[[i]])) else x[[i]], "\n")
   }
-  if (!is.null(attr(x, ".to_NA"))) cat("NA <- ", toString(attr(x, ".to_NA")), "\n")
-  cat("Drop unused level:", attr(x, ".drop"), "\n")
+  if (!is.null(attr(x, "arg")[[".to_NA"]])) cat("NA <- ", toString(attr(x, "arg")[[".to_NA"]]), "\n")
+  cat("Drop unused level:", attr(x, "arg")[[".drop"]], "\n")
 }
 
 #' Convert nested list into list of `rule`
@@ -58,8 +70,10 @@ print.rule <- function(x, ...) {
 #' @export
 #' @examples
 #' obj <- list(
-#'   rule1 = list("X" = c("a", "b"), "Z" = "c"),
-#'   rule2 = list(Missing = c(NA, ""))
+#'   rule1 = list("X" = c("a", "b"), "Z" = "c", .to_NA = "xxxx"),
+#'   rule2 = list(Missing = c(NA, "")),
+#'   rule3 = list(Missing = c(NA, ""), .drop = TRUE),
+#'   rule4 = list(Absent = c(NA, ""), .drop = TRUE, .to_NA = "yyyy")
 #' )
 #' list2rules(obj)
 #'
@@ -69,7 +83,9 @@ list2rules <- function(obj) {
   checkmate::assert_names(names(obj), type = "unique", add = coll)
   checkmate::reportAssertions(coll)
 
-  lapply(obj, function(x) rule(.lst = x))
+  lapply(obj, function(x) {
+    do.call("rule", x)
+  })
 }
 
 #' Convert Rule to List
@@ -87,6 +103,11 @@ as.list.rule <- function(x, ...) {
   res <- lapply(unames, function(i) {
     unname(x[nms == i])
   })
+  
+  arg <- attr(x, "arg")
+  res <- c(res, unname(arg))
+  unames <- c(unames, names(arg))
+  
   setNames(res, unames)
 }
 

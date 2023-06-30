@@ -3,11 +3,11 @@
 #' @param format (`rule`) or (`list`) of `rule` depending on the class of obj.
 #' @param string_as_fct (`flag`) whether the reformatted character object should be converted to factor.
 #' @param na_last (`flag`) whether the level replacing `NA` should be last.
-#' @param .to_NA (`character`) values that should be converted to `NA`. For `factor`, the corresponding levels are
+#' @param ... used to pass additional arguments
+#' * `.to_NA` (`character`) values that should be converted to `NA`. For `factor`, the corresponding levels are
 #'   dropped. If `NULL`, the argument will be taken from the `to_NA`attribute of the rule.
-#' @param .drop (`flag`) whether to drop empty levels. If `NULL`, the argument will be taken from the `drop`attribute of
+#' * `.drop` (`flag`) whether to drop empty levels. If `NULL`, the argument will be taken from the `drop`attribute of
 #'   the rule.
-#' @param ... not used. Only for compatibility between methods.
 #'
 #' @export
 #' @note When the rule is empty rule or when values subject to reformatting are absent from the object, no error is
@@ -45,11 +45,10 @@ reformat.default <- function(obj, format, ...) {
 #' reformat(obj, format)
 #' reformat(obj, format, string_as_fct = FALSE, .to_NA = "x")
 #'
-reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, .to_NA = NULL, .drop = FALSE, ...) {
+reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) { # .to_NA = NULL, .drop = FALSE,
   checkmate::assert_class(format, "rule")
   checkmate::assert_flag(string_as_fct)
   checkmate::assert_flag(na_last)
-  checkmate::assert_character(.to_NA, null.ok = TRUE, any.missing = FALSE)
 
   if (string_as_fct) {
     # Keep attributes.
@@ -62,18 +61,22 @@ reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE
     if (is(format, "empty_rule")) {
       return(obj_fact)
     }
+    
+    reformat(obj_fact, format, na_last = na_last, ...)
 
-    reformat(obj_fact, format, na_last = na_last, to_NA = .to_NA, .drop = .drop)
   } else {
     if (is(format, "empty_rule")) {
       return(obj)
     }
+    
+    format <- modify_rule_attr(..., format = format)
 
     value_match <- unlist(format)
     m <- match(obj, value_match)
     obj[!is.na(m)] <- names(format)[m[!is.na(m)]]
-
-    val_to_NA <- .to_NA %||% attr(format, ".to_NA")
+    
+    
+    val_to_NA <- attr(format, "arg")[[".to_NA"]]
     if (!is.null(val_to_NA)) {
       obj[obj %in% val_to_NA] <- NA_character_
     }
@@ -92,17 +95,17 @@ reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE
 #' format <- rule("A" = c("a", "aa"), "NN" = c(NA, "x"), "Not_present" = "z", "Not_a_level" = "P")
 #'
 #' reformat(obj, format)
-#' reformat(obj, format, na_last = FALSE, .to_NA = "b")
+#' reformat(obj, format, na_last = FALSE, .to_NA = "b", .drop = TRUE)
 #'
-reformat.factor <- function(obj, format, na_last = TRUE, .to_NA = NULL, .drop = NULL, ...) {
+reformat.factor <- function(obj, format, na_last = TRUE, ...) {
   checkmate::assert_class(format, "rule")
   checkmate::assert_flag(na_last)
-  checkmate::assert_character(.to_NA, null.ok = TRUE, any.missing = FALSE)
-  checkmate::assert_flag(.drop, null.ok = TRUE)
 
   if (is(format, "empty_rule")) {
     return(obj)
   }
+  
+  format <- modify_rule_attr(..., format = format)
 
   any_na <- anyNA(obj)
 
@@ -122,14 +125,14 @@ reformat.factor <- function(obj, format, na_last = TRUE, .to_NA = NULL, .drop = 
     res <- forcats::fct_relevel(res, na_lvl, after = Inf)
   }
 
-  val_to_NA <- .to_NA %||% attr(format, ".to_NA")
+  val_to_NA <- attr(format, "arg")[[".to_NA"]]
   res <- if (!is.null(val_to_NA)) {
     forcats::fct_na_level_to_value(res, val_to_NA)
   } else {
     res
   }
 
-  drop_lvl <- .drop %||% attr(format, ".drop")
+  drop_lvl <- attr(format, "arg")[[".drop"]]
   res <- if (drop_lvl) {
     forcats::fct_drop(res)
   } else {
@@ -159,7 +162,7 @@ reformat.factor <- function(obj, format, na_last = TRUE, .to_NA = NULL, .drop = 
 #'
 #' format <- list(
 #'   df1 = list(
-#'     var1 = rule("X" = "x", "N" = NA)
+#'     var1 = rule("X" = "x", "N" = NA, .to_NA = "b")
 #'   ),
 #'   df2 = list(
 #'     var1 = empty_rule,
@@ -186,7 +189,7 @@ reformat.list <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...
     local_map <- local_map[names(local_map) %in% names(obj[[tab]])]
 
     obj[[tab]][names(local_map)] <- mapply(
-      function(rl, col) reformat(obj[[tab]][[col]], format = rl, string_as_fct = string_as_fct, na_last = na_last),
+      function(rl, col) reformat(obj[[tab]][[col]], format = rl, string_as_fct = string_as_fct, na_last = na_last, ...),
       local_map,
       names(local_map),
       SIMPLIFY = FALSE
