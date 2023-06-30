@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.9812734082397" branch-rate="0" lines-covered="524" lines-valid="534" branches-covered="0" branches-valid="0" complexity="0" version="3.6.2" timestamp="2023-06-30 14:59:09.734077">
+<coverage line-rate="0.981167608286252" branch-rate="0" lines-covered="521" lines-valid="531" branches-covered="0" branches-valid="0" complexity="0" version="3.6.2" timestamp="2023-06-30 16:00:47.344131">
   <sources>
     <source>/__w/dunlin/dunlin/dunlin</source>
   </sources>
   <packages>
-    <package name="dunlin" line-rate="0.9812734082397" branch-rate="0" complexity="0">
+    <package name="dunlin" line-rate="0.981167608286252" branch-rate="0" complexity="0">
       <classes>
         <class name="assertions.R" filename="R/assertions.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
@@ -911,32 +911,29 @@
                 <line number="134" hits="20" branch="false"/>
                 <line number="135" hits="20" branch="false"/>
                 <line number="136" hits="2" branch="false"/>
-                <line number="137" hits="20" branch="false"/>
-                <line number="138" hits="18" branch="false"/>
                 <line number="139" hits="20" branch="false"/>
-                <line number="141" hits="20" branch="false"/>
               </lines>
             </method>
             <method name="reformat.list" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
+                <line number="172" hits="3" branch="false"/>
+                <line number="173" hits="3" branch="false"/>
                 <line number="174" hits="3" branch="false"/>
                 <line number="175" hits="3" branch="false"/>
                 <line number="176" hits="3" branch="false"/>
-                <line number="177" hits="3" branch="false"/>
                 <line number="178" hits="3" branch="false"/>
-                <line number="180" hits="3" branch="false"/>
-                <line number="181" hits="1" branch="false"/>
+                <line number="179" hits="1" branch="false"/>
+                <line number="182" hits="2" branch="false"/>
                 <line number="184" hits="2" branch="false"/>
-                <line number="186" hits="2" branch="false"/>
-                <line number="187" hits="3" branch="false"/>
+                <line number="185" hits="3" branch="false"/>
+                <line number="186" hits="3" branch="false"/>
                 <line number="188" hits="3" branch="false"/>
+                <line number="189" hits="3" branch="false"/>
                 <line number="190" hits="3" branch="false"/>
                 <line number="191" hits="3" branch="false"/>
                 <line number="192" hits="3" branch="false"/>
                 <line number="193" hits="3" branch="false"/>
-                <line number="194" hits="3" branch="false"/>
-                <line number="195" hits="3" branch="false"/>
-                <line number="198" hits="2" branch="false"/>
+                <line number="196" hits="2" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -993,28 +990,25 @@
             <line number="134" hits="20" branch="false"/>
             <line number="135" hits="20" branch="false"/>
             <line number="136" hits="2" branch="false"/>
-            <line number="137" hits="20" branch="false"/>
-            <line number="138" hits="18" branch="false"/>
             <line number="139" hits="20" branch="false"/>
-            <line number="141" hits="20" branch="false"/>
+            <line number="172" hits="3" branch="false"/>
+            <line number="173" hits="3" branch="false"/>
             <line number="174" hits="3" branch="false"/>
             <line number="175" hits="3" branch="false"/>
             <line number="176" hits="3" branch="false"/>
-            <line number="177" hits="3" branch="false"/>
             <line number="178" hits="3" branch="false"/>
-            <line number="180" hits="3" branch="false"/>
-            <line number="181" hits="1" branch="false"/>
+            <line number="179" hits="1" branch="false"/>
+            <line number="182" hits="2" branch="false"/>
             <line number="184" hits="2" branch="false"/>
-            <line number="186" hits="2" branch="false"/>
-            <line number="187" hits="3" branch="false"/>
+            <line number="185" hits="3" branch="false"/>
+            <line number="186" hits="3" branch="false"/>
             <line number="188" hits="3" branch="false"/>
+            <line number="189" hits="3" branch="false"/>
             <line number="190" hits="3" branch="false"/>
             <line number="191" hits="3" branch="false"/>
             <line number="192" hits="3" branch="false"/>
             <line number="193" hits="3" branch="false"/>
-            <line number="194" hits="3" branch="false"/>
-            <line number="195" hits="3" branch="false"/>
-            <line number="198" hits="2" branch="false"/>
+            <line number="196" hits="2" branch="false"/>
           </lines>
         </class>
         <class name="rules.R" filename="R/rules.R" line-rate="0.959183673469388" branch-rate="0" complexity="0">
