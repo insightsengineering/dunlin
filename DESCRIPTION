@@ -49,6 +49,7 @@ Collate:
     'pivot.R'
     'propagate.R'
     'reformat.R'
+    'str_glue.R'
     'rules.R'
     'unite.R'
     'utils.R'
