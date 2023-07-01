@@ -19,7 +19,7 @@ setClass(
 #' create `str` object
 #' @export
 str <- function(x) {
-  checkmate::assert_string(x)
+  checkmate::assert_character(x)
   new("str", x)
 }
 
@@ -29,7 +29,14 @@ setMethod(
   "toString",
   "str",
   function(x, ...) {
-    glue::glue(x, .envir = parent.frame(), .transformer = safe_transformer)
+    vapply(
+      x,
+      glue::glue,
+      .envir = parent.frame(),
+      .transformer = safe_transformer,
+      FUN.VALUE = character(1)
+    )
+    
   }
 )
 
@@ -43,7 +50,4 @@ setMethod(
   }
 )
 
-#' Conversion from `str` to `character`
-#' @export
-#' @name `as`
 setAs("str", "character", function(from, to) toString(from))
