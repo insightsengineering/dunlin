@@ -15,12 +15,13 @@ safe_transformer <- function(text, envir) {
 #' @export
 render_safe <- function(x, envir = parent.frame(), ...) {
   checkmate::assert_character(x)
-  ret <- vapply(
+  ret <- lapply(
     x,
     glue::glue,
     .transformer = safe_transformer,
     .envir = envir,
-    FUN.VALUE = ""
+    .null = "NULL"
   )
+  ret <- vapply(ret, `[[`, i = 1L, FUN.VALUE = "")
   setNames(ret, names(x))
 }
