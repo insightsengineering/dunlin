@@ -14,11 +14,13 @@ safe_transformer <- function(text, envir) {
 #' @param envir (`environment`) in which input is rendered.
 #' @export
 render_safe <- function(x, envir = parent.frame(), ...) {
-  vapply(
+  checkmate::assert_character(x)
+  ret <- vapply(
     x,
     glue::glue,
     .transformer = safe_transformer,
     .envir = envir,
     FUN.VALUE = ""
   )
+  setNames(ret, names(x))
 }
