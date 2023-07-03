@@ -12,17 +12,19 @@ reformat(obj, ...)
 
 \method{reformat}{default}(obj, format, ...)
 
-\method{reformat}{character}(obj, format, string_as_fct = TRUE, ...)
+\method{reformat}{character}(obj, format, ...)
 
 \method{reformat}{factor}(obj, format, ...)
 
-\method{reformat}{list}(obj, format, string_as_fct = TRUE, ...)
+\method{reformat}{list}(obj, format, ...)
 }
 \arguments{
 \item{obj}{object to reformat.}
 
-\item{...}{used to pass additional arguments
+\item{...}{used to pass additional arguments. Arguments passed via \code{reformat} override the ones defined during rule
+creation.
 \itemize{
+\item \code{.string_as_fct} (\code{flag}) whether the reformatted character object should be converted to factor.
 \item \code{.to_NA} (\code{character}) values that should be converted to \code{NA}. For \code{factor}, the corresponding levels are
 dropped. If \code{NULL}, the argument will be taken from the \code{to_NA}attribute of the rule.
 \item \code{.drop} (\code{flag}) whether to drop empty levels. If \code{NULL}, the argument will be taken from the \code{drop}attribute of
@@ -31,19 +33,17 @@ the rule.
 }}
 
 \item{format}{(\code{rule}) or (\code{list}) of \code{rule} depending on the class of obj.}
-
-\item{string_as_fct}{(\code{flag}) whether the reformatted character object should be converted to factor.}
 }
 \description{
 Reformat Values
 }
 \note{
 When the rule is empty rule or when values subject to reformatting are absent from the object, no error is
-raised. The rest of the reformatting process (for instance the conversion to factor  and the reformatting of
-factors levels if \code{string_as_fct = TRUE}) is still carried out. The conversion of the levels declared in \code{to_NA} to
+raised. The conversion to factor if \code{.string_as_fct = TRUE}) is still carried out.
+The conversion of the levels declared in \code{.to_NA} to
 \code{NA} values occurs after the remapping. \code{NA} values created this way are not affected by a rule declaring a
 remapping of \code{NA} values. For factors, level dropping is the last step, hence, levels converted to \code{NA} by the
-\code{to_NA} argument, will be removed if \code{drop} is \code{TRUE}.
+\code{to_NA} argument, will be removed if \code{.drop} is \code{TRUE}.
 }
 \examples{
 
@@ -53,7 +53,7 @@ attr(obj, "label") <- "my label"
 format <- rule("A" = "a", "NN" = NA)
 
 reformat(obj, format)
-reformat(obj, format, string_as_fct = FALSE, .to_NA = "x")
+reformat(obj, format, .string_as_fct = FALSE, .to_NA = "x")
 
 
 # Reformatting of factor.

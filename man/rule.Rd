@@ -8,7 +8,7 @@ rule(..., .lst = list(...))
 }
 \arguments{
 \item{...}{Mapping pairs, the argument name is the transformed while
-its values are original values.}
+its values are original values. Special name enable more control on the behavior or the \code{rule}. See below.}
 
 \item{.lst}{(\code{list}) of mapping.}
 }
@@ -20,6 +20,8 @@ Conversion to \code{NA} is the last step of the remapping process.
 
 Special mapping values include:
 \itemize{
+\item \code{.string_as_fct} (\code{flag}) whether to convert characters to factors.
+\item \code{.na_last} (\code{flag})  whether the level replacing \code{NA} should be last.
 \item \code{.drop} (\code{flag}) whether to drop empty levels.
 \item \code{.to_NA} (\code{character}) values that should be converted to \code{NA}.
 }

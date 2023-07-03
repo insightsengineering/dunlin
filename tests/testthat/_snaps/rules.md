@@ -1,7 +1,7 @@
 # rule printed correctly
 
     Code
-      rule(a = 1, b = NA)
+      rule(a = "1", b = NA)
     Output
       Mapping of:
       a  <-  1 

@@ -4,17 +4,17 @@
 
 test_that("reformat fails for numeric or logical", {
   x <- c(0, 1, 2)
-  r <- rule(a = 1, b = 2)
+  r <- rule(a = "x", b = "y")
   expect_warning(res <- reformat(x, r), "Not implemented for class: numeric! Only empty rule allowed.")
 })
 
 ## reformat character ----
 
-test_that("reformat for characters works as expected when string_as_fct is FALSE", {
+test_that("reformat for characters works as expected when .string_as_fct is FALSE", {
   x <- c("b", "a", "b", "", NA, "a")
   r <- rule(x = "a", y = "", z = NA)
   expect_identical(
-    reformat(x, r, string_as_fct = FALSE),
+    reformat(x, r, .string_as_fct = FALSE),
     c("b", "x", "b", "y", "z", "x")
   )
 })
@@ -23,7 +23,7 @@ test_that("reformat for characters works as expected when .to_NA is NULL", {
   x <- c("b", "a", "b", "", NA, "a")
   r <- rule(x = "a", y = "", z = NA)
   expect_identical(
-    reformat(x, r, string_as_fct = FALSE),
+    reformat(x, r, .string_as_fct = FALSE),
     c("b", "x", "b", "y", "z", "x")
   )
 })
@@ -32,7 +32,7 @@ test_that("reformat for characters works as expected when .to_NA is not NULL", {
   x <- c("b", "a", "b", "", NA, "a")
   r <- rule(x = "a", y = "", z = NA)
   expect_identical(
-    reformat(x, r, string_as_fct = FALSE, .to_NA = "b"),
+    reformat(x, r, .string_as_fct = FALSE, .to_NA = "b"),
     c(NA, "x", NA, "y", "z", "x")
   )
 })
@@ -41,7 +41,7 @@ test_that("reformat for characters works as expected when the .to_NA rule attrib
   x <- c("b", "a", "b", "", NA, "a")
   r <- rule(x = "a", y = "", z = NA, .to_NA = "b")
   expect_identical(
-    reformat(x, r, string_as_fct = FALSE),
+    reformat(x, r, .string_as_fct = FALSE),
     c(NA, "x", NA, "y", "z", "x")
   )
 })
@@ -50,32 +50,32 @@ test_that("reformat arguments have priorities over the rule attributes", {
   x <- c("b", "a", "b", "", NA, "a")
   r <- rule(x = "a", y = "", z = NA, .to_NA = "xxx")
   expect_identical(
-    reformat(x, r, string_as_fct = FALSE, .to_NA = "b"),
+    reformat(x, r, .string_as_fct = FALSE, .to_NA = "b"),
     c(NA, "x", NA, "y", "z", "x")
   )
 })
 
-test_that("reformat for characters works as expected when string_as_fct is TRUE", {
+test_that("reformat for characters works as expected when .string_as_fct is TRUE", {
   x <- c("b", "a", "b", "", NA, "a")
   r <- rule(x = "a", y = "", z = NA)
   expect_identical(
-    reformat(x, r, string_as_fct = TRUE),
+    reformat(x, r, .string_as_fct = TRUE),
     factor(c("b", "x", "b", "y", "z", "x"), levels = c("x", "y", "b", "z"))
   )
 })
 
-test_that("reformat for characters works as expected when string_as_fct is TRUE and .na_last is false", {
+test_that("reformat for characters works as expected when .string_as_fct is TRUE and .na_last is false", {
   x <- c("b", "a", "b", "", NA, "a")
   r <- rule(x = "a", y = "", z = NA)
   expect_identical(
-    reformat(x, r, string_as_fct = TRUE, .na_last = FALSE),
+    reformat(x, r, .string_as_fct = TRUE, .na_last = FALSE),
     factor(c("b", "x", "b", "y", "z", "x"), levels = c("x", "y", "z", "b"))
   )
 
   x <- c("b", "a", "b", "", NA, "a")
   r <- rule(x = "a", y = c("", NA))
   expect_identical(
-    reformat(x, r, string_as_fct = TRUE, .na_last = FALSE),
+    reformat(x, r, .string_as_fct = TRUE, .na_last = FALSE),
     factor(c("b", "x", "b", "y", "y", "x"), levels = c("x", "y", "b"))
   )
 })
@@ -257,7 +257,7 @@ test_that("empty_rule do nothing to input", {
   expect_identical(as.factor(a), reformat(a, empty_rule))
 
   a <- c("1", "2")
-  expect_identical(a, reformat(a, empty_rule, string_as_fct = FALSE))
+  expect_identical(a, reformat(a, empty_rule, .string_as_fct = FALSE))
 
   b <- factor(c("1", "2"))
   expect_identical(b, reformat(b, empty_rule))

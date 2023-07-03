@@ -109,3 +109,37 @@ rule_map <- list(
 res <- reformat(db, rule_map, .na_last = TRUE)
 res
 ```
+
+## Rule Attributes
+
+The behavior of a rule can be further refined using special mapping values.
+* `.to_NA` convert the specified character to `NA` at the end of the process.
+```{r}
+r <- rule(A = "a", B = c("c", "d"), .to_NA = c("x"))
+reformat(c("a", "c", "d", NA, "x"), r)
+```
+
+* `.drop` specifies whether unused levels should be dropped.
+```{r}
+# With drop = FALSE
+obj <- factor(c("a", "c", "d", NA), levels = c("d", "c", "a", "Not used"))
+r <- rule(A = "a", B = c("c", "d"))
+reformat(obj, r)
+
+# With drop = TRUE
+obj <- factor(c("a", "c", "d", NA), levels = c("d", "c", "a", "Not used"))
+r <- rule(A = "a", B = c("c", "d"), .drop = TRUE)
+reformat(obj, r)
+```
+
+Note that behavior of the rule can be overridden using the corresponding arguments in `reformat`.
+
+```{r}
+r <- rule(A = "a", B = c("c", "d"), .to_NA = c("x"), .drop = TRUE)
+obj <- factor(c("a", "c", "d", NA, "x", "y"), levels = c("d", "c", "a", "Not used", "x", "y"))
+
+reformat(obj, r)
+
+# Override
+reformat(obj, r, .to_NA = "y", .drop = FALSE)
+```

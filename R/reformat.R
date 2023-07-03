@@ -1,8 +1,9 @@
 #' Reformat Values
 #' @param obj object to reformat.
 #' @param format (`rule`) or (`list`) of `rule` depending on the class of obj.
-#' @param string_as_fct (`flag`) whether the reformatted character object should be converted to factor.
-#' @param ... used to pass additional arguments
+#' @param ... used to pass additional arguments. Arguments passed via `reformat` override the ones defined during rule
+#'   creation.
+#' * `.string_as_fct` (`flag`) whether the reformatted character object should be converted to factor.
 #' * `.to_NA` (`character`) values that should be converted to `NA`. For `factor`, the corresponding levels are
 #'   dropped. If `NULL`, the argument will be taken from the `to_NA`attribute of the rule.
 #' * `.drop` (`flag`) whether to drop empty levels. If `NULL`, the argument will be taken from the `drop`attribute of
@@ -11,11 +12,11 @@
 #'
 #' @export
 #' @note When the rule is empty rule or when values subject to reformatting are absent from the object, no error is
-#'   raised. The rest of the reformatting process (for instance the conversion to factor  and the reformatting of
-#'   factors levels if `string_as_fct = TRUE`) is still carried out. The conversion of the levels declared in `to_NA` to
+#'   raised. The conversion to factor if `.string_as_fct = TRUE`) is still carried out.
+#'   The conversion of the levels declared in `.to_NA` to
 #'   `NA` values occurs after the remapping. `NA` values created this way are not affected by a rule declaring a
 #'   remapping of `NA` values. For factors, level dropping is the last step, hence, levels converted to `NA` by the
-#'   `to_NA` argument, will be removed if `drop` is `TRUE`.
+#'   `to_NA` argument, will be removed if `.drop` is `TRUE`.
 #'
 #' @rdname reformat
 #'
@@ -43,13 +44,15 @@ reformat.default <- function(obj, format, ...) {
 #' format <- rule("A" = "a", "NN" = NA)
 #'
 #' reformat(obj, format)
-#' reformat(obj, format, string_as_fct = FALSE, .to_NA = "x")
+#' reformat(obj, format, .string_as_fct = FALSE, .to_NA = "x")
 #'
-reformat.character <- function(obj, format, string_as_fct = TRUE, ...) {
+reformat.character <- function(obj, format, ...) {
   checkmate::assert_class(format, "rule")
-  checkmate::assert_flag(string_as_fct)
 
-  if (string_as_fct) {
+  # Give priority to argument defined in reformat.
+  format <- rule(.lst = modifyList(as.list(format), list(...)))
+
+  if (attr(format, ".string_as_fct")) {
     # Keep attributes.
     att <- attributes(obj)
     obj_fact <- as.factor(obj)
@@ -66,8 +69,6 @@ reformat.character <- function(obj, format, string_as_fct = TRUE, ...) {
     if (is(format, "empty_rule")) {
       return(obj)
     }
-
-    format <- modify_rule_attr(..., format = format)
 
     value_match <- unlist(format)
     m <- match(obj, value_match)
@@ -102,7 +103,7 @@ reformat.factor <- function(obj, format, ...) {
     return(obj)
   }
 
-  format <- modify_rule_attr(..., format = format)
+  format <- rule(.lst = modifyList(as.list(format), list(...)))
 
   any_na <- anyNA(obj)
 
@@ -123,10 +124,8 @@ reformat.factor <- function(obj, format, ...) {
   }
 
   val_to_NA <- attr(format, ".to_NA")
-  res <- if (!is.null(val_to_NA)) {
-    forcats::fct_na_level_to_value(res, val_to_NA)
-  } else {
-    res
+  if (!is.null(val_to_NA)) {
+    res <- forcats::fct_na_level_to_value(res, val_to_NA)
   }
 
   drop_lvl <- attr(format, ".drop")
@@ -166,11 +165,10 @@ reformat.factor <- function(obj, format, ...) {
 #' )
 #'
 #' reformat(db, format)
-reformat.list <- function(obj, format, string_as_fct = TRUE, ...) {
+reformat.list <- function(obj, format, ...) {
   checkmate::assert_list(obj, types = c("data.frame", "tibble"))
   checkmate::assert_named(obj)
   checkmate::assert_list(format, names = "unique", types = "list", null.ok = TRUE)
-  checkmate::assert_flag(string_as_fct)
 
   if (length(format) == 0) {
     return(obj)
@@ -183,7 +181,7 @@ reformat.list <- function(obj, format, string_as_fct = TRUE, ...) {
     local_map <- local_map[names(local_map) %in% names(obj[[tab]])]
 
     obj[[tab]][names(local_map)] <- mapply(
-      function(rl, col) reformat(obj[[tab]][[col]], format = rl, string_as_fct = string_as_fct, ...),
+      function(rl, col) reformat(obj[[tab]][[col]], format = rl, ...),
       local_map,
       names(local_map),
       SIMPLIFY = FALSE
