@@ -6,6 +6,9 @@
 \usage{
 add_whisker(x)
 }
+\arguments{
+\item{x}{Named (\code{character}) input.}
+}
 \description{
 Add whisker values
 }

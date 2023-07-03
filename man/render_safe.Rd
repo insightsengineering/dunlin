@@ -8,8 +8,6 @@ render_safe(x)
 }
 \arguments{
 \item{x}{(\code{character}) input to be rendered safely.}
-
-\item{envir}{(\code{environment}) in which input is rendered.}
 }
 \description{
 Render whiskers safely

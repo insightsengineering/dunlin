@@ -55,6 +55,10 @@ reference:
       - log_filter
       - get_log
       - print_log
+  - title: Whiskers
+    contents:
+      - render_safe
+      - add_whisker
   - title: Assertions
     contents:
       - assert_valid_format

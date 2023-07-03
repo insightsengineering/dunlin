@@ -9,4 +9,8 @@ safe_transformer(text, envir)
 \description{
 Safe transformer
 }
+\details{
+Obtain content in global environment by default.
+If not found, use the environment here.
+}
 \keyword{internal}

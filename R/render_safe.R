@@ -5,18 +5,15 @@
 safe_transformer <- function(text, envir) {
   if (exists(text, envir = globalenv())) {
     get(text, envir = globalenv())
-  }
-  else if (exists(text, envir = envir)) {
+  } else if (exists(text, envir = envir)) {
     get(text, envir = envir)
-  }
-  else {
+  } else {
     text
   }
 }
 
 #' Render whiskers safely
 #' @param x (`character`) input to be rendered safely.
-#' @param envir (`environment`) in which input is rendered.
 #' @export
 render_safe <- function(x) {
   checkmate::assert_character(x)
@@ -33,6 +30,7 @@ render_safe <- function(x) {
   setNames(ret, names(x))
 }
 #' Add whisker values
+#' @param x Named (`character`) input.
 #' @export
 add_whisker <- function(x) {
   checkmate::assert_character(x, names = "unique", any.missing = FALSE)
