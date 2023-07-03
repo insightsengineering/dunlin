@@ -61,4 +61,4 @@ reference:
       - assert_valid_list_format
   - title: Data
     contents:
-      - standard_remap
+      - default_whiskers

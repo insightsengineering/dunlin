@@ -4,7 +4,7 @@
 \alias{render_safe}
 \title{Render whiskers safely}
 \usage{
-render_safe(x, envir = parent.frame(), ...)
+render_safe(x)
 }
 \arguments{
 \item{x}{(\code{character}) input to be rendered safely.}

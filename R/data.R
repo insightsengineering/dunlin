@@ -1,7 +1,6 @@
-# standard_remap ----
+# default_whiskers ----
 
-#' Example of Remapping List
+#' Standard Whiskers
 #'
-#' @format a nest `list` with `rule`.
-#' @source this object is based on the `yaml` file of the same name stored in `inst/extdata`.
-"standard_remap"
+#' @format a named `character`.
+"default_whiskers"
