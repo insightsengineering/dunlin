@@ -3,13 +3,22 @@
 #' If not found, use the environment here.
 #' @keywords internal
 safe_transformer <- function(text, envir) {
-  if (exists(text, envir = globalenv())) {
-    get(text, envir = globalenv())
-  } else if (exists(text, envir = envir)) {
-    get(text, envir = envir)
+  text_lower <- tolower(text)
+  res <- if (exists(text_lower, envir = globalenv())) {
+    get(text_lower, envir = globalenv())
+  } else if (exists(text_lower, envir = envir)) {
+    get(text_lower, envir = envir)
   } else {
     text
   }
+  if (identical(text, tolower(text))) {
+    res <- tolower(res)
+  } else if (identical(text, toupper(text))) {
+    res <- toupper(res)
+  } else if (identical(text, stringr::str_to_title(text))) {
+    res <- stringr::str_to_title(res)
+  }
+  res
 }
 
 #' Render whiskers safely
@@ -23,8 +32,8 @@ render_safe <- function(x) {
     .transformer = safe_transformer,
     .envir = whisker_env,
     .null = "NULL",
-    .open = "{{",
-    .close = "}}"
+    .open = "{",
+    .close = "}"
   )
   ret <- vapply(ret, `[[`, i = 1L, FUN.VALUE = "")
   setNames(ret, names(x))
@@ -40,4 +49,12 @@ add_whisker <- function(x) {
       assign(i, x[i], envir = whisker_env)
     }
   )
+}
+
+#' Remove whisker values
+#' @param x Named (`character`) input.
+#' @export
+remove_whisker <- function(x) {
+  checkmate::assert_character(x, any.missing = FALSE)
+  rm(list = x, envir = whisker_env)
 }
