@@ -45,7 +45,7 @@ reformat.default <- function(obj, format, ...) {
 #' reformat(obj, format)
 #' reformat(obj, format, string_as_fct = FALSE, .to_NA = "x")
 #'
-reformat.character <- function(obj, format, string_as_fct = TRUE, na_last = TRUE, ...) { # .to_NA = NULL, .drop = FALSE,
+reformat.character <- function(obj, format, string_as_fct = TRUE, ...) {
   checkmate::assert_class(format, "rule")
   checkmate::assert_flag(string_as_fct)
 

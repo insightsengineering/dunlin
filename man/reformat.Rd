@@ -12,7 +12,7 @@ reformat(obj, ...)
 
 \method{reformat}{default}(obj, format, ...)
 
-\method{reformat}{character}(obj, format, string_as_fct = TRUE, na_last = TRUE, ...)
+\method{reformat}{character}(obj, format, string_as_fct = TRUE, ...)
 
 \method{reformat}{factor}(obj, format, ...)
 
