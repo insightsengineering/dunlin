@@ -59,6 +59,4 @@ reference:
     contents:
       - assert_valid_format
       - assert_valid_list_format
-  - title: Data
-    contents:
-      - default_whiskers
+

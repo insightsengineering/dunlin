@@ -41,7 +41,6 @@ Collate:
     'assertions.R'
     'co_relevels.R'
     'cut_by_group.R'
-    'data.R'
     'dunlin-package.R'
     'explicit_na.R'
     'filter.R'
