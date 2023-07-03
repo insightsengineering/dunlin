@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.931297709923664" branch-rate="0" lines-covered="488" lines-valid="524" branches-covered="0" branches-valid="0" complexity="0" version="3.6.2" timestamp="2023-07-03 07:41:14.857253">
+<coverage line-rate="0.91044776119403" branch-rate="0" lines-covered="488" lines-valid="536" branches-covered="0" branches-valid="0" complexity="0" version="3.6.2" timestamp="2023-07-03 13:48:53.512798">
   <sources>
     <source>/__w/dunlin/dunlin/dunlin</source>
   </sources>
   <packages>
-    <package name="dunlin" line-rate="0.931297709923664" branch-rate="0" complexity="0">
+    <package name="dunlin" line-rate="0.91044776119403" branch-rate="0" complexity="0">
       <classes>
         <class name="assertions.R" filename="R/assertions.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
@@ -1001,34 +1001,50 @@
                 <line number="7" hits="0" branch="false"/>
                 <line number="8" hits="0" branch="false"/>
                 <line number="9" hits="0" branch="false"/>
+                <line number="10" hits="0" branch="false"/>
                 <line number="11" hits="0" branch="false"/>
+                <line number="12" hits="0" branch="false"/>
+                <line number="13" hits="0" branch="false"/>
+                <line number="14" hits="0" branch="false"/>
+                <line number="15" hits="0" branch="false"/>
+                <line number="16" hits="0" branch="false"/>
+                <line number="17" hits="0" branch="false"/>
+                <line number="18" hits="0" branch="false"/>
+                <line number="19" hits="0" branch="false"/>
+                <line number="21" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="render_safe" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="19" hits="0" branch="false"/>
-                <line number="20" hits="0" branch="false"/>
-                <line number="21" hits="0" branch="false"/>
-                <line number="22" hits="0" branch="false"/>
-                <line number="23" hits="0" branch="false"/>
-                <line number="24" hits="0" branch="false"/>
-                <line number="25" hits="0" branch="false"/>
-                <line number="26" hits="0" branch="false"/>
-                <line number="27" hits="0" branch="false"/>
                 <line number="28" hits="0" branch="false"/>
                 <line number="29" hits="0" branch="false"/>
                 <line number="30" hits="0" branch="false"/>
-              </lines>
-            </method>
-            <method name="add_whisker" signature="" line-rate="0" branch-rate="0" complexity="0">
-              <lines>
+                <line number="31" hits="0" branch="false"/>
+                <line number="32" hits="0" branch="false"/>
+                <line number="33" hits="0" branch="false"/>
+                <line number="34" hits="0" branch="false"/>
+                <line number="35" hits="0" branch="false"/>
                 <line number="36" hits="0" branch="false"/>
                 <line number="37" hits="0" branch="false"/>
                 <line number="38" hits="0" branch="false"/>
                 <line number="39" hits="0" branch="false"/>
-                <line number="40" hits="0" branch="false"/>
-                <line number="41" hits="0" branch="false"/>
-                <line number="42" hits="0" branch="false"/>
+              </lines>
+            </method>
+            <method name="add_whisker" signature="" line-rate="0" branch-rate="0" complexity="0">
+              <lines>
+                <line number="45" hits="0" branch="false"/>
+                <line number="46" hits="0" branch="false"/>
+                <line number="47" hits="0" branch="false"/>
+                <line number="48" hits="0" branch="false"/>
+                <line number="49" hits="0" branch="false"/>
+                <line number="50" hits="0" branch="false"/>
+                <line number="51" hits="0" branch="false"/>
+              </lines>
+            </method>
+            <method name="remove_whisker" signature="" line-rate="0" branch-rate="0" complexity="0">
+              <lines>
+                <line number="58" hits="0" branch="false"/>
+                <line number="59" hits="0" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -1037,26 +1053,38 @@
             <line number="7" hits="0" branch="false"/>
             <line number="8" hits="0" branch="false"/>
             <line number="9" hits="0" branch="false"/>
+            <line number="10" hits="0" branch="false"/>
             <line number="11" hits="0" branch="false"/>
+            <line number="12" hits="0" branch="false"/>
+            <line number="13" hits="0" branch="false"/>
+            <line number="14" hits="0" branch="false"/>
+            <line number="15" hits="0" branch="false"/>
+            <line number="16" hits="0" branch="false"/>
+            <line number="17" hits="0" branch="false"/>
+            <line number="18" hits="0" branch="false"/>
             <line number="19" hits="0" branch="false"/>
-            <line number="20" hits="0" branch="false"/>
             <line number="21" hits="0" branch="false"/>
-            <line number="22" hits="0" branch="false"/>
-            <line number="23" hits="0" branch="false"/>
-            <line number="24" hits="0" branch="false"/>
-            <line number="25" hits="0" branch="false"/>
-            <line number="26" hits="0" branch="false"/>
-            <line number="27" hits="0" branch="false"/>
             <line number="28" hits="0" branch="false"/>
             <line number="29" hits="0" branch="false"/>
             <line number="30" hits="0" branch="false"/>
+            <line number="31" hits="0" branch="false"/>
+            <line number="32" hits="0" branch="false"/>
+            <line number="33" hits="0" branch="false"/>
+            <line number="34" hits="0" branch="false"/>
+            <line number="35" hits="0" branch="false"/>
             <line number="36" hits="0" branch="false"/>
             <line number="37" hits="0" branch="false"/>
             <line number="38" hits="0" branch="false"/>
             <line number="39" hits="0" branch="false"/>
-            <line number="40" hits="0" branch="false"/>
-            <line number="41" hits="0" branch="false"/>
-            <line number="42" hits="0" branch="false"/>
+            <line number="45" hits="0" branch="false"/>
+            <line number="46" hits="0" branch="false"/>
+            <line number="47" hits="0" branch="false"/>
+            <line number="48" hits="0" branch="false"/>
+            <line number="49" hits="0" branch="false"/>
+            <line number="50" hits="0" branch="false"/>
+            <line number="51" hits="0" branch="false"/>
+            <line number="58" hits="0" branch="false"/>
+            <line number="59" hits="0" branch="false"/>
           </lines>
         </class>
         <class name="rules.R" filename="R/rules.R" line-rate="1" branch-rate="0" complexity="0">
