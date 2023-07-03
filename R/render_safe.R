@@ -1,11 +1,16 @@
 #' Safe transformer
+#' @details Obtain content in global environment by default.
+#' If not found, use the environment here.
 #' @keywords internal
 safe_transformer <- function(text, envir) {
-  if (!exists(text, envir = envir)) {
-    text
+  if (exists(text, envir = globalenv())) {
+    get(text, envir = globalenv())
+  }
+  else if (exists(text, envir = envir)) {
+    get(text, envir = envir)
   }
   else {
-    get(text, envir = envir)
+    text
   }
 }
 
