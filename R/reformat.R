@@ -130,10 +130,8 @@ reformat.factor <- function(obj, format, ...) {
   }
 
   drop_lvl <- attr(format, ".drop")
-  res <- if (drop_lvl) {
-    forcats::fct_drop(res)
-  } else {
-    res
+  if (drop_lvl) {
+    res <- forcats::fct_drop(res)
   }
 
   res
