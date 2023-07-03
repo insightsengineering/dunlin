@@ -90,7 +90,7 @@ h_df_explicit <- function(df,
     mutate(
       across(
         where(~ is.character(.x) | is.factor(.x)) & !any_of(.env$omit_columns),
-        ~ reformat(.x, format = .env$na_rule, string_as_fct = .env$char_as_factor, na_last = TRUE)
+        ~ reformat(.x, format = .env$na_rule, string_as_fct = .env$char_as_factor, .na_last = TRUE)
       )
     )
 }

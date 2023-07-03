@@ -82,7 +82,7 @@ remotes::install_github("insightsengineering/dunlin@*release")
     )
   )
 
-  res <- dunlin::reformat(prop_db, new_format, na_last = TRUE)
+  res <- dunlin::reformat(prop_db, new_format, .na_last = TRUE)
 
   ```
 

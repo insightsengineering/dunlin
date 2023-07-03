@@ -11,12 +11,14 @@
 #' @export
 #' @examples
 #' rule("X" = "x", "Y" = c("y", "z"))
-#' rule("X" = "x", "Y" = c("y", "z"), .drop = TRUE, .to_NA = c("a", "b"))
+#' rule("X" = "x", "Y" = c("y", "z"), .drop = TRUE, .to_NA = c("a", "b"), .na_last = FALSE)
 #'
 rule <- function(..., .lst = list(...)) {
   checkmate::assert_list(.lst, types = c("character", "numeric", "logical", "NULL"))
 
-  map <- .lst[setdiff(names(.lst), c(".drop", ".to_NA"))]
+  special_mapping <- list(".drop" = "logical", ".to_NA" = c("character", "NULL"), ".na_last" = "logical")
+
+  map <- .lst[setdiff(names(.lst), names(special_mapping))]
 
   if (length(map) == 0) {
     return(empty_rule)
@@ -35,16 +37,15 @@ rule <- function(..., .lst = list(...)) {
     res <- structure(
       setNames(vals, nms),
       class = c("rule", "character"),
-      arg = list(
-        .drop = FALSE,
-        .to_NA = NULL
-      )
+      .drop = FALSE,
+      .to_NA = NULL,
+      .na_last = TRUE
     )
 
-    names_arg <- intersect(names(.lst), names(attr(res, "arg")))
+    names_arg <- intersect(names(.lst), names(special_mapping))
     for (i in names_arg) {
-      # Allow value to be NULL.
-      attr(res, "arg")[i] <- ifelse(is.null(.lst[[i]]), list(NULL), .lst[[i]])
+      checkmate::assert_multi_class(.lst[[i]], special_mapping[[i]], .var.name = names(.lst[i]))
+      attr(res, i) <- .lst[[i]]
     }
 
     res
@@ -66,8 +67,9 @@ print.rule <- function(x, ...) {
   for (i in seq_len(length(x))) {
     cat(nms[i], " <- ", if (length(x[[i]]) > 1) sprintf("[%s]", toString(x[[i]])) else x[[i]], "\n")
   }
-  if (!is.null(attr(x, "arg")[[".to_NA"]])) cat("NA <- ", toString(attr(x, "arg")[[".to_NA"]]), "\n")
-  cat("Drop unused level:", attr(x, "arg")[[".drop"]], "\n")
+  if (!is.null(attr(x, ".to_NA"))) cat("NA <- ", toString(attr(x, ".to_NA")), "\n")
+  cat("Drop unused level:", attr(x, ".drop"), "\n")
+  cat("NA-replacing level in last position:", attr(x, ".na_last"), "\n")
 }
 
 #' Convert nested list into list of `rule`
@@ -109,7 +111,10 @@ as.list.rule <- function(x, ...) {
     unname(x[nms == i])
   })
 
-  arg <- attr(x, "arg")
+
+  att <- attributes(x)
+  arg <- att[!names(att) %in% c("names", "class")]
+
   res <- c(res, unname(arg))
   unames <- c(unames, names(arg))
 

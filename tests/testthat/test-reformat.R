@@ -64,18 +64,18 @@ test_that("reformat for characters works as expected when string_as_fct is TRUE"
   )
 })
 
-test_that("reformat for characters works as expected when string_as_fct is TRUE and na_last is false", {
+test_that("reformat for characters works as expected when string_as_fct is TRUE and .na_last is false", {
   x <- c("b", "a", "b", "", NA, "a")
   r <- rule(x = "a", y = "", z = NA)
   expect_identical(
-    reformat(x, r, string_as_fct = TRUE, na_last = FALSE),
+    reformat(x, r, string_as_fct = TRUE, .na_last = FALSE),
     factor(c("b", "x", "b", "y", "z", "x"), levels = c("x", "y", "z", "b"))
   )
 
   x <- c("b", "a", "b", "", NA, "a")
   r <- rule(x = "a", y = c("", NA))
   expect_identical(
-    reformat(x, r, string_as_fct = TRUE, na_last = FALSE),
+    reformat(x, r, string_as_fct = TRUE, .na_last = FALSE),
     factor(c("b", "x", "b", "y", "y", "x"), levels = c("x", "y", "b"))
   )
 })
@@ -128,10 +128,10 @@ test_that("reformat factor works as expected when the level doesn't exist and .d
   )
 })
 
-test_that("reformat factor works as expected when na_last = FALSE", {
+test_that("reformat factor works as expected when .na_last = FALSE", {
   x <- factor(c("a", "a", "b", "", NA), levels = c("a", "", "b"))
   r <- rule(x = "a", y = c("", NA))
-  expect_silent(res <- reformat(x, r, na_last = FALSE))
+  expect_silent(res <- reformat(x, r, .na_last = FALSE))
   expect_identical(
     res,
     factor(c("x", "x", "b", "y", "y"), levels = c("x", "y", "b"))
@@ -141,7 +141,7 @@ test_that("reformat factor works as expected when na_last = FALSE", {
 test_that("reformat factor works as expected when .to_NA is not NULL", {
   x <- factor(c("a", "a", "b", "", NA), levels = c("a", "", "b"))
   r <- rule(x = "a", z = NA)
-  expect_silent(res <- reformat(x, r, na_last = FALSE, .to_NA = ""))
+  expect_silent(res <- reformat(x, r, .na_last = FALSE, .to_NA = ""))
   expect_identical(
     res,
     factor(c("x", "x", "b", NA, "z"), levels = c("x", "z", "b"))
@@ -151,7 +151,7 @@ test_that("reformat factor works as expected when .to_NA is not NULL", {
 test_that("reformat factor works as expected when .to_NA is passed via a rule", {
   x <- factor(c("a", "a", "b", "", NA), levels = c("a", "", "b"))
   r <- rule(x = "a", z = NA, .to_NA = "")
-  expect_silent(res <- reformat(x, r, na_last = FALSE))
+  expect_silent(res <- reformat(x, r, .na_last = FALSE))
   expect_identical(
     res,
     factor(c("x", "x", "b", NA, "z"), levels = c("x", "z", "b"))
@@ -159,10 +159,10 @@ test_that("reformat factor works as expected when .to_NA is passed via a rule", 
 })
 
 
-test_that("reformat factor works as expected when the level doesn't exist and na_last is false.", {
+test_that("reformat factor works as expected when the level doesn't exist and .na_last is false.", {
   x <- factor(c("a", "a", "b", "", NA), levels = c("a", "b", ""))
   r <- rule(x = "a", y = "", z = NA, "Not a level" = "Not here")
-  expect_silent(res <- reformat(x, r, na_last = FALSE))
+  expect_silent(res <- reformat(x, r, .na_last = FALSE))
   expect_identical(
     res,
     factor(c("x", "x", "b", "y", "z"), levels = c("x", "y", "z", "Not a level", "b"))

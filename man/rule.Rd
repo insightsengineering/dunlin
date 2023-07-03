@@ -26,6 +26,6 @@ Special mapping values include:
 }
 \examples{
 rule("X" = "x", "Y" = c("y", "z"))
-rule("X" = "x", "Y" = c("y", "z"), .drop = TRUE, .to_NA = c("a", "b"))
+rule("X" = "x", "Y" = c("y", "z"), .drop = TRUE, .to_NA = c("a", "b"), .na_last = FALSE)
 
 }

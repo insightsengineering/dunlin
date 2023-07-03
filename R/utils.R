@@ -165,10 +165,10 @@ modify_rule_attr <- function(..., format) {
   checkmate::assert_class(format, "rule")
   ls_arg <- list(...)
   names_arg <- names(ls_arg)
-  names_arg <- intersect(names_arg, names(attr(format, "arg")))
+  names_arg <- intersect(names_arg, c(".drop", ".na_last", ".to_NA"))
 
   for (i in names_arg) {
-    attr(format, "arg")[i] <- ls_arg[[i]]
+    attr(format, i) <- ls_arg[[i]]
   }
 
   format

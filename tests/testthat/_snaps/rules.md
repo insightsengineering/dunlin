@@ -7,6 +7,7 @@
       a  <-  1 
       b  <-  NA 
       Drop unused level: FALSE 
+      NA-replacing level in last position: TRUE 
 
 # emtpy_rule printed correctly
 

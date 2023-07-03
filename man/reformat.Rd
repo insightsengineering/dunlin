@@ -14,9 +14,9 @@ reformat(obj, ...)
 
 \method{reformat}{character}(obj, format, string_as_fct = TRUE, na_last = TRUE, ...)
 
-\method{reformat}{factor}(obj, format, na_last = TRUE, ...)
+\method{reformat}{factor}(obj, format, ...)
 
-\method{reformat}{list}(obj, format, string_as_fct = TRUE, na_last = TRUE, ...)
+\method{reformat}{list}(obj, format, string_as_fct = TRUE, ...)
 }
 \arguments{
 \item{obj}{object to reformat.}
@@ -27,13 +27,12 @@ reformat(obj, ...)
 dropped. If \code{NULL}, the argument will be taken from the \code{to_NA}attribute of the rule.
 \item \code{.drop} (\code{flag}) whether to drop empty levels. If \code{NULL}, the argument will be taken from the \code{drop}attribute of
 the rule.
+\item \code{.na_last} (\code{flag}) whether the level replacing \code{NA} should be last.
 }}
 
 \item{format}{(\code{rule}) or (\code{list}) of \code{rule} depending on the class of obj.}
 
 \item{string_as_fct}{(\code{flag}) whether the reformatted character object should be converted to factor.}
-
-\item{na_last}{(\code{flag}) whether the level replacing \code{NA} should be last.}
 }
 \description{
 Reformat Values
@@ -63,7 +62,7 @@ attr(obj, "label") <- "my label"
 format <- rule("A" = c("a", "aa"), "NN" = c(NA, "x"), "Not_present" = "z", "Not_a_level" = "P")
 
 reformat(obj, format)
-reformat(obj, format, na_last = FALSE, .to_NA = "b", .drop = TRUE)
+reformat(obj, format, .na_last = FALSE, .to_NA = "b", .drop = TRUE)
 
 
 # Reformatting of list of data.frame.
