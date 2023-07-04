@@ -1,20 +1,20 @@
 #' Reformat Values
 #' @param obj object to reformat.
 #' @param format (`rule`) or (`list`) of `rule` depending on the class of obj.
-#' @param .string_as_fct (`flag`) whether the reformatted character object should be converted to factor.
-#' @param .to_NA (`character`) values that should be converted to `NA`. For `factor`, the corresponding levels are
+#' @param ... for compatibility between methods and pass additional special mapping to transform rules.
+#' * `.string_as_fct` (`flag`) whether the reformatted character object should be converted to factor.
+#' * `.to_NA` (`character`) values that should be converted to `NA`. For `factor`, the corresponding levels are
 #'   dropped. If `NULL`, the argument will be taken from the `to_NA`attribute of the rule.
-#' @param .drop (`flag`) whether to drop empty levels. If `NULL`, the argument will be taken from the `drop`attribute of
+#' * `.drop` (`flag`) whether to drop empty levels. If `NULL`, the argument will be taken from the `drop`attribute of
 #'   the rule.
-#' @param .na_last (`flag`) whether the level replacing `NA` should be last.
-#' @param ... for compatibility between methods.
+#' * `.na_last` (`flag`) whether the level replacing `NA` should be last.
 #'
 #' @export
 #' @note When the rule is empty rule or when values subject to reformatting are absent from the object, no error is
 #'   raised. The conversion to factor if `.string_as_fct = TRUE`) is still carried out. The conversion of the levels
 #'   declared in `.to_NA` to `NA` values occurs after the remapping. `NA` values created this way are not affected by a
 #'   rule declaring a remapping of `NA` values. For factors, level dropping is the last step, hence, levels converted to
-#'   `NA` by the `to_NA` argument, will be removed if `.drop` is `TRUE`. Arguments passed via `reformat` override the
+#'   `NA` by the `.to_NA` argument, will be removed if `.drop` is `TRUE`. Arguments passed via `reformat` override the
 #'   ones defined during rule creation.
 #'
 #' @rdname reformat
