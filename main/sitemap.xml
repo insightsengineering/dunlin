@@ -31,6 +31,9 @@
     <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/news/index.html</loc>
   </url>
   <url>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/add_whisker.html</loc>
+  </url>
+  <url>
     <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/as.list.rule.html</loc>
   </url>
   <url>
@@ -112,9 +115,15 @@
     <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/reformat.html</loc>
   </url>
   <url>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/remove_whisker.html</loc>
+  </url>
+  <url>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/render_safe.html</loc>
+  </url>
+  <url>
     <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/rule.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/standard_remap.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/safe_transformer.html</loc>
   </url>
 </urlset>
