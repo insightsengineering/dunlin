@@ -93,13 +93,13 @@ test_that("list2rules fails as expected", {
 
 test_that("as.list convert rules into list correctly", {
   test_rule <- rule(a = c("a", "b"), b = c("c", "d"))
-  expected <- list(a = c("a", "b"), b = c("c", "d"), .string_as_fct = TRUE, .drop = FALSE, .na_last = TRUE)
+  expected <- list(a = c("a", "b"), b = c("c", "d"), .string_as_fct = TRUE, .na_last = TRUE, .drop = FALSE)
   expect_identical(as.list(test_rule), expected)
 })
 
 test_that("as.list and rule are reversible", {
   test_rule <- rule(a = c("a", "b"), b = c("c", "d"), .drop = FALSE, .na_last = TRUE)
-  expect_identical(rule(.lst = as.list(test_rule)), test_rule)
+  expect_identical(do.call(rule, as.list(test_rule)), test_rule)
 })
 
 # rule reading ----

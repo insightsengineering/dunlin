@@ -4,27 +4,34 @@
 \alias{rule}
 \title{Create rule based on mappings}
 \usage{
-rule(..., .lst = list(...))
+rule(
+  ...,
+  .lst = list(...),
+  .string_as_fct = TRUE,
+  .na_last = TRUE,
+  .drop = FALSE,
+  .to_NA = NULL
+)
 }
 \arguments{
 \item{...}{Mapping pairs, the argument name is the transformed while
-its values are original values. Special name enable more control on the behavior or the \code{rule}. See below.}
+its values are original values.}
 
 \item{.lst}{(\code{list}) of mapping.}
+
+\item{.string_as_fct}{(\code{flag}) whether to convert characters to factors.}
+
+\item{.na_last}{(\code{flag})  whether the level replacing \code{NA} should be last.}
+
+\item{.drop}{(\code{flag}) whether to drop empty levels.}
+
+\item{.to_NA}{(\code{character}) values that should be converted to \code{NA}.}
 }
 \description{
 Create rule based on mappings
 }
 \note{
 Conversion to \code{NA} is the last step of the remapping process.
-
-Special mapping values include:
-\itemize{
-\item \code{.string_as_fct} (\code{flag}) whether to convert characters to factors.
-\item \code{.na_last} (\code{flag})  whether the level replacing \code{NA} should be last.
-\item \code{.drop} (\code{flag}) whether to drop empty levels.
-\item \code{.to_NA} (\code{character}) values that should be converted to \code{NA}.
-}
 }
 \examples{
 rule("X" = "x", "Y" = c("y", "z"))

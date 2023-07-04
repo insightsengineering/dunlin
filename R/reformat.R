@@ -1,22 +1,21 @@
 #' Reformat Values
 #' @param obj object to reformat.
 #' @param format (`rule`) or (`list`) of `rule` depending on the class of obj.
-#' @param ... used to pass additional arguments. Arguments passed via `reformat` override the ones defined during rule
-#'   creation.
-#' * `.string_as_fct` (`flag`) whether the reformatted character object should be converted to factor.
-#' * `.to_NA` (`character`) values that should be converted to `NA`. For `factor`, the corresponding levels are
+#' @param .string_as_fct (`flag`) whether the reformatted character object should be converted to factor.
+#' @param .to_NA (`character`) values that should be converted to `NA`. For `factor`, the corresponding levels are
 #'   dropped. If `NULL`, the argument will be taken from the `to_NA`attribute of the rule.
-#' * `.drop` (`flag`) whether to drop empty levels. If `NULL`, the argument will be taken from the `drop`attribute of
+#' @param .drop (`flag`) whether to drop empty levels. If `NULL`, the argument will be taken from the `drop`attribute of
 #'   the rule.
-#' * `.na_last` (`flag`) whether the level replacing `NA` should be last.
+#' @param .na_last (`flag`) whether the level replacing `NA` should be last.
+#' @param ... for compatibility between methods.
 #'
 #' @export
 #' @note When the rule is empty rule or when values subject to reformatting are absent from the object, no error is
-#'   raised. The conversion to factor if `.string_as_fct = TRUE`) is still carried out.
-#'   The conversion of the levels declared in `.to_NA` to
-#'   `NA` values occurs after the remapping. `NA` values created this way are not affected by a rule declaring a
-#'   remapping of `NA` values. For factors, level dropping is the last step, hence, levels converted to `NA` by the
-#'   `to_NA` argument, will be removed if `.drop` is `TRUE`.
+#'   raised. The conversion to factor if `.string_as_fct = TRUE`) is still carried out. The conversion of the levels
+#'   declared in `.to_NA` to `NA` values occurs after the remapping. `NA` values created this way are not affected by a
+#'   rule declaring a remapping of `NA` values. For factors, level dropping is the last step, hence, levels converted to
+#'   `NA` by the `to_NA` argument, will be removed if `.drop` is `TRUE`. Arguments passed via `reformat` override the
+#'   ones defined during rule creation.
 #'
 #' @rdname reformat
 #'
@@ -50,7 +49,7 @@ reformat.character <- function(obj, format, ...) {
   checkmate::assert_class(format, "rule")
 
   # Give priority to argument defined in reformat.
-  format <- rule(.lst = modifyList(as.list(format), list(...)))
+  format <- do.call(rule, modifyList(as.list(format), list(...)))
 
   if (attr(format, ".string_as_fct")) {
     # Keep attributes.
@@ -64,7 +63,7 @@ reformat.character <- function(obj, format, ...) {
       return(obj_fact)
     }
 
-    reformat(obj_fact, format, ...)
+    reformat(obj_fact, format)
   } else {
     if (is(format, "empty_rule")) {
       return(obj)
@@ -94,7 +93,7 @@ reformat.character <- function(obj, format, ...) {
 #' format <- rule("A" = c("a", "aa"), "NN" = c(NA, "x"), "Not_present" = "z", "Not_a_level" = "P")
 #'
 #' reformat(obj, format)
-#' reformat(obj, format, .na_last = FALSE, .to_NA = "b", .drop = TRUE)
+#' reformat(obj, format, .na_last = FALSE, .to_NA = "b", .drop = FALSE)
 #'
 reformat.factor <- function(obj, format, ...) {
   checkmate::assert_class(format, "rule")
@@ -103,7 +102,7 @@ reformat.factor <- function(obj, format, ...) {
     return(obj)
   }
 
-  format <- rule(.lst = modifyList(as.list(format), list(...)))
+  format <- do.call(rule, modifyList(as.list(format), list(...)))
 
   any_na <- anyNA(obj)
 

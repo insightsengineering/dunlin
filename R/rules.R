@@ -1,64 +1,49 @@
 #' Create rule based on mappings
 #' @param ... Mapping pairs, the argument name is the transformed while
-#' its values are original values. Special name enable more control on the behavior or the `rule`. See below.
+#' its values are original values.
 #' @param .lst (`list`) of mapping.
+#' @param .string_as_fct (`flag`) whether to convert characters to factors.
+#' @param .na_last (`flag`)  whether the level replacing `NA` should be last.
+#' @param .drop (`flag`) whether to drop empty levels.
+#' @param .to_NA (`character`) values that should be converted to `NA`.
 #'
 #' @note Conversion to `NA` is the last step of the remapping process.
-#' @note Special mapping values include:
-#' * `.string_as_fct` (`flag`) whether to convert characters to factors.
-#' * `.na_last` (`flag`)  whether the level replacing `NA` should be last.
-#' * `.drop` (`flag`) whether to drop empty levels.
-#' * `.to_NA` (`character`) values that should be converted to `NA`.
+
 #'
 #' @export
 #' @examples
 #' rule("X" = "x", "Y" = c("y", "z"))
 #' rule("X" = "x", "Y" = c("y", "z"), .drop = TRUE, .to_NA = c("a", "b"), .na_last = FALSE)
 #'
-rule <- function(..., .lst = list(...)) {
-  checkmate::assert_list(.lst)
+rule <- function(..., .lst = list(...), .string_as_fct = TRUE, .na_last = TRUE, .drop = FALSE, .to_NA = NULL) {
+  checkmate::assert_flag(.string_as_fct)
+  checkmate::assert_flag(.na_last)
+  checkmate::assert_flag(.drop)
+  checkmate::assert_character(.to_NA, null.ok = TRUE, any.missing = FALSE)
 
-  special_mapping <- list(
-    ".string_as_fct" = "logical",
-    ".drop" = "logical",
-    ".to_NA" = c("character", "NULL"),
-    ".na_last" = "logical"
-  )
-
-  map <- .lst[setdiff(names(.lst), names(special_mapping))]
-  names_arg <- intersect(names(.lst), names(special_mapping))
-
-  if (length(map) == 0) {
+  if (length(.lst) == 0) {
     res <- empty_rule
-    attr(res, ".string_as_fct") <- .lst[[".string_as_fct"]] %||% TRUE
+    attr(res, ".string_as_fct") <- .string_as_fct %||% TRUE
     return(res)
   } else {
-    map[is.na(map)] <- NA_character_
-    if (!checkmate::test_list(map, types = c("character"))) {
+    .lst[is.na(.lst)] <- NA_character_
+    if (!checkmate::test_list(.lst, types = c("character"))) {
       stop("Value mapping may only contain the type: {character}")
     }
-
-    vals <- as.character(unlist(map, use.names = FALSE))
+    vals <- as.character(unlist(.lst, use.names = FALSE))
     checkmate::assert_character(vals, unique = TRUE)
-    nms <- unlist(lapply(seq_len(length(map)), function(x) {
-      rep(names(map)[x], length(map[[x]]))
+    nms <- unlist(lapply(seq_len(length(.lst)), function(x) {
+      rep(names(.lst)[x], length(.lst[[x]]))
     }))
 
-    # Set default value of the rule.
     res <- structure(
       setNames(vals, nms),
       class = c("rule", "character"),
-      .string_as_fct = TRUE,
-      .drop = FALSE,
-      .to_NA = NULL,
-      .na_last = TRUE
+      .string_as_fct = .string_as_fct,
+      .na_last = .na_last,
+      .drop = .drop,
+      .to_NA = .to_NA
     )
-
-
-    for (i in names_arg) {
-      checkmate::assert_multi_class(.lst[[i]], special_mapping[[i]], .var.name = names(.lst[i]))
-      attr(res, i) <- .lst[[i]]
-    }
 
     res
   }
