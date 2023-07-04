@@ -4,19 +4,19 @@
 #' @keywords internal
 safe_transformer <- function(text, envir) {
   text_lower <- tolower(text)
-  res <- if (exists(text_lower, envir = globalenv())) {
-    get(text_lower, envir = globalenv())
-  } else if (exists(text_lower, envir = envir)) {
+  res <- if (exists(text_lower, envir = envir, inherits = FALSE)) {
     get(text_lower, envir = envir)
   } else {
     text
   }
-  if (identical(text, tolower(text))) {
-    res <- tolower(res)
-  } else if (identical(text, toupper(text))) {
-    res <- toupper(res)
-  } else if (identical(text, stringr::str_to_title(text))) {
-    res <- stringr::str_to_title(res)
+  if (is.character(res)) {
+    if (identical(text, tolower(text))) {
+      res <- tolower(res)
+    } else if (identical(text, toupper(text))) {
+      res <- toupper(res)
+    } else if (identical(text, stringr::str_to_title(text))) {
+      res <- stringr::str_to_title(res)
+    }
   }
   res
 }
@@ -49,6 +49,7 @@ add_whisker <- function(x) {
       assign(i, x[i], envir = whisker_env)
     }
   )
+  invisible()
 }
 
 #' Remove whisker values
