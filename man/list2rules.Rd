@@ -14,8 +14,10 @@ Convert nested list into list of \code{rule}
 }
 \examples{
 obj <- list(
-  rule1 = list("X" = c("a", "b"), "Z" = "c"),
-  rule2 = list(Missing = c(NA, ""))
+  rule1 = list("X" = c("a", "b"), "Z" = "c", .to_NA = "xxxx"),
+  rule2 = list(Missing = c(NA, "")),
+  rule3 = list(Missing = c(NA, ""), .drop = TRUE),
+  rule4 = list(Absent = c(NA, ""), .drop = TRUE, .to_NA = "yyyy")
 )
 list2rules(obj)
 

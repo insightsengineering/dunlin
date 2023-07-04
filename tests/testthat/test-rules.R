@@ -8,28 +8,25 @@ test_that("rule create works with arguments", {
   expect_identical(r2, r)
 })
 
-test_that("rule coerce logical/numeric to character", {
-  r <- rule(a = 1)
+test_that("rule coerce NA to NA_character_", {
+  r <- rule(a = NA)
   expect_s3_class(r, "rule")
-  expect_identical(r, c(a = "1"), ignore_attr = TRUE)
-  r2 <- rule(a = NA)
-  expect_s3_class(r2, "rule")
-  expect_identical(r2, c(a = NA_character_), ignore_attr = TRUE)
+  expect_identical(r, c(a = NA_character_), ignore_attr = TRUE)
 })
 
 test_that("rule works for multiple map", {
-  r <- rule(a = 1, b = c(2, 3))
+  r <- rule(a = "1", b = c("2", "3"))
   expect_s3_class(r, "rule")
   expect_identical(r, c(a = "1", b = "2", b = "3"), ignore_attr = TRUE)
 })
 
 test_that("rule fails when one value is mapped to multiple", {
   expect_error(
-    rule(a = 1, b = c(1, 2)),
+    rule(a = "1", b = c("1", "2")),
     "Assertion on 'vals' failed: Contains duplicated values, position 2"
   )
   expect_error(
-    rule(a = NA, b = c(NA, 2)),
+    rule(a = NA, b = c(NA, "2")),
     "Assertion on 'vals' failed: Contains duplicated values, position 2"
   )
 })
@@ -37,12 +34,12 @@ test_that("rule fails when one value is mapped to multiple", {
 test_that("rule fails for values that is not character/logical/numeric", {
   expect_error(
     rule(a = list(1)),
-    "May only contain the following types: \\{character,numeric,logical\\}"
+    "Value mapping may only contain the type: \\{character\\}"
   )
 })
 
 test_that("rule printed correctly", {
-  expect_snapshot(rule(a = 1, b = NA))
+  expect_snapshot(rule(a = "1", b = NA))
 })
 
 # empty_rule ----
@@ -59,8 +56,8 @@ test_that("emtpy_rule printed correctly", {
 
 test_that("list2rules works as expected", {
   r1 <- list(
-    rule_a = list(a = 1, b = 2),
-    rule_b = list(a = 3, b = 4),
+    rule_a = list(a = "1", b = "2"),
+    rule_b = list(a = "3", b = "4"),
     rule_c = list()
   )
 
@@ -96,13 +93,13 @@ test_that("list2rules fails as expected", {
 
 test_that("as.list convert rules into list correctly", {
   test_rule <- rule(a = c("a", "b"), b = c("c", "d"))
-  expected <- list(a = c("a", "b"), b = c("c", "d"))
+  expected <- list(a = c("a", "b"), b = c("c", "d"), .string_as_fct = TRUE, .na_last = TRUE, .drop = FALSE)
   expect_identical(as.list(test_rule), expected)
 })
 
 test_that("as.list and rule are reversible", {
-  test_rule <- rule(a = c("a", "b"), b = c("c", "d"))
-  expect_identical(rule(.lst = as.list(test_rule)), test_rule)
+  test_rule <- rule(a = c("a", "b"), b = c("c", "d"), .drop = FALSE, .na_last = TRUE)
+  expect_identical(do.call(rule, as.list(test_rule)), test_rule)
 })
 
 # rule reading ----
@@ -110,8 +107,8 @@ test_that("as.list and rule are reversible", {
 test_that("list of rules are read correctly", {
   tf <- tempfile()
   r1 <- list(
-    rule_a = list(a = 1, b = 2),
-    rule_b = list(a = 3, b = 4)
+    rule_a = list(a = "1", b = "2"),
+    rule_b = list(a = "3", b = "4")
   )
   yaml::write_yaml(r1, file = tf)
 

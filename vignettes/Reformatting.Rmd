@@ -68,11 +68,11 @@ r <- rule(A = "a", C = NA, B = c("c", "d"))
 reformat(factor(c("a", "c", "d", NA)), r)
 ```
 
-By default, the level replacing `NA` is set as the last one. This can be changed by setting `na_last = FALSE`.
+By default, the level replacing `NA` is set as the last one. This can be changed by setting `.na_last = FALSE`.
 
 ```{r}
 r <- rule(A = "a", C = NA, B = c("c", "d"))
-reformat(factor(c("a", "c", "d", NA)), r, na_last = FALSE)
+reformat(factor(c("a", "c", "d", NA)), r, .na_last = FALSE)
 ```
 
 For `list` of `data.frames`, the `format` argument is actually a nested list of rule.
@@ -106,6 +106,40 @@ rule_map <- list(
   )
 )
 
-res <- reformat(db, rule_map, na_last = TRUE)
+res <- reformat(db, rule_map, .na_last = TRUE)
 res
+```
+
+## Rule Attributes
+
+The behavior of a rule can be further refined using special mapping values.
+* `.to_NA` convert the specified character to `NA` at the end of the process.
+```{r}
+r <- rule(A = "a", B = c("c", "d"), .to_NA = c("x"))
+reformat(c("a", "c", "d", NA, "x"), r)
+```
+
+* `.drop` specifies whether unused levels should be dropped.
+```{r}
+# With drop = FALSE
+obj <- factor(c("a", "c", "d", NA), levels = c("d", "c", "a", "Not used"))
+r <- rule(A = "a", B = c("c", "d"))
+reformat(obj, r)
+
+# With drop = TRUE
+obj <- factor(c("a", "c", "d", NA), levels = c("d", "c", "a", "Not used"))
+r <- rule(A = "a", B = c("c", "d"), .drop = TRUE)
+reformat(obj, r)
+```
+
+Note that behavior of the rule can be overridden using the corresponding arguments in `reformat`.
+
+```{r}
+r <- rule(A = "a", B = c("c", "d"), .to_NA = c("x"), .drop = TRUE)
+obj <- factor(c("a", "c", "d", NA, "x", "y"), levels = c("d", "c", "a", "Not used", "x", "y"))
+
+reformat(obj, r)
+
+# Override
+reformat(obj, r, .to_NA = "y", .drop = FALSE)
 ```
