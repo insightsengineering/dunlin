@@ -6,6 +6,7 @@
 #' @importFrom tibble tribble
 #' @importFrom checkmate assert_class
 #' @importFrom forcats fct_relevel
+#' @importFrom glue glue
 #' @importFrom magrittr %>%
 #' @importFrom methods is
 #' @importFrom stats setNames
