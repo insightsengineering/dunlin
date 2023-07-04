@@ -25,7 +25,10 @@ safe_transformer <- function(text, envir) {
 #' @param x (`character`) input to be rendered safely.
 #' @export
 render_safe <- function(x) {
-  checkmate::assert_character(x)
+  checkmate::assert_character(x, null.ok = TRUE)
+  if (is.null(x)) {
+    return(NULL)
+  }
   ret <- lapply(
     x,
     glue::glue,
