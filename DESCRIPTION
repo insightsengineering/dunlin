@@ -17,6 +17,7 @@ Imports:
     checkmate (>= 2.0),
     dplyr,
     forcats (>= 1.0.0),
+    glue,
     magrittr,
     methods,
     rlang,
@@ -41,7 +42,6 @@ Collate:
     'assertions.R'
     'co_relevels.R'
     'cut_by_group.R'
-    'data.R'
     'dunlin-package.R'
     'explicit_na.R'
     'filter.R'
@@ -49,6 +49,8 @@ Collate:
     'pivot.R'
     'propagate.R'
     'reformat.R'
+    'render_safe.R'
     'rules.R'
     'unite.R'
     'utils.R'
+    'zzz.R'
