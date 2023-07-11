@@ -252,7 +252,7 @@ test_that("reformat for list works for empty rule", {
 
 # reformat using empty_rule ----
 
-test_that("empty_rule do nothing to input", {
+test_that("by default, empty_rule only converts input to factor", {
   a <- c("1", "2")
   expect_identical(as.factor(a), reformat(a, empty_rule))
 
@@ -261,4 +261,24 @@ test_that("empty_rule do nothing to input", {
 
   b <- factor(c("1", "2"))
   expect_identical(b, reformat(b, empty_rule))
+})
+
+test_that("empty_rule can use attribute to modify input", {
+  x <- c("b", "a", "b", "", NA, "a")
+  r <- rule(.to_NA = "b", .string_as_fct = FALSE)
+  expected <- c(NA, "a", NA, "", NA, "a")
+  res <- reformat(x, r)
+  expect_identical(res, expected)
+
+  x <- factor(c("a", "a", "b", "", NA), levels = c("a", "b", "", "Absent"))
+  r <- rule(.to_NA = "b")
+  expected <- factor(c("a", "a", NA, "", NA), levels = c("a", "", "Absent"))
+  res <- reformat(x, r)
+  expect_identical(res, expected)
+
+  x <- factor(c("a", "a", "b", "", NA), levels = c("a", "b", "", "Absent"))
+  r <- rule(.to_NA = "b", .drop = TRUE)
+  expected <- factor(c("a", "a", NA, "", NA), levels = c("a", ""))
+  res <- reformat(x, r)
+  expect_identical(res, expected)
 })
