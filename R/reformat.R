@@ -44,6 +44,7 @@ reformat.default <- function(obj, format, ...) {
 #'
 #' reformat(obj, format)
 #' reformat(obj, format, .string_as_fct = FALSE, .to_NA = "x")
+#' reformat(obj, empty_rule, .string_as_fct = FALSE, .to_NA = "x")
 #'
 reformat.character <- function(obj, format, ...) {
   checkmate::assert_class(format, "rule")
@@ -59,25 +60,20 @@ reformat.character <- function(obj, format, ...) {
     supp_att <- att[supp_att_name]
     attributes(obj_fact) <- c(attributes(obj_fact), supp_att)
 
-    if (is(format, "empty_rule")) {
-      return(obj_fact)
-    }
-
     reformat(obj_fact, format)
   } else {
-    if (is(format, "empty_rule")) {
-      return(obj)
+    if (!is(format, "empty_rule")) {
+      value_match <- unlist(format)
+      m <- match(obj, value_match)
+      obj[!is.na(m)] <- names(format)[m[!is.na(m)]]
     }
-
-    value_match <- unlist(format)
-    m <- match(obj, value_match)
-    obj[!is.na(m)] <- names(format)[m[!is.na(m)]]
 
 
     val_to_NA <- attr(format, ".to_NA")
     if (!is.null(val_to_NA)) {
       obj[obj %in% val_to_NA] <- NA_character_
     }
+
     obj
   }
 }
@@ -94,45 +90,43 @@ reformat.character <- function(obj, format, ...) {
 #'
 #' reformat(obj, format)
 #' reformat(obj, format, .na_last = FALSE, .to_NA = "b", .drop = FALSE)
+#' reformat(obj, empty_rule, .na_last = FALSE, .to_NA = "b", .drop = FALSE)
 #'
 reformat.factor <- function(obj, format, ...) {
   checkmate::assert_class(format, "rule")
 
-  if (is(format, "empty_rule")) {
-    return(obj)
-  }
-
   format <- do.call(rule, modifyList(as.list(format), list(...)))
 
-  any_na <- anyNA(obj)
+  if (!is(format, "empty_rule")) {
+    any_na <- anyNA(obj)
+    if (any(is.na(format)) && any_na) {
+      obj <- forcats::fct_na_value_to_level(obj)
+    }
 
-  checkmate::assert_class(format, "rule")
-  if (any(is.na(format)) && any_na) {
-    obj <- forcats::fct_na_value_to_level(obj)
-  }
+    absent_format <- format[!format %in% levels(obj)]
+    sel_format <- format[format %in% levels(obj)]
+    obj <- forcats::fct_recode(obj, !!!sel_format)
+    obj <- forcats::fct_expand(obj, unique(names(absent_format)))
+    obj <- forcats::fct_relevel(obj, unique(names(format)))
 
-  absent_format <- format[!format %in% levels(obj)]
-  sel_format <- format[format %in% levels(obj)]
-  res <- forcats::fct_recode(obj, !!!sel_format)
-  res <- forcats::fct_expand(res, unique(names(absent_format)))
-  res <- forcats::fct_relevel(res, unique(names(format)))
-
-  if (any(is.na(format)) && attr(format, ".na_last")) {
-    na_lvl <- names(format)[is.na(format)]
-    res <- forcats::fct_relevel(res, na_lvl, after = Inf)
-  }
-
-  val_to_NA <- attr(format, ".to_NA")
-  if (!is.null(val_to_NA)) {
-    res <- forcats::fct_na_level_to_value(res, val_to_NA)
+    if (any(is.na(format)) && attr(format, ".na_last")) {
+      na_lvl <- names(format)[is.na(format)]
+      obj <- forcats::fct_relevel(obj, na_lvl, after = Inf)
+    }
   }
 
   drop_lvl <- attr(format, ".drop")
   if (drop_lvl) {
-    res <- forcats::fct_drop(res)
+    obj <- forcats::fct_drop(obj)
   }
 
-  res
+  # Levels converted to NA are dropped.
+  val_to_NA <- attr(format, ".to_NA")
+  if (!is.null(val_to_NA)) {
+    obj <- forcats::fct_na_level_to_value(obj, val_to_NA)
+  }
+
+  obj
 }
 
 #' @export

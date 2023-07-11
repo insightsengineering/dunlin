@@ -24,6 +24,8 @@ rule <- function(..., .lst = list(...), .string_as_fct = TRUE, .na_last = TRUE, 
   if (length(.lst) == 0) {
     res <- empty_rule
     attr(res, ".string_as_fct") <- .string_as_fct %||% TRUE
+    attr(res, ".drop") <- .drop %||% FALSE
+    attr(res, ".to_NA") <- .to_NA %||% NULL
     return(res)
   } else {
     .lst[is.na(.lst)] <- NA_character_
@@ -54,7 +56,9 @@ rule <- function(..., .lst = list(...), .string_as_fct = TRUE, .na_last = TRUE, 
 empty_rule <- structure(
   character(0L),
   class = c("empty_rule", "rule", "character"),
-  .string_as_fct = TRUE
+  .string_as_fct = TRUE,
+  .na_last = FALSE,
+  .drop = FALSE
 )
 
 #' @export
@@ -66,6 +70,7 @@ print.rule <- function(x, ...) {
     cat(nms[i], " <- ", if (length(x[[i]]) > 1) sprintf("[%s]", toString(x[[i]])) else x[[i]], "\n")
   }
   if (!is.null(attr(x, ".to_NA"))) cat("NA <- ", toString(attr(x, ".to_NA")), "\n")
+  cat("Convert to factor:", attr(x, ".string_as_fct"), "\n")
   cat("Drop unused level:", attr(x, ".drop"), "\n")
   cat("NA-replacing level in last position:", attr(x, ".na_last"), "\n")
 }
@@ -122,6 +127,9 @@ as.list.rule <- function(x, ...) {
 #' @export
 print.empty_rule <- function(x, ...) {
   cat("Empty mapping\n")
+  if (!is.null(attr(x, ".to_NA"))) cat("NA <- ", toString(attr(x, ".to_NA")), "\n")
+  cat("Convert to factor:", attr(x, ".string_as_fct"), "\n")
+  cat("Drop unused level:", attr(x, ".drop"), "\n")
 }
 
 #' Read `YAML` File describing `rule`

@@ -6,6 +6,7 @@
       Mapping of:
       a  <-  1 
       b  <-  NA 
+      Convert to factor: TRUE 
       Drop unused level: FALSE 
       NA-replacing level in last position: TRUE 
 
@@ -15,4 +16,15 @@
       empty_rule
     Output
       Empty mapping
+      Convert to factor: TRUE 
+      Drop unused level: FALSE 
+
+---
+
+    Code
+      empty_rule
+    Output
+      Empty mapping
+      Convert to factor: TRUE 
+      Drop unused level: FALSE 
 

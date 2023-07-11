@@ -46,10 +46,36 @@ test_that("rule printed correctly", {
 
 test_that("emtpy_rule is length 0 character", {
   expect_identical(empty_rule, character(0), ignore_attr = TRUE)
+  att <- attributes(empty_rule)
+  expect_true(att$.string_as_fct)
+  expect_false(att$.drop)
+  expect_null(att$.to_NA)
 })
 
 test_that("emtpy_rule printed correctly", {
   expect_snapshot(empty_rule)
+})
+
+test_that("emtpy_rule printed correctly", {
+  expect_snapshot(empty_rule)
+})
+
+test_that("emtpy_rule can be created with a call to rule", {
+  r <- rule()
+  expect_identical(r, character(0), ignore_attr = TRUE)
+  att <- attributes(r)
+  expect_true(att$.string_as_fct)
+  expect_false(att$.drop)
+  expect_null(att$.to_NA)
+})
+
+test_that("emtpy_rule attributes can be set with a call to rule", {
+  r <- rule(.drop = TRUE, .string_as_fct = FALSE, .to_NA = "x")
+  expect_identical(r, character(0), ignore_attr = TRUE)
+  att <- attributes(r)
+  expect_false(att$.string_as_fct)
+  expect_true(att$.drop)
+  expect_identical(att$.to_NA, "x")
 })
 
 # list2rules ----
