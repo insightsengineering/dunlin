@@ -14,7 +14,6 @@ A collection of functions to preprocess data and organize them in a format amena
 Authors:
 \itemize{
   \item Liming Li \email{liming.li@roche.com}
-  \item Xiaoli Duan \email{xiaoli.duan@roche.com}
 }
 
 Other contributors:
