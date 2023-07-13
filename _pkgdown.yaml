@@ -49,7 +49,6 @@ reference:
       - as.list.rule
       - empty_rule
       - list2rules
-      - read_rules
   - title: Filtering
     contents:
       - log_filter
