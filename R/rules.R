@@ -131,12 +131,3 @@ print.empty_rule <- function(x, ...) {
   cat("Convert to factor:", attr(x, ".string_as_fct"), "\n")
   cat("Drop unused level:", attr(x, ".drop"), "\n")
 }
-
-#' Read `YAML` File describing `rule`
-#' @param file (`string`) of path to the rule `YAML` file.
-#' @export
-read_rules <- function(file) {
-  checkmate::assert_file_exists(file)
-  content <- yaml::read_yaml(file)
-  list2rules(content)
-}

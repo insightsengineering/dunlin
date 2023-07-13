@@ -127,19 +127,3 @@ test_that("as.list and rule are reversible", {
   test_rule <- rule(a = c("a", "b"), b = c("c", "d"), .drop = FALSE, .na_last = TRUE)
   expect_identical(do.call(rule, as.list(test_rule)), test_rule)
 })
-
-# rule reading ----
-
-test_that("list of rules are read correctly", {
-  tf <- tempfile()
-  r1 <- list(
-    rule_a = list(a = "1", b = "2"),
-    rule_b = list(a = "3", b = "4")
-  )
-  yaml::write_yaml(r1, file = tf)
-
-  r2 <- read_rules(tf)
-
-  checkmate::expect_list(r2, type = "rule", len = 2)
-  expect_identical(names(r2), c("rule_a", "rule_b"))
-})
