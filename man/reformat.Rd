@@ -53,6 +53,7 @@ format <- rule("A" = "a", "NN" = NA)
 
 reformat(obj, format)
 reformat(obj, format, .string_as_fct = FALSE, .to_NA = "x")
+reformat(obj, empty_rule, .string_as_fct = FALSE, .to_NA = "x")
 
 
 # Reformatting of factor.
@@ -62,6 +63,7 @@ format <- rule("A" = c("a", "aa"), "NN" = c(NA, "x"), "Not_present" = "z", "Not_
 
 reformat(obj, format)
 reformat(obj, format, .na_last = FALSE, .to_NA = "b", .drop = FALSE)
+reformat(obj, empty_rule, .na_last = FALSE, .to_NA = "b", .drop = FALSE)
 
 
 # Reformatting of list of data.frame.
