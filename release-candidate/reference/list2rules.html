@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">dunlin</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,6 +37,7 @@
           id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/main">main</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/latest-tag">latest-tag</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/release-candidate">release-candidate</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.4-rc1">v0.1.4-rc1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.3-rc1">v0.1.3-rc1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.3">v0.1.3</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.2">v0.1.2</a>
@@ -89,8 +90,10 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  rule1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"X"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>, <span class="st">"Z"</span> <span class="op">=</span> <span class="st">"c"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  rule2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Missing <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="st">""</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  rule1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"X"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>, <span class="st">"Z"</span> <span class="op">=</span> <span class="st">"c"</span>, .to_NA <span class="op">=</span> <span class="st">"xxxx"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  rule2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Missing <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="st">""</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  rule3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Missing <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="st">""</span><span class="op">)</span>, .drop <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  rule4 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Absent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="st">""</span><span class="op">)</span>, .drop <span class="op">=</span> <span class="cn">TRUE</span>, .to_NA <span class="op">=</span> <span class="st">"yyyy"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">list2rules</span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rule1</span>
@@ -98,11 +101,35 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> X  &lt;-  a </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> X  &lt;-  b </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Z  &lt;-  c </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NA &lt;-  xxxx </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convert to factor: TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Drop unused level: FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NA-replacing level in last position: TRUE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rule2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mapping of:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Missing  &lt;-  NA </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Missing  &lt;-   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convert to factor: TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Drop unused level: FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NA-replacing level in last position: TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rule3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mapping of:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Missing  &lt;-  NA </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Missing  &lt;-   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convert to factor: TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Drop unused level: TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NA-replacing level in last position: TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rule4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mapping of:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Absent  &lt;-  NA </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Absent  &lt;-   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NA &lt;-  yyyy </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Convert to factor: TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Drop unused level: TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NA-replacing level in last position: TRUE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
