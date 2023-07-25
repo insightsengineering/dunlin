@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">dunlin</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,6 +39,7 @@
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/release-candidate">release-candidate</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.4-rc1">v0.1.4-rc1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.3-rc1">v0.1.3-rc1</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.4">v0.1.4</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.3">v0.1.3</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.2">v0.1.2</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.1">v0.1.1</a> </div></li>
@@ -83,20 +84,13 @@
 <span><span class="fu">reformat</span><span class="op">(</span><span class="va">obj</span>, <span class="va">format</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for character</span></span>
-<span><span class="fu">reformat</span><span class="op">(</span></span>
-<span>  <span class="va">obj</span>,</span>
-<span>  <span class="va">format</span>,</span>
-<span>  string_as_fct <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  na_last <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  empty_as_na <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  <span class="va">...</span></span>
-<span><span class="op">)</span></span>
+<span><span class="fu">reformat</span><span class="op">(</span><span class="va">obj</span>, <span class="va">format</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for factor</span></span>
-<span><span class="fu">reformat</span><span class="op">(</span><span class="va">obj</span>, <span class="va">format</span>, na_last <span class="op">=</span> <span class="cn">TRUE</span>, empty_as_na <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">reformat</span><span class="op">(</span><span class="va">obj</span>, <span class="va">format</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for list</span></span>
-<span><span class="fu">reformat</span><span class="op">(</span><span class="va">obj</span>, <span class="va">format</span>, string_as_fct <span class="op">=</span> <span class="cn">TRUE</span>, na_last <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">reformat</span><span class="op">(</span><span class="va">obj</span>, <span class="va">format</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -106,33 +100,27 @@
 
 
 <dt>...</dt>
-<dd><p>not used. Only for compatibility between methods.</p></dd>
+<dd><p>for compatibility between methods and pass additional special mapping to transform rules.</p><ul><li><p><code>.string_as_fct</code> (<code>flag</code>) whether the reformatted character object should be converted to factor.</p></li>
+<li><p><code>.to_NA</code> (<code>character</code>) values that should be converted to <code>NA</code>. For <code>factor</code>, the corresponding levels are
+dropped. If <code>NULL</code>, the argument will be taken from the <code>to_NA</code>attribute of the rule.</p></li>
+<li><p><code>.drop</code> (<code>flag</code>) whether to drop empty levels. If <code>NULL</code>, the argument will be taken from the <code>drop</code>attribute of
+the rule.</p></li>
+<li><p><code>.na_last</code> (<code>flag</code>) whether the level replacing <code>NA</code> should be last.</p></li>
+</ul></dd>
 
 
 <dt>format</dt>
 <dd><p>(<code>rule</code>) or (<code>list</code>) of <code>rule</code> depending on the class of obj.</p></dd>
 
-
-<dt>string_as_fct</dt>
-<dd><p>(<code>flag</code>) whether the reformatted character object should be converted to factor.</p></dd>
-
-
-<dt>na_last</dt>
-<dd><p>(<code>flag</code>) whether the level replacing <code>NA</code> should be last.</p></dd>
-
-
-<dt>empty_as_na</dt>
-<dd><p>(<code>flag</code>) whether to convert empty string "" to NA.</p></dd>
-
 </dl></div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
     <p>When the rule is empty rule or when values subject to reformatting are absent from the object, no error is
-raised. The rest of the reformatting process (for instance the conversion to factor  and the reformatting of
-factors levels if <code>string_as_fct = TRUE</code>) is still carried out.
-Empty strings, "", is also considered as NA in dunlin. Empty strings will be replaced by NA if <code>empty_as_na</code> is
-set to TRUE, prior to conduct rule based formatting. So if your data contains "" but your rule did not cover the
-conversion of NA values, you will get NA in your data.</p>
+raised. The conversion to factor if <code>.string_as_fct = TRUE</code>) is still carried out. The conversion of the levels
+declared in <code>.to_NA</code> to <code>NA</code> values occurs after the remapping. <code>NA</code> values created this way are not affected by a
+rule declaring a remapping of <code>NA</code> values. For factors, level dropping is the last step, hence, levels converted to
+<code>NA</code> by the <code>.to_NA</code> argument, will be removed if <code>.drop</code> is <code>TRUE</code>. Arguments passed via <code>reformat</code> override the
+ones defined during rule creation.</p>
     </div>
 
     <div class="section level2">
@@ -148,6 +136,15 @@ conversion of NA values, you will get NA in your data.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"label")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] my label</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: A b x NN</span>
+<span class="r-in"><span><span class="fu">reformat</span><span class="op">(</span><span class="va">obj</span>, <span class="va">format</span>, .string_as_fct <span class="op">=</span> <span class="cn">FALSE</span>, .to_NA <span class="op">=</span> <span class="st">"x"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "A"  "b"  NA   "NN"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"label")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "my label"</span>
+<span class="r-in"><span><span class="fu">reformat</span><span class="op">(</span><span class="va">obj</span>, <span class="va">empty_rule</span>, .string_as_fct <span class="op">=</span> <span class="cn">FALSE</span>, .to_NA <span class="op">=</span> <span class="st">"x"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "a" "b" NA  NA </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"label")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "my label"</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Reformatting of factor.</span></span></span>
 <span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"first"</span>, <span class="st">"a"</span>, <span class="st">"aa"</span>, <span class="st">"b"</span>, <span class="st">"x"</span>, <span class="cn">NA</span><span class="op">)</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"first"</span>, <span class="st">"x"</span>, <span class="st">"b"</span>, <span class="st">"aa"</span>, <span class="st">"a"</span>, <span class="st">"z"</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -159,11 +156,17 @@ conversion of NA values, you will get NA in your data.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"label")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] my label</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: A Not_present Not_a_level first b NN</span>
-<span class="r-in"><span><span class="fu">reformat</span><span class="op">(</span><span class="va">obj</span>, <span class="va">format</span>, na_last <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] first A     A     b     NN    NN   </span>
+<span class="r-in"><span><span class="fu">reformat</span><span class="op">(</span><span class="va">obj</span>, <span class="va">format</span>, .na_last <span class="op">=</span> <span class="cn">FALSE</span>, .to_NA <span class="op">=</span> <span class="st">"b"</span>, .drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] first A     A     &lt;NA&gt;  NN    NN   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"label")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] my label</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: A NN Not_present Not_a_level first b</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: A NN Not_present Not_a_level first</span>
+<span class="r-in"><span><span class="fu">reformat</span><span class="op">(</span><span class="va">obj</span>, <span class="va">empty_rule</span>, .na_last <span class="op">=</span> <span class="cn">FALSE</span>, .to_NA <span class="op">=</span> <span class="st">"b"</span>, .drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] first a     aa    &lt;NA&gt;  x     &lt;NA&gt; </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"label")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] my label</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: first x aa a z</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Reformatting of list of data.frame.</span></span></span>
 <span class="r-in"><span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
@@ -180,7 +183,7 @@ conversion of NA values, you will get NA in your data.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">format</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  df1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    var1 <span class="op">=</span> <span class="fu"><a href="rule.html">rule</a></span><span class="op">(</span><span class="st">"X"</span> <span class="op">=</span> <span class="st">"x"</span>, <span class="st">"N"</span> <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    var1 <span class="op">=</span> <span class="fu"><a href="rule.html">rule</a></span><span class="op">(</span><span class="st">"X"</span> <span class="op">=</span> <span class="st">"x"</span>, <span class="st">"N"</span> <span class="op">=</span> <span class="cn">NA</span>, .to_NA <span class="op">=</span> <span class="st">"b"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span>,</span></span>
 <span class="r-in"><span>  df2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    var1 <span class="op">=</span> <span class="va">empty_rule</span>,</span></span>
@@ -192,7 +195,7 @@ conversion of NA values, you will get NA in your data.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $df1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   var1 var2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    a   F1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    b   F2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 &lt;NA&gt;   F2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3    N &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $df2</span>
