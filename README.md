@@ -19,7 +19,7 @@
 [![Open Issues](https://img.shields.io/github/issues-raw/insightsengineering/dunlin?color=red\&label=open%20issues)](https://github.com/insightsengineering/dunlin/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
 <!-- end badges -->
 
-`dunlin` provides a variety of data tools to reformat and manipulate a subset of the tables in a data set stored.
+`dunlin` provides a variety of data tools to reformat and manipulate a subset of the tables in a data set.
 
 ## Installation
 

@@ -1,4 +1,11 @@
-# dunlin 0.1.3.9008
+# dunlin 0.1.4
+
+* `rules` now have attributes controlling their behavior during reformatting.
+* `reformat` can override `rule` attribute with the corresponding arguments.
+* Add `render_safe` and `add_whisker` functions to replaces placeholders enclosed in curly braces with replacement stored in a dedicated environment.
+* `read_rule` function has been moved into the `citril` package.
+
+# dunlin 0.1.3
 
 * Add `log_filter` function for filtering with additional logs.
 * Remove the use of `dm`.
