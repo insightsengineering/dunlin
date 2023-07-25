@@ -21,53 +21,39 @@ rule <- function(..., .lst = list(...), .string_as_fct = TRUE, .na_last = TRUE, 
   checkmate::assert_flag(.drop)
   checkmate::assert_character(.to_NA, null.ok = TRUE, any.missing = FALSE)
 
-  if (length(.lst) == 0) {
-    res <- empty_rule
-    attr(res, ".string_as_fct") <- .string_as_fct %||% TRUE
-    attr(res, ".drop") <- .drop %||% FALSE
-    attr(res, ".to_NA") <- .to_NA %||% NULL
-    return(res)
-  } else {
-    .lst[is.na(.lst)] <- NA_character_
-    if (!checkmate::test_list(.lst, types = c("character"))) {
-      stop("Value mapping may only contain the type: {character}")
-    }
-    vals <- as.character(unlist(.lst, use.names = FALSE))
-    checkmate::assert_character(vals, unique = TRUE)
-    nms <- unlist(lapply(seq_len(length(.lst)), function(x) {
-      rep(names(.lst)[x], length(.lst[[x]]))
-    }))
-
-    res <- structure(
-      setNames(vals, nms),
-      class = c("rule", "character"),
-      .string_as_fct = .string_as_fct,
-      .na_last = .na_last,
-      .drop = .drop,
-      .to_NA = .to_NA
-    )
-
-    res
+  .lst[is.na(.lst)] <- NA_character_
+  if (!checkmate::test_list(.lst, types = c("character"))) {
+    rlang::abort("Value mapping may only contain the type: {character}")
   }
-}
+  vals <- as.character(unlist(.lst, use.names = FALSE))
+  checkmate::assert_character(vals, unique = TRUE)
+  nms <- unlist(lapply(seq_len(length(.lst)), function(x) {
+    rep(names(.lst)[x], length(.lst[[x]]))
+  }))
 
-#' Create empty rule
-#' @export
-empty_rule <- structure(
-  character(0L),
-  class = c("empty_rule", "rule", "character"),
-  .string_as_fct = TRUE,
-  .na_last = FALSE,
-  .drop = FALSE
-)
+  res <- structure(
+    setNames(vals, nms),
+    class = c("rule", "character"),
+    .string_as_fct = .string_as_fct,
+    .na_last = .na_last,
+    .drop = .drop,
+    .to_NA = .to_NA
+  )
+
+  res
+}
 
 #' @export
 #'
 print.rule <- function(x, ...) {
   cat("Mapping of:\n")
   nms <- names(x)
-  for (i in seq_len(length(x))) {
-    cat(nms[i], " <- ", if (length(x[[i]]) > 1) sprintf("[%s]", toString(x[[i]])) else x[[i]], "\n")
+  if (length(x) == 0) {
+    cat("Empty mapping.\n")
+  } else {
+    for (i in seq_len(length(x))) {
+      cat(nms[i], " <- ", if (length(x[[i]]) > 1) sprintf("[%s]", toString(x[[i]])) else x[[i]], "\n")
+    }
   }
   if (!is.null(attr(x, ".to_NA"))) cat("NA <- ", toString(attr(x, ".to_NA")), "\n")
   cat("Convert to factor:", attr(x, ".string_as_fct"), "\n")
@@ -122,12 +108,4 @@ as.list.rule <- function(x, ...) {
   unames <- c(unames, names(arg))
 
   setNames(res, unames)
-}
-
-#' @export
-print.empty_rule <- function(x, ...) {
-  cat("Empty mapping\n")
-  if (!is.null(attr(x, ".to_NA"))) cat("NA <- ", toString(attr(x, ".to_NA")), "\n")
-  cat("Convert to factor:", attr(x, ".string_as_fct"), "\n")
-  cat("Drop unused level:", attr(x, ".drop"), "\n")
 }

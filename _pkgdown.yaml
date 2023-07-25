@@ -47,7 +47,6 @@ reference:
     contents:
       - rule
       - as.list.rule
-      - empty_rule
       - list2rules
   - title: Filtering
     contents:

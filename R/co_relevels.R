@@ -34,7 +34,7 @@ co_relevels <- function(df, primary, secondary, levels_primary) {
   df_key <- unique(df_key)
 
   if (any(duplicated(df_key[[primary]])) || any(duplicated(df_key[[secondary]]))) {
-    stop("non univoque relation between values in primary and secondary column")
+    rlang::abort("non univoque relation between values in primary and secondary column")
   }
 
   keys <- setNames(as.character(df_key[[secondary]]), as.character(df_key[[primary]]))
