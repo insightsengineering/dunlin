@@ -4,6 +4,8 @@
 * By default `rule` are converting empty space `""` to `NA` upon reformatting.
 * `list2rule` now tolerates duplicated rules with different names.
 
+* Specify minimal version of dependent packages.
+
 # dunlin 0.1.4
 
 * `rules` now have attributes controlling their behavior during reformatting.
@@ -17,7 +19,6 @@
 * Remove the use of `dm`.
 * Introduced `ls_explicit_na` to replace `NA` values in an entire `list` of `data.frame`.
 * `reformat` re-levels factors to follow the order provided in the rule that is applied and levels declared in the rule are all integrated to the result.
-* Specify minimal version of dependent packages.
 
 # dunlin 0.1.2
 
