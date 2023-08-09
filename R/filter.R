@@ -30,7 +30,7 @@ log_filter.data.frame <- function(data, condition, suffix = NULL, ...) {
   var_in_env <- vapply(vars, exists, envir = parent.frame(), inherits = TRUE, FUN.VALUE = TRUE)
   var_in_data <- vapply(vars, `%in%`, table = names(data), FUN.VALUE = TRUE)
   if (!all(var_in_env | var_in_data)) {
-    stop(sprintf("Variable %s not found in data or environment.", toString(vars[!(var_in_data | var_in_env)])))
+    rlang::abort(sprintf("Variable %s not found in data or environment.", toString(vars[!(var_in_data | var_in_env)])))
   }
   res <- eval(bquote(dplyr::filter(data, .(condition))))
   rows <- list(list(init = nrow(data), final = nrow(res), suffix = suffix))

@@ -5,7 +5,7 @@
 test_that("reformat fails for numeric or logical", {
   x <- c(0, 1, 2)
   r <- rule(a = "x", b = "y")
-  expect_warning(res <- reformat(x, r), "Not implemented for class: numeric! Only empty rule allowed.")
+  expect_warning(res <- reformat(x, r), "Not implemented for class: numeric!")
 })
 
 ## reformat character ----
@@ -174,8 +174,7 @@ test_that("reformat factor works as expected when the level doesn't exist and .n
 test_that("reformat for list works as expected", {
   df1 <- data.frame(
     "char" = c("", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f2", "f1")),
-    "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f2", "f1"))
   )
   df2 <- data.frame(
     "char" = c("a", "b", NA, "a", "k", "x"),
@@ -189,8 +188,7 @@ test_that("reformat for list works as expected", {
 
   test_map <- list(
     df1 = list(
-      char = rule("Empty" = "", "B" = "b", "Not Available" = NA),
-      logi = rule()
+      char = rule("Empty" = "", "B" = "b", "Not Available" = NA)
     ),
     df2 = list(
       char = rule()
@@ -227,58 +225,4 @@ test_that("reformat for list works as does not change the data for no rules", {
 
   expect_silent(res <- reformat(db, test_map))
   expect_identical(res, db)
-})
-
-test_that("reformat for list works for empty rule", {
-  df1 <- data.frame(
-    "char" = c("", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f2", "f1")),
-    "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
-  )
-  df2 <- data.frame(
-    "char" = c("a", "b", NA, "a", "k", "x"),
-    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
-    "another_char" = c("a", "b", NA, "a", "k", "x"),
-    "another_fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
-  )
-
-  db <- list(df1 = df1, df2 = df2)
-  attr(db$df1$char, "label") <- "my label"
-
-  test_map <- list(df1 = list(char = empty_rule))
-  expect_silent(res2 <- reformat(db, test_map))
-  expect_identical(res2$df1$char, reformat(db$df1$char, empty_rule))
-})
-
-# reformat using empty_rule ----
-
-test_that("by default, empty_rule only converts input to factor", {
-  a <- c("1", "2")
-  expect_identical(as.factor(a), reformat(a, empty_rule))
-
-  a <- c("1", "2")
-  expect_identical(a, reformat(a, empty_rule, .string_as_fct = FALSE))
-
-  b <- factor(c("1", "2"))
-  expect_identical(b, reformat(b, empty_rule))
-})
-
-test_that("empty_rule can use attribute to modify input", {
-  x <- c("b", "a", "b", "", NA, "a")
-  r <- rule(.to_NA = "b", .string_as_fct = FALSE)
-  expected <- c(NA, "a", NA, "", NA, "a")
-  res <- reformat(x, r)
-  expect_identical(res, expected)
-
-  x <- factor(c("a", "a", "b", "", NA), levels = c("a", "b", "", "Absent"))
-  r <- rule(.to_NA = "b")
-  expected <- factor(c("a", "a", NA, "", NA), levels = c("a", "", "Absent"))
-  res <- reformat(x, r)
-  expect_identical(res, expected)
-
-  x <- factor(c("a", "a", "b", "", NA), levels = c("a", "b", "", "Absent"))
-  r <- rule(.to_NA = "b", .drop = TRUE)
-  expected <- factor(c("a", "a", NA, "", NA), levels = c("a", ""))
-  res <- reformat(x, r)
-  expect_identical(res, expected)
 })

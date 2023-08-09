@@ -22,8 +22,7 @@ format <- list(
   ),
   df2 = list(
     var1 = rule(),
-    var2 = rule("f11" = "F11", "NN" = NA),
-    var3 = empty_rule
+    var2 = rule("f11" = "F11", "NN" = NA)
   ),
   df3 = list()
 )

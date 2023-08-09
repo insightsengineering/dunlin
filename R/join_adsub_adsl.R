@@ -123,7 +123,7 @@ assert_names_collision <- function(vars_nam) {
   final_names_ls <- lapply(vars_nam, names)
   in_both <- final_names_ls[[1]] %in% final_names_ls[[2]]
   if (any(in_both)) {
-    warning(
+    rlang::warn(
       paste(
         toString(final_names_ls[[1]][in_both]),
         "are new columns for continuous and categorical variable,
@@ -138,7 +138,7 @@ assert_names_notadsl <- function(vars_nam, df) {
   final_names <- unique(sapply(vars_nam, names))
   already_in_adsl <- final_names %in% colnames(df)
   if (any(already_in_adsl)) {
-    warning(
+    rlang::warn(
       paste(
         toString(final_names[already_in_adsl]),
         "already exist in adsl, the name will default to another values.

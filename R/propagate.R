@@ -54,9 +54,8 @@ propagate.list <- function(db, from, add, by, safe = TRUE) {
 
   if (safe) {
     keys <- db[[from]][, by]
-    if (anyDuplicated(keys)) stop(paste("Duplicated key"))
+    if (anyDuplicated(keys)) rlang::abort(paste("Duplicated key"))
   }
-
   toJoin <- db[[from]]
 
   for (tab_name in setdiff(names(db), from)) {
@@ -69,7 +68,7 @@ propagate.list <- function(db, from, add, by, safe = TRUE) {
       cat(paste0("\nUpdating: ", tab_name, " with: ", toString(missing_var)))
 
       db[[tab_name]] <- db[[tab_name]] %>%
-        dplyr::left_join(sel_tab, by = by)
+        dplyr::left_join(sel_tab, by = by, multiple = "all")
     } else {
       cat(paste0("\nSkipping: ", tab_name))
     }
