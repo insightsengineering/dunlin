@@ -83,7 +83,7 @@ test_that("list2rules fails as expected", {
 
 test_that("as.list convert rules into list correctly", {
   test_rule <- rule(a = c("a", "b"), b = c("c", "d"))
-  expected <- list(a = c("a", "b"), b = c("c", "d"), .string_as_fct = TRUE, .na_last = TRUE, .drop = FALSE)
+  expected <- list(a = c("a", "b"), b = c("c", "d"), .string_as_fct = TRUE, .na_last = TRUE, .drop = FALSE, .to_NA = "")
   expect_identical(as.list(test_rule), expected)
 })
 

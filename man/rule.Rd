@@ -10,7 +10,7 @@ rule(
   .string_as_fct = TRUE,
   .na_last = TRUE,
   .drop = FALSE,
-  .to_NA = NULL
+  .to_NA = ""
 )
 }
 \arguments{

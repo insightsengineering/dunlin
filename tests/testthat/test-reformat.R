@@ -99,6 +99,12 @@ test_that("reformat for factors works as expected", {
     reformat(x, r),
     factor(c("x", "y", "b", "x", "y"), c("x", "b", "y"))
   )
+  
+  r <- rule(x = "a")
+  expect_identical(
+    reformat(x, r),
+    factor(c("x", NA, "b", "x", NA), c("x", "b"))
+  )
 })
 
 test_that("reformat factor works as expected when the level doesn't exist", {

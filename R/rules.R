@@ -15,7 +15,7 @@
 #' rule("X" = "x", "Y" = c("y", "z"))
 #' rule("X" = "x", "Y" = c("y", "z"), .drop = TRUE, .to_NA = c("a", "b"), .na_last = FALSE)
 #'
-rule <- function(..., .lst = list(...), .string_as_fct = TRUE, .na_last = TRUE, .drop = FALSE, .to_NA = NULL) {
+rule <- function(..., .lst = list(...), .string_as_fct = TRUE, .na_last = TRUE, .drop = FALSE, .to_NA = "") {
   checkmate::assert_flag(.string_as_fct)
   checkmate::assert_flag(.na_last)
   checkmate::assert_flag(.drop)
