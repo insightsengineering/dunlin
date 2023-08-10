@@ -36,18 +36,18 @@ reformat.default <- function(obj, format, ...) {
 #' @examples
 #'
 #' # Reformatting of character.
-#' obj <- c("a", "b", "x", NA)
+#' obj <- c("a", "b", "x", NA, "")
 #' attr(obj, "label") <- "my label"
 #' format <- rule("A" = "a", "NN" = NA)
 #'
 #' reformat(obj, format)
-#' reformat(obj, format, .string_as_fct = FALSE, .to_NA = "x")
+#' reformat(obj, format, .string_as_fct = FALSE)
 #'
 reformat.character <- function(obj, format, ...) {
   checkmate::assert_class(format, "rule")
 
   # Give priority to argument defined in reformat.
-  format <- do.call(rule, modifyList(as.list(format), list(...)))
+  format <- do.call(rule, modifyList(as.list(format), list(...), keep.null = TRUE))
 
   if (attr(format, ".string_as_fct")) {
     # Keep attributes.
@@ -62,7 +62,7 @@ reformat.character <- function(obj, format, ...) {
     value_match <- unlist(format)
     m <- match(obj, value_match)
     obj[!is.na(m)] <- names(format)[m[!is.na(m)]]
-    val_to_NA <- attr(format, ".to_NA")
+    val_to_NA <- unlist(attr(format, ".to_NA"))
     if (!is.null(val_to_NA)) {
       obj[obj %in% val_to_NA] <- NA_character_
     }
@@ -87,7 +87,7 @@ reformat.character <- function(obj, format, ...) {
 reformat.factor <- function(obj, format, ...) {
   checkmate::assert_class(format, "rule")
 
-  format <- do.call(rule, modifyList(as.list(format), list(...)))
+  format <- do.call(rule, modifyList(as.list(format), list(...), keep.null = TRUE))
 
   any_na <- anyNA(obj)
   if (any(is.na(format)) && any_na) {
@@ -111,7 +111,7 @@ reformat.factor <- function(obj, format, ...) {
   }
 
   # Levels converted to NA are dropped.
-  val_to_NA <- attr(format, ".to_NA")
+  val_to_NA <- unlist(attr(format, ".to_NA"))
   if (!is.null(val_to_NA)) {
     obj <- forcats::fct_na_level_to_value(obj, val_to_NA)
   }

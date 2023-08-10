@@ -16,6 +16,6 @@ Convert Rule to List
 }
 \examples{
 
-x <- rule("a" = c("a", "b"), "X" = "x")
+x <- rule("a" = c("a", "b"), "X" = "x", .to_NA = c("v", "w"))
 as.list(x)
 }

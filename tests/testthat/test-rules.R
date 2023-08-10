@@ -53,8 +53,33 @@ test_that("list2rules works as expected", {
 
   expect_silent(res <- list2rules(r1))
 
-  checkmate::expect_list(res, type = "rule", len = 3)
+  checkmate::expect_list(res, types = "rule", len = 3)
   expect_identical(names(res), c("rule_a", "rule_b", "rule_c"))
+})
+
+test_that("list2rules works as expected with additional arguments", {
+  r1 <- list(
+    rule_a = list(a = "1", b = "2", .string_as_fct = FALSE, .na_last = FALSE),
+    rule_b = list(a = "3", b = "4", .to_NA = NULL),
+    rule_c = list()
+  )
+
+  expect_silent(res <- list2rules(r1))
+
+  checkmate::expect_list(res, types = "rule", len = 3)
+  expect_identical(names(res), c("rule_a", "rule_b", "rule_c"))
+
+  expect_identical(
+    res$rule_a,
+    rule(a = "1", b = "2", .string_as_fct = FALSE, .na_last = FALSE, .to_NA = "")
+  )
+  expect_identical(
+    unlist(attr(res$rule_a, ".to_NA")),
+    ""
+  )
+  expect_null(
+    unlist(attr(res$rule_b, ".to_NA"))
+  )
 })
 
 test_that("list2rules fails as expected", {
@@ -89,5 +114,10 @@ test_that("as.list convert rules into list correctly", {
 
 test_that("as.list and rule are reversible", {
   test_rule <- rule(a = c("a", "b"), b = c("c", "d"), .drop = FALSE, .na_last = TRUE)
+  expect_identical(do.call(rule, as.list(test_rule)), test_rule)
+})
+
+test_that("as.list and rule are reversible when .to_NA is NULL", {
+  test_rule <- rule(a = c("a", "b"), b = c("c", "d"), .drop = FALSE, .na_last = TRUE, .to_NA = NULL)
   expect_identical(do.call(rule, as.list(test_rule)), test_rule)
 })
