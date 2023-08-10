@@ -5,7 +5,8 @@
 #' @param .string_as_fct (`flag`) whether to convert characters to factors.
 #' @param .na_last (`flag`)  whether the level replacing `NA` should be last.
 #' @param .drop (`flag`) whether to drop empty levels.
-#' @param .to_NA (`character`) values that should be converted to `NA`.
+#' @param .to_NA (`character`) values that should be converted to `NA`. Set to `NULL` if nothing should be converted to
+#'   `NA`.
 #'
 #' @note Conversion to `NA` is the last step of the remapping process.
 

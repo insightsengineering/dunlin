@@ -25,7 +25,8 @@ its values are original values.}
 
 \item{.drop}{(\code{flag}) whether to drop empty levels.}
 
-\item{.to_NA}{(\code{character}) values that should be converted to \code{NA}.}
+\item{.to_NA}{(\code{character}) values that should be converted to \code{NA}. Set to \code{NULL} if nothing should be converted to
+\code{NA}.}
 }
 \description{
 Create rule based on mappings
