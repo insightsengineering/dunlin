@@ -1,7 +1,7 @@
 # dunlin 0.1.4.9001
 
 * `empty_rule` is removed now. `rule()` will create a normal `rule` object.
-* By default `rule` are converting empty space `""` to `NA` upon reformating.
+* By default `rule` are converting empty space `""` to `NA` upon reformatting.
 
 # dunlin 0.1.4
 
