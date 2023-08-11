@@ -38,7 +38,7 @@ rule <- function(..., .lst = list(...), .string_as_fct = TRUE, .na_last = TRUE, 
     .string_as_fct = .string_as_fct,
     .na_last = .na_last,
     .drop = .drop,
-    .to_NA = list(.to_NA) # Necessary to tolerate NULL value.
+    .to_NA = .to_NA
   )
 
   res
@@ -56,7 +56,7 @@ print.rule <- function(x, ...) {
       cat(nms[i], " <- ", if (length(x[[i]]) > 1) sprintf("[%s]", toString(x[[i]])) else x[[i]], "\n")
     }
   }
-  .to_NA <- unlist(attr(x, ".to_NA"))
+  .to_NA <- attr(x, ".to_NA")
   if (!is.null(.to_NA)) cat("NA <- ", toString(.to_NA), "\n")
   cat("Convert to factor:", attr(x, ".string_as_fct"), "\n")
   cat("Drop unused level:", attr(x, ".drop"), "\n")
@@ -112,7 +112,7 @@ as.list.rule <- function(x, ...) {
   r_list <- setNames(res, unames)
 
   # Explicitly declare .to_NA value, even if NULL.
-  .to_NA <- unlist(r_list$.to_NA, use.names = FALSE)
+  .to_NA <- r_list[[".to_NA"]]
   if (is.null(.to_NA)) {
     r_list[".to_NA"] <- list(NULL)
   } else {

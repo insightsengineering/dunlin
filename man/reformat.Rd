@@ -52,7 +52,7 @@ attr(obj, "label") <- "my label"
 format <- rule("A" = "a", "NN" = NA)
 
 reformat(obj, format)
-reformat(obj, format, .string_as_fct = FALSE)
+reformat(obj, format, .string_as_fct = FALSE, .to_NA = NULL)
 
 
 # Reformatting of factor.
