@@ -115,8 +115,6 @@ as.list.rule <- function(x, ...) {
   .to_NA <- r_list[[".to_NA"]]
   if (is.null(.to_NA)) {
     r_list[".to_NA"] <- list(NULL)
-  } else {
-    r_list[[".to_NA"]] <- .to_NA
   }
 
   r_list
