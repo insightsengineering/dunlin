@@ -17,13 +17,6 @@ on:
       - pre-release
   workflow_dispatch:
 
-  # Rerun workflows once pkgdown has finished running, to add coverage
-  # and unit test report to gh-pages branch.
-  workflow_run:
-    workflows: ["Docs 📚"]
-    types:
-      - completed
-
 jobs:
   audit:
     name: Audit Dependencies 🕵️‍♂️
@@ -43,6 +36,9 @@ jobs:
         checking R code for possible problems .* NOTE
         checking examples .* NOTE
         checking Rd line widths .* NOTE
+        checking S3 generic/method consistency .* NOTE
+        checking Rd .usage sections .* NOTE
+        checking for unstated dependencies in vignettes .* NOTE
   coverage:
     if: github.event_name != 'push'
     name: Coverage 📔
@@ -62,7 +58,6 @@ jobs:
     name: gitleaks 💧
     uses: insightsengineering/r.pkg.template/.github/workflows/gitleaks.yaml@main
   spelling:
-    if: github.event_name != 'push'
     name: Spell Check 🆎
     uses: insightsengineering/r.pkg.template/.github/workflows/spelling.yaml@main
   links:
