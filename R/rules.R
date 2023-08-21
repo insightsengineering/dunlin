@@ -77,7 +77,7 @@ print.rule <- function(x, ...) {
 #'
 list2rules <- function(obj) {
   coll <- checkmate::makeAssertCollection()
-  checkmate::assert_list(obj, unique = TRUE, types = "list", add = coll)
+  checkmate::assert_list(obj, types = "list", add = coll)
   checkmate::assert_names(names(obj), type = "unique", add = coll)
   checkmate::reportAssertions(coll)
 

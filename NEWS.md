@@ -2,6 +2,7 @@
 
 * `empty_rule` is removed now. `rule()` will create a normal `rule` object.
 * By default `rule` are converting empty space `""` to `NA` upon reformatting.
+* `list2rule` now tolerates duplicated rules with different names.
 
 # dunlin 0.1.4
 
