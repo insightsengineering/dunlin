@@ -1,123 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/404.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/404.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/CODE_OF_CONDUCT.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/CONTRIBUTING.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/CONTRIBUTING.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/LICENSE-text.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/SECURITY.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/SECURITY.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/articles/Reformatting.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/articles/Reformatting.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/articles/index.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/authors.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/authors.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/index.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/index.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/news/index.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/news/index.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/add_whisker.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/add_whisker.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/as.list.rule.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/as.list.rule.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/assert_valid_format.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/assert_valid_format.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/assert_valid_list_format.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/assert_valid_list_format.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/attr_label.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/attr_label.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/attr_label_df.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/attr_label_df.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/co_relevels.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/co_relevels.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/cut_by_group.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/cut_by_group.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/dunlin-package.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/dunlin-package.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/get_log.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/get_log.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/h_as_factor.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/h_as_factor.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/h_df_explicit.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/h_df_explicit.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/h_ws_to_explicit_na.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/h_ws_to_explicit_na.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/h_ws_to_na.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/h_ws_to_na.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/index.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/join_adsub_adsl.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/join_adsub_adsl.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/list2rules.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/list2rules.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/log_filter.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/log_filter.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/ls_explicit_na.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/ls_explicit_na.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/ls_unite.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/ls_unite.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/mini_pivot_wider.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/mini_pivot_wider.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/multi_pivot_wider.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/multi_pivot_wider.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/poly_pivot_wider.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/poly_pivot_wider.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/print_log.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/print_log.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/propagate.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/propagate.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/reformat.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/reformat.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/remove_whisker.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/remove_whisker.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/render_safe.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/render_safe.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/rule.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/rule.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/main/reference/safe_transformer.html</loc>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/safe_transformer.html</loc>
   </url>
 </urlset>
