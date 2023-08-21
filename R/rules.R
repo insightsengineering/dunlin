@@ -5,7 +5,8 @@
 #' @param .string_as_fct (`flag`) whether to convert characters to factors.
 #' @param .na_last (`flag`)  whether the level replacing `NA` should be last.
 #' @param .drop (`flag`) whether to drop empty levels.
-#' @param .to_NA (`character`) values that should be converted to `NA`.
+#' @param .to_NA (`character`) values that should be converted to `NA`. Set to `NULL` if nothing should be converted to
+#'   `NA`.
 #'
 #' @note Conversion to `NA` is the last step of the remapping process.
 
@@ -15,7 +16,7 @@
 #' rule("X" = "x", "Y" = c("y", "z"))
 #' rule("X" = "x", "Y" = c("y", "z"), .drop = TRUE, .to_NA = c("a", "b"), .na_last = FALSE)
 #'
-rule <- function(..., .lst = list(...), .string_as_fct = TRUE, .na_last = TRUE, .drop = FALSE, .to_NA = NULL) {
+rule <- function(..., .lst = list(...), .string_as_fct = TRUE, .na_last = TRUE, .drop = FALSE, .to_NA = "") {
   checkmate::assert_flag(.string_as_fct)
   checkmate::assert_flag(.na_last)
   checkmate::assert_flag(.drop)
@@ -55,7 +56,8 @@ print.rule <- function(x, ...) {
       cat(nms[i], " <- ", if (length(x[[i]]) > 1) sprintf("[%s]", toString(x[[i]])) else x[[i]], "\n")
     }
   }
-  if (!is.null(attr(x, ".to_NA"))) cat("NA <- ", toString(attr(x, ".to_NA")), "\n")
+  .to_NA <- attr(x, ".to_NA")
+  if (!is.null(.to_NA)) cat("NA <- ", toString(.to_NA), "\n")
   cat("Convert to factor:", attr(x, ".string_as_fct"), "\n")
   cat("Drop unused level:", attr(x, ".drop"), "\n")
   cat("NA-replacing level in last position:", attr(x, ".na_last"), "\n")
@@ -91,7 +93,7 @@ list2rules <- function(obj) {
 #' @export
 #' @examples
 #'
-#' x <- rule("a" = c("a", "b"), "X" = "x")
+#' x <- rule("a" = c("a", "b"), "X" = "x", .to_NA = c("v", "w"))
 #' as.list(x)
 as.list.rule <- function(x, ...) {
   nms <- names(x)
@@ -107,5 +109,13 @@ as.list.rule <- function(x, ...) {
   res <- c(res, unname(arg))
   unames <- c(unames, names(arg))
 
-  setNames(res, unames)
+  r_list <- setNames(res, unames)
+
+  # Explicitly declare .to_NA value, even if NULL.
+  .to_NA <- r_list[[".to_NA"]]
+  if (is.null(.to_NA)) {
+    r_list[".to_NA"] <- list(NULL)
+  }
+
+  r_list
 }

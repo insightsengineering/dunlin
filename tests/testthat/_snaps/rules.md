@@ -6,6 +6,7 @@
       Mapping of:
       a  <-  1 
       b  <-  NA 
+      NA <-   
       Convert to factor: TRUE 
       Drop unused level: FALSE 
       NA-replacing level in last position: TRUE 

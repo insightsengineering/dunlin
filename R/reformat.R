@@ -36,18 +36,18 @@ reformat.default <- function(obj, format, ...) {
 #' @examples
 #'
 #' # Reformatting of character.
-#' obj <- c("a", "b", "x", NA)
+#' obj <- c("a", "b", "x", NA, "")
 #' attr(obj, "label") <- "my label"
 #' format <- rule("A" = "a", "NN" = NA)
 #'
 #' reformat(obj, format)
-#' reformat(obj, format, .string_as_fct = FALSE, .to_NA = "x")
+#' reformat(obj, format, .string_as_fct = FALSE, .to_NA = NULL)
 #'
 reformat.character <- function(obj, format, ...) {
   checkmate::assert_class(format, "rule")
 
   # Give priority to argument defined in reformat.
-  format <- do.call(rule, modifyList(as.list(format), list(...)))
+  format <- do.call(rule, modifyList(as.list(format), list(...), keep.null = TRUE))
 
   if (attr(format, ".string_as_fct")) {
     # Keep attributes.
@@ -87,7 +87,7 @@ reformat.character <- function(obj, format, ...) {
 reformat.factor <- function(obj, format, ...) {
   checkmate::assert_class(format, "rule")
 
-  format <- do.call(rule, modifyList(as.list(format), list(...)))
+  format <- do.call(rule, modifyList(as.list(format), list(...), keep.null = TRUE))
 
   any_na <- anyNA(obj)
   if (any(is.na(format)) && any_na) {

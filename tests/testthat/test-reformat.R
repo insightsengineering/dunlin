@@ -21,10 +21,10 @@ test_that("reformat for characters works as expected when .string_as_fct is FALS
 
 test_that("reformat for characters works as expected when .to_NA is NULL", {
   x <- c("b", "a", "b", "", NA, "a")
-  r <- rule(x = "a", y = "", z = NA)
+  r <- rule(x = "a", z = NA)
   expect_identical(
-    reformat(x, r, .string_as_fct = FALSE),
-    c("b", "x", "b", "y", "z", "x")
+    reformat(x, r, .string_as_fct = FALSE, .to_NA = NULL),
+    c("b", "x", "b", "", "z", "x")
   )
 })
 
@@ -37,12 +37,21 @@ test_that("reformat for characters works as expected when .to_NA is not NULL", {
   )
 })
 
-test_that("reformat for characters works as expected when the .to_NA rule attribute is not NULL ", {
+test_that(".to_NA attribute of rule is used if not specified in reformat", {
   x <- c("b", "a", "b", "", NA, "a")
-  r <- rule(x = "a", y = "", z = NA, .to_NA = "b")
+  r <- rule(x = "a", z = NA, .to_NA = NULL)
   expect_identical(
     reformat(x, r, .string_as_fct = FALSE),
-    c(NA, "x", NA, "y", "z", "x")
+    c("b", "x", "b", "", "z", "x")
+  )
+})
+
+test_that("setting .to_NA to NULL in reformat prevents conversion to NA specified in rule", {
+  x <- c("b", "a", "b", "", NA, "a")
+  r <- rule(x = "a", z = NA, .to_NA = "")
+  expect_identical(
+    reformat(x, r, .string_as_fct = FALSE, .to_NA = NULL),
+    c("b", "x", "b", "", "z", "x")
   )
 })
 
@@ -99,6 +108,12 @@ test_that("reformat for factors works as expected", {
     reformat(x, r),
     factor(c("x", "y", "b", "x", "y"), c("x", "b", "y"))
   )
+
+  r <- rule(x = "a")
+  expect_identical(
+    reformat(x, r),
+    factor(c("x", NA, "b", "x", NA), c("x", "b"))
+  )
 })
 
 test_that("reformat factor works as expected when the level doesn't exist", {
@@ -136,6 +151,12 @@ test_that("reformat factor works as expected when .na_last = FALSE", {
     res,
     factor(c("x", "x", "b", "y", "y"), levels = c("x", "y", "b"))
   )
+})
+
+test_that("reformat factor works as expected when .to_NA is NULL", {
+  x <- c("a", "a", "b", "", NA)
+  r <- rule(x = "a", .to_NA = NULL)
+  expect_silent(res <- reformat(x, r, .string_as_fct = FALSE))
 })
 
 test_that("reformat factor works as expected when .to_NA is not NULL", {
