@@ -82,7 +82,7 @@ test_that("list2rules works as expected with additional arguments", {
   )
 })
 
-test_that("list2rules fails as expected", {
+test_that("list2rules can handle duplicated rules", {
   r1 <- list(
     rule_a = list(a = 1, b = 2),
     rule_b = list(a = 3, b = 4),
@@ -92,11 +92,6 @@ test_that("list2rules fails as expected", {
 
   res <- expect_error(capture_output_lines(list2rules(r1), width = 200, print = FALSE))
 
-  expect_match(
-    res$message,
-    "* Variable 'obj': Contains duplicated values, position 3.",
-    fixed = TRUE
-  )
   expect_match(
     res$message,
     "* Variable 'names(obj)': Must have unique names, but element 4 is duplicated.",
