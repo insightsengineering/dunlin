@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.976491862567812" branch-rate="0" lines-covered="540" lines-valid="553" branches-covered="0" branches-valid="0" complexity="0" version="3.6.2" timestamp="2023-09-05 11:35:38.833001">
+<coverage line-rate="0.975655430711611" branch-rate="0" lines-covered="521" lines-valid="534" branches-covered="0" branches-valid="0" complexity="0" version="3.6.2" timestamp="2023-09-08 08:20:55.008604">
   <sources>
     <source>/__w/dunlin/dunlin/dunlin</source>
   </sources>
   <packages>
-    <package name="dunlin" line-rate="0.976491862567812" branch-rate="0" complexity="0">
+    <package name="dunlin" line-rate="0.975655430711611" branch-rate="0" complexity="0">
       <classes>
         <class name="assertions.R" filename="R/assertions.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
@@ -1279,82 +1279,32 @@
         </class>
         <class name="utils.R" filename="R/utils.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="h_ws_to_na" signature="" line-rate="1" branch-rate="0" complexity="0">
-              <lines>
-                <line number="26" hits="9" branch="false"/>
-                <line number="27" hits="2" branch="false"/>
-                <line number="29" hits="2" branch="false"/>
-                <line number="31" hits="2" branch="false"/>
-                <line number="32" hits="7" branch="false"/>
-                <line number="33" hits="6" branch="false"/>
-                <line number="35" hits="6" branch="false"/>
-                <line number="37" hits="1" branch="false"/>
-                <line number="39" hits="9" branch="false"/>
-              </lines>
-            </method>
-            <method name="h_ws_to_explicit_na" signature="" line-rate="1" branch-rate="0" complexity="0">
-              <lines>
-                <line number="68" hits="7" branch="false"/>
-                <line number="70" hits="7" branch="false"/>
-                <line number="72" hits="7" branch="false"/>
-                <line number="73" hits="5" branch="false"/>
-                <line number="75" hits="2" branch="false"/>
-              </lines>
-            </method>
-            <method name="h_as_factor" signature="" line-rate="1" branch-rate="0" complexity="0">
-              <lines>
-                <line number="95" hits="4" branch="false"/>
-                <line number="97" hits="4" branch="false"/>
-                <line number="99" hits="4" branch="false"/>
-                <line number="101" hits="4" branch="false"/>
-                <line number="103" hits="4" branch="false"/>
-              </lines>
-            </method>
             <method name="attr_label" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="121" hits="89" branch="false"/>
-                <line number="123" hits="88" branch="false"/>
-                <line number="124" hits="88" branch="false"/>
-                <line number="126" hits="88" branch="false"/>
+                <line number="16" hits="89" branch="false"/>
+                <line number="18" hits="88" branch="false"/>
+                <line number="19" hits="88" branch="false"/>
+                <line number="21" hits="88" branch="false"/>
               </lines>
             </method>
             <method name="attr_label_df" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="142" hits="20" branch="false"/>
-                <line number="143" hits="20" branch="false"/>
-                <line number="145" hits="19" branch="false"/>
-                <line number="146" hits="19" branch="false"/>
+                <line number="37" hits="20" branch="false"/>
+                <line number="38" hits="20" branch="false"/>
+                <line number="40" hits="19" branch="false"/>
+                <line number="41" hits="19" branch="false"/>
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="26" hits="9" branch="false"/>
-            <line number="27" hits="2" branch="false"/>
-            <line number="29" hits="2" branch="false"/>
-            <line number="31" hits="2" branch="false"/>
-            <line number="32" hits="7" branch="false"/>
-            <line number="33" hits="6" branch="false"/>
-            <line number="35" hits="6" branch="false"/>
-            <line number="37" hits="1" branch="false"/>
-            <line number="39" hits="9" branch="false"/>
-            <line number="68" hits="7" branch="false"/>
-            <line number="70" hits="7" branch="false"/>
-            <line number="72" hits="7" branch="false"/>
-            <line number="73" hits="5" branch="false"/>
-            <line number="75" hits="2" branch="false"/>
-            <line number="95" hits="4" branch="false"/>
-            <line number="97" hits="4" branch="false"/>
-            <line number="99" hits="4" branch="false"/>
-            <line number="101" hits="4" branch="false"/>
-            <line number="103" hits="4" branch="false"/>
-            <line number="121" hits="89" branch="false"/>
-            <line number="123" hits="88" branch="false"/>
-            <line number="124" hits="88" branch="false"/>
-            <line number="126" hits="88" branch="false"/>
-            <line number="142" hits="20" branch="false"/>
-            <line number="143" hits="20" branch="false"/>
-            <line number="145" hits="19" branch="false"/>
-            <line number="146" hits="19" branch="false"/>
+            <line number="16" hits="89" branch="false"/>
+            <line number="18" hits="88" branch="false"/>
+            <line number="19" hits="88" branch="false"/>
+            <line number="21" hits="88" branch="false"/>
+            <line number="37" hits="20" branch="false"/>
+            <line number="38" hits="20" branch="false"/>
+            <line number="40" hits="19" branch="false"/>
+            <line number="41" hits="19" branch="false"/>
           </lines>
         </class>
         <class name="zzz.R" filename="R/zzz.R" line-rate="0" branch-rate="0" complexity="0">
