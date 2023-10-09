@@ -1,5 +1,7 @@
 # dunlin 0.1.5.9000
 
+* The whisker placeholder `{patient_label}` is now replaced by default by `"patient"` while `{patients_label}` correspond to `"patients"`.
+
 # dunlin 0.1.5
 
 * `empty_rule` is removed now. `rule()` will create a normal `rule` object.
