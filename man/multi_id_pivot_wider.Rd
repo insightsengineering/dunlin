@@ -2,7 +2,7 @@
 % Please edit documentation in R/pivot.R
 \name{multi_id_pivot_wider}
 \alias{multi_id_pivot_wider}
-\title{Transforming data.frame with Multiple Identifing columns into Wide Format}
+\title{Transforming data.frame with Multiple Identifying columns into Wide Format}
 \usage{
 multi_id_pivot_wider(data, id, param_from, value_from, drop_na = FALSE)
 }
@@ -22,7 +22,7 @@ unique values in this column will become column names in the output.}
 \code{data.frame} in a wide format.
 }
 \description{
-Transforming data.frame with Multiple Identifing columns into Wide Format
+Transforming data.frame with Multiple Identifying columns into Wide Format
 }
 \details{
 This function allows to identify observations on the basis of several columns. Warning: Instead of nesting
