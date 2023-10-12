@@ -39,23 +39,18 @@ mini_pivot_wider <- function(data,
 
   mini_data <- data[, c(id, param_from, value_from)]
   data_ls <- split(mini_data, param)
-
-  # transform to named vector
-  data_vec <-
-    lapply(
-      data_ls,
-      function(x) setNames(x[[value_from]], x[[id]])
-    )
-
-  # query each id in each param
-  all_vec <- lapply(data_vec, function(x) setNames(x[unique_id], unique_id))
-
-  bind_data <- as.data.frame(all_vec)
-
-  res <- cbind(id = unique_id, bind_data)
-  rownames(res) <- NULL
-
-  res
+  
+  res <- mapply(
+    function(x, name_x) {
+      res <- dplyr::rename_with(x, ~ paste(name_x), starts_with(value_from))
+      res[, setdiff(colnames(res), param_from)]
+    },
+    data_ls,
+    names(data_ls),
+    SIMPLIFY = FALSE
+  )
+  
+  Reduce(function(x, y) merge(x, y, all = TRUE), res)
 }
 
 #' Transforming data.frame with Complex Identifiers into Wide Format

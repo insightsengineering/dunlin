@@ -45,3 +45,23 @@ test_that("join_adsub_adsl.list throw a warning when column already exist in ads
 
   expect_warning(join_adsub_adsl(adam_db = ldb), "h already exist in adsl, the name will default to another values")
 })
+
+
+
+test_that("join_adsub_adsl.list throw a warning the required column doesn't exist.", {
+  adsub <- tibble::tibble(
+    USUBJID = c("S1", "S2", "S3", "S4", "S1", "S2", "S3", "S99"),
+    STUDYID = "My_study",
+    PARAM = c("sex", "sex", "sex", "sex", "height", "height", "height", "sex"),
+    PARAMCD = c("s", "s", "s", "s", "h", "h", "h", "s"),
+    AVAL = c(NA, NA, NA, NA, 182, 155, 152, NA),
+    AVALC = c("F", "F", "F", "M", ">180", "<=180", "<=180", "M")
+  )
+
+  ldb <- list(adsl = adsl, adsub = adsub)
+
+  expect_warning(
+    join_adsub_adsl(adam_db = ldb),
+    "Skipping s for Continuous type, No data available. Adjust `continuous_var` argument to silence this warning."
+  )
+})

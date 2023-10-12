@@ -104,8 +104,28 @@ join_adsub_adsl.list <- function(adam_db,
   # Merge categorical and continuous variables.
   for (i in seq_along(value_col)) {
     adsub_df <- adsub_wide_ls[[value_col[i]]]
-    adsub_df <- adsub_df[, c(keys, vars_nam[[i]])]
-    colnames(adsub_df) <- c(keys, names(vars_nam[[i]]))
+
+    # Warning if some columns are entirely NA, hence discarded.
+    not_cols <- setdiff(vars_nam[[i]], colnames(adsub_df))
+    if (length(not_cols) > 0) {
+      type <- ifelse(value_col[i] == "AVALC", "Categorical", "Continuous")
+      arg_type <- ifelse(value_col[i] == "AVALC", "categorical_var", "continuous_var")
+      warning(
+        sprintf(
+          "Skipping %s for %s type, No data available. Adjust `%s` argument to silence this warning.",
+          toString(not_cols),
+          type,
+          arg_type
+        )
+      )
+    }
+
+    # Preserving names.
+    common_cols_id <- c(vars_nam[[i]]) %in% colnames(adsub_df)
+    common_cols <- vars_nam[[i]][common_cols_id]
+
+    adsub_df <- adsub_df[, c(keys, common_cols), drop = FALSE]
+    colnames(adsub_df) <- c(keys, names(common_cols))
 
     adam_db$adsl <- dplyr::left_join(
       x = adam_db$adsl,

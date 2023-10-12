@@ -9,7 +9,7 @@ test_that("mini_pivot_wider works as expected.", {
   )
 
   expected_data <- data.frame(
-    id = c("A", "B", "C", "D"),
+    the_obs = c("A", "B", "C", "D"),
     gender = c("M", "F", NA, NA),
     height = c("165", "166", "155", NA),
     precondition = c(NA, NA, NA, "TRUE"),
@@ -28,10 +28,11 @@ test_that("mini_pivot_wider returns an error when required column are not presen
     the_val = c(65, 165, "M", 66, "F", 166, 155, TRUE)
   )
 
-  expect_error(mini_pivot_wider(
-    test_data,
-    "Must be a subset of {'the_obs','the_obs2','the_param','the_val'}, but is {'the_obs2','the_param2','the_val2'}."
-  ))
+  expect_error(
+    mini_pivot_wider(test_data, "the_obs2", "the_param2", "the_val"),
+    "Must be a subset of {'the_obs','the_obs2','the_param','the_val'}, but has additional elements {'the_param2'}.",
+    fixed = TRUE
+  )
 })
 
 test_that("mini_pivot_wider returns an error when data are duplicated.", {
@@ -42,10 +43,11 @@ test_that("mini_pivot_wider returns an error when data are duplicated.", {
     the_val = c(65, 65, "M", 66, "F", 166, 155, TRUE)
   )
 
-  expect_error(mini_pivot_wider(
-    test_data,
-    "Assertion on 'any(duplicated(data[, c(obs_id, param_from)]))' failed: Must be FALSE."
-  ))
+  expect_error(
+    mini_pivot_wider(test_data, "the_obs", "the_param", "the_val"),
+    "'any(duplicated(data[, c(id, param_from)]))' failed: Must be FALSE.",
+    fixed = TRUE
+  )
 })
 
 # multi_pivot_wider ----
