@@ -11,6 +11,7 @@
 #' @param continuous_suffix (`string`) the suffixes to add to the newly generated columns containing continuous values.
 #' @param categorical_suffix (`string`) the suffixes to add to the newly generated columns containing categorical
 #'   values.
+#' @param drop_na (`logical`) should column containing only `NAs` be dropped.
 #'
 #' @return a `list` of `data.frame` with new columns in the `adsl` table.
 #'
@@ -22,7 +23,8 @@ join_adsub_adsl <- function(adam_db,
                             continuous_var,
                             categorical_var,
                             continuous_suffix,
-                            categorical_suffix) {
+                            categorical_suffix,
+                            drop_na = TRUE) {
   UseMethod("join_adsub_adsl")
 }
 
@@ -54,13 +56,15 @@ join_adsub_adsl.list <- function(adam_db,
                                  continuous_var = "all",
                                  categorical_var = "all",
                                  continuous_suffix = "",
-                                 categorical_suffix = "_CAT") {
+                                 categorical_suffix = "_CAT",
+                                 drop_na = TRUE) {
   checkmate::assert_list(adam_db, types = "data.frame")
   checkmate::assert_names(names(adam_db), must.include = c("adsl", "adsub"))
   checkmate::assert_names(names(adam_db$adsub), must.include = c("PARAM", "PARAMCD", "AVAL", "AVALC", keys))
   checkmate::assert_names(names(adam_db$adsl), must.include = keys)
   checkmate::assert_string(continuous_suffix)
   checkmate::assert_string(categorical_suffix)
+  checkmate::assert_flag(drop_na)
 
   value_col <- c("AVAL", "AVALC")
   vars_ls <- list(continuous_var, categorical_var)
@@ -99,7 +103,13 @@ join_adsub_adsl.list <- function(adam_db,
   # Pivot and keep labels.
   adsub_wide_ls <-
     adam_db$adsub %>%
-    poly_pivot_wider(id = keys, param_from = "PARAMCD", value_from = value_col, labels_from = "PARAM")
+    poly_pivot_wider(
+      id = keys,
+      param_from = "PARAMCD",
+      value_from = value_col,
+      labels_from = "PARAM",
+      drop_na = drop_na
+    )
 
   # Merge categorical and continuous variables.
   for (i in seq_along(value_col)) {
@@ -162,7 +172,7 @@ assert_names_notadsl <- function(vars_nam, df) {
       paste(
         toString(final_names[already_in_adsl]),
         "already exist in adsl, the name will default to another values.
-Please change `continuous_suffix` or `categorical_suffix` to avoid automatic reneaming"
+Please change `continuous_suffix` or `categorical_suffix` to avoid automatic renaming"
       )
     )
   }

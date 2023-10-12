@@ -1,6 +1,6 @@
-# multi_pivot_wider ----
+# multi_id_pivot_wider ----
 
-test_that("multi_pivot_wider works as expected.", {
+test_that("multi_id_pivot_wider works as expected.", {
   test_data <- data.frame(
     the_obs = c("A", "A", "A", "B", "B", "B", "C", "D"),
     the_obs2 = c("Ax", "Ax", "Ax", "Bx", "Bx", "Bx", "Cx", "Dx"),
@@ -17,11 +17,11 @@ test_that("multi_pivot_wider works as expected.", {
     weight = c("65", "66", NA, NA)
   )
 
-  res <- expect_silent(multi_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", "the_val"))
+  res <- expect_silent(multi_id_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", "the_val"))
   expect_identical(expected_data, res)
 })
 
-test_that("multi_pivot_wider works as expected with drop_na argument.", {
+test_that("multi_id_pivot_wider works as expected with drop_na argument.", {
   test_data <- data.frame(
     the_obs = c("A", "A", "A", "B", "B", "B", "C", "D"),
     the_obs2 = c("Ax", "Ax", "Ax", "Bx", "Bx", "Bx", "Cx", "Dx"),
@@ -37,11 +37,11 @@ test_that("multi_pivot_wider works as expected with drop_na argument.", {
     weight = c("65", "66", NA, NA)
   )
 
-  res <- expect_silent(multi_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", "the_val", drop_na = TRUE))
+  res <- expect_silent(multi_id_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", "the_val", drop_na = TRUE))
   expect_identical(expected_data, res)
 })
 
-test_that("multi_pivot_wider works as expected with drop_na argument.", {
+test_that("multi_id_pivot_wider works as expected with drop_na argument.", {
   test_data <- data.frame(
     the_obs = c("A", "A", "A", "B", "B", "B", "C", "D"),
     the_obs2 = c("Ax", "Ax", "Ax", "Bx", "Bx", "Bx", "Cx", "Dx"),
@@ -57,11 +57,11 @@ test_that("multi_pivot_wider works as expected with drop_na argument.", {
     weight = c("65", "66", NA, NA)
   )
 
-  res <- expect_silent(multi_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", "the_val", drop_na = TRUE))
+  res <- expect_silent(multi_id_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", "the_val", drop_na = TRUE))
   expect_identical(expected_data, res)
 })
 
-test_that("multi_pivot_wider works as expected when the unique identification deoends on several columns", {
+test_that("multi_id_pivot_wider works as expected when the unique identification deoends on several columns", {
   test_data <- data.frame(
     the_obs = c("A", "A", "B"),
     the_obs2 = c("Ax2", "Ax2", "Ax"),
@@ -69,7 +69,7 @@ test_that("multi_pivot_wider works as expected when the unique identification de
     the_val = c(65, 65, 65)
   )
 
-  expect_error(multi_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", "the_val"))
+  expect_error(multi_id_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", "the_val"))
 
   test_data2 <- data.frame(
     the_obs = c("A", "A", "B"),
@@ -84,7 +84,7 @@ test_that("multi_pivot_wider works as expected when the unique identification de
     weight = c(65, 65, 65)
   )
 
-  res <- expect_silent(multi_pivot_wider(test_data2, c("the_obs", "the_obs2"), "the_param", "the_val"))
+  res <- expect_silent(multi_id_pivot_wider(test_data2, c("the_obs", "the_obs2"), "the_param", "the_val"))
   expect_identical(res, expected_data)
 })
 
