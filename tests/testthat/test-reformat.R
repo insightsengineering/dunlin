@@ -281,7 +281,10 @@ test_that("reformat for list works with all_datasets keyword", {
   )
 
   expect_silent(res <- reformat(db, test_map))
-  expected_char <- factor(c("Empty", "B", "Not Available", "a", "k", "x"), c("Empty", "B", "a", "k", "x", "Not Available"))
+  expected_char <- factor(
+    c("Empty", "B", "Not Available", "a", "k", "x"),
+    c("Empty", "B", "a", "k", "x", "Not Available")
+  )
   attr(expected_char, "label") <- "my label"
 
   expected_fact <- factor(c("Y", "f2", NA, NA, "Y", "Y"), levels = c("Y", "f2"))
