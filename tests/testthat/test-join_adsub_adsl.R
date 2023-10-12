@@ -81,6 +81,6 @@ test_that("join_adsub_adsl.list keep all NA columns if drop_na = FALSE.", {
   expect_silent(
     res <- join_adsub_adsl(adam_db = ldb, drop_na = FALSE)
   )
-  
+
   expect_true(all(is.na(res$adsl$s)))
 })
