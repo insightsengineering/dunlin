@@ -37,7 +37,9 @@ test_that("multi_id_pivot_wider works as expected with drop_na argument.", {
     weight = c("65", "66", NA, NA)
   )
 
-  res <- expect_silent(multi_id_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", "the_val", drop_na = TRUE))
+  res <- expect_silent(
+    multi_id_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", "the_val", drop_na = TRUE)
+  )
   expect_identical(expected_data, res)
 })
 
@@ -57,7 +59,9 @@ test_that("multi_id_pivot_wider works as expected with drop_na argument.", {
     weight = c("65", "66", NA, NA)
   )
 
-  res <- expect_silent(multi_id_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", "the_val", drop_na = TRUE))
+  res <- expect_silent(
+    multi_id_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", "the_val", drop_na = TRUE)
+  )
   expect_identical(expected_data, res)
 })
 
