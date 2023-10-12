@@ -11,7 +11,8 @@ join_adsub_adsl(
   continuous_var,
   categorical_var,
   continuous_suffix,
-  categorical_suffix
+  categorical_suffix,
+  drop_na = TRUE
 )
 
 \method{join_adsub_adsl}{list}(
@@ -20,7 +21,8 @@ join_adsub_adsl(
   continuous_var = "all",
   categorical_var = "all",
   continuous_suffix = "",
-  categorical_suffix = "_CAT"
+  categorical_suffix = "_CAT",
+  drop_na = TRUE
 )
 }
 \arguments{
@@ -40,6 +42,8 @@ none are selected.}
 
 \item{categorical_suffix}{(\code{string}) the suffixes to add to the newly generated columns containing categorical
 values.}
+
+\item{drop_na}{(\code{logical}) should column containing only \code{NAs} be dropped.}
 }
 \value{
 a \code{list} of \code{data.frame} with new columns in the \code{adsl} table.
