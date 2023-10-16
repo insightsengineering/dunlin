@@ -134,7 +134,7 @@ join_adsub_adsl.list <- function(adam_db,
     common_cols_id <- c(vars_nam[[i]]) %in% colnames(adsub_df)
     common_cols <- vars_nam[[i]][common_cols_id]
 
-    adsub_df <- adsub_df[, c(keys, common_cols), drop = FALSE]
+    adsub_df <- adsub_df[, c(keys, as.character(common_cols)), drop = FALSE]
     colnames(adsub_df) <- c(keys, names(common_cols))
 
     adam_db$adsl <- dplyr::left_join(
