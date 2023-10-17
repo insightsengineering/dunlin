@@ -1,5 +1,8 @@
 # dunlin 0.1.5.9000
 
+* `render_safe` now renders placeholder using in priority values corresponding to the key matching exactly the placeholder, case included.
+* New `show_whisker` function.
+
 # dunlin 0.1.5
 
 * `empty_rule` is removed now. `rule()` will create a normal `rule` object.
