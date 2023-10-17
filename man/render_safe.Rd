@@ -12,3 +12,9 @@ render_safe(x)
 \description{
 Render whiskers safely
 }
+\note{
+The strings enclosed in \code{{}} are substituted using the key-values pairs set with \code{add_whiskers}.
+}
+\examples{
+render_safe("Name of {Patient_label}")
+}

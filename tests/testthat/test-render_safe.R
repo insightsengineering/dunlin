@@ -27,3 +27,32 @@ test_that("render_safe works", {
   expect_identical(render_safe("patient label is {PATIENT_LABEL}"), "patient label is PATIENTS")
   expect_identical(render_safe("patient label is {misspell}"), "patient label is misspell")
 })
+
+test_that("render_safe works with custom whiskers", {
+  add_whisker(c(Patient_label = "Perfect Match!"))
+
+  expect_identical(render_safe("patient label is {Patient_label}"), "patient label is Perfect Match!")
+  expect_identical(render_safe("patient label is {patient_label}"), "patient label is patients")
+  expect_identical(render_safe("patient label is {PATIENT_LABEL}"), "patient label is PATIENTS")
+  expect_identical(render_safe("patient label is {misspell}"), "patient label is misspell")
+
+  remove_whisker(c("Patient_label"))
+})
+
+# show_whisker ---
+
+test_that("show_whisker works", {
+  res <- capture_output(show_whisker())
+  expect_identical(
+    res,
+    "patient_label --> patients"
+  )
+
+  add_whisker(c(Patient_label = "Perfect Match!"))
+  res <- capture_output(show_whisker())
+  expect_identical(
+    res,
+    c("Patient_label --> Perfect Match!\npatient_label --> patients")
+  )
+  remove_whisker(c("Patient_label"))
+})
