@@ -30,7 +30,7 @@ first one will be selected.}
 
 \item{drop_na}{(\code{logical}) should column containing only \code{NAs} be dropped.}
 
-\item{drop_lvl}{(\code{logical}) should missinglevels be dropped in the columns coming from (\code{value_from}).}
+\item{drop_lvl}{(\code{logical}) should missing levels be dropped in the columns coming from \code{value_from}.}
 }
 \value{
 \code{list} of \code{data.frame} in a wide format with label attribute attached to each columns.

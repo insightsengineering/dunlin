@@ -94,7 +94,7 @@ multi_id_pivot_wider <- function(data,
 #'   provided, the labels will be equal to the column names. When several labels are available for the same column, the
 #'   first one will be selected.
 #' @param drop_na (`logical`) should column containing only `NAs` be dropped.
-#' @param drop_lvl (`logical`) should missinglevels be dropped in the columns coming from (`value_from`).
+#' @param drop_lvl (`logical`) should missing levels be dropped in the columns coming from `value_from`.
 #'
 #' @return `list` of `data.frame` in a wide format with label attribute attached to each columns.
 #'
