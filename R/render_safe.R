@@ -9,11 +9,24 @@
 #'
 #' @keywords internal
 safe_transformer <- function(text, envir) {
-  text_lower <- tolower(text)
+  if (exists(text, envir = envir, inherits = FALSE)) {
+    res <- get(text, envir = envir)
 
-  res <- if (exists(text, envir = envir, inherits = FALSE)) {
-    get(text, envir = envir)
-  } else if (exists(text_lower, envir = envir, inherits = FALSE)) {
+    if (!checkmate::test_string(res)) {
+      stop(
+        sprintf(
+          "%s should correspond to a string but is %s. use `add_whisker` or `remove_whisker` to correct it.",
+          text,
+          toString(class(res))
+        )
+      )
+    }
+
+    return(res)
+  }
+
+  text_lower <- tolower(text)
+  res <- if (exists(text_lower, envir = envir, inherits = FALSE)) {
     get(text_lower, envir = envir)
   } else {
     text
@@ -28,7 +41,19 @@ safe_transformer <- function(text, envir) {
       res <- stringr::str_to_title(res)
     }
   }
-  res
+  if (!checkmate::test_string(res)) {
+    stop(
+      sprintf(
+        "%s should correspond to a string but is %s. use `add_whisker` or `remove_whisker` to correct it.",
+        text,
+        toString(
+          class(res)
+        )
+      )
+    )
+  }
+
+  return(res)
 }
 
 #' Render whiskers safely
@@ -93,6 +118,8 @@ remove_whisker <- function(x) {
 show_whisker <- function() {
   l <- ls(envir = whisker_env)
   val <- lapply(l, function(x) get(x, envir = whisker_env))
+
+  val <- val[vapply(val, checkmate::test_string, logical(1))]
 
   lapply(val, function(x) cat(sprintf("%s --> %s\n", names(x), x)))
   invisible()
