@@ -4,7 +4,14 @@
 \alias{multi_id_pivot_wider}
 \title{Transforming data.frame with Multiple Identifying columns into Wide Format}
 \usage{
-multi_id_pivot_wider(data, id, param_from, value_from, drop_na = FALSE)
+multi_id_pivot_wider(
+  data,
+  id,
+  param_from,
+  value_from,
+  drop_na = FALSE,
+  drop_lvl = FALSE
+)
 }
 \arguments{
 \item{data}{(\code{data.frame}) to be pivoted.}
@@ -17,6 +24,8 @@ unique values in this column will become column names in the output.}
 \item{value_from}{(\code{character}) the name of the column containing the values that will populate the output.}
 
 \item{drop_na}{(\code{logical}) should column containing only \code{NAs} be dropped.}
+
+\item{drop_lvl}{(\code{logical}) should missing levels be dropped in the columns coming from (\code{value_from}).}
 }
 \value{
 \code{data.frame} in a wide format.

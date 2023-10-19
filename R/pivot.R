@@ -10,6 +10,7 @@
 #'   unique values in this column will become column names in the output.
 #' @param value_from (`character`) the name of the column containing the values that will populate the output.
 #' @param drop_na (`logical`) should column containing only `NAs` be dropped.
+#' @param drop_lvl (`logical`) should missing levels be dropped in the columns coming from (`value_from`).
 #'
 #' @return `data.frame` in a wide format.
 #'
@@ -28,7 +29,8 @@ multi_id_pivot_wider <- function(data,
                                  id,
                                  param_from,
                                  value_from,
-                                 drop_na = FALSE) {
+                                 drop_na = FALSE,
+                                 drop_lvl = FALSE) {
   # check for duplication of observation-parameter
   checkmate::assert_data_frame(data, min.rows = 1, min.cols = 3)
   checkmate::assert_character(id)
@@ -36,6 +38,8 @@ multi_id_pivot_wider <- function(data,
   checkmate::assert_character(value_from, len = 1)
   checkmate::assert_false(any(duplicated(data[, c(id, param_from)])))
   checkmate::assert_subset(c(id, param_from, value_from), colnames(data))
+  checkmate::assert_flag(drop_na)
+  checkmate::assert_flag(drop_lvl)
 
   # find a way to sort
   unique_id <- unique(data[id])
@@ -57,14 +61,19 @@ multi_id_pivot_wider <- function(data,
       function(x) setNames(x[[value_from]], x[, 1])
     )
 
+  if (drop_lvl) {
+    data_vec <- rapply(data_vec, droplevels, classes = "factor", how = "replace")
+  }
+
   # query each id in each param
   all_vec <- lapply(data_vec, function(x) x[unique_id[, 1]])
 
   if (drop_na) all_vec <- Filter(function(x) !all(is.na(x)), all_vec)
 
-  bind_data <- do.call(cbind, all_vec)
+  all_vec <- lapply(all_vec, unname)
+  bind_data <- do.call(dplyr::bind_cols, all_vec)
 
-  res <- cbind(unique_id[, -1, drop = FALSE], bind_data)
+  res <- dplyr::bind_cols(unique_id[, -1, drop = FALSE], bind_data)
 
   rownames(res) <- NULL
   res
@@ -85,6 +94,7 @@ multi_id_pivot_wider <- function(data,
 #'   provided, the labels will be equal to the column names. When several labels are available for the same column, the
 #'   first one will be selected.
 #' @param drop_na (`logical`) should column containing only `NAs` be dropped.
+#' @param drop_lvl (`logical`) should missinglevels be dropped in the columns coming from (`value_from`).
 #'
 #' @return `list` of `data.frame` in a wide format with label attribute attached to each columns.
 #'
@@ -116,7 +126,8 @@ poly_pivot_wider <- function(data,
                              param_from,
                              value_from,
                              labels_from = NULL,
-                             drop_na = TRUE) {
+                             drop_na = TRUE,
+                             drop_lvl = FALSE) {
   # other tests are performed at lower levels.
   checkmate::assert_character(value_from, unique = TRUE)
 
@@ -151,7 +162,8 @@ poly_pivot_wider <- function(data,
       id = id,
       param_from = param_from,
       value_from = n_value_from,
-      drop_na = drop_na
+      drop_na = drop_na,
+      drop_lvl = drop_lvl
     )
 
     res <- attr_label_df(res, all_labels[colnames(res)])

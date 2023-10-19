@@ -18,7 +18,55 @@ test_that("multi_id_pivot_wider works as expected.", {
   )
 
   res <- expect_silent(multi_id_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", "the_val"))
-  expect_identical(expected_data, res)
+  expect_identical(res, expected_data)
+})
+
+test_that("multi_id_pivot_wider works as expected with factor as value.", {
+  test_data <- data.frame(
+    the_obs = c("A", "A", "A", "B", "B", "B", "C", "D"),
+    the_obs2 = c("Ax", "Ax", "Ax", "Bx", "Bx", "Bx", "Cx", "Dx"),
+    the_param = c("weight", "height", "gender", "weight", "gender", "height", "height", "precondition"),
+    the_val = factor(c(65, 165, "M", 66, "F", 166, 155, NA))
+  )
+
+  expected_data <- data.frame(
+    the_obs = c("A", "B", "C", "D"),
+    the_obs2 = c("Ax", "Bx", "Cx", "Dx"),
+    gender = factor(c("M", "F", NA, NA), c("155", "165", "166", "65", "66", "F", "M")),
+    height = factor(c("165", "166", "155", NA), c("155", "165", "166", "65", "66", "F", "M")),
+    precondition = factor(c(NA, NA, NA, NA), c("155", "165", "166", "65", "66", "F", "M")),
+    weight = factor(c("65", "66", NA, NA), c("155", "165", "166", "65", "66", "F", "M"))
+  )
+
+  res <- expect_silent(multi_id_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", "the_val"))
+  expect_identical(res, expected_data)
+})
+
+test_that("multi_id_pivot_wider works as expected with factor as value and drop_lvl = TRUE", {
+  test_data <- data.frame(
+    the_obs = c("A", "A", "A", "B", "B", "B", "C", "D"),
+    the_obs2 = c("Ax", "Ax", "Ax", "Bx", "Bx", "Bx", "Cx", "Dx"),
+    the_param = c("weight", "height", "gender", "weight", "gender", "height", "height", "precondition"),
+    the_val = factor(c(65, 165, "M", 66, "F", 166, 155, NA))
+  )
+
+  expected_data <- data.frame(
+    the_obs = c("A", "B", "C", "D"),
+    the_obs2 = c("Ax", "Bx", "Cx", "Dx"),
+    gender = factor(c("M", "F", NA, NA), c("F", "M")),
+    height = factor(c("165", "166", "155", NA), c("155", "165", "166")),
+    precondition = factor(c(NA, NA, NA, NA)),
+    weight = factor(c("65", "66", NA, NA), c("65", "66"))
+  )
+
+  res <- expect_silent(
+    multi_id_pivot_wider(
+      test_data,
+      c("the_obs", "the_obs2"), "the_param", "the_val",
+      drop_lvl = TRUE
+    )
+  )
+  expect_identical(res, expected_data)
 })
 
 test_that("multi_id_pivot_wider works as expected with drop_na argument.", {
@@ -65,7 +113,7 @@ test_that("multi_id_pivot_wider works as expected with drop_na argument.", {
   expect_identical(expected_data, res)
 })
 
-test_that("multi_id_pivot_wider works as expected when the unique identification deoends on several columns", {
+test_that("multi_id_pivot_wider works as expected when the unique identification depends on several columns", {
   test_data <- data.frame(
     the_obs = c("A", "A", "B"),
     the_obs2 = c("Ax2", "Ax2", "Ax"),

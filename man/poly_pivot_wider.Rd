@@ -10,7 +10,8 @@ poly_pivot_wider(
   param_from,
   value_from,
   labels_from = NULL,
-  drop_na = TRUE
+  drop_na = TRUE,
+  drop_lvl = FALSE
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ provided, the labels will be equal to the column names. When several labels are 
 first one will be selected.}
 
 \item{drop_na}{(\code{logical}) should column containing only \code{NAs} be dropped.}
+
+\item{drop_lvl}{(\code{logical}) should missinglevels be dropped in the columns coming from (\code{value_from}).}
 }
 \value{
 \code{list} of \code{data.frame} in a wide format with label attribute attached to each columns.

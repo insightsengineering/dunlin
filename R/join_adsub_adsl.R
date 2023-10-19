@@ -11,7 +11,8 @@
 #' @param continuous_suffix (`string`) the suffixes to add to the newly generated columns containing continuous values.
 #' @param categorical_suffix (`string`) the suffixes to add to the newly generated columns containing categorical
 #'   values.
-#' @param drop_na (`logical`) should column containing only `NAs` be dropped.
+#' @param drop_na (`logical`) whether resulting columns containing only `NAs` should be dropped.
+#' @param drop_lvl (`logical`) should missing levels be dropped in the resulting columns.
 #'
 #' @return a `list` of `data.frame` with new columns in the `adsl` table.
 #'
@@ -24,7 +25,8 @@ join_adsub_adsl <- function(adam_db,
                             categorical_var,
                             continuous_suffix,
                             categorical_suffix,
-                            drop_na = TRUE) {
+                            drop_na = TRUE,
+                            drop_lvl = TRUE) {
   UseMethod("join_adsub_adsl")
 }
 
@@ -57,14 +59,21 @@ join_adsub_adsl.list <- function(adam_db,
                                  categorical_var = "all",
                                  continuous_suffix = "",
                                  categorical_suffix = "_CAT",
-                                 drop_na = TRUE) {
+                                 drop_na = TRUE,
+                                 drop_lvl = FALSE) {
   checkmate::assert_list(adam_db, types = "data.frame")
   checkmate::assert_names(names(adam_db), must.include = c("adsl", "adsub"))
   checkmate::assert_names(names(adam_db$adsub), must.include = c("PARAM", "PARAMCD", "AVAL", "AVALC", keys))
   checkmate::assert_names(names(adam_db$adsl), must.include = keys)
+  checkmate::assert_numeric(adam_db$adsub$AVAL)
+  checkmate::assert_multi_class(adam_db$adsub$AVALC, c("character", "factor"))
   checkmate::assert_string(continuous_suffix)
   checkmate::assert_string(categorical_suffix)
   checkmate::assert_flag(drop_na)
+  checkmate::assert_flag(drop_lvl)
+
+  # Empty strings in AVALC are treated as NA.
+  adam_db$adsub$AVALC[adam_db$adsub$AVALC == ""] <- NA
 
   value_col <- c("AVAL", "AVALC")
   vars_ls <- list(continuous_var, categorical_var)
@@ -108,7 +117,8 @@ join_adsub_adsl.list <- function(adam_db,
       param_from = "PARAMCD",
       value_from = value_col,
       labels_from = "PARAM",
-      drop_na = drop_na
+      drop_na = drop_na,
+      drop_lvl = drop_lvl
     )
 
   # Merge categorical and continuous variables.
@@ -122,7 +132,7 @@ join_adsub_adsl.list <- function(adam_db,
       arg_type <- ifelse(value_col[i] == "AVALC", "categorical_var", "continuous_var")
       warning(
         sprintf(
-          "Skipping %s for %s type, No data available. Adjust `%s` argument to silence this warning.",
+          "Dropping %s for %s type, No data available. Adjust `%s` argument to silence this warning or set `drop_na = FALSE`", # nolint
           toString(not_cols),
           type,
           arg_type
