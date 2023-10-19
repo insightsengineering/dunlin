@@ -9,25 +9,17 @@
 #'
 #' @keywords internal
 safe_transformer <- function(text, envir) {
-  if (exists(text, envir = envir, inherits = FALSE)) {
-    res <- get(text, envir = envir)
-
-    if (!checkmate::test_string(res)) {
-      stop(
-        sprintf(
-          "%s should correspond to a string but is %s. use `add_whisker` or `remove_whisker` to correct it.",
-          text,
-          toString(class(res))
-        )
-      )
-    }
-
-    return(res)
+  
+  error_msg <- "%s should correspond to a character of lenght 1 but is of length %s. use `add_whisker` or `remove_whisker` to correct it." # nolint
+  
+  if (exists(text, envir = envir, inherits = FALSE, mode = "character")) {
+    res <- get(text, envir = envir, mode = "character")
+    return(toString(res))
   }
 
   text_lower <- tolower(text)
-  res <- if (exists(text_lower, envir = envir, inherits = FALSE)) {
-    get(text_lower, envir = envir)
+  res <- if (exists(text_lower, envir = envir, inherits = FALSE, mode = "character")) {
+    get(text_lower, envir = envir, mode = "character")
   } else {
     text
   }
@@ -41,19 +33,8 @@ safe_transformer <- function(text, envir) {
       res <- stringr::str_to_title(res)
     }
   }
-  if (!checkmate::test_string(res)) {
-    stop(
-      sprintf(
-        "%s should correspond to a string but is %s. use `add_whisker` or `remove_whisker` to correct it.",
-        text,
-        toString(
-          class(res)
-        )
-      )
-    )
-  }
 
-  return(res)
+  return(toString(res))
 }
 
 #' Render whiskers safely
@@ -117,9 +98,16 @@ remove_whisker <- function(x) {
 #' show_whisker()
 show_whisker <- function() {
   l <- ls(envir = whisker_env)
-  val <- lapply(l, function(x) get(x, envir = whisker_env))
-
-  val <- val[vapply(val, checkmate::test_string, logical(1))]
+  val <- lapply(l, 
+                function(x) {
+                  if (exists(x, envir = whisker_env, mode = "character")) {
+                    setNames(
+                      toString(get(x, envir = whisker_env, mode = "character")),
+                      x
+                    )
+                  }
+                }
+  )
 
   lapply(val, function(x) cat(sprintf("%s --> %s\n", names(x), x)))
   invisible()

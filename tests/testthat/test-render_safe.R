@@ -40,13 +40,13 @@ test_that("render_safe works with custom whiskers", {
   remove_whisker(c("Patient_label"))
 })
 
-test_that("render_safe returns an error when matching a non-string object", {
-  assign("Placeholder", 123, envir = whisker_env)
-  expect_error(render_safe("This is {Placeholder}"), "Placeholder should correspond to a string but is numeric.")
+test_that("render_safe works as expected when matching a non-string object", {
+  assign("Placeholder", list(), envir = whisker_env)
+  expect_identical(render_safe("This is {Placeholder}"), "This is Placeholder")
   remove_whisker(c("Placeholder"))
 
-  assign("placeholder", list(), envir = whisker_env)
-  expect_error(render_safe("This is {Placeholder}"), "Placeholder should correspond to a string but is list")
+  assign("placeholder", c("one", "two"), envir = whisker_env)
+  expect_identical(render_safe("This is {Placeholder}"), "This is One, Two")
   remove_whisker(c("placeholder"))
 
   expect_silent(render_safe("This is {Placeholder}"))
@@ -92,11 +92,12 @@ test_that("show_whisker works when non-string value are present in the whisker e
     "patient_label --> patients"
   )
   remove_whisker(c("Placeholder"))
-  assign("placeholder", 123, envir = whisker_env)
+  
+  assign("placeholder", c("a", "b"), envir = whisker_env)
   res <- capture_output(show_whisker())
   expect_identical(
     res,
-    "patient_label --> patients"
+    "patient_label --> patients\nplaceholder --> a, b"
   )
   remove_whisker(c("placeholder"))
 })
