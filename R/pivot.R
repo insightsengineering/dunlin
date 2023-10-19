@@ -1,64 +1,4 @@
-#' Transforming data.frame into Wide Format
-#'
-#' @details instead of nesting duplicated values, the function will throw an error if the same parameter is
-#'   provided twice for the same observation.
-#'
-#' @param data (`data.frame`) to be pivoted.
-#' @param id (`character`) the name of the column identifying the observations. It will correspond to the row names
-#'   of the output.
-#' @param param_from (`character`) the name of the column containing the names of the parameters to be pivoted. The
-#'   unique values in this column will become column names in the output.
-#' @param value_from (`character`) the name of the column containing the values that will populate the output.
-#'
-#' @return `data.frame` in a wide format.
-#'
-#' @export
-#' @examples
-#' test_data <- data.frame(
-#'   the_obs = c("A", "A", "A", "B", "B", "B", "C", "D"),
-#'   the_obs2 = c("Ax", "Ax", "Ax", "Bx", "Bx", "Bx", "Cx", "Dx"),
-#'   the_param = c("weight", "height", "gender", "weight", "gender", "height", "height", "other"),
-#'   the_val = c(65, 165, "M", 66, "F", 166, 155, TRUE)
-#' )
-#'
-#' mini_pivot_wider(test_data, "the_obs", "the_param", "the_val")
-mini_pivot_wider <- function(data,
-                             id,
-                             param_from,
-                             value_from) {
-  # check for duplication of observation-parameter
-  checkmate::assert_data_frame(data, min.rows = 1, min.cols = 3)
-  checkmate::assert_character(id, len = 1)
-  checkmate::assert_character(param_from, len = 1)
-  checkmate::assert_character(value_from, len = 1)
-  checkmate::assert_subset(c(id, param_from, value_from), colnames(data))
-  checkmate::assert_false(any(duplicated(data[, c(id, param_from)])))
-
-  unique_id <- sort(unique(data[[id]]))
-  param <- data[[param_from]]
-
-  mini_data <- data[, c(id, param_from, value_from)]
-  data_ls <- split(mini_data, param)
-
-  # transform to named vector
-  data_vec <-
-    lapply(
-      data_ls,
-      function(x) setNames(x[[value_from]], x[[id]])
-    )
-
-  # query each id in each param
-  all_vec <- lapply(data_vec, function(x) setNames(x[unique_id], unique_id))
-
-  bind_data <- as.data.frame(all_vec)
-
-  res <- cbind(id = unique_id, bind_data)
-  rownames(res) <- NULL
-
-  res
-}
-
-#' Transforming data.frame with Complex Identifiers into Wide Format
+#' Transforming data.frame with Multiple Identifying columns into Wide Format
 #'
 #' @details This function allows to identify observations on the basis of several columns. Warning: Instead of nesting
 #'   duplicated values, the function will throw an error if the same parameter is provided twice for the same
@@ -70,6 +10,7 @@ mini_pivot_wider <- function(data,
 #'   unique values in this column will become column names in the output.
 #' @param value_from (`character`) the name of the column containing the values that will populate the output.
 #' @param drop_na (`logical`) should column containing only `NAs` be dropped.
+#' @param drop_lvl (`logical`) should missing levels be dropped in the columns coming from (`value_from`).
 #'
 #' @return `data.frame` in a wide format.
 #'
@@ -82,13 +23,14 @@ mini_pivot_wider <- function(data,
 #'   the_val = c(65, 165, "M", 66, "F", 166, 155, TRUE)
 #' )
 #'
-#' multi_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", "the_val")
-#' multi_pivot_wider(test_data, "the_obs2", "the_param", "the_val")
-multi_pivot_wider <- function(data,
-                              id,
-                              param_from,
-                              value_from,
-                              drop_na = FALSE) {
+#' multi_id_pivot_wider(test_data, c("the_obs", "the_obs2"), "the_param", "the_val")
+#' multi_id_pivot_wider(test_data, "the_obs2", "the_param", "the_val")
+multi_id_pivot_wider <- function(data,
+                                 id,
+                                 param_from,
+                                 value_from,
+                                 drop_na = FALSE,
+                                 drop_lvl = FALSE) {
   # check for duplication of observation-parameter
   checkmate::assert_data_frame(data, min.rows = 1, min.cols = 3)
   checkmate::assert_character(id)
@@ -96,6 +38,8 @@ multi_pivot_wider <- function(data,
   checkmate::assert_character(value_from, len = 1)
   checkmate::assert_false(any(duplicated(data[, c(id, param_from)])))
   checkmate::assert_subset(c(id, param_from, value_from), colnames(data))
+  checkmate::assert_flag(drop_na)
+  checkmate::assert_flag(drop_lvl)
 
   # find a way to sort
   unique_id <- unique(data[id])
@@ -117,14 +61,19 @@ multi_pivot_wider <- function(data,
       function(x) setNames(x[[value_from]], x[, 1])
     )
 
+  if (drop_lvl) {
+    data_vec <- rapply(data_vec, droplevels, classes = "factor", how = "replace")
+  }
+
   # query each id in each param
   all_vec <- lapply(data_vec, function(x) x[unique_id[, 1]])
 
   if (drop_na) all_vec <- Filter(function(x) !all(is.na(x)), all_vec)
 
-  bind_data <- do.call(cbind, all_vec)
+  all_vec <- lapply(all_vec, unname)
+  bind_data <- do.call(dplyr::bind_cols, all_vec)
 
-  res <- cbind(unique_id[, -1, drop = FALSE], bind_data)
+  res <- dplyr::bind_cols(unique_id[, -1, drop = FALSE], bind_data)
 
   rownames(res) <- NULL
   res
@@ -144,6 +93,8 @@ multi_pivot_wider <- function(data,
 #' @param labels_from (`character`) the name of the column congaing the labels of the new columns. from. If not
 #'   provided, the labels will be equal to the column names. When several labels are available for the same column, the
 #'   first one will be selected.
+#' @param drop_na (`logical`) should column containing only `NAs` be dropped.
+#' @param drop_lvl (`logical`) should missing levels be dropped in the columns coming from `value_from`.
 #'
 #' @return `list` of `data.frame` in a wide format with label attribute attached to each columns.
 #'
@@ -174,7 +125,9 @@ poly_pivot_wider <- function(data,
                              id,
                              param_from,
                              value_from,
-                             labels_from = NULL) {
+                             labels_from = NULL,
+                             drop_na = TRUE,
+                             drop_lvl = FALSE) {
   # other tests are performed at lower levels.
   checkmate::assert_character(value_from, unique = TRUE)
 
@@ -204,12 +157,13 @@ poly_pivot_wider <- function(data,
 
   res_ls <- list()
   for (n_value_from in value_from) {
-    res <- multi_pivot_wider(
+    res <- multi_id_pivot_wider(
       data = data,
       id = id,
       param_from = param_from,
       value_from = n_value_from,
-      drop_na = TRUE
+      drop_na = drop_na,
+      drop_lvl = drop_lvl
     )
 
     res <- attr_label_df(res, all_labels[colnames(res)])
