@@ -92,7 +92,7 @@ test_that("show_whisker works when non-string value are present in the whisker e
     "patient_label --> patients"
   )
   remove_whisker(c("Placeholder"))
-  
+
   assign("placeholder", c("a", "b"), envir = whisker_env)
   res <- capture_output(show_whisker())
   expect_identical(

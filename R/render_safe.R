@@ -9,9 +9,6 @@
 #'
 #' @keywords internal
 safe_transformer <- function(text, envir) {
-  
-  error_msg <- "%s should correspond to a character of lenght 1 but is of length %s. use `add_whisker` or `remove_whisker` to correct it." # nolint
-  
   if (exists(text, envir = envir, inherits = FALSE, mode = "character")) {
     res <- get(text, envir = envir, mode = "character")
     return(toString(res))
@@ -98,15 +95,16 @@ remove_whisker <- function(x) {
 #' show_whisker()
 show_whisker <- function() {
   l <- ls(envir = whisker_env)
-  val <- lapply(l, 
-                function(x) {
-                  if (exists(x, envir = whisker_env, mode = "character")) {
-                    setNames(
-                      toString(get(x, envir = whisker_env, mode = "character")),
-                      x
-                    )
-                  }
-                }
+  val <- lapply(
+    l,
+    function(x) {
+      if (exists(x, envir = whisker_env, mode = "character")) {
+        setNames(
+          toString(get(x, envir = whisker_env, mode = "character")),
+          x
+        )
+      }
+    }
   )
 
   lapply(val, function(x) cat(sprintf("%s --> %s\n", names(x), x)))
