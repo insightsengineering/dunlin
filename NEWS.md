@@ -1,4 +1,4 @@
-# dunlin 0.1.5.9000
+# dunlin 0.1.5.9001
 
 * `join_adsub_adsl` now sends a warning when the continuous or categorical variables are missing or all `NA`. All `NA` variables can now be kept using `drop_na = FALSE`. In addition, missing levels in the pivoted columns can be dropped with `drop_lvl = TRUE`
 * Remove `mini_pivot_wider` function.
