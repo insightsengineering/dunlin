@@ -1,4 +1,4 @@
-# dunlin 0.1.5.9000
+# dunlin 0.1.5.9001
 
 * `render_safe` now renders placeholder using in priority values corresponding to the key matching exactly the placeholder, case included.
 * New `show_whisker` function.
