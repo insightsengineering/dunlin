@@ -54,6 +54,7 @@ reference:
       - render_safe
       - add_whisker
       - remove_whisker
+      - show_whisker
   - title: Assertions
     contents:
       - assert_valid_format
