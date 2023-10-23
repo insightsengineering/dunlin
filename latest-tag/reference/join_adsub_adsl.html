@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">dunlin</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.6</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,6 +41,7 @@
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.5-rc1">v0.1.5-rc1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.4-rc1">v0.1.4-rc1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.3-rc1">v0.1.3-rc1</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.6">v0.1.6</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.5">v0.1.5</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.4">v0.1.4</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.3">v0.1.3</a>
@@ -87,7 +88,9 @@
 <span>  <span class="va">continuous_var</span>,</span>
 <span>  <span class="va">categorical_var</span>,</span>
 <span>  <span class="va">continuous_suffix</span>,</span>
-<span>  <span class="va">categorical_suffix</span></span>
+<span>  <span class="va">categorical_suffix</span>,</span>
+<span>  drop_na <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  drop_lvl <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for list</span></span>
@@ -97,7 +100,9 @@
 <span>  continuous_var <span class="op">=</span> <span class="st">"all"</span>,</span>
 <span>  categorical_var <span class="op">=</span> <span class="st">"all"</span>,</span>
 <span>  continuous_suffix <span class="op">=</span> <span class="st">""</span>,</span>
-<span>  categorical_suffix <span class="op">=</span> <span class="st">"_CAT"</span></span>
+<span>  categorical_suffix <span class="op">=</span> <span class="st">"_CAT"</span>,</span>
+<span>  drop_na <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  drop_lvl <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -130,6 +135,14 @@ none are selected.</p></dd>
 <dt>categorical_suffix</dt>
 <dd><p>(<code>string</code>) the suffixes to add to the newly generated columns containing categorical
 values.</p></dd>
+
+
+<dt>drop_na</dt>
+<dd><p>(<code>logical</code>) whether resulting columns containing only <code>NAs</code> should be dropped.</p></dd>
+
+
+<dt>drop_lvl</dt>
+<dd><p>(<code>logical</code>) should missing levels be dropped in the resulting columns.</p></dd>
 
 </dl></div>
     <div class="section level2">
