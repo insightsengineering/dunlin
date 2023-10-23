@@ -1,3 +1,5 @@
+# dunlin 0.1.6.9000
+
 # dunlin 0.1.6
 
 * `render_safe` now renders placeholder using in priority values corresponding to the key matching exactly the placeholder, case included.
