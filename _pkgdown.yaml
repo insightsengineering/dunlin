@@ -31,8 +31,7 @@ reference:
       - ls_explicit_na
       - ls_unite
       - join_adsub_adsl
-      - mini_pivot_wider
-      - multi_pivot_wider
+      - multi_id_pivot_wider
       - poly_pivot_wider
       - propagate
       - reformat
@@ -55,6 +54,7 @@ reference:
       - render_safe
       - add_whisker
       - remove_whisker
+      - show_whisker
   - title: Assertions
     contents:
       - assert_valid_format

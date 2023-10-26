@@ -1,4 +1,11 @@
-# dunlin 0.1.5.9000
+# dunlin 0.1.6.9000
+
+# dunlin 0.1.6
+
+* `render_safe` now renders placeholder using in priority values corresponding to the key matching exactly the placeholder, case included.
+* New `show_whisker` function to display the available whiskers.
+* `join_adsub_adsl` now sends a warning when the continuous or categorical variables are missing or all `NA`. All `NA` variables can now be kept using `drop_na = FALSE`. In addition, missing levels in the pivoted columns can be dropped with `drop_lvl = TRUE`.
+* Remove `mini_pivot_wider` function which is no longer used.
 
 * Rules specified under the `all_datasets` keyword in a format list will apply to every data set of the reformatted object unless specified otherwise.
 

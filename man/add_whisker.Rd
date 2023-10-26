@@ -12,3 +12,12 @@ add_whisker(x)
 \description{
 Add whisker values
 }
+\details{
+The names of the character gives the string to be replaced and the value gives the new string.
+}
+\examples{
+\dontrun{
+my_whiskers <- c(Placeholder = "Replacement", Placeholder2 = "Replacement2")
+add_whisker(my_whiskers)
+}
+}
