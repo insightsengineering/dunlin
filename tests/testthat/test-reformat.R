@@ -319,3 +319,69 @@ test_that("reformat for list works as does not change the data for no rules", {
   expect_silent(res <- reformat(db, test_map))
   expect_identical(res, db)
 })
+
+# h_expand_all_datasets ----
+
+test_that("h_expand_all_datasets works as expected", {
+  format_list <- list(
+    adae = list(
+      AEDECOD = "na_to_nca",
+      AEBODSYS = "na_to_nca"
+    ),
+    all_datasets = list(AETOX = "na_to_nca")
+  )
+
+  expect_silent(
+    res <- h_expand_all_datasets(format_list, ls_datasets = c("adsl", "adae"))
+  )
+
+  expect_identical(
+    res,
+    list(
+      adsl = list(
+        AETOX = "na_to_nca"
+      ),
+      adae = list(
+        AETOX = "na_to_nca",
+        AEDECOD = "na_to_nca",
+        AEBODSYS = "na_to_nca"
+      )
+    )
+  )
+})
+
+test_that("h_expand_all_datasets works as expected when all_datasets is NULL", {
+  format_list <- list(
+    adae = list(
+      AEDECOD = "na_to_nca",
+      AEBODSYS = "na_to_nca"
+    )
+  )
+
+  expect_silent(
+    res <- h_expand_all_datasets(format_list, ls_datasets = c("adsl", "adae"))
+  )
+
+  expect_identical(
+    res,
+    format_list
+  )
+})
+
+test_that("h_expand_all_datasets works as expected when ls_datasets is NULL", {
+  format_list <- list(
+    adae = list(
+      AEDECOD = "na_to_nca",
+      AEBODSYS = "na_to_nca"
+    )
+  )
+
+  expect_silent(
+    res <- h_expand_all_datasets(format_list, ls_datasets = NULL)
+  )
+
+  expect_identical(
+    res,
+    format_list
+  )
+})

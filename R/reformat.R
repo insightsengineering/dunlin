@@ -188,8 +188,8 @@ reformat.list <- function(obj, format, ...) {
 #' @param ls_datasets (`character`) the name of all datasets in the object to reformat.
 #'
 #' @keywords internal
+#' @export
 #' @examples
-#' \dontrun{
 #' format_list <- list(
 #'   adae = list(
 #'     AEDECOD = "na_to_nca",
@@ -199,7 +199,6 @@ reformat.list <- function(obj, format, ...) {
 #' )
 #'
 #' h_expand_all_datasets(format_list, ls_datasets = c("adsl", "adae"))
-#' }
 h_expand_all_datasets <- function(format_list, ls_datasets = NULL) {
   assert_valid_list_format(list(f = format_list))
   checkmate::assert_character(ls_datasets, null.ok = TRUE)
@@ -212,6 +211,6 @@ h_expand_all_datasets <- function(format_list, ls_datasets = NULL) {
     spec_datasets <- format_list[setdiff(names(format_list), "all_datasets")]
     modifyList(to_all_datasets, spec_datasets)
   } else {
-    NULL
+    format_list
   }
 }

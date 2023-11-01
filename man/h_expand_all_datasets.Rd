@@ -13,7 +13,6 @@ h_expand_all_datasets(format_list, ls_datasets = NULL)
 Propagate the rules for all datasets
 }
 \examples{
-\dontrun{
 format_list <- list(
   adae = list(
     AEDECOD = "na_to_nca",
@@ -23,6 +22,5 @@ format_list <- list(
 )
 
 h_expand_all_datasets(format_list, ls_datasets = c("adsl", "adae"))
-}
 }
 \keyword{internal}
