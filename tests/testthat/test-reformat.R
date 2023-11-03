@@ -323,12 +323,14 @@ test_that("reformat for list works as does not change the data for no rules", {
 # h_expand_all_datasets ----
 
 test_that("h_expand_all_datasets works as expected", {
+  r <- rule(x = "a", z = NA, .to_NA = NULL)
+
   format_list <- list(
     adae = list(
-      AEDECOD = "na_to_nca",
-      AEBODSYS = "na_to_nca"
+      AEDECOD = r,
+      AEBODSYS = r
     ),
-    all_datasets = list(AETOX = "na_to_nca")
+    all_datasets = list(AETOX = r)
   )
 
   expect_silent(
@@ -339,22 +341,24 @@ test_that("h_expand_all_datasets works as expected", {
     res,
     list(
       adsl = list(
-        AETOX = "na_to_nca"
+        AETOX = r
       ),
       adae = list(
-        AETOX = "na_to_nca",
-        AEDECOD = "na_to_nca",
-        AEBODSYS = "na_to_nca"
+        AETOX = r,
+        AEDECOD = r,
+        AEBODSYS = r
       )
     )
   )
 })
 
 test_that("h_expand_all_datasets works as expected when all_datasets is NULL", {
+  r <- rule(x = "a", z = NA, .to_NA = NULL)
+
   format_list <- list(
     adae = list(
-      AEDECOD = "na_to_nca",
-      AEBODSYS = "na_to_nca"
+      AEDECOD = r,
+      AEBODSYS = r
     )
   )
 
@@ -369,10 +373,15 @@ test_that("h_expand_all_datasets works as expected when all_datasets is NULL", {
 })
 
 test_that("h_expand_all_datasets works as expected when ls_datasets is NULL", {
+  r <- rule(x = "a", z = NA, .to_NA = NULL)
+
   format_list <- list(
     adae = list(
-      AEDECOD = "na_to_nca",
-      AEBODSYS = "na_to_nca"
+      AEDECOD = r,
+      AEBODSYS = r
+    ),
+    all_datasets = list(
+      ARM = r
     )
   )
 
@@ -382,6 +391,6 @@ test_that("h_expand_all_datasets works as expected when ls_datasets is NULL", {
 
   expect_identical(
     res,
-    format_list
+    format_list["adae"]
   )
 })
