@@ -1,5 +1,7 @@
 # dunlin 0.1.6.9000
 
+* Rules specified under the `all_datasets` keyword in a format list will apply to every data set of the reformatted object unless specified otherwise.
+
 # dunlin 0.1.6
 
 * `render_safe` now renders placeholder using in priority values corresponding to the key matching exactly the placeholder, case included.

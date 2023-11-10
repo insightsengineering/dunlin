@@ -122,6 +122,9 @@ reformat.factor <- function(obj, format, ...) {
 #' @export
 #' @rdname reformat
 #'
+#' @note the variables listed under the `all_dataset` keyword will be reformatted with the corresponding rule in every
+#'   data set except where another rule is specified for the same variable under a specific data set name.
+#'
 #' @examples
 #'
 #' # Reformatting of list of data.frame.
@@ -143,6 +146,9 @@ reformat.factor <- function(obj, format, ...) {
 #'   ),
 #'   df2 = list(
 #'     var2 = rule("f11" = "F11", "NN" = NA)
+#'   ),
+#'   all_datasets = list(
+#'     var1 = rule("xx" = "x", "aa" = "a")
 #'   )
 #' )
 #'
@@ -158,7 +164,10 @@ reformat.list <- function(obj, format, ...) {
 
   assert_valid_format(format)
 
-  for (tab in names(format)) {
+  ls_datasets <- names(obj)
+  format <- h_expand_all_datasets(format, ls_datasets)
+
+  for (tab in ls_datasets) {
     local_map <- format[[tab]]
     local_map <- local_map[names(local_map) %in% names(obj[[tab]])]
 
@@ -171,4 +180,39 @@ reformat.list <- function(obj, format, ...) {
   }
 
   obj
+}
+
+#' Propagate the rules for all datasets
+#'
+#' @inheritParams reformat
+#' @param ls_datasets (`character`) the name of all datasets in the object to reformat.
+#'
+#' @keywords internal
+#' @examples
+#' \dontrun{
+#' format_list <- list(
+#'   adae = list(
+#'     AEDECOD = "na_to_nca",
+#'     AEBODSYS = "na_to_nca"
+#'   ),
+#'   all_datasets = list(AETOX = "na_to_nca")
+#' )
+#'
+#' h_expand_all_datasets(format_list, ls_datasets = c("adsl", "adae"))
+#' }
+h_expand_all_datasets <- function(format_list, ls_datasets = NULL) {
+  assert_valid_list_format(list(f = format_list))
+  checkmate::assert_character(ls_datasets, null.ok = TRUE)
+
+  spec_datasets <- format_list[setdiff(names(format_list), "all_datasets")]
+
+  if (!is.null(ls_datasets)) {
+    to_all_datasets <- list()
+    to_all_datasets[ls_datasets] <- format_list["all_datasets"]
+    to_all_datasets <- base::Filter(function(x) !is.null(x), to_all_datasets)
+
+    modifyList(to_all_datasets, spec_datasets)
+  } else {
+    spec_datasets
+  }
 }

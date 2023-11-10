@@ -247,3 +247,150 @@ test_that("reformat for list works as does not change the data for no rules", {
   expect_silent(res <- reformat(db, test_map))
   expect_identical(res, db)
 })
+
+test_that("reformat for list works with all_datasets keyword", {
+  df1 <- data.frame(
+    "char" = c("", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f2", "f1"))
+  )
+  df2 <- data.frame(
+    "char" = c("a", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
+    "another_char" = c("a", "b", NA, "a", "k", "x"),
+    "another_fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
+  )
+
+  df3 <- data.frame(
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
+  )
+
+  db <- list(df1 = df1, df2 = df2, df3 = df3)
+  attr(db$df1$char, "label") <- "my label"
+
+  test_map <- list(
+    df1 = list(
+      char = rule("Empty" = "", "B" = "b", "Not Available" = NA),
+      fact = rule(Y = "f1")
+    ),
+    df2 = list(
+      char = rule()
+    ),
+    all_datasets = list(
+      fact = rule(X = "f1")
+    )
+  )
+
+  expect_silent(res <- reformat(db, test_map))
+  expected_char <- factor(
+    c("Empty", "B", "Not Available", "a", "k", "x"),
+    c("Empty", "B", "a", "k", "x", "Not Available")
+  )
+  attr(expected_char, "label") <- "my label"
+
+  expected_fact <- factor(c("Y", "f2", NA, NA, "Y", "Y"), levels = c("Y", "f2"))
+  expected_fact2 <- factor(c("X", "f2", NA, NA, "X", "X"), levels = c("X", "f2"))
+
+  expect_identical(res$df1$char, expected_char) # normal reformatting keeps attribute.
+  expect_identical(res$df1$fact, expected_fact) # specific reformatting has priority over all_dataset reformatting.
+  expect_identical(res$df2$fact, expected_fact2) # All dataset rule applies by default.
+  expect_identical(res$df2$char, as.factor(db$df2$char)) # Empty rule changes character to factor by default.
+  # Datasets not explicitly mentioned in rule are also reformatted by all_datasets rules.
+  expect_identical(res$df3$fact, expected_fact2)
+})
+
+test_that("reformat for list works as does not change the data for no rules", {
+  df1 <- data.frame(
+    "char" = c("", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f2", "f1")),
+    "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
+  )
+  df2 <- data.frame(
+    "char" = c("a", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
+    "another_char" = c("a", "b", NA, "a", "k", "x"),
+    "another_fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
+  )
+
+  db <- list(df1 = df1, df2 = df2)
+  attr(db$df1$char, "label") <- "my label"
+
+  test_map <- list()
+
+  expect_silent(res <- reformat(db, test_map))
+  expect_identical(res, db)
+})
+
+# h_expand_all_datasets ----
+
+test_that("h_expand_all_datasets works as expected", {
+  r <- rule(x = "a", z = NA, .to_NA = NULL)
+
+  format_list <- list(
+    adae = list(
+      AEDECOD = r,
+      AEBODSYS = r
+    ),
+    all_datasets = list(AETOX = r)
+  )
+
+  expect_silent(
+    res <- h_expand_all_datasets(format_list, ls_datasets = c("adsl", "adae"))
+  )
+
+  expect_identical(
+    res,
+    list(
+      adsl = list(
+        AETOX = r
+      ),
+      adae = list(
+        AETOX = r,
+        AEDECOD = r,
+        AEBODSYS = r
+      )
+    )
+  )
+})
+
+test_that("h_expand_all_datasets works as expected when all_datasets is NULL", {
+  r <- rule(x = "a", z = NA, .to_NA = NULL)
+
+  format_list <- list(
+    adae = list(
+      AEDECOD = r,
+      AEBODSYS = r
+    )
+  )
+
+  expect_silent(
+    res <- h_expand_all_datasets(format_list, ls_datasets = c("adsl", "adae"))
+  )
+
+  expect_identical(
+    res,
+    format_list
+  )
+})
+
+test_that("h_expand_all_datasets works as expected when ls_datasets is NULL", {
+  r <- rule(x = "a", z = NA, .to_NA = NULL)
+
+  format_list <- list(
+    adae = list(
+      AEDECOD = r,
+      AEBODSYS = r
+    ),
+    all_datasets = list(
+      ARM = r
+    )
+  )
+
+  expect_silent(
+    res <- h_expand_all_datasets(format_list, ls_datasets = NULL)
+  )
+
+  expect_identical(
+    res,
+    format_list["adae"]
+  )
+})
