@@ -72,6 +72,14 @@ test_that("log_filter.list works as expected", {
   )
 })
 
+test_that("log_filter.list fails as expected", {
+  df_raw <- list(iris = iris)
+  expect_error(
+    log_filter(df_raw, Sepal.Length >= 7, "x", by = NULL),
+    "Expected table names: x not in data"
+  )
+})
+
 test_that("log_filter.list subsets USUBJID", {
   dfa <- data.frame(USUBJID = letters[1:10], b = 1:10)
   dfb <- data.frame(USUBJID = letters[1:10], c = 10:1)
