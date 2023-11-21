@@ -57,6 +57,7 @@ reference:
       - show_whisker
   - title: Assertions
     contents:
+      - assert_all_tablenames
       - assert_valid_format
       - assert_valid_list_format
 
