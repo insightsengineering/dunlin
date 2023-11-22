@@ -50,7 +50,7 @@ log_filter.data.frame <- function(data, condition, suffix = NULL, ...) {
 #' log_filter(list(iris = iris), Sepal.Length >= 7, "iris", character(0))
 log_filter.list <- function(data, condition, table, by = c("USUBJID", "STUDYID"), suffix = NULL, ...) {
   checkmate::assert_list(data, types = "data.frame", names = "unique")
-  checkmate::assert_subset(table, names(data))
+  assert_all_tablenames(data, table)
   checkmate::assert_names(colnames(data[[table]]), must.include = by)
   condition <- match.call()$condition
   data[[table]] <- eval(bquote(log_filter(data[[table]], .(condition), .(suffix))))
