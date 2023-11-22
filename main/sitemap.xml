@@ -37,6 +37,12 @@
     <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/as.list.rule.html</loc>
   </url>
   <url>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/assert_all_tablenames.html</loc>
+  </url>
+  <url>
+    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/assert_one_tablenames.html</loc>
+  </url>
+  <url>
     <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/assert_valid_format.html</loc>
   </url>
   <url>
