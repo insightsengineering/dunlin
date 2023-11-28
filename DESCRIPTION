@@ -3,8 +3,10 @@ Title: Preprocessing Tools for Clinical Trial Data
 Version: 0.1.6.9002
 Date: 2023-11-22
 Authors@R: c(
-    person("Benoit", "Falquet", , "benoit.falquet@roche.com", role = c("aut", "cre")),
-    person("Liming", "Li", , "liming.li@roche.com", role = "aut"),
+    person("Liming", "Li", , "liming.li@roche.com", role = c("aut", "cre")),
+    person("Benoit", "Falquet", , "benoit.falquet@roche.com", role = "aut"),
+    person("Xiaoli", "Duan", , "xiaoli.duan@roche.com", role = "ctb"),
+    person("Pawel", "Rucki", , "pawel.rucki@roche.com", role = "ctb"),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
   )
 Description: A collection of functions to preprocess data and organize
