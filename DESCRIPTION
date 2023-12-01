@@ -12,6 +12,9 @@ Authors@R: c(
 Description: A collection of functions to preprocess data and organize
     them in a format amenable to use by chevron.
 License: Apache License 2.0 | file LICENSE
+URL: https://insightsengineering.github.io/dunlin/,
+    https://github.com/insightsengineering/dunlin/
+BugReports: https://github.com/insightsengineering/dunlin/issues
 Depends:
     R (>= 4.0.0)
 Imports:

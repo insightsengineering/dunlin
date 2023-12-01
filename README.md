@@ -1,4 +1,4 @@
-# Dunlin: Data tools for Pharmacy
+# Dunlin: Tools for Clinical Trial Data Wrangling
 
 <!-- start badges -->
 [![Check 🛠](https://github.com/insightsengineering/dunlin/actions/workflows/check.yaml/badge.svg)](https://insightsengineering.github.io/dunlin/main/unit-test-report/)
@@ -23,12 +23,20 @@
 
 ## Installation
 
-It is recommended that you [create and use a GitHub PAT](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) to install the latest version of this package. Once you have the PAT, run the following:
+```r
+install.packages("dunlin", repos = c("https://insightsengineering.r-universe.dev", getOption("repos")))
+
+# install.packages("pak")
+pak::pak("insightsengineering/dunlin@*release")
+```
+
+Alternatively, you might also use the development version.
 
 ```r
-Sys.setenv(GITHUB_PAT = "your_access_token_here")
-if (!require("remotes")) install.packages("remotes")
-remotes::install_github("insightsengineering/dunlin@*release")
+install.packages("dunlin", repos = c("https://pharmaverse.r-universe.dev", getOption("repos")))
+
+# install.packages("pak")
+pak::pak("insightsengineering/dunlin")
 ```
 
 ## Usage
@@ -107,3 +115,15 @@ remotes::install_github("insightsengineering/dunlin@*release")
   5    k   f1   5   e
   6    x   f1   6   f
   ```
+
+## Stargazers and Forkers
+
+### Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/insightsengineering/dunlin.svg)](https://starchart.cc/insightsengineering/dunlin)
+
+### Stargazers
+
+[![Stargazers repo roster for dunlin](https://reporoster.com/stars/insightsengineering/dunlin)](https://github.com/insightsengineering/dunlin/stargazers)
+
+[![Forkers repo roster for dunlin](https://reporoster.com/forks/insightsengineering/dunlin)](https://github.com/insightsengineering/dunlin/network/members)

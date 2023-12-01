@@ -130,7 +130,7 @@ The package maintainer also reserves the right to adjust the criteria to recogni
 If you have further questions regarding the contribution guidelines, please contact the package/repository maintainer.
 
 <!-- urls -->
-[docs]: https://insightsengineering.github.io/dunlin/index.html
-[articles]: https://insightsengineering.github.io/dunlin/main/articles/index.html
-[license]: https://insightsengineering.github.io/dunlin/main/LICENSE-text.html
+[docs]: https://insightsengineering.github.io/dunlin/latest-tag/index.html
+[articles]: https://insightsengineering.github.io/dunlin/latest-tag/articles/index.html
+[license]: https://insightsengineering.github.io/dunlin/latest-tag/LICENSE-text.html
 [insights]: https://github.com/insightsengineering/dunlin/pulse
