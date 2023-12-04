@@ -1,4 +1,4 @@
-# Dunlin: Tools for Clinical Trial Data Wrangling
+# `dunlin`: Tools for Clinical Trial Data Wrangling
 
 <!-- start badges -->
 [![Check 🛠](https://github.com/insightsengineering/dunlin/actions/workflows/check.yaml/badge.svg)](https://insightsengineering.github.io/dunlin/main/unit-test-report/)
