@@ -18,20 +18,10 @@ h_df_explicit(
 
 \item{na_level}{(\code{string}) the label to encode missing levels.}
 }
+\value{
+a \code{data.frame} object with explicit missing levels.
+}
 \description{
 Encode Categorical Missing Values in a \code{data.frame}.
-}
-\examples{
-\dontrun{
-df <- data.frame(
-  "char" = c("a", "b", NA, "a", "k", "x"),
-  "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
-  "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA),
-  "num" = c(1:5, NA)
-)
-
-h_df_explicit(df)
-h_df_explicit(df, omit_columns = c("fact", "x"))
-}
 }
 \keyword{internal}

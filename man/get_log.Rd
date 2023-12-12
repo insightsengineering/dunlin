@@ -19,6 +19,9 @@ get_log(data, incl, incl.adsl)
 
 \item{incl.adsl}{(\code{flag}) should indication  of filtering performed through \code{adsl} be printed.}
 }
+\value{
+\code{character} or \verb{list of character} describing the filtering applied to \code{data}.
+}
 \description{
 Get Log
 }

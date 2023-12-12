@@ -17,6 +17,9 @@ primary column.}
 \item{levels_primary}{(\code{character}) the levels in the desired order. Existing levels that are not included will be
 placed afterward in their current order.}
 }
+\value{
+a \code{data.frame} with the \code{secondary} column converted to factor with reordered levels.
+}
 \description{
 Reorder Two Columns Levels Simultaneously
 }
@@ -24,7 +27,6 @@ Reorder Two Columns Levels Simultaneously
 The function expect a 1:1 matching between the elements of the two selected column.
 }
 \examples{
-
 df <- data.frame(
   SUBJID = 1:3,
   PARAMCD = factor(c("A", "B", "C")),

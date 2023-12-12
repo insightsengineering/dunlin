@@ -9,20 +9,14 @@ h_expand_all_datasets(format_list, ls_datasets = NULL)
 \arguments{
 \item{ls_datasets}{(\code{character}) the name of all datasets in the object to reformat.}
 }
+\value{
+a nested \code{list} attributing a rule to be applied to specific variables of specific datasets.
+}
 \description{
 Propagate the rules for all datasets
 }
-\examples{
-\dontrun{
-format_list <- list(
-  adae = list(
-    AEDECOD = "na_to_nca",
-    AEBODSYS = "na_to_nca"
-  ),
-  all_datasets = list(AETOX = "na_to_nca")
-)
-
-h_expand_all_datasets(format_list, ls_datasets = c("adsl", "adae"))
-}
+\details{
+the rules described  under \code{all_datasets} are propagated to all datasets for the corresponding variables
+except in datasets where a rule is already attributed to the same variable.
 }
 \keyword{internal}

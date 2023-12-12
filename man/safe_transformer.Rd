@@ -11,6 +11,9 @@ safe_transformer(text, envir)
 
 \item{envir}{(\code{environment}) containing key-value pairs describing the substitution to perform.}
 }
+\value{
+\code{string} with substituted placeholders.
+}
 \description{
 Safe transformer
 }

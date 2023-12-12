@@ -15,17 +15,16 @@ assert_all_tablenames(db, tab, null_ok = TRUE, qualifier = NULL)
 
 \item{qualifier}{(\code{string}) to be returned if the check fails.}
 }
+\value{
+invisible \code{TRUE} or an error message if the criteria are not fulfilled.
+}
 \description{
 Assert that all names are among names of a \code{list} of \code{data.frame}.
 }
 \examples{
-\dontrun{
-
 lsd <- list(
   mtcars = mtcars,
   iris = iris
 )
-
-assert_all_tablenames(lsd, c("mtcars", "iris", "x"), qualifier = "first test:")
-}
+assert_all_tablenames(lsd, c("mtcars", "iris"), qualifier = "first test:")
 }
