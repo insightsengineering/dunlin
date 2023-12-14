@@ -2,6 +2,7 @@
 #'
 #' @param text (`string`) to be substituted.
 #' @param envir (`environment`) containing key-value pairs describing the substitution to perform.
+#' @returns `string` with substituted placeholders.
 #'
 #' @details Obtain content in global environment by default.
 #' If not found, use the environment here. The function first looks for an exact match. If not found, it searches for a
@@ -36,6 +37,7 @@ safe_transformer <- function(text, envir) {
 
 #' Render whiskers safely
 #' @param x (`character`) input to be rendered safely.
+#' @returns `character` with substituted placeholders.
 #'
 #' @note The strings enclosed in `{}` are substituted using the key-values pairs set with `add_whiskers`.
 #'
@@ -61,15 +63,14 @@ render_safe <- function(x) {
 }
 #' Add whisker values
 #' @param x Named (`character`) input.
+#' @returns invisible `NULL`. Assign the key-value pair provided as argument in the whisker environment.
 #'
 #' @details The names of the character gives the string to be replaced and the value gives the new string.
 #'
 #' @export
 #' @examples
-#' \dontrun{
 #' my_whiskers <- c(Placeholder = "Replacement", Placeholder2 = "Replacement2")
 #' add_whisker(my_whiskers)
-#' }
 add_whisker <- function(x) {
   checkmate::assert_character(x, names = "unique", any.missing = FALSE)
   lapply(
@@ -83,6 +84,7 @@ add_whisker <- function(x) {
 
 #' Remove whisker values
 #' @param x Named (`character`) input.
+#' @returns invisible `NULL`. Removes `x` from the whisker environment.
 #' @export
 remove_whisker <- function(x) {
   checkmate::assert_character(x, any.missing = FALSE)
@@ -90,6 +92,7 @@ remove_whisker <- function(x) {
 }
 
 #' Show Whisker Values
+#' @returns invisible `NULL`. Prints the values stored in the whisker environment.
 #' @export
 #' @examples
 #' show_whisker()

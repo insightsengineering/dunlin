@@ -9,6 +9,9 @@ render_safe(x)
 \arguments{
 \item{x}{(\code{character}) input to be rendered safely.}
 }
+\value{
+\code{character} with substituted placeholders.
+}
 \description{
 Render whiskers safely
 }

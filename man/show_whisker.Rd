@@ -6,6 +6,9 @@
 \usage{
 show_whisker()
 }
+\value{
+invisible \code{NULL}. Prints the values stored in the whisker environment.
+}
 \description{
 Show Whisker Values
 }

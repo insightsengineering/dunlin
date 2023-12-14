@@ -19,7 +19,7 @@ reformat(obj, ...)
 \method{reformat}{list}(obj, format, ...)
 }
 \arguments{
-\item{obj}{object to reformat.}
+\item{obj}{(\code{character}, \code{factor} or \verb{list of data.frame}) to reformat.}
 
 \item{...}{for compatibility between methods and pass additional special mapping to transform rules.
 \itemize{
@@ -32,6 +32,9 @@ the rule.
 }}
 
 \item{format}{(\code{rule}) or (\code{list}) of \code{rule} depending on the class of obj.}
+}
+\value{
+(\code{character}, \code{factor} or \verb{list of data.frame}) with remapped values.
 }
 \description{
 Reformat Values

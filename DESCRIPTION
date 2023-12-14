@@ -1,7 +1,7 @@
 Package: dunlin
 Title: Preprocessing Tools for Clinical Trial Data
-Version: 0.1.6.9004
-Date: 2023-12-13
+Version: 0.1.7
+Date: 2023-12-04
 Authors@R: c(
     person("Liming", "Li", , "liming.li@roche.com", role = c("aut", "cre")),
     person("Benoit", "Falquet", , "benoit.falquet@roche.com", role = "aut"),
@@ -11,7 +11,7 @@ Authors@R: c(
   )
 Description: A collection of functions to preprocess data and organize
     them in a format amenable to use by chevron.
-License: Apache License 2.0 | file LICENSE
+License: Apache License 2.0
 URL: https://insightsengineering.github.io/dunlin/,
     https://github.com/insightsengineering/dunlin/
 BugReports: https://github.com/insightsengineering/dunlin/issues

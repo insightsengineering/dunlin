@@ -12,7 +12,7 @@
 #' @param drop_na (`logical`) should column containing only `NAs` be dropped.
 #' @param drop_lvl (`logical`) should missing levels be dropped in the columns coming from (`value_from`).
 #'
-#' @return `data.frame` in a wide format.
+#' @returns `data.frame` in a wide format.
 #'
 #' @export
 #' @examples
@@ -96,7 +96,7 @@ multi_id_pivot_wider <- function(data,
 #' @param drop_na (`logical`) should column containing only `NAs` be dropped.
 #' @param drop_lvl (`logical`) should missing levels be dropped in the columns coming from `value_from`.
 #'
-#' @return `list` of `data.frame` in a wide format with label attribute attached to each columns.
+#' @returns `list` of `data.frame` in a wide format with label attribute attached to each columns.
 #'
 #' @export
 #' @examples

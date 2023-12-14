@@ -6,7 +6,7 @@
 #' @param sep (`string`) the separator for the new column name.
 #' @param new (`string`) the name of the new column. If `NULL` the concatenation of `cols` separated by `sep` is used.
 #'
-#' @return `list` of `data.frames` object with a united column.
+#' @returns `list` of `data.frames` object with a united column.
 #' @export
 #'
 #' @examples

@@ -15,18 +15,10 @@ assert_one_tablenames(db, tab, null_ok = TRUE, qualifier = NULL)
 
 \item{qualifier}{(\code{string}) to be returned if the check fails.}
 }
+\value{
+invisible \code{TRUE} or an error message if the criteria are not fulfilled.
+}
 \description{
 Assert that at least one name is among table names of a \code{list} of \code{data.frame}.
-}
-\examples{
-\dontrun{
-
-lsd <- list(
-  mtcars = mtcars,
-  iris = iris
-)
-
-assert_one_tablenames(lsd, c("mtcars", "x", "y"), qualifier = "first test:")
-}
 }
 \keyword{internal}

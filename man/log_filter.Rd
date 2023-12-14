@@ -20,7 +20,7 @@ log_filter(data, condition, ...)
 )
 }
 \arguments{
-\item{data}{(\code{data.frame}) input data to subset, or named (\code{list}) of (\code{data.frame}).}
+\item{data}{(\code{data.frame}) input data to subset, or named (\code{list} of \code{data.frame}).}
 
 \item{condition}{(\code{call}) of subset condition. Must evaluate as logical.}
 
@@ -31,6 +31,9 @@ log_filter(data, condition, ...)
 \item{table}{(\code{string}) table name.}
 
 \item{by}{(\code{character}) variable names shared by \code{adsl} and other datasets for filtering.}
+}
+\value{
+a \code{data.frame} or \code{list} of \code{data.frame} filtered for the provided conditions.
 }
 \description{
 Filter Data with Log

@@ -7,9 +7,9 @@
 #' @param .drop (`flag`) whether to drop empty levels.
 #' @param .to_NA (`character`) values that should be converted to `NA`. Set to `NULL` if nothing should be converted to
 #'   `NA`.
+#' @returns a `rule` object.
 #'
 #' @note Conversion to `NA` is the last step of the remapping process.
-
 #'
 #' @export
 #' @examples
@@ -65,6 +65,7 @@ print.rule <- function(x, ...) {
 
 #' Convert nested list into list of `rule`
 #' @param obj (`nested list`) to convert into list of rules.
+#' @returns a `list` of `rule` objects.
 #' @export
 #' @examples
 #' obj <- list(
@@ -89,10 +90,10 @@ list2rules <- function(obj) {
 #' Convert Rule to List
 #' @param x (`rule`) to convert.
 #' @param ... not used.
+#' @returns an object of class `list`.
 #'
 #' @export
 #' @examples
-#'
 #' x <- rule("a" = c("a", "b"), "X" = "x", .to_NA = c("v", "w"))
 #' as.list(x)
 as.list.rule <- function(x, ...) {

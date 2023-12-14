@@ -9,6 +9,9 @@ list2rules(obj)
 \arguments{
 \item{obj}{(\verb{nested list}) to convert into list of rules.}
 }
+\value{
+a \code{list} of \code{rule} objects.
+}
 \description{
 Convert nested list into list of \code{rule}
 }

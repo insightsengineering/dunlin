@@ -2,8 +2,7 @@
 #'
 #' @param var (`object`) whose label attribute can be set.
 #' @param label (`character`) the label to add.
-#'
-#' @return `object` with label attribute.
+#' @returns `object` with label attribute.
 #'
 #' @export
 #' @examples
@@ -25,8 +24,7 @@ attr_label <- function(var, label) {
 #'
 #' @param df (`data.frame`).
 #' @param label (`character`) the labels to add.
-#'
-#' @return `data.frame` with label attributes.
+#' @returns `data.frame` with label attributes.
 #'
 #' @export
 #' @examples

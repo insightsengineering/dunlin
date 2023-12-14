@@ -1,7 +1,7 @@
 #' Assert Nested List can be used as Format Argument in Reformat.
 #'
 #' @param object (`list`) to assert.
-#' @return invisible `TRUE` or an error message if the criteria are not fulfilled.
+#' @returns invisible `TRUE` or an error message if the criteria are not fulfilled.
 #'
 #' @export
 #' @examples
@@ -45,7 +45,7 @@ assert_valid_format <- function(object) {
 #' Assert List can be Converted into a Nested List Compatible with the Format Argument of Reformat.
 #'
 #' @param object (`list`) to assert.
-#' @return invisible `TRUE` or an error message if the criteria are not fulfilled.
+#' @returns invisible `TRUE` or an error message if the criteria are not fulfilled.
 #'
 #' @export
 #' @examples
@@ -116,19 +116,16 @@ assert_valid_list_format <- function(object) {
 #' @param tab (`character`) the names of the tables to be checked.
 #' @param null_ok (`flag`) can `x` be NULL.
 #' @param qualifier (`string`) to be returned if the check fails.
+#' @returns invisible `TRUE` or an error message if the criteria are not fulfilled.
 #'
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#'
 #' lsd <- list(
 #'   mtcars = mtcars,
 #'   iris = iris
 #' )
-#'
-#' assert_all_tablenames(lsd, c("mtcars", "iris", "x"), qualifier = "first test:")
-#' }
+#' assert_all_tablenames(lsd, c("mtcars", "iris"), qualifier = "first test:")
 assert_all_tablenames <- function(db, tab, null_ok = TRUE, qualifier = NULL) {
   checkmate::assert_list(db, types = "data.frame", names = "unique")
   checkmate::assert_character(tab, null.ok = null_ok)
@@ -153,19 +150,9 @@ assert_all_tablenames <- function(db, tab, null_ok = TRUE, qualifier = NULL) {
 #' @param tab (`character`) the names of the tables to be checked.
 #' @param null_ok (`flag`) can `x` be NULL.
 #' @param qualifier (`string`) to be returned if the check fails.
+#' @returns invisible `TRUE` or an error message if the criteria are not fulfilled.
 #'
 #' @keywords internal
-#'
-#' @examples
-#' \dontrun{
-#'
-#' lsd <- list(
-#'   mtcars = mtcars,
-#'   iris = iris
-#' )
-#'
-#' assert_one_tablenames(lsd, c("mtcars", "x", "y"), qualifier = "first test:")
-#' }
 assert_one_tablenames <- function(db, tab, null_ok = TRUE, qualifier = NULL) {
   checkmate::assert_list(db, types = "data.frame", names = "unique")
   checkmate::assert_character(tab, null.ok = null_ok)

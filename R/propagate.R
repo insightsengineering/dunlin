@@ -10,7 +10,7 @@
 #' @param by (`character`) the key binding the `from` table to the other tables.
 #' @param safe (`flag`) should the key be checked for uniqueness in the `from` table.
 #'
-#' @return updated `list` of `data.frame`.
+#' @returns updated `list` of `data.frame`.
 #'
 #' @rdname propagate
 #' @export

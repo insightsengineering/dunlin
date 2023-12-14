@@ -14,7 +14,7 @@
 #' @param drop_na (`logical`) whether resulting columns containing only `NAs` should be dropped.
 #' @param drop_lvl (`logical`) should missing levels be dropped in the resulting columns.
 #'
-#' @return a `list` of `data.frame` with new columns in the `adsl` table.
+#' @returns a `list` of `data.frame` with new columns in the `adsl` table.
 #'
 #' @rdname join_adsub_adsl
 #' @export

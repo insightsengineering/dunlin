@@ -8,8 +8,7 @@
 #' @param omit_columns (`character`) the names of the columns to omit from processing.
 #' @param char_as_factor (`logical`) should character columns be converted into factor.
 #' @param na_level (`string`) the label to encode missing levels.
-#'
-#' @return `list` of `data.frame` object with explicit missing levels.
+#' @returns `list` of `data.frame` object with explicit missing levels.
 #' @export
 #'
 #' @examples
@@ -64,20 +63,8 @@ ls_explicit_na <- function(data,
 #' Encode Categorical Missing Values in a `data.frame`.
 #'
 #' @inheritParams ls_explicit_na
+#' @returns a `data.frame` object with explicit missing levels.
 #' @keywords internal
-#'
-#' @examples
-#' \dontrun{
-#' df <- data.frame(
-#'   "char" = c("a", "b", NA, "a", "k", "x"),
-#'   "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
-#'   "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA),
-#'   "num" = c(1:5, NA)
-#' )
-#'
-#' h_df_explicit(df)
-#' h_df_explicit(df, omit_columns = c("fact", "x"))
-#' }
 h_df_explicit <- function(df,
                           omit_columns = NULL,
                           char_as_factor = TRUE,

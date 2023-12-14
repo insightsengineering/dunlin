@@ -8,11 +8,11 @@
 #'   primary column.
 #' @param levels_primary (`character`) the levels in the desired order. Existing levels that are not included will be
 #'   placed afterward in their current order.
+#' @returns a `data.frame` with the `secondary` column converted to factor with reordered levels.
 #'
 #' @export
 #'
 #' @examples
-#'
 #' df <- data.frame(
 #'   SUBJID = 1:3,
 #'   PARAMCD = factor(c("A", "B", "C")),

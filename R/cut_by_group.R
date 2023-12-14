@@ -11,10 +11,9 @@
 #'   name of the parameter (`character`), a series of breakpoints (`numeric`) where the first breakpoints is typically
 #'   `-Inf` and the last `Inf`, and a series of name which will describe each category (`character`).
 #' @param cat_col (`character`) the name of the new column in which the cut label should he stored.
-#'
+#' @returns `data.frame` with a column containing categorical values.
 #' @export
 #'
-#' @return `data.frame` with a column containing categorical values.
 #' @examples
 #' group <- list(
 #'   list(
