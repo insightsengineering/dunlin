@@ -1,114 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/404.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/404.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/CODE_OF_CONDUCT.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/CONTRIBUTING.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/CONTRIBUTING.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/LICENSE-text.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/SECURITY.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/SECURITY.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/articles/Reformatting.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/articles/Reformatting.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/articles/index.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/authors.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/authors.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/index.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/index.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/news/index.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/news/index.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/add_whisker.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/add_whisker.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/as.list.rule.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/as.list.rule.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/assert_valid_format.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/assert_all_tablenames.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/assert_valid_list_format.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/assert_one_tablenames.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/attr_label.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/assert_valid_format.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/attr_label_df.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/assert_valid_list_format.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/co_relevels.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/attr_label.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/cut_by_group.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/attr_label_df.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/dunlin-package.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/co_relevels.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/get_log.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/cut_by_group.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/h_df_explicit.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/dunlin-package.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/index.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/get_log.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/join_adsub_adsl.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/h_df_explicit.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/list2rules.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/h_expand_all_datasets.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/log_filter.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/ls_explicit_na.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/join_adsub_adsl.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/ls_unite.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/list2rules.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/multi_id_pivot_wider.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/log_filter.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/poly_pivot_wider.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/ls_explicit_na.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/print_log.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/ls_unite.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/propagate.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/multi_id_pivot_wider.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/reformat.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/poly_pivot_wider.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/remove_whisker.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/print_log.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/render_safe.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/propagate.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/rule.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/reformat.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/safe_transformer.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/remove_whisker.html</loc>
   </url>
   <url>
-    <loc>https://go.roche.com/nest-docs/releases/latest/api-reference/dunlin/reference/show_whisker.html</loc>
+    <loc>https://insightsengineering.github.io/dunlin/reference/render_safe.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/dunlin/reference/rule.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/dunlin/reference/safe_transformer.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/dunlin/reference/show_whisker.html</loc>
   </url>
 </urlset>
