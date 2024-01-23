@@ -28,9 +28,9 @@ log_filter(data, condition, ...)
 
 \item{suffix}{(\code{string}) optional argument describing the filter.}
 
-\item{table}{(\code{string}) table name.}
+\item{table}{(\code{character}) table name.}
 
-\item{by}{(\code{character}) variable names shared by \code{adsl} and other datasets for filtering.}
+\item{by}{(\code{character}) variable names shared by \code{adsl} and other data sets for filtering.}
 }
 \value{
 a \code{data.frame} or \code{list} of \code{data.frame} filtered for the provided conditions.
@@ -50,5 +50,5 @@ data <- iris
 attr(data$Sepal.Length, "label") <- "cm"
 log_filter(data, Sepal.Length >= 7)
 
-log_filter(list(iris = iris), Sepal.Length >= 7, "iris", character(0))
+log_filter(list(iris = iris, iris2 = iris), Sepal.Length >= 7, table = c("iris", "iris2"), character(0))
 }
