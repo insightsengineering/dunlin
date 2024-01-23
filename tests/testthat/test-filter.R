@@ -133,6 +133,21 @@ test_that("log_filter works with long conditions", {
   expect_identical(df1, df2, ignore_attr = TRUE)
 })
 
+test_that("log_filters.list works with several targets", {
+  dfa <- data.frame(USUBJID = letters[1:10], b = 1:10)
+  dfb <- data.frame(USUBJID = letters[1:10], b = 10:1, c = 5)
+  df_raw <- list(dfa = dfa, dfb = dfb)
+
+  expected <- list(
+    dfa = data.frame(USUBJID = c("g", "h", "i", "j"), b = 7:10),
+    dfb = data.frame(USUBJID = c("a", "b", "c", "d"), b = 10:7, c = 5)
+  )
+
+  expect_silent(res <- log_filter(df_raw, b >= 7, table = c("dfa", "dfb"), by = NULL))
+  expect_identical(res$dfa$USUBJID, expected$dfa$USUBJID)
+  expect_identical(res$dfb$USUBJID, expected$dfb$USUBJID)
+})
+
 # get_log ----
 
 test_that("get_log works as expected", {

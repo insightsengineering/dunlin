@@ -43,30 +43,36 @@ log_filter.data.frame <- function(data, condition, suffix = NULL, ...) {
 }
 
 #' @rdname log_filter
-#' @param table (`string`) table name.
-#' @param by (`character`) variable names shared by `adsl` and other datasets for filtering.
+#' @param table (`character`) table name.
+#' @param by (`character`) variable names shared by `adsl` and other data sets for filtering.
 #' @export
 #' @examples
-#' log_filter(list(iris = iris), Sepal.Length >= 7, "iris", character(0))
+#' log_filter(list(iris = iris, iris2 = iris), Sepal.Length >= 7, table = c("iris", "iris2"), character(0))
 log_filter.list <- function(data, condition, table, by = c("USUBJID", "STUDYID"), suffix = NULL, ...) {
   checkmate::assert_list(data, types = "data.frame", names = "unique")
+  checkmate::assert_string(suffix, null.ok = TRUE)
+  checkmate::assert_character(table)
   assert_all_tablenames(data, table)
-  checkmate::assert_names(colnames(data[[table]]), must.include = by)
   condition <- match.call()$condition
-  data[[table]] <- eval(bquote(log_filter(data[[table]], .(condition), .(suffix))))
-  if (identical(table, "adsl")) {
-    for (k in setdiff(names(data), "adsl")) {
-      if (all(by %in% names(data[[k]]))) {
-        if (length(by) == 0) by <- intersect(names(data[[k]]), names(data$adsl))
 
-        ori_n <- nrow(data[[k]])
-        ori_att <- attr(data[[k]], "rows")
+  for (t in table) {
+    checkmate::assert_names(colnames(data[[t]]), must.include = by, .var.name = paste("table:", t), what = "colname")
+    data[[t]] <- eval(bquote(log_filter(data[[t]], .(condition), .(suffix))))
 
-        data[[k]] <- dplyr::semi_join(data[[k]], data$adsl, by = by)
+    if (identical(t, "adsl")) {
+      for (k in setdiff(names(data), "adsl")) {
+        if (all(by %in% names(data[[k]]))) {
+          if (length(by) == 0) by <- intersect(names(data[[k]]), names(data$adsl))
 
-        rows <- list(list(init = ori_n, final = nrow(data[[k]]), suffix = suffix))
-        names(rows) <- paste0("Filtered by adsl: ", deparse(condition), collapse = "")
-        attr(data[[k]], "rows") <- c(ori_att, rows)
+          ori_n <- nrow(data[[k]])
+          ori_att <- attr(data[[k]], "rows")
+
+          data[[k]] <- dplyr::semi_join(data[[k]], data$adsl, by = by)
+
+          rows <- list(list(init = ori_n, final = nrow(data[[k]]), suffix = suffix))
+          names(rows) <- paste0("Filtered by adsl: ", deparse(condition), collapse = "")
+          attr(data[[k]], "rows") <- c(ori_att, rows)
+        }
       }
     }
   }
