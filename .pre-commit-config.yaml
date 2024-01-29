@@ -18,9 +18,11 @@ repos:
           - checkmate
           - dplyr
           - forcats
+          - glue
           - magrittr
           - methods
           - rlang
+          - stringr
           - tibble
           - yaml
       - id: spell-check
