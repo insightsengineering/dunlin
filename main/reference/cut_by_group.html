@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">dunlin</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.7.9000</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,25 +30,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/latest-tag">latest-tag</a>
-
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.6-rc1">v0.1.6-rc1</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.5-rc1">v0.1.5-rc1</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.4-rc1">v0.1.4-rc1</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.3-rc1">v0.1.3-rc1</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.7">v0.1.7</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.6">v0.1.6</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.5">v0.1.5</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.4">v0.1.4</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.3">v0.1.3</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.2">v0.1.2</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.1">v0.1.1</a> </div></li>
-<!-- end dropdown for versions -->
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-reports">Reports</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-reports">
@@ -155,47 +136,47 @@ closed on the right (and open on the left).</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">cut_by_group</span><span class="op">(</span><span class="va">data</span>, <span class="st">"AVAL"</span>, <span class="st">"PARAM"</span>, <span class="va">group</span>, <span class="st">"my_new_categories"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    SUBJECT  PARAM        AVAL index my_new_categories</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        a Height 171.2449820     1              &gt;170</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        b Height 144.9365523     2             =&lt;150</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3        c Height 156.6227783     3           150-170</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        d Height 186.1362709     4              &gt;170</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5        e Height 186.5747717     5              &gt;170</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6        f Height 166.8138127     6           150-170</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7        g Height 161.8446966     7           150-170</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8        h Height 182.0629265     8              &gt;170</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9        i Height 141.5610914     9             =&lt;150</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10       j Height 146.3797716    10             =&lt;150</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11       a Weight  68.4522184    11               &gt;65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12       b Weight  59.4724469    12              =&lt;65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13       c Weight  61.5275735    13              =&lt;65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14       d Weight  72.2954882    14               &gt;65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15       e Weight  69.6502577    15               &gt;65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16       f Weight  58.4420609    16              =&lt;65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17       g Weight  74.0323068    17               &gt;65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18       h Weight  60.6198748    18              =&lt;65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19       i Weight  70.9129424    19               &gt;65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20       j Weight  67.3661790    20               &gt;65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21       a    Age  38.0617261    21               &gt;31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22       b    Age  21.4234117    22              =&lt;31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23       c    Age  39.7352081    23               &gt;31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24       d    Age  54.4632369    24               &gt;31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25       e    Age  52.2894755    25               &gt;31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26       f    Age  18.6198836    26              =&lt;31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27       g    Age  26.0106636    27              =&lt;31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28       h    Age  41.8588447    28               &gt;31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29       i    Age  35.9092864    29               &gt;31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30       j    Age  55.5696171    30               &gt;31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31       a  other   0.1418427    31              &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32       b  other  -0.1042668    32              &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33       c  other  -0.3961751    33              &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34       d  other   0.2457088    34              &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35       e  other   0.1792574    35              &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36       f  other  -0.7873978    36              &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37       g  other   1.1228417    37              &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38       h  other   1.3331824    38              &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39       i  other  -0.1111142    39              &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40       j  other  -2.1892309    40              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    SUBJECT  PARAM         AVAL index my_new_categories</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        a Height 143.99934725     1             =&lt;150</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        b Height 168.82975582     2           150-170</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        c Height 128.44104583     3             =&lt;150</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4        d Height 164.91643070     4           150-170</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5        e Height 174.32329082     5              &gt;170</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6        f Height 182.22617409     6              &gt;170</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7        g Height 137.67273509     7             =&lt;150</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8        h Height 161.29012047     8           150-170</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9        i Height 161.33700590     9           150-170</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10       j Height 160.75941827    10           150-170</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11       a Weight  62.23150308    11              =&lt;65</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12       b Weight  68.14491021    12               &gt;65</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13       c Weight  75.32512448    13               &gt;65</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14       d Weight  56.84505299    14              =&lt;65</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15       e Weight  67.56213475    15               &gt;65</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16       f Weight  55.68494254    16              =&lt;65</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17       g Weight  62.38993743    17              =&lt;65</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18       h Weight  64.73699045    18              =&lt;65</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19       i Weight  67.71498171    19               &gt;65</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20       j Weight  60.42962586    20              =&lt;65</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21       a    Age  49.96765713    21               &gt;31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22       b    Age  41.44574370    22               &gt;31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23       c    Age  48.15892938    23               &gt;31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24       d    Age  49.03336441    24               &gt;31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25       e    Age  22.51313543    25              =&lt;31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26       f    Age  53.98320771    26               &gt;31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27       g    Age  54.17471580    27               &gt;31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28       h    Age  64.56347868    28               &gt;31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29       i    Age  63.61448244    29               &gt;31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30       j    Age  36.29158975    30               &gt;31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31       a  other  -0.09744510    31              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32       b  other  -0.93584735    32              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33       c  other  -0.01595031    33              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34       d  other  -0.82678895    34              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35       e  other  -1.51239965    35              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36       f  other   0.93536319    36              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37       g  other   0.17648861    37              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38       h  other   0.24368546    38              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39       i  other   1.62354888    39              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40       j  other   0.11203808    40              &lt;NA&gt;</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
