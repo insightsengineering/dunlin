@@ -9,6 +9,9 @@ remove_whisker(x)
 \arguments{
 \item{x}{Named (\code{character}) input.}
 }
+\value{
+invisible \code{NULL}. Removes \code{x} from the whisker environment.
+}
 \description{
 Remove whisker values
 }

@@ -11,8 +11,10 @@
 #' @param continuous_suffix (`string`) the suffixes to add to the newly generated columns containing continuous values.
 #' @param categorical_suffix (`string`) the suffixes to add to the newly generated columns containing categorical
 #'   values.
+#' @param drop_na (`logical`) whether resulting columns containing only `NAs` should be dropped.
+#' @param drop_lvl (`logical`) should missing levels be dropped in the resulting columns.
 #'
-#' @return a `list` of `data.frame` with new columns in the `adsl` table.
+#' @returns a `list` of `data.frame` with new columns in the `adsl` table.
 #'
 #' @rdname join_adsub_adsl
 #' @export
@@ -22,7 +24,9 @@ join_adsub_adsl <- function(adam_db,
                             continuous_var,
                             categorical_var,
                             continuous_suffix,
-                            categorical_suffix) {
+                            categorical_suffix,
+                            drop_na = TRUE,
+                            drop_lvl = TRUE) {
   UseMethod("join_adsub_adsl")
 }
 
@@ -54,13 +58,22 @@ join_adsub_adsl.list <- function(adam_db,
                                  continuous_var = "all",
                                  categorical_var = "all",
                                  continuous_suffix = "",
-                                 categorical_suffix = "_CAT") {
+                                 categorical_suffix = "_CAT",
+                                 drop_na = TRUE,
+                                 drop_lvl = FALSE) {
   checkmate::assert_list(adam_db, types = "data.frame")
   checkmate::assert_names(names(adam_db), must.include = c("adsl", "adsub"))
   checkmate::assert_names(names(adam_db$adsub), must.include = c("PARAM", "PARAMCD", "AVAL", "AVALC", keys))
   checkmate::assert_names(names(adam_db$adsl), must.include = keys)
+  checkmate::assert_numeric(adam_db$adsub$AVAL)
+  checkmate::assert_multi_class(adam_db$adsub$AVALC, c("character", "factor"))
   checkmate::assert_string(continuous_suffix)
   checkmate::assert_string(categorical_suffix)
+  checkmate::assert_flag(drop_na)
+  checkmate::assert_flag(drop_lvl)
+
+  # Empty strings in AVALC are treated as NA.
+  adam_db$adsub$AVALC[adam_db$adsub$AVALC == ""] <- NA
 
   value_col <- c("AVAL", "AVALC")
   vars_ls <- list(continuous_var, categorical_var)
@@ -99,13 +112,40 @@ join_adsub_adsl.list <- function(adam_db,
   # Pivot and keep labels.
   adsub_wide_ls <-
     adam_db$adsub %>%
-    poly_pivot_wider(id = keys, param_from = "PARAMCD", value_from = value_col, labels_from = "PARAM")
+    poly_pivot_wider(
+      id = keys,
+      param_from = "PARAMCD",
+      value_from = value_col,
+      labels_from = "PARAM",
+      drop_na = drop_na,
+      drop_lvl = drop_lvl
+    )
 
   # Merge categorical and continuous variables.
   for (i in seq_along(value_col)) {
     adsub_df <- adsub_wide_ls[[value_col[i]]]
-    adsub_df <- adsub_df[, c(keys, vars_nam[[i]])]
-    colnames(adsub_df) <- c(keys, names(vars_nam[[i]]))
+
+    # Warning if some columns are entirely NA, hence discarded.
+    not_cols <- setdiff(vars_nam[[i]], colnames(adsub_df))
+    if (length(not_cols) > 0) {
+      type <- ifelse(value_col[i] == "AVALC", "Categorical", "Continuous")
+      arg_type <- ifelse(value_col[i] == "AVALC", "categorical_var", "continuous_var")
+      warning(
+        sprintf(
+          "Dropping %s for %s type, No data available. Adjust `%s` argument to silence this warning or set `drop_na = FALSE`", # nolint
+          toString(not_cols),
+          type,
+          arg_type
+        )
+      )
+    }
+
+    # Preserving names.
+    common_cols_id <- c(vars_nam[[i]]) %in% colnames(adsub_df)
+    common_cols <- vars_nam[[i]][common_cols_id]
+
+    adsub_df <- adsub_df[, c(keys, as.character(common_cols)), drop = FALSE]
+    colnames(adsub_df) <- c(keys, names(common_cols))
 
     adam_db$adsl <- dplyr::left_join(
       x = adam_db$adsl,
@@ -142,7 +182,7 @@ assert_names_notadsl <- function(vars_nam, df) {
       paste(
         toString(final_names[already_in_adsl]),
         "already exist in adsl, the name will default to another values.
-Please change `continuous_suffix` or `categorical_suffix` to avoid automatic reneaming"
+Please change `continuous_suffix` or `categorical_suffix` to avoid automatic renaming"
       )
     )
   }

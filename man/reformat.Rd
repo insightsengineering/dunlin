@@ -19,7 +19,7 @@ reformat(obj, ...)
 \method{reformat}{list}(obj, format, ...)
 }
 \arguments{
-\item{obj}{object to reformat.}
+\item{obj}{(\code{character}, \code{factor} or \verb{list of data.frame}) to reformat.}
 
 \item{...}{for compatibility between methods and pass additional special mapping to transform rules.
 \itemize{
@@ -33,6 +33,9 @@ the rule.
 
 \item{format}{(\code{rule}) or (\code{list}) of \code{rule} depending on the class of obj.}
 }
+\value{
+(\code{character}, \code{factor} or \verb{list of data.frame}) with remapped values.
+}
 \description{
 Reformat Values
 }
@@ -43,6 +46,9 @@ declared in \code{.to_NA} to \code{NA} values occurs after the remapping. \code{
 rule declaring a remapping of \code{NA} values. For factors, level dropping is the last step, hence, levels converted to
 \code{NA} by the \code{.to_NA} argument, will be removed if \code{.drop} is \code{TRUE}. Arguments passed via \code{reformat} override the
 ones defined during rule creation.
+
+the variables listed under the \code{all_dataset} keyword will be reformatted with the corresponding rule in every
+data set except where another rule is specified for the same variable under a specific data set name.
 }
 \examples{
 
@@ -83,6 +89,9 @@ format <- list(
   ),
   df2 = list(
     var2 = rule("f11" = "F11", "NN" = NA)
+  ),
+  all_datasets = list(
+    var1 = rule("xx" = "x", "aa" = "a")
   )
 )
 

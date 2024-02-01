@@ -1,9 +1,9 @@
 #' Filter Data with Log
-#' @param data (`data.frame`) input data to subset, or named (`list`) of (`data.frame`).
+#' @param data (`data.frame`) input data to subset, or named (`list` of `data.frame`).
 #' @param condition (`call`) of subset condition. Must evaluate as logical.
 #' @param suffix (`string`) optional argument describing the filter.
 #' @param ... further arguments to be passed to or from other methods.
-#'
+#' @returns a `data.frame` or `list` of `data.frame` filtered for the provided conditions.
 #' @details
 #' `log_filter` will filter the data/named list of data according to the `condition`.
 #' All the variables in `condition` must exist in the data (as variables) or in the parent
@@ -50,7 +50,7 @@ log_filter.data.frame <- function(data, condition, suffix = NULL, ...) {
 #' log_filter(list(iris = iris), Sepal.Length >= 7, "iris", character(0))
 log_filter.list <- function(data, condition, table, by = c("USUBJID", "STUDYID"), suffix = NULL, ...) {
   checkmate::assert_list(data, types = "data.frame", names = "unique")
-  checkmate::assert_subset(table, names(data))
+  assert_all_tablenames(data, table)
   checkmate::assert_names(colnames(data[[table]]), must.include = by)
   condition <- match.call()$condition
   data[[table]] <- eval(bquote(log_filter(data[[table]], .(condition), .(suffix))))
@@ -80,6 +80,7 @@ log_filter.list <- function(data, condition, table, by = c("USUBJID", "STUDYID")
 #' @param data (`list` of `data.frame` or `data.frame`) filtered with `log_filter`.
 #' @param incl (`flag`) should information about unfiltered `data.frame` be printed.
 #' @param incl.adsl (`flag`) should indication  of filtering performed through `adsl` be printed.
+#' @returns `character` or `list of character` describing the filtering applied to `data`.
 #'
 #' @export
 get_log <- function(data, incl, incl.adsl) {
@@ -141,6 +142,7 @@ get_log.list <- function(data, incl = TRUE, incl.adsl = TRUE) {
 #' Print Log
 #'
 #' @inheritParams get_log
+#' @returns `NULL`. Print a description of the filtering applied to `data`.
 #' @export
 #'
 print_log <- function(data, incl, incl.adsl) {

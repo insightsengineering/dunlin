@@ -19,6 +19,9 @@ print_log(data, incl, incl.adsl)
 
 \item{incl.adsl}{(\code{flag}) should indication  of filtering performed through \code{adsl} be printed.}
 }
+\value{
+\code{NULL}. Print a description of the filtering applied to \code{data}.
+}
 \description{
 Print Log
 }

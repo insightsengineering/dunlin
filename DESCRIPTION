@@ -1,15 +1,20 @@
 Package: dunlin
 Title: Preprocessing Tools for Clinical Trial Data
-Version: 0.1.5.9000
-Date: 2023-10-05
+Version: 0.1.7.9001
+Date: 2024-02-01
 Authors@R: c(
-    person("Benoit", "Falquet", , "benoit.falquet@roche.com", role = c("aut", "cre")),
-    person("Liming", "Li", , "liming.li@roche.com", role = "aut"),
+    person("Liming", "Li", , "liming.li@roche.com", role = c("aut", "cre")),
+    person("Benoit", "Falquet", , "benoit.falquet@roche.com", role = "aut"),
+    person("Xiaoli", "Duan", , "xiaoli.duan@roche.com", role = "ctb"),
+    person("Pawel", "Rucki", , "pawel.rucki@roche.com", role = "ctb"),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
   )
 Description: A collection of functions to preprocess data and organize
     them in a format amenable to use by chevron.
-License: Apache License 2.0 | file LICENSE
+License: Apache License 2.0
+URL: https://insightsengineering.github.io/dunlin/,
+    https://github.com/insightsengineering/dunlin/
+BugReports: https://github.com/insightsengineering/dunlin/issues
 Depends:
     R (>= 4.0.0)
 Imports:
@@ -40,7 +45,7 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Collate:
     'assertions.R'
     'co_relevels.R'

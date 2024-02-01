@@ -1,5 +1,5 @@
 #' Reformat Values
-#' @param obj object to reformat.
+#' @param obj (`character`, `factor` or `list of data.frame`) to reformat.
 #' @param format (`rule`) or (`list`) of `rule` depending on the class of obj.
 #' @param ... for compatibility between methods and pass additional special mapping to transform rules.
 #' * `.string_as_fct` (`flag`) whether the reformatted character object should be converted to factor.
@@ -8,6 +8,7 @@
 #' * `.drop` (`flag`) whether to drop empty levels. If `NULL`, the argument will be taken from the `drop`attribute of
 #'   the rule.
 #' * `.na_last` (`flag`) whether the level replacing `NA` should be last.
+#' @returns (`character`, `factor` or `list of data.frame`) with remapped values.
 #'
 #' @export
 #' @note When the rule is empty rule or when values subject to reformatting are absent from the object, no error is
@@ -122,6 +123,9 @@ reformat.factor <- function(obj, format, ...) {
 #' @export
 #' @rdname reformat
 #'
+#' @note the variables listed under the `all_dataset` keyword will be reformatted with the corresponding rule in every
+#'   data set except where another rule is specified for the same variable under a specific data set name.
+#'
 #' @examples
 #'
 #' # Reformatting of list of data.frame.
@@ -143,6 +147,9 @@ reformat.factor <- function(obj, format, ...) {
 #'   ),
 #'   df2 = list(
 #'     var2 = rule("f11" = "F11", "NN" = NA)
+#'   ),
+#'   all_datasets = list(
+#'     var1 = rule("xx" = "x", "aa" = "a")
 #'   )
 #' )
 #'
@@ -158,7 +165,10 @@ reformat.list <- function(obj, format, ...) {
 
   assert_valid_format(format)
 
-  for (tab in names(format)) {
+  ls_datasets <- names(obj)
+  format <- h_expand_all_datasets(format, ls_datasets)
+
+  for (tab in ls_datasets) {
     local_map <- format[[tab]]
     local_map <- local_map[names(local_map) %in% names(obj[[tab]])]
 
@@ -171,4 +181,31 @@ reformat.list <- function(obj, format, ...) {
   }
 
   obj
+}
+
+#' Propagate the rules for all datasets
+#'
+#' @inheritParams reformat
+#' @param ls_datasets (`character`) the name of all datasets in the object to reformat.
+#' @returns a nested `list` attributing a rule to be applied to specific variables of specific datasets.
+#'
+#' @details the rules described  under `all_datasets` are propagated to all datasets for the corresponding variables
+#'   except in datasets where a rule is already attributed to the same variable.
+#'
+#' @keywords internal
+h_expand_all_datasets <- function(format_list, ls_datasets = NULL) {
+  assert_valid_list_format(list(f = format_list))
+  checkmate::assert_character(ls_datasets, null.ok = TRUE)
+
+  spec_datasets <- format_list[setdiff(names(format_list), "all_datasets")]
+
+  if (!is.null(ls_datasets)) {
+    to_all_datasets <- list()
+    to_all_datasets[ls_datasets] <- format_list["all_datasets"]
+    to_all_datasets <- base::Filter(function(x) !is.null(x), to_all_datasets)
+
+    modifyList(to_all_datasets, spec_datasets)
+  } else {
+    spec_datasets
+  }
 }

@@ -8,16 +8,27 @@
 \description{
 A collection of functions to preprocess data and organize them in a format amenable to use by chevron.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://insightsengineering.github.io/dunlin/}
+  \item \url{https://github.com/insightsengineering/dunlin/}
+  \item Report bugs at \url{https://github.com/insightsengineering/dunlin/issues}
+}
+
+}
 \author{
-\strong{Maintainer}: Benoit Falquet \email{benoit.falquet@roche.com}
+\strong{Maintainer}: Liming Li \email{liming.li@roche.com}
 
 Authors:
 \itemize{
-  \item Liming Li \email{liming.li@roche.com}
+  \item Benoit Falquet \email{benoit.falquet@roche.com}
 }
 
 Other contributors:
 \itemize{
+  \item Xiaoli Duan \email{xiaoli.duan@roche.com} [contributor]
+  \item Pawel Rucki \email{pawel.rucki@roche.com} [contributor]
   \item F. Hoffmann-La Roche AG [copyright holder, funder]
 }
 

@@ -28,6 +28,9 @@ its values are original values.}
 \item{.to_NA}{(\code{character}) values that should be converted to \code{NA}. Set to \code{NULL} if nothing should be converted to
 \code{NA}.}
 }
+\value{
+a \code{rule} object.
+}
 \description{
 Create rule based on mappings
 }

@@ -9,6 +9,15 @@ render_safe(x)
 \arguments{
 \item{x}{(\code{character}) input to be rendered safely.}
 }
+\value{
+\code{character} with substituted placeholders.
+}
 \description{
 Render whiskers safely
+}
+\note{
+The strings enclosed in \code{{}} are substituted using the key-values pairs set with \code{add_whiskers}.
+}
+\examples{
+render_safe("Name of {Patient_label}")
 }

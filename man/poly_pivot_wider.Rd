@@ -4,7 +4,15 @@
 \alias{poly_pivot_wider}
 \title{Transforming data.frame with multiple Data Column into Wide Format}
 \usage{
-poly_pivot_wider(data, id, param_from, value_from, labels_from = NULL)
+poly_pivot_wider(
+  data,
+  id,
+  param_from,
+  value_from,
+  labels_from = NULL,
+  drop_na = TRUE,
+  drop_lvl = FALSE
+)
 }
 \arguments{
 \item{data}{(\code{data.frame}) to be pivoted.}
@@ -19,6 +27,10 @@ unique values in this column will become column names in the output.}
 \item{labels_from}{(\code{character}) the name of the column congaing the labels of the new columns. from. If not
 provided, the labels will be equal to the column names. When several labels are available for the same column, the
 first one will be selected.}
+
+\item{drop_na}{(\code{logical}) should column containing only \code{NAs} be dropped.}
+
+\item{drop_lvl}{(\code{logical}) should missing levels be dropped in the columns coming from \code{value_from}.}
 }
 \value{
 \code{list} of \code{data.frame} in a wide format with label attribute attached to each columns.
