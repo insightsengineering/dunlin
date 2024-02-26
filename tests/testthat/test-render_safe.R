@@ -23,9 +23,9 @@ test_that("add_whisker and remove_whisker works", {
 # render_safe ----
 
 test_that("render_safe works", {
-  expect_identical(render_safe("patient label is {Patient_label}"), "patient label is Patients")
-  expect_identical(render_safe("patient label is {patient_label}"), "patient label is patients")
-  expect_identical(render_safe("patient label is {PATIENT_LABEL}"), "patient label is PATIENTS")
+  expect_identical(render_safe("patient label is {Patients_label}"), "patient label is Patients")
+  expect_identical(render_safe("patient label is {patients_label}"), "patient label is patients")
+  expect_identical(render_safe("patient label is {PATIENTS_LABEL}"), "patient label is PATIENTS")
   expect_identical(render_safe("patient label is {misspell}"), "patient label is misspell")
 })
 
