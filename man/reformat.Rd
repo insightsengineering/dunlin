@@ -51,7 +51,6 @@ the variables listed under the \code{all_dataset} keyword will be reformatted wi
 data set except where another rule is specified for the same variable under a specific data set name.
 }
 \examples{
-
 # Reformatting of character.
 obj <- c("a", "b", "x", NA, "")
 attr(obj, "label") <- "my label"
@@ -60,7 +59,6 @@ format <- rule("A" = "a", "NN" = NA)
 reformat(obj, format)
 reformat(obj, format, .string_as_fct = FALSE, .to_NA = NULL)
 
-
 # Reformatting of factor.
 obj <- factor(c("first", "a", "aa", "b", "x", NA), levels = c("first", "x", "b", "aa", "a", "z"))
 attr(obj, "label") <- "my label"
@@ -68,7 +66,6 @@ format <- rule("A" = c("a", "aa"), "NN" = c(NA, "x"), "Not_present" = "z", "Not_
 
 reformat(obj, format)
 reformat(obj, format, .na_last = FALSE, .to_NA = "b", .drop = FALSE)
-
 
 # Reformatting of list of data.frame.
 df1 <- data.frame(

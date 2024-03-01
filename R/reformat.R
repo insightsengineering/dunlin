@@ -35,7 +35,6 @@ reformat.default <- function(obj, format, ...) {
 #' @rdname reformat
 #'
 #' @examples
-#'
 #' # Reformatting of character.
 #' obj <- c("a", "b", "x", NA, "")
 #' attr(obj, "label") <- "my label"
@@ -76,7 +75,6 @@ reformat.character <- function(obj, format, ...) {
 #' @rdname reformat
 #'
 #' @examples
-#'
 #' # Reformatting of factor.
 #' obj <- factor(c("first", "a", "aa", "b", "x", NA), levels = c("first", "x", "b", "aa", "a", "z"))
 #' attr(obj, "label") <- "my label"
@@ -127,7 +125,6 @@ reformat.factor <- function(obj, format, ...) {
 #'   data set except where another rule is specified for the same variable under a specific data set name.
 #'
 #' @examples
-#'
 #' # Reformatting of list of data.frame.
 #' df1 <- data.frame(
 #'   var1 = c("a", "b", NA),

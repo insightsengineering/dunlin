@@ -21,7 +21,7 @@ assert_valid_format <- function(object) {
   coll <- checkmate::makeAssertCollection()
 
   # Check object.
-  checkmate::assert_list(object, names = "unique", type = "list", add = coll)
+  checkmate::assert_list(object, names = "unique", types = "list", add = coll)
 
   # Check table level.
   mapply(
@@ -65,7 +65,7 @@ assert_valid_list_format <- function(object) {
   coll <- checkmate::makeAssertCollection()
 
   # Check object.
-  checkmate::assert_list(object, names = "unique", type = "list", add = coll)
+  checkmate::assert_list(object, names = "unique", types = "list", add = coll)
 
   # Check table level.
   mapply(
@@ -92,7 +92,7 @@ assert_valid_list_format <- function(object) {
           checkmate::assert_list(
             x,
             names = "unique",
-            type = c("character", "numeric", "logical"),
+            types = c("character", "numeric", "logical"),
             .var.name = paste0("[", xtable, ".", xvar, "]"),
             add = coll
           )

@@ -27,7 +27,7 @@ This is performed in two steps:
 
 1. A Reformatting Map (`rule` object) is created which specifies the correspondence between the old and the new values
 
-2. The reformatting itself is performed with the `dunlin::reformat()` function.
+2. The reformatting itself is performed with the `reformat()` function.
 
 ## The Formatting Map Structure
 

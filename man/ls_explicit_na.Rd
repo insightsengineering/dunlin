@@ -34,7 +34,6 @@ This is a helper function to encode missing values (i.e \code{NA} and \verb{empt
 \code{factor} variable found in a \code{list} of \code{data.frame}. The \code{label} attribute of the columns is preserved.
 }
 \examples{
-
 df1 <- data.frame(
   "char" = c("a", "b", NA, "a", "k", "x"),
   "char2" = c("A", "B", NA, "A", "K", "X"),

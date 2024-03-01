@@ -71,7 +71,7 @@ pak::pak("insightsengineering/dunlin")
   4    a <NA>   d
   5    k   f1   e
   6    x   f1   f
-  
+
   $df2
       id  id2 num val
   1    a   f1   1   a
@@ -90,7 +90,7 @@ pak::pak("insightsengineering/dunlin")
     )
   )
 
-  res <- dunlin::reformat(prop_db, new_format, .na_last = TRUE)
+  res <- reformat(prop_db, new_format, .na_last = TRUE)
 
   ```
 
@@ -105,7 +105,7 @@ pak::pak("insightsengineering/dunlin")
   4               a <Missing>   d
   5               k        f1   e
   6               x        f1   f
-  
+
   $df2
       id  id2 num val
   1    a   f1   1   a

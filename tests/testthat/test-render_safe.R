@@ -15,8 +15,8 @@ test_that("add_whisker and remove_whisker works", {
   expect_identical(get("a", envir = whisker_env), c(a = "1"))
   expect_identical(get("b", envir = whisker_env), c(b = "2"))
   remove_whisker(c("a", "b"))
-  expect_false(exists("a", envir = whisker_env, inherit = FALSE))
-  expect_false(exists("b", envir = whisker_env, inherit = FALSE))
+  expect_false(exists("a", envir = whisker_env, inherits = FALSE))
+  expect_false(exists("b", envir = whisker_env, inherits = FALSE))
   expect_error(add_whisker(c(a = "1", b = list())))
 })
 

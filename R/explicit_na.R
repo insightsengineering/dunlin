@@ -12,7 +12,6 @@
 #' @export
 #'
 #' @examples
-#'
 #' df1 <- data.frame(
 #'   "char" = c("a", "b", NA, "a", "k", "x"),
 #'   "char2" = c("A", "B", NA, "A", "K", "X"),
