@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   Reformatting: Reformatting.html
-last_built: 2024-02-01T11:24Z
+last_built: 2024-03-01T12:45Z
 urls:
   reference: https://insightsengineering.github.io/dunlin/reference
   article: https://insightsengineering.github.io/dunlin/articles
