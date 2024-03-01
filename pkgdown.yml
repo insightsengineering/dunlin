@@ -1,0 +1,10 @@
+pandoc: 3.1.1
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles:
+  Reformatting: Reformatting.html
+last_built: 2023-12-14T23:26Z
+urls:
+  reference: https://insightsengineering.github.io/dunlin/latest-tag/reference
+  article: https://insightsengineering.github.io/dunlin/latest-tag/articles
+
