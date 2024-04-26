@@ -13,6 +13,6 @@ SECURITY.md
 LICENSE
 data-raw/*
 ^pkgdown$
-^revdeprefs\.yaml$
+^.revdeprefs\.yaml$
 ^revdep$
 ^\.covrignore$
