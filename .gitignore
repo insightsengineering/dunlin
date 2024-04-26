@@ -10,3 +10,5 @@ temp
 *.bak
 .Renviron
 .Rprofile
+tests/testthat/_snaps/**/*.new.md
+tests/testthat/_snaps/**/*.new.svg
