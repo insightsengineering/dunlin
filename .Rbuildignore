@@ -13,3 +13,5 @@ SECURITY.md
 LICENSE
 data-raw/*
 ^pkgdown$
+^revdeprefs\.yaml$
+^revdep$
