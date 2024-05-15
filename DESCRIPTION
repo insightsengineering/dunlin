@@ -30,7 +30,7 @@ Imports:
     yaml (>= 2.1.15)
 Suggests:
     knitr (>= 1.42),
-    rmarkdown (>= 2.19),
+    rmarkdown (>= 2.23),
     testthat (>= 3.0.4),
     withr (>= 2.1.0)
 VignetteBuilder:
