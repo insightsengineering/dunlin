@@ -8,6 +8,7 @@
 #' * `.drop` (`flag`) whether to drop empty levels. If `NULL`, the argument will be taken from the `drop`attribute of
 #'   the rule.
 #' * `.na_last` (`flag`) whether the level replacing `NA` should be last.
+#' @param verbose (`flag`) whether to print the format.
 #' @returns (`character`, `factor` or `list of data.frame`) with remapped values.
 #'
 #' @export
@@ -43,12 +44,16 @@ reformat.default <- function(obj, format, ...) {
 #' reformat(obj, format)
 #' reformat(obj, format, .string_as_fct = FALSE, .to_NA = NULL)
 #'
-reformat.character <- function(obj, format, ...) {
+reformat.character <- function(obj, format, ..., verbose = FALSE) {
   checkmate::assert_class(format, "rule")
+  checkmate::assert_flag(verbose)
 
   # Give priority to argument defined in reformat.
   format <- do.call(rule, modifyList(as.list(format), list(...), keep.null = TRUE))
-
+  if (verbose) {
+    print(format)
+  }
+  
   if (attr(format, ".string_as_fct")) {
     # Keep attributes.
     att <- attributes(obj)
@@ -83,10 +88,14 @@ reformat.character <- function(obj, format, ...) {
 #' reformat(obj, format)
 #' reformat(obj, format, .na_last = FALSE, .to_NA = "b", .drop = FALSE)
 #'
-reformat.factor <- function(obj, format, ...) {
+reformat.factor <- function(obj, format, ..., verbose = FALSE) {
   checkmate::assert_class(format, "rule")
+  checkmate::assert_flag(verbose)
 
   format <- do.call(rule, modifyList(as.list(format), list(...), keep.null = TRUE))
+  if (verbose) {
+    print(format)
+  }
 
   any_na <- anyNA(obj)
   if (any(is.na(format)) && any_na) {
@@ -151,10 +160,11 @@ reformat.factor <- function(obj, format, ...) {
 #' )
 #'
 #' reformat(db, format)
-reformat.list <- function(obj, format, ...) {
+reformat.list <- function(obj, format, ..., verbose = FALSE) {
   checkmate::assert_list(obj, types = c("data.frame", "tibble"))
   checkmate::assert_named(obj)
   checkmate::assert_list(format, names = "unique", types = "list", null.ok = TRUE)
+  checkmate::assert_flag(verbose)
 
   if (length(format) == 0) {
     return(obj)
@@ -164,6 +174,17 @@ reformat.list <- function(obj, format, ...) {
 
   ls_datasets <- names(obj)
   format <- h_expand_all_datasets(format, ls_datasets)
+  
+  if (verbose) {
+    for (tb in names(format)) {
+      for (cl in names(format[[tb]])) {
+        
+        cat(sprintf("\nTable %s, column %s:\n", tb, cl))
+        print(format[[tb]][[cl]])
+      }
+    }
+    cat("\n")
+  }
 
   for (tab in ls_datasets) {
     local_map <- format[[tab]]
@@ -186,8 +207,8 @@ reformat.list <- function(obj, format, ...) {
 #' @param ls_datasets (`character`) the name of all datasets in the object to reformat.
 #' @returns a nested `list` attributing a rule to be applied to specific variables of specific datasets.
 #'
-#' @details the rules described  under `all_datasets` are propagated to all datasets for the corresponding variables
-#'   except in datasets where a rule is already attributed to the same variable.
+#' @details the rules described  under `all_datasets` are propagated to all data sets for the corresponding variables
+#'   except in data sets where a rule is already attributed to the same variable.
 #'
 #' @keywords internal
 h_expand_all_datasets <- function(format_list, ls_datasets = NULL) {

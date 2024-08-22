@@ -16,6 +16,7 @@ log_filter(data, condition, ...)
   table,
   by = c("USUBJID", "STUDYID"),
   suffix = NULL,
+  verbose = FALSE,
   ...
 )
 }
@@ -31,6 +32,8 @@ log_filter(data, condition, ...)
 \item{table}{(\code{string}) table name.}
 
 \item{by}{(\code{character}) variable names shared by \code{adsl} and other datasets for filtering.}
+
+\item{verbose}{(\code{flag}) whether to print a report about the filtering.}
 }
 \value{
 a \code{data.frame} or \code{list} of \code{data.frame} filtered for the provided conditions.

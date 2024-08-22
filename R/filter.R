@@ -45,10 +45,11 @@ log_filter.data.frame <- function(data, condition, suffix = NULL, ...) {
 #' @rdname log_filter
 #' @param table (`string`) table name.
 #' @param by (`character`) variable names shared by `adsl` and other datasets for filtering.
+#' @param verbose (`flag`) whether to print a report about the filtering. 
 #' @export
 #' @examples
 #' log_filter(list(iris = iris), Sepal.Length >= 7, "iris", character(0))
-log_filter.list <- function(data, condition, table, by = c("USUBJID", "STUDYID"), suffix = NULL, ...) {
+log_filter.list <- function(data, condition, table, by = c("USUBJID", "STUDYID"), suffix = NULL, verbose = FALSE, ...) {
   checkmate::assert_list(data, types = "data.frame", names = "unique")
   assert_all_tablenames(data, table)
   checkmate::assert_names(colnames(data[[table]]), must.include = by)
@@ -70,6 +71,11 @@ log_filter.list <- function(data, condition, table, by = c("USUBJID", "STUDYID")
       }
     }
   }
+  
+  if (verbose) {
+    print_log(data, incl = FALSE, incl.adsl = TRUE)
+  }
+  
   return(data)
 }
 
