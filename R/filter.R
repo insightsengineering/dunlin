@@ -45,7 +45,7 @@ log_filter.data.frame <- function(data, condition, suffix = NULL, ...) {
 #' @rdname log_filter
 #' @param table (`string`) table name.
 #' @param by (`character`) variable names shared by `adsl` and other datasets for filtering.
-#' @param verbose (`flag`) whether to print a report about the filtering. 
+#' @param verbose (`flag`) whether to print a report about the filtering.
 #' @export
 #' @examples
 #' log_filter(list(iris = iris), Sepal.Length >= 7, "iris", character(0))
@@ -71,11 +71,11 @@ log_filter.list <- function(data, condition, table, by = c("USUBJID", "STUDYID")
       }
     }
   }
-  
+
   if (verbose) {
     print_log(data, incl = FALSE, incl.adsl = TRUE)
   }
-  
+
   return(data)
 }
 

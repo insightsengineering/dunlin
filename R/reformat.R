@@ -53,7 +53,7 @@ reformat.character <- function(obj, format, ..., verbose = FALSE) {
   if (verbose) {
     print(format)
   }
-  
+
   if (attr(format, ".string_as_fct")) {
     # Keep attributes.
     att <- attributes(obj)
@@ -174,11 +174,10 @@ reformat.list <- function(obj, format, ..., verbose = FALSE) {
 
   ls_datasets <- names(obj)
   format <- h_expand_all_datasets(format, ls_datasets)
-  
+
   if (verbose) {
     for (tb in names(format)) {
       for (cl in names(format[[tb]])) {
-        
         cat(sprintf("\nTable %s, column %s:\n", tb, cl))
         print(format[[tb]][[cl]])
       }
