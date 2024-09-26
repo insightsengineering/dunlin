@@ -38,3 +38,41 @@ attr_label_df <- function(df, label) {
   res <- mapply(attr_label, var = df, label = as.list(label), SIMPLIFY = FALSE)
   as.data.frame(res)
 }
+
+#' Getting Argument From System, Option or Default
+#'
+#' @param opt (`string`) the name of an option.
+#' @param sys (`string`) the name of an environment variable.
+#' @param default value to return if neither the environment variable nor the option are set.
+#' @param split (`string`) the pattern used to split the values obtained using environment variable.
+#'
+#' @returns if defined, the value of the option (`opt`), a `character` from the environment variable (`sys`) or the
+#'   `default` in this order of priority.
+#'
+#' @export
+#' @examplesIf require("withr")
+#' get_arg("my.option", "MY_ARG", "default")
+#' withr::with_envvar(c(MY_ARG = "x;y"), get_arg("my.option", "MY_ARG", "default"))
+#' withr::with_options(c(my.option = "y"), get_arg("my.option", "MY_ARG", "default"))
+get_arg <- function(opt = NULL, sys = NULL, default = NULL, split = ";") {
+  assert_string(sys, null.ok = TRUE)
+  assert_string(opt, null.ok = TRUE)
+  assert_string(split)
+
+  if (!is.null(opt)) {
+    val <- getOption(opt, default = "")
+    if (!identical(val, "")) {
+      return(val)
+    }
+  }
+
+  if (!is.null(sys)) {
+    val <- Sys.getenv(sys, unset = "")
+    if (!identical(val, "")) {
+      val <- stringr::str_split_1(val, split)
+      return(val)
+    }
+  }
+
+  return(default)
+}

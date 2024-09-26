@@ -46,7 +46,7 @@ reformat.default <- function(obj, format, ...) {
 #'
 reformat.character <- function(obj, format, ..., verbose = FALSE) {
   checkmate::assert_class(format, "rule")
-  checkmate::assert_flag(verbose)
+  checkmate::assert_flag(as.logical(verbose))
 
   # Give priority to argument defined in reformat.
   format <- do.call(rule, modifyList(as.list(format), list(...), keep.null = TRUE))
@@ -160,10 +160,11 @@ reformat.factor <- function(obj, format, ..., verbose = FALSE) {
 #' )
 #'
 #' reformat(db, format)
-reformat.list <- function(obj, format, ..., verbose = FALSE) {
+reformat.list <- function(obj, format, ..., verbose = get_arg("dunlin.reformat.verbose", "R_DUNLIN_REFORMAT_VERBOSE", FALSE)) {
   checkmate::assert_list(obj, types = c("data.frame", "tibble"))
   checkmate::assert_named(obj)
   checkmate::assert_list(format, names = "unique", types = "list", null.ok = TRUE)
+  verbose <- as.logical(verbose)
   checkmate::assert_flag(verbose)
 
   if (length(format) == 0) {

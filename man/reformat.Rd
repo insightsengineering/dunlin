@@ -16,7 +16,12 @@ reformat(obj, ...)
 
 \method{reformat}{factor}(obj, format, ..., verbose = FALSE)
 
-\method{reformat}{list}(obj, format, ..., verbose = FALSE)
+\method{reformat}{list}(
+  obj,
+  format,
+  ...,
+  verbose = get_arg("dunlin.reformat.verbose", "R_DUNLIN_REFORMAT_VERBOSE", FALSE)
+)
 }
 \arguments{
 \item{obj}{(\code{character}, \code{factor} or \verb{list of data.frame}) to reformat.}
