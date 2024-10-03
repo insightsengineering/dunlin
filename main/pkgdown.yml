@@ -1,9 +1,9 @@
-pandoc: '3.2'
-pkgdown: 2.1.0
+pandoc: '3.4'
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   Reformatting: Reformatting.html
-last_built: 2024-08-13T10:39Z
+last_built: 2024-10-03T17:07Z
 urls:
   reference: https://insightsengineering.github.io/dunlin/reference
   article: https://insightsengineering.github.io/dunlin/articles
