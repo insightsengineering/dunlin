@@ -73,10 +73,14 @@ test_that("log_filter.list works as expected", {
   )
 
   # Verbose argument prints the filter log.
-  out <- capture.output(res <- log_filter(df_raw, Sepal.Width >= 2, "iris", by = NULL, suffix = "Sepal filter min", verbose = TRUE))
+  out <- capture.output(
+    res <- log_filter(df_raw, Sepal.Width >= 2, "iris", by = NULL, suffix = "Sepal filter min", verbose = TRUE)
+  )
   expect_snapshot(out)
 
-  out2 <- capture.output(res2 <- log_filter(res, Sepal.Width < 4, "iris", by = NULL, suffix = "Sepal filter max", verbose = TRUE))
+  out2 <- capture.output(
+    res2 <- log_filter(res, Sepal.Width < 4, "iris", by = NULL, suffix = "Sepal filter max", verbose = TRUE)
+  )
   expect_snapshot(out2)
 })
 
