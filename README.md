@@ -24,8 +24,6 @@
 ## Installation
 
 ```r
-install.packages("dunlin", repos = c("https://insightsengineering.r-universe.dev", getOption("repos")))
-
 # install.packages("pak")
 pak::pak("insightsengineering/dunlin@*release")
 ```
@@ -33,8 +31,6 @@ pak::pak("insightsengineering/dunlin@*release")
 Alternatively, you might also use the development version.
 
 ```r
-install.packages("dunlin", repos = c("https://pharmaverse.r-universe.dev", getOption("repos")))
-
 # install.packages("pak")
 pak::pak("insightsengineering/dunlin")
 ```
