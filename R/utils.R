@@ -55,9 +55,9 @@ attr_label_df <- function(df, label) {
 #' withr::with_envvar(c(MY_ARG = "x;y"), get_arg("my.option", "MY_ARG", "default"))
 #' withr::with_options(c(my.option = "y"), get_arg("my.option", "MY_ARG", "default"))
 get_arg <- function(opt = NULL, sys = NULL, default = NULL, split = ";") {
-  assert_string(sys, null.ok = TRUE)
-  assert_string(opt, null.ok = TRUE)
-  assert_string(split)
+  checkmate::assert_string(sys, null.ok = TRUE)
+  checkmate::assert_string(opt, null.ok = TRUE)
+  checkmate::assert_string(split)
 
   if (!is.null(opt)) {
     val <- getOption(opt, default = "")
