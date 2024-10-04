@@ -160,9 +160,9 @@ reformat.factor <- function(obj, format, ..., verbose = FALSE) {
 #' )
 #'
 #' reformat(db, format)
-reformat.list <- function(obj, 
-                          format, 
-                          ..., 
+reformat.list <- function(obj,
+                          format,
+                          ...,
                           verbose = get_arg("dunlin.reformat.verbose", "R_DUNLIN_REFORMAT_VERBOSE", FALSE)) {
   checkmate::assert_list(obj, types = c("data.frame", "tibble"))
   checkmate::assert_named(obj)
