@@ -182,7 +182,7 @@ reformat.list <- function(obj,
   if (verbose) {
     for (tb in names(format)) {
       for (cl in names(format[[tb]])) {
-        cat(sprintf("\nTable %s, column %s:\n", tb, cl))
+        cat(sprintf("\nData frame `%s`, column `%s`:\n", tb, cl))
         print(format[[tb]][[cl]])
       }
     }

@@ -371,12 +371,12 @@ test_that("reformat for list works as expected when verbose is TRUE", {
   out <- capture.output(res <- reformat(db, test_map, verbose = TRUE))
   expected <- capture.output(print(test_map))[1:10]
   expected[1] <- ""
-  expected[2] <- "Table df1, column char:"
+  expected[2] <- "Data frame `df1`, column `char`:"
 
   expect_identical(out[1:10], expected)
 
   expected <- capture.output(print(test_map))[14:21]
-  expected[1] <- "Table df2, column char:"
+  expected[1] <- "Data frame `df2`, column `char`:"
   expect_identical(out[12:19], expected)
 })
 
