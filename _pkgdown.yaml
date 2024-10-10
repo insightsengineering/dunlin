@@ -39,6 +39,7 @@ reference:
       - reformat
   - title: Helper functions
     contents:
+      - get_arg
       - attr_label
       - attr_label_df
   - title: Rule and Format

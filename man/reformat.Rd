@@ -12,11 +12,16 @@ reformat(obj, ...)
 
 \method{reformat}{default}(obj, format, ...)
 
-\method{reformat}{character}(obj, format, ...)
+\method{reformat}{character}(obj, format, ..., verbose = FALSE)
 
-\method{reformat}{factor}(obj, format, ...)
+\method{reformat}{factor}(obj, format, ..., verbose = FALSE)
 
-\method{reformat}{list}(obj, format, ...)
+\method{reformat}{list}(
+  obj,
+  format,
+  ...,
+  verbose = get_arg("dunlin.reformat.verbose", "R_DUNLIN_REFORMAT_VERBOSE", FALSE)
+)
 }
 \arguments{
 \item{obj}{(\code{character}, \code{factor} or \verb{list of data.frame}) to reformat.}
@@ -32,6 +37,8 @@ the rule.
 }}
 
 \item{format}{(\code{rule}) or (\code{list}) of \code{rule} depending on the class of obj.}
+
+\item{verbose}{(\code{flag}) whether to print the format.}
 }
 \value{
 (\code{character}, \code{factor} or \verb{list of data.frame}) with remapped values.

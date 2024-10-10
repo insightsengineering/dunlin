@@ -89,6 +89,18 @@ test_that("reformat for characters works as expected when .string_as_fct is TRUE
   )
 })
 
+test_that("reformat as character works as expected with verbose = TRUE", {
+  x <- c("b", "a", "b", "", NA, "a")
+  r <- rule(x = "a", y = "", z = NA, .string_as_fct = FALSE)
+
+  out <- capture.output(
+    res <- reformat(x, r, verbose = TRUE)
+  )
+
+  expected <- capture.output(print(r))
+  expect_identical(out, expected)
+})
+
 ## reformat factor ----
 
 test_that("reformat for factors works as expected", {
@@ -188,6 +200,18 @@ test_that("reformat factor works as expected when the level doesn't exist and .n
     res,
     factor(c("x", "x", "b", "y", "z"), levels = c("x", "y", "z", "Not a level", "b"))
   )
+})
+
+test_that("reformat as factor works as expected with verbose = TRUE", {
+  x <- factor(c("a", "a", "b", "", NA), levels = c("a", "b", ""))
+  r <- rule(x = "a", y = "", z = NA, .string_as_fct = FALSE)
+
+  out <- capture.output(
+    res <- reformat(x, r, verbose = TRUE)
+  )
+
+  expected <- capture.output(print(r))
+  expect_identical(out, expected)
 })
 
 # reformat list ----
@@ -318,6 +342,42 @@ test_that("reformat for list works as does not change the data for no rules", {
 
   expect_silent(res <- reformat(db, test_map))
   expect_identical(res, db)
+})
+
+test_that("reformat for list works as expected when verbose is TRUE", {
+  df1 <- data.frame(
+    "char" = c("", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f2", "f1"))
+  )
+  df2 <- data.frame(
+    "char" = c("a", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
+    "another_char" = c("a", "b", NA, "a", "k", "x"),
+    "another_fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
+  )
+
+  db <- list(df1 = df1, df2 = df2)
+  attr(db$df1$char, "label") <- "my label"
+
+  test_map <- list(
+    df1 = list(
+      char = rule("Empty" = "", "B" = "b", "Not Available" = NA)
+    ),
+    df2 = list(
+      char = rule()
+    )
+  )
+
+  out <- capture.output(res <- reformat(db, test_map, verbose = TRUE))
+  expected <- capture.output(print(test_map))[1:10]
+  expected[1] <- ""
+  expected[2] <- "Data frame `df1`, column `char`:"
+
+  expect_identical(out[1:10], expected)
+
+  expected <- capture.output(print(test_map))[14:21]
+  expected[1] <- "Data frame `df2`, column `char`:"
+  expect_identical(out[12:19], expected)
 })
 
 # h_expand_all_datasets ----
