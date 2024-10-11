@@ -52,12 +52,16 @@ print.rule <- function(x, ...) {
   if (length(x) == 0) {
     cat("Empty mapping.\n")
   } else {
-    for (i in seq_len(length(x))) {
-      cat(nms[i], " <- ", if (length(x[[i]]) > 1) sprintf("[%s]", toString(x[[i]])) else x[[i]], "\n")
+    for (i in seq_along(x)) {
+      ori_nms <- if (length(x[[i]]) > 1) sprintf("[%s]", toString(x[[i]])) else x[[i]]
+      ori_nms <- ifelse(is.na(ori_nms), "<NA>", shQuote(ori_nms))
+      cat(nms[i], " <- ", ori_nms, "\n")
     }
   }
   .to_NA <- attr(x, ".to_NA")
-  if (!is.null(.to_NA)) cat("NA <- ", toString(.to_NA), "\n")
+  if (!is.null(.to_NA)) {
+    cat("Convert to <NA>:", toString(shQuote(.to_NA)), "\n")
+  }
   cat("Convert to factor:", attr(x, ".string_as_fct"), "\n")
   cat("Drop unused level:", attr(x, ".drop"), "\n")
   cat("NA-replacing level in last position:", attr(x, ".na_last"), "\n")

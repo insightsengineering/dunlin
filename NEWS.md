@@ -2,7 +2,8 @@
 
 * Rules specified under the `all_datasets` keyword in a format list will apply to every data set of the reformatted object unless specified otherwise.
 * New `verbose` argument in the `reformat` method. When applied to `list` the value of this augment can be controlled with the `dunlin.reformat.verbose` option or the `R_DUNLIN_REFORMAT_VERBOSE` environment variable.
-
+* Improve the output when printing `rule` objects.
+ 
 # dunlin 0.1.6
 
 * `render_safe` now renders placeholder using in priority values corresponding to the key matching exactly the placeholder, case included.
