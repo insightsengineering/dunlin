@@ -10,6 +10,8 @@ combineListRules(x, val, ...)
 \item{x}{(\code{list}) of \code{rule} objects.}
 
 \item{val}{(\code{list}) of \code{rule} objects.}
+
+\item{...}{passed to \code{combine_rules}.}
 }
 \value{
 a \code{list} of \code{rule} objects.

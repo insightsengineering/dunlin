@@ -172,6 +172,7 @@ combine_rules <- function(x, y, safe = TRUE, ...) {
 #'
 #' @param x (`list`) of `rule` objects.
 #' @param val (`list`) of `rule` objects.
+#' @param ... passed to `combine_rules`.
 #'
 #' @returns a `list` of `rule` objects.
 #' @export
