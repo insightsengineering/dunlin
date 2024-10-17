@@ -208,11 +208,7 @@ combineListRules <- function(x, val, ...) {
   vnames <- vnames[nzchar(vnames)]
 
   for (v in vnames) {
-    x[[v]] <- if (v %in% xnames && is.list(x[[v]]) && is.list(val[[v]])) {
-      modifyListRule(x[[v]], val[[v]], ...)
-    } else {
-      combine_rules(x[[v]], val[[v]], ...)
-    }
+    x[[v]] <- combine_rules(x[[v]], val[[v]], ...)
   }
   x
 }
