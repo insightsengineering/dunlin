@@ -47,6 +47,7 @@ reference:
       - rule
       - as.list.rule
       - list2rules
+      - combine_rules
   - title: Filtering
     contents:
       - log_filter
