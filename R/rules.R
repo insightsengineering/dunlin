@@ -201,8 +201,8 @@ combine_rules <- function(x, y, safe = TRUE, ...) {
 #'
 #' combineListRules(l1, l2)
 combineListRules <- function(x, val, ...) {
-  checkmate::assert_list(x, types = "rule", null.ok = FALSE, names = "named")
-  checkmate::assert_list(val, types = "rule", null.ok = FALSE, names = "named")
+  checkmate::assert_list(x, types = "rule", null.ok = FALSE, names = "unique")
+  checkmate::assert_list(val, types = "rule", null.ok = FALSE, names = "unique")
 
   xnames <- names(x)
   vnames <- names(val)
