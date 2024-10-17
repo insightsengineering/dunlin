@@ -116,3 +116,115 @@ test_that("as.list and rule are reversible when .to_NA is NULL", {
   test_rule <- rule(a = c("a", "b"), b = c("c", "d"), .drop = FALSE, .na_last = TRUE, .to_NA = NULL)
   expect_identical(do.call(rule, as.list(test_rule)), test_rule)
 })
+
+# combine_rules ----
+
+test_that("combine_rules works as expected", {
+  r1 <- rule(a = "1", b = "2", .to_NA = "x", .drop = TRUE, .na_last = FALSE)
+  r2 <- rule(a = "3", c = "4", .to_NA = "y", .drop = FALSE)
+
+  res <- combine_rules(r1, r2)
+  expect_s3_class(res, "rule")
+  expect_identical(res, rule(a = "3", c = "4", b = "2", .to_NA = "y", .drop = FALSE, .na_last = TRUE))
+})
+
+test_that("combine_rules works as expected with `NULL` values", {
+  r1 <- NULL
+  r2 <- rule(a = "3", c = "4", .to_NA = "y")
+
+  res <- combine_rules(r1, r2)
+  expect_s3_class(res, "rule")
+  expect_identical(res, r2)
+})
+
+test_that("combine_rules works as expected with `NULL` values", {
+  r1 <- rule(a = "1", b = "2", .to_NA = "x", .drop = TRUE, .na_last = FALSE)
+  r2 <- NULL
+
+  res <- combine_rules(r1, r2)
+  expect_s3_class(res, "rule")
+  expect_identical(res, r1)
+})
+
+test_that("combine_rules works as expected when both rules are `NULL` values", {
+  r1 <- NULL
+  r2 <- NULL
+  expect_error(combine_rules(r1, r2), "Both rules are NULL.")
+
+  res <- combine_rules(r1, r2, safe = FALSE)
+  expect_s3_class(res, "rule")
+  expect_identical(res, rule())
+})
+
+# combineListRules ----
+
+test_that("combineListRules works as expected", {
+  l1 <- list(
+    r1 = rule(
+      "first" = c("will be overwritten", "WILL BE OVERWRITTEN"),
+      "last" = c(NA, "last")
+    ),
+    r2 = rule(
+      ANYTHING = "anything"
+    )
+  )
+
+  l2 <- list(
+    r1 = rule(
+      "first" = c("F", "f"),
+      "second" = c("S", "s"),
+      "third" = c("T", "t"),
+      .to_NA = "something"
+    ),
+    r3 = rule(
+      SOMETHING = "something"
+    )
+  )
+
+  res <- combineListRules(l1, l2)
+  expect_list(res, types = "rule", len = 3, names = "named")
+  expect_identical(names(res), c("r1", "r2", "r3"))
+
+  expect_identical(
+    res$r1,
+    rule(
+      "first" = c("F", "f"),
+      "second" = c("S", "s"),
+      "third" = c("T", "t"),
+      "last" = c(NA, "last"),
+      .to_NA = "something"
+    )
+  )
+
+  expect_identical(
+    res$r2,
+    rule(
+      ANYTHING = "anything"
+    )
+  )
+
+  expect_identical(
+    res$r3,
+    rule(
+      SOMETHING = "something"
+    )
+  )
+})
+
+
+test_that("combineListRules fails as expected when elements are not rules", {
+  l1 <- list(
+    r1 = NULL
+  )
+
+  l2 <- list(
+    r1 = rule(
+      "first" = c("F", "f"),
+      "second" = c("S", "s"),
+      "third" = c("T", "t"),
+      .to_NA = "something"
+    )
+  )
+
+  expect_error(res <- combineListRules(l1, l2))
+})

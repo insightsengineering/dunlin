@@ -48,6 +48,7 @@ reference:
       - as.list.rule
       - list2rules
       - combine_rules
+      - combineListRules
   - title: Filtering
     contents:
       - log_filter

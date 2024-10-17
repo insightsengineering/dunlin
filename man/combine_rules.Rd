@@ -4,12 +4,16 @@
 \alias{combine_rules}
 \title{Combine Two Rules}
 \usage{
-combine_rules(x, y)
+combine_rules(x, y, safe = TRUE, ...)
 }
 \arguments{
 \item{x}{(\code{rule}) to modify.}
 
 \item{y}{(\code{rule}) rule whose mapping will take precedence over the ones described in \code{x}.}
+
+\item{safe}{(\code{flag}) whether to throw an error if both rules are \code{NULL}. Otherwise return the empty rule: \code{rule()}.}
+
+\item{...}{not used.}
 }
 \value{
 a \code{rule}.
@@ -17,18 +21,22 @@ a \code{rule}.
 \description{
 Combine Two Rules
 }
+\note{
+The order of the mappings in the resulting rule corresponds to the order of the mappings in \code{y} followed by the
+mappings in \code{x}.
+}
 \examples{
 r1 <- rule(
- "first" = c("from ori rule", "FROM ORI RULE"),
- "last" = c(NA, "last"),
- .to_NA = "X",
- .drop = TRUE
+  "first" = c("from ori rule", "FROM ORI RULE"),
+  "last" = c(NA, "last"),
+  .to_NA = "X",
+  .drop = TRUE
 )
 r2 <- rule(
- "first" = c("F", "f"),
- "second" = c("S", "s"),
- "third" = c("T", "t"),
- .to_NA = "something"
+  "first" = c("F", "f"),
+  "second" = c("S", "s"),
+  "third" = c("T", "t"),
+  .to_NA = "something"
 )
 combine_rules(r1, r2)
 }
