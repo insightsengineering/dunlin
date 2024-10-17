@@ -2,6 +2,7 @@
 
 * Rules specified under the `all_datasets` keyword in a format list will apply to every data set of the reformatted object unless specified otherwise.
 * New `verbose` argument in the `reformat` method. When applied to `list` the value of this augment can be controlled with the `dunlin.reformat.verbose` option or the `R_DUNLIN_REFORMAT_VERBOSE` environment variable.
+* New `combine_rules` and `combineListRules.Rd` functions to combine rules or list of rules into a single rule or a single list of rules.
 
 # dunlin 0.1.6
 
