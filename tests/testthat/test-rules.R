@@ -182,7 +182,7 @@ test_that("combineListRules works as expected", {
   )
 
   res <- combineListRules(l1, l2)
-  expect_list(res, types = "rule", len = 3, names = "named")
+  checkmate::expect_list(res, types = "rule", len = 3, names = "named")
   expect_identical(names(res), c("r1", "r2", "r3"))
 
   expect_identical(
