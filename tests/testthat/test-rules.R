@@ -38,8 +38,14 @@ test_that("rule fails for values that is not character/logical/numeric", {
   )
 })
 
+# print ----
+
 test_that("rule printed correctly", {
   expect_snapshot(rule(a = "1", b = NA))
+})
+
+test_that("rule with multiple matching printed correctly", {
+  expect_snapshot(rule(a = "1", b = c(NA, "b"), x = c("first", "second"), .to_NA = c("", "missing")))
 })
 
 # list2rules ----
@@ -116,3 +122,5 @@ test_that("as.list and rule are reversible when .to_NA is NULL", {
   test_rule <- rule(a = c("a", "b"), b = c("c", "d"), .drop = FALSE, .na_last = TRUE, .to_NA = NULL)
   expect_identical(do.call(rule, as.list(test_rule)), test_rule)
 })
+
+
