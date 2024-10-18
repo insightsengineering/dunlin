@@ -122,5 +122,3 @@ test_that("as.list and rule are reversible when .to_NA is NULL", {
   test_rule <- rule(a = c("a", "b"), b = c("c", "d"), .drop = FALSE, .na_last = TRUE, .to_NA = NULL)
   expect_identical(do.call(rule, as.list(test_rule)), test_rule)
 })
-
-
