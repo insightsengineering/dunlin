@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.978227060653188" branch-rate="0" lines-covered="629" lines-valid="643" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-10-17 12:16:05.135967">
+<coverage line-rate="0.978227060653188" branch-rate="0" lines-covered="629" lines-valid="643" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-10-18 06:33:46.109787">
   <sources>
     <source>/__w/dunlin/dunlin/dunlin</source>
   </sources>
@@ -1327,7 +1327,7 @@
                 <line number="168" hits="6" branch="false"/>
               </lines>
             </method>
-            <method name="combineListRules" signature="" line-rate="1" branch-rate="0" complexity="0">
+            <method name="combine_list_rules" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="204" hits="2" branch="false"/>
                 <line number="205" hits="1" branch="false"/>
