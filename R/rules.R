@@ -120,3 +120,96 @@ as.list.rule <- function(x, ...) {
 
   r_list
 }
+
+#' Combine Two Rules
+#'
+#' @param x (`rule`) to modify.
+#' @param y (`rule`) rule whose mapping will take precedence over the ones described in `x`.
+#' @param safe (`flag`) whether to throw an error if both rules are `NULL`. Otherwise return the empty rule: `rule()`.
+#' @param ... not used.
+#'
+#' @note The order of the mappings in the resulting rule corresponds to the order of the mappings in `y` followed by the
+#'  mappings in `x`.
+#'
+#' @returns a `rule`.
+#' @export
+#' @examples
+#' r1 <- rule(
+#'   "first" = c("from ori rule", "FROM ORI RULE"),
+#'   "last" = c(NA, "last"),
+#'   .to_NA = "X",
+#'   .drop = TRUE
+#' )
+#' r2 <- rule(
+#'   "first" = c("F", "f"),
+#'   "second" = c("S", "s"),
+#'   "third" = c("T", "t"),
+#'   .to_NA = "something"
+#' )
+#' combine_rules(r1, r2)
+combine_rules <- function(x, y, safe = TRUE, ...) {
+  checkmate::assert_class(x, "rule", null.ok = TRUE)
+  checkmate::assert_class(y, "rule", null.ok = TRUE)
+  checkmate::assert_flag(safe)
+
+  if (is.null(x) && is.null(y) && safe) {
+    rlang::abort("Both rules are NULL.")
+  }
+
+  # If one of the rules is NULL, return the other (via empty list).
+  x <- as.list(x)
+  y <- as.list(y)
+  names_y <- names(y)
+  names_x <- setdiff(names(x), names(y))
+
+  x <- x[names_x]
+  r <- c(y, x)
+  r <- do.call(rule, r)
+  r
+}
+
+#' Combine Rules Found in Lists of Rules.
+#'
+#' @param x (`list`) of `rule` objects.
+#' @param val (`list`) of `rule` objects.
+#' @param ... passed to `combine_rules`.
+#'
+#' @returns a `list` of `rule` objects.
+#' @export
+#' @examples
+#' l1 <- list(
+#'   r1 = rule(
+#'     "first" = c("from ori rule", "FROM ORI RULE"),
+#'     "last" = c(NA, "last")
+#'   ),
+#'   r2 = rule(
+#'     ANYTHING = "anything"
+#'   )
+#' )
+#'
+#' l2 <- list(
+#'   r1 = rule(
+#'     "first" = c("F", "f"),
+#'     "second" = c("S", "s"),
+#'     "third" = c("T", "t"),
+#'     .to_NA = "something"
+#'   ),
+#'   r3 = rule(
+#'     SOMETHING = "something"
+#'   )
+#' )
+#'
+#' combine_list_rules(l1, l2)
+combine_list_rules <- function(x, val, ...) {
+  checkmate::assert_list(x, types = "rule", null.ok = FALSE, names = "unique")
+  checkmate::assert_list(val, types = "rule", null.ok = FALSE, names = "unique")
+
+  xnames <- names(x)
+  vnames <- names(val)
+  vnames <- vnames[nzchar(vnames)]
+
+  for (v in vnames) {
+    x[[v]] <- combine_rules(x[[v]], val[[v]], ...)
+  }
+  x
+}
