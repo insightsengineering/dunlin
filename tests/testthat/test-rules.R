@@ -156,9 +156,9 @@ test_that("combine_rules works as expected when both rules are `NULL` values", {
   expect_identical(res, rule())
 })
 
-# combineListRules ----
+# combine_list_rules ----
 
-test_that("combineListRules works as expected", {
+test_that("combine_list_rules works as expected", {
   l1 <- list(
     r1 = rule(
       "first" = c("will be overwritten", "WILL BE OVERWRITTEN"),
@@ -181,7 +181,7 @@ test_that("combineListRules works as expected", {
     )
   )
 
-  res <- combineListRules(l1, l2)
+  res <- combine_list_rules(l1, l2)
   checkmate::expect_list(res, types = "rule", len = 3, names = "named")
   expect_identical(names(res), c("r1", "r2", "r3"))
 
@@ -212,7 +212,7 @@ test_that("combineListRules works as expected", {
 })
 
 
-test_that("combineListRules fails as expected when elements are not rules", {
+test_that("combine_list_rules fails as expected when elements are not rules", {
   l1 <- list(
     r1 = NULL
   )
@@ -226,5 +226,5 @@ test_that("combineListRules fails as expected when elements are not rules", {
     )
   )
 
-  expect_error(res <- combineListRules(l1, l2))
+  expect_error(res <- combine_list_rules(l1, l2))
 })
