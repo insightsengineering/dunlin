@@ -19,10 +19,8 @@
     Output
       Mapping of:
       a  <-  "1" 
-      b  <-  <NA> 
-      b  <-  "b" 
-      x  <-  "first" 
-      x  <-  "second" 
+      b  <-  <NA>, "b" 
+      x  <-  "first", "second" 
       Convert to <NA>: "", "missing" 
       Convert to factor: TRUE 
       Drop unused level: FALSE 
