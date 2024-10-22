@@ -48,16 +48,21 @@ rule <- function(..., .lst = list(...), .string_as_fct = TRUE, .na_last = TRUE, 
 #'
 print.rule <- function(x, ...) {
   cat("Mapping of:\n")
-  nms <- names(x)
+  nms <- unique(names(x))
   if (length(x) == 0) {
     cat("Empty mapping.\n")
   } else {
-    for (i in seq_len(length(x))) {
-      cat(nms[i], " <- ", if (length(x[[i]]) > 1) sprintf("[%s]", toString(x[[i]])) else x[[i]], "\n")
+    for (i in nms) {
+      ori_nms <- unlist(x[names(x) %in% i])
+      ori_nms <- ifelse(is.na(ori_nms), "<NA>", stringr::str_c("\"", ori_nms, "\""))
+      ori_nms <- toString(ori_nms)
+      cat(i, " <- ", ori_nms, "\n")
     }
   }
   .to_NA <- attr(x, ".to_NA")
-  if (!is.null(.to_NA)) cat("NA <- ", toString(.to_NA), "\n")
+  if (!is.null(.to_NA)) {
+    cat("Convert to <NA>:", toString(stringr::str_c("\"", .to_NA, "\"")), "\n")
+  }
   cat("Convert to factor:", attr(x, ".string_as_fct"), "\n")
   cat("Drop unused level:", attr(x, ".drop"), "\n")
   cat("NA-replacing level in last position:", attr(x, ".na_last"), "\n")
