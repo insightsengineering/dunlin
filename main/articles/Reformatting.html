@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">dunlin</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.7.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.7.9010</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,25 +40,6 @@
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
 <li class="nav-item dropdown">
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/release-candidate">release-candidate</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.6-rc1">v0.1.6-rc1</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.5-rc1">v0.1.5-rc1</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.4-rc1">v0.1.4-rc1</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.3-rc1">v0.1.3-rc1</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.7">v0.1.7</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.6">v0.1.6</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.5">v0.1.5</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.4">v0.1.4</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.3">v0.1.3</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.2">v0.1.2</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/dunlin/v0.1.1">v0.1.1</a> </div></li>
-<!-- end dropdown for versions -->
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-reports" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Reports</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-reports">
 <li><a class="dropdown-item" href="../coverage-report/">Coverage report</a></li>
@@ -117,10 +98,9 @@ values are the old values to be used.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rule.html">rule</a></span><span class="op">(</span>A <span class="op">=</span> <span class="st">"a"</span>, B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="st">"d"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Mapping of:</span></span>
-<span><span class="co">#&gt; A  &lt;-  a </span></span>
-<span><span class="co">#&gt; B  &lt;-  c </span></span>
-<span><span class="co">#&gt; B  &lt;-  d </span></span>
-<span><span class="co">#&gt; NA &lt;-   </span></span>
+<span><span class="co">#&gt; A  &lt;-  "a" </span></span>
+<span><span class="co">#&gt; B  &lt;-  "c", "d" </span></span>
+<span><span class="co">#&gt; Convert to &lt;NA&gt;: "" </span></span>
 <span><span class="co">#&gt; Convert to factor: TRUE </span></span>
 <span><span class="co">#&gt; Drop unused level: FALSE </span></span>
 <span><span class="co">#&gt; NA-replacing level in last position: TRUE</span></span></code></pre></div>
