@@ -48,14 +48,15 @@ rule <- function(..., .lst = list(...), .string_as_fct = TRUE, .na_last = TRUE, 
 #'
 print.rule <- function(x, ...) {
   cat("Mapping of:\n")
-  nms <- names(x)
+  nms <- unique(names(x))
   if (length(x) == 0) {
     cat("Empty mapping.\n")
   } else {
-    for (i in seq_along(x)) {
-      ori_nms <- if (length(x[[i]]) > 1) sprintf("[%s]", toString(x[[i]])) else x[[i]]
+    for (i in nms) {
+      ori_nms <- unlist(x[names(x) %in% i])
       ori_nms <- ifelse(is.na(ori_nms), "<NA>", stringr::str_c("\"", ori_nms, "\""))
-      cat(nms[i], " <- ", ori_nms, "\n")
+      ori_nms <- toString(ori_nms)
+      cat(i, " <- ", ori_nms, "\n")
     }
   }
   .to_NA <- attr(x, ".to_NA")
