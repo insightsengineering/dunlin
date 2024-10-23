@@ -131,7 +131,7 @@ test_that("combine_rules works as expected", {
 
   res <- combine_rules(r1, r2)
   expect_s3_class(res, "rule")
-  expect_identical(res, rule(a = "3", c = "4", b = "2", .to_NA = "y", .drop = FALSE, .na_last = TRUE))
+  expect_identical(res, rule(a = "3", b = "2", c = "4", .to_NA = "y", .drop = FALSE, .na_last = TRUE))
 })
 
 test_that("combine_rules works as expected with `NULL` values", {
@@ -152,14 +152,10 @@ test_that("combine_rules works as expected with `NULL` values", {
   expect_identical(res, r1)
 })
 
-test_that("combine_rules works as expected when both rules are `NULL` values", {
+test_that("combine_rules fails as expected when both rules are `NULL` values", {
   r1 <- NULL
   r2 <- NULL
   expect_error(combine_rules(r1, r2), "Both rules are NULL.")
-
-  res <- combine_rules(r1, r2, safe = FALSE)
-  expect_s3_class(res, "rule")
-  expect_identical(res, rule())
 })
 
 # combine_list_rules ----
@@ -168,7 +164,7 @@ test_that("combine_list_rules works as expected", {
   l1 <- list(
     r1 = rule(
       "first" = c("will be overwritten", "WILL BE OVERWRITTEN"),
-      "last" = c(NA, "last")
+      "almost first" = c(NA, "ALMOST FIRST")
     ),
     r2 = rule(
       ANYTHING = "anything"
@@ -195,9 +191,9 @@ test_that("combine_list_rules works as expected", {
     res$r1,
     rule(
       "first" = c("F", "f"),
+      "almost first" = c(NA, "ALMOST FIRST"),
       "second" = c("S", "s"),
       "third" = c("T", "t"),
-      "last" = c(NA, "last"),
       .to_NA = "something"
     )
   )

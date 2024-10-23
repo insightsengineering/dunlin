@@ -4,14 +4,12 @@
 \alias{combine_rules}
 \title{Combine Two Rules}
 \usage{
-combine_rules(x, y, safe = TRUE, ...)
+combine_rules(x, y, ...)
 }
 \arguments{
 \item{x}{(\code{rule}) to modify.}
 
 \item{y}{(\code{rule}) rule whose mapping will take precedence over the ones described in \code{x}.}
-
-\item{safe}{(\code{flag}) whether to throw an error if both rules are \code{NULL}. Otherwise return the empty rule: \code{rule()}.}
 
 \item{...}{not used.}
 }
@@ -22,8 +20,8 @@ a \code{rule}.
 Combine Two Rules
 }
 \note{
-The order of the mappings in the resulting rule corresponds to the order of the mappings in \code{y} followed by the
-mappings in \code{x}.
+The order of the mappings in the resulting rule corresponds to the order of the mappings in \code{x} followed by the
+mappings that are only present in \code{y}.
 }
 \examples{
 r1 <- rule(

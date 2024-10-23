@@ -11,7 +11,7 @@ combine_list_rules(x, val, ...)
 
 \item{val}{(\code{list}) of \code{rule} objects.}
 
-\item{...}{passed to \code{combine_rules}.}
+\item{...}{passed to \code{\link{combine_rules}}.}
 }
 \value{
 a \code{list} of \code{rule} objects.

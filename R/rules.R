@@ -130,11 +130,10 @@ as.list.rule <- function(x, ...) {
 #'
 #' @param x (`rule`) to modify.
 #' @param y (`rule`) rule whose mapping will take precedence over the ones described in `x`.
-#' @param safe (`flag`) whether to throw an error if both rules are `NULL`. Otherwise return the empty rule: `rule()`.
 #' @param ... not used.
 #'
-#' @note The order of the mappings in the resulting rule corresponds to the order of the mappings in `y` followed by the
-#'  mappings in `x`.
+#' @note The order of the mappings in the resulting rule corresponds to the order of the mappings in `x` followed by the
+#'   mappings that are only present in `y`.
 #'
 #' @returns a `rule`.
 #' @export
@@ -152,12 +151,11 @@ as.list.rule <- function(x, ...) {
 #'   .to_NA = "something"
 #' )
 #' combine_rules(r1, r2)
-combine_rules <- function(x, y, safe = TRUE, ...) {
+combine_rules <- function(x, y, ...) {
   checkmate::assert_class(x, "rule", null.ok = TRUE)
   checkmate::assert_class(y, "rule", null.ok = TRUE)
-  checkmate::assert_flag(safe)
 
-  if (is.null(x) && is.null(y) && safe) {
+  if (is.null(x) && is.null(y)) {
     rlang::abort("Both rules are NULL.")
   }
 
@@ -165,10 +163,18 @@ combine_rules <- function(x, y, safe = TRUE, ...) {
   x <- as.list(x)
   y <- as.list(y)
   names_y <- names(y)
-  names_x <- setdiff(names(x), names(y))
+  names_x <- names(x)
+  names_x_diff <- setdiff(names_x, names_y)
+  
 
-  x <- x[names_x]
+  x <- x[names_x_diff]
   r <- c(y, x)
+  
+  # reorder to follow original order
+  names_y_diff <- setdiff(names_y, names_x)
+  names_order <- c(names_x, names_y_diff)
+  r <- r[names_order]
+  
   r <- do.call(rule, r)
   r
 }
@@ -177,7 +183,7 @@ combine_rules <- function(x, y, safe = TRUE, ...) {
 #'
 #' @param x (`list`) of `rule` objects.
 #' @param val (`list`) of `rule` objects.
-#' @param ... passed to `combine_rules`.
+#' @param ... passed to [`dunlin::combine_rules`].
 #'
 #' @returns a `list` of `rule` objects.
 #' @export
