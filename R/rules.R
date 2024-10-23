@@ -165,16 +165,15 @@ combine_rules <- function(x, y, ...) {
   names_y <- names(y)
   names_x <- names(x)
   names_x_diff <- setdiff(names_x, names_y)
-  
 
   x <- x[names_x_diff]
   r <- c(y, x)
-  
-  # reorder to follow original order
+
+  # Reorder to follow original order
   names_y_diff <- setdiff(names_y, names_x)
   names_order <- c(names_x, names_y_diff)
   r <- r[names_order]
-  
+
   r <- do.call(rule, r)
   r
 }
