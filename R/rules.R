@@ -125,3 +125,91 @@ as.list.rule <- function(x, ...) {
 
   r_list
 }
+
+#' Combine Two Rules
+#'
+#' @param x (`rule`) to modify.
+#' @param y (`rule`) rule whose mapping will take precedence over the ones described in `x`.
+#' @param ... not used.
+#'
+#' @note The order of the mappings in the resulting rule corresponds to the order of the mappings in `x` followed by the
+#'   mappings that are only present in `y`.
+#'
+#' @returns a `rule`.
+#' @export
+#' @examples
+#' r1 <- rule(
+#'   "first" = c("from ori rule", "FROM ORI RULE"),
+#'   "last" = c(NA, "last"),
+#'   .to_NA = "X",
+#'   .drop = TRUE
+#' )
+#' r2 <- rule(
+#'   "first" = c("F", "f"),
+#'   "second" = c("S", "s"),
+#'   "third" = c("T", "t"),
+#'   .to_NA = "something"
+#' )
+#' combine_rules(r1, r2)
+combine_rules <- function(x, y, ...) {
+  checkmate::assert_class(x, "rule", null.ok = TRUE)
+  checkmate::assert_class(y, "rule", null.ok = TRUE)
+
+  if (is.null(x) && is.null(y)) {
+    rlang::abort("Both rules are NULL.")
+  }
+
+  # If one of the rules is NULL, return the other (via empty list).
+  x <- as.list(x)
+  y <- as.list(y)
+
+  x[names(y)] <- y
+
+  r <- do.call(rule, x)
+  r
+}
+
+#' Combine Rules Found in Lists of Rules.
+#'
+#' @param x (`list`) of `rule` objects.
+#' @param val (`list`) of `rule` objects.
+#' @param ... passed to [`dunlin::combine_rules`].
+#'
+#' @returns a `list` of `rule` objects.
+#' @export
+#' @examples
+#' l1 <- list(
+#'   r1 = rule(
+#'     "first" = c("overwritten", "OVERWRITTEN"),
+#'     "almost first" = c(NA, "almost")
+#'   ),
+#'   r2 = rule(
+#'     ANYTHING = "anything"
+#'   )
+#' )
+#'
+#' l2 <- list(
+#'   r1 = rule(
+#'     "first" = c("F", "f"),
+#'     "second" = c("S", "s"),
+#'     "third" = c("T", "t"),
+#'     .to_NA = "something"
+#'   ),
+#'   r3 = rule(
+#'     SOMETHING = "something"
+#'   )
+#' )
+#'
+#' combine_list_rules(l1, l2)
+combine_list_rules <- function(x, val, ...) {
+  # Unique names prevents zero-character names.
+  checkmate::assert_list(x, types = "rule", null.ok = FALSE, names = "unique")
+  checkmate::assert_list(val, types = "rule", null.ok = FALSE, names = "unique")
+
+  vnames <- names(val)
+
+  for (v in vnames) {
+    x[[v]] <- combine_rules(x[[v]], val[[v]], ...)
+  }
+  x
+}
