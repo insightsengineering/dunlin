@@ -22,8 +22,8 @@ Combine Rules Found in Lists of Rules.
 \examples{
 l1 <- list(
   r1 = rule(
-    "first" = c("from ori rule", "FROM ORI RULE"),
-    "last" = c(NA, "last")
+    "first" = c("overwritten", "OVERWRITTEN"),
+    "almost first" = c(NA, "almost")
   ),
   r2 = rule(
     ANYTHING = "anything"

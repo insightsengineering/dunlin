@@ -162,19 +162,10 @@ combine_rules <- function(x, y, ...) {
   # If one of the rules is NULL, return the other (via empty list).
   x <- as.list(x)
   y <- as.list(y)
-  names_y <- names(y)
-  names_x <- names(x)
-  names_x_diff <- setdiff(names_x, names_y)
 
-  x <- x[names_x_diff]
-  r <- c(y, x)
+  x[names(y)] <- y
 
-  # Reorder to follow original order
-  names_y_diff <- setdiff(names_y, names_x)
-  names_order <- c(names_x, names_y_diff)
-  r <- r[names_order]
-
-  r <- do.call(rule, r)
+  r <- do.call(rule, x)
   r
 }
 
@@ -189,8 +180,8 @@ combine_rules <- function(x, y, ...) {
 #' @examples
 #' l1 <- list(
 #'   r1 = rule(
-#'     "first" = c("from ori rule", "FROM ORI RULE"),
-#'     "last" = c(NA, "last")
+#'     "first" = c("overwritten", "OVERWRITTEN"),
+#'     "almost first" = c(NA, "almost")
 #'   ),
 #'   r2 = rule(
 #'     ANYTHING = "anything"
@@ -211,12 +202,11 @@ combine_rules <- function(x, y, ...) {
 #'
 #' combine_list_rules(l1, l2)
 combine_list_rules <- function(x, val, ...) {
+  # Unique names prevents zero-character names.
   checkmate::assert_list(x, types = "rule", null.ok = FALSE, names = "unique")
   checkmate::assert_list(val, types = "rule", null.ok = FALSE, names = "unique")
 
-  xnames <- names(x)
   vnames <- names(val)
-  vnames <- vnames[nzchar(vnames)]
 
   for (v in vnames) {
     x[[v]] <- combine_rules(x[[v]], val[[v]], ...)
