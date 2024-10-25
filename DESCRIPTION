@@ -34,7 +34,8 @@ Suggests:
     testthat (>= 3.0.4),
     withr (>= 2.1.0)
 VignetteBuilder:
-    knitr
+    knitr,
+    rmarkdown
 Config/Needs/verdepcheck: mllg/checkmate, tidyverse/dplyr,
     tidyverse/forcats, tidyverse/glue, tidyverse/magrittr, r-lib/rlang,
     tidyverse/stringr, tidyverse/tibble, yaml=vubiostat/r-yaml,
