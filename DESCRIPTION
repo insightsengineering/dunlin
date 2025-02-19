@@ -1,12 +1,16 @@
 Package: dunlin
 Title: Preprocessing Tools for Clinical Trial Data
-Version: 0.1.8.9002
-Date: 2024-10-29
+Version: 0.1.9
+Date: 2025-02-20
 Authors@R: c(
-    person("Liming", "Li", , "liming.li@roche.com", role = c("aut", "cre")),
-    person("Benoit", "Falquet", , "benoit.falquet@roche.com", role = "aut"),
+    person("Liming", "Li", , "liming.li@roche.com", role = "aut",
+           comment = "Original creator of the package"),
+    person("Benoit", "Falquet", , "benoit.falquet@roche.com", role = "aut",
+           comment = "Original creator of the package"),
     person("Xiaoli", "Duan", , "xiaoli.duan@roche.com", role = "ctb"),
     person("Pawel", "Rucki", , "pawel.rucki@roche.com", role = "ctb"),
+    person("Joe", "Zhu", , "joe.zhu@roche.com", role = "cre",
+           comment = c(ORCID = "0000-0001-7566-2787")),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
   )
 Description: A collection of functions to preprocess data and organize
