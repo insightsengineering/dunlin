@@ -1,4 +1,6 @@
-# dunlin 0.1.8.9002
+# dunlin 0.1.9
+
+* Change package maintainer to Joe Zhu.
 
 # dunlin 0.1.8
 
