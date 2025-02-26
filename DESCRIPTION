@@ -4,7 +4,8 @@ Version: 0.1.9.9000
 Date: 2025-02-20
 Authors@R: c(
     person("Liming", "Li", , "liming.li@roche.com", role = "aut",
-           comment = "Original creator of the package"),
+           comment = c(ORCID = "0009-0008-6870-0878",
+                       "Original creator of the package")),
     person("Benoit", "Falquet", , "benoit.falquet@roche.com", role = "aut",
            comment = "Original creator of the package"),
     person("Xiaoli", "Duan", , "xiaoli.duan@roche.com", role = "ctb"),
