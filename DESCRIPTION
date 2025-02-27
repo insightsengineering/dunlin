@@ -1,14 +1,12 @@
 Package: dunlin
 Title: Preprocessing Tools for Clinical Trial Data
-Version: 0.1.9.9000
-Date: 2025-02-20
+Version: 0.1.9.9001
+Date: 2025-02-27
 Authors@R: c(
     person("Liming", "Li", , "liming.li@roche.com", role = "aut",
-           comment = c(ORCID = "0009-0008-6870-0878",
-                       "Original creator of the package")),
+           comment = c(ORCID = "0009-0008-6870-0878", "Original creator of the package")),
     person("Benoit", "Falquet", , "benoit.falquet@roche.com", role = "aut",
-           comment = c(ORCID = "0000-0002-4434-3799", 
-                        "Original creator of the package")),
+           comment = c(ORCID = "0000-0002-4434-3799", "Original creator of the package")),
     person("Xiaoli", "Duan", , "xiaoli.duan@roche.com", role = "ctb"),
     person("Pawel", "Rucki", , "pawel.rucki@roche.com", role = "ctb"),
     person("Joe", "Zhu", , "joe.zhu@roche.com", role = "cre",
