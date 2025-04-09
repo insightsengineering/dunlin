@@ -29,7 +29,7 @@ reformat <- function(obj, ...) {
 #' @rdname reformat
 reformat.default <- function(obj, format, ...) {
   rlang::warn(paste0("Not implemented for class: ", toString(class(obj)), "! Returning original object."))
-  return(obj)
+  obj
 }
 
 #' @export
