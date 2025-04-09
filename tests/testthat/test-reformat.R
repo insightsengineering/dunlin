@@ -380,6 +380,34 @@ test_that("reformat for list works as expected when verbose is TRUE", {
   expect_identical(out[12:19], expected)
 })
 
+test_that("reformat for list works as expected when verbose is TRUE and tables are missing", {
+  df1 <- data.frame(
+    "char" = c("", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f2", "f1"))
+  )
+  df2 <- data.frame(
+    "char" = c("a", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
+    "another_char" = c("a", "b", NA, "a", "k", "x"),
+    "another_fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
+  )
+  
+  db <- list(df1 = df1, df2 = df2)
+  attr(db$df1$char, "label") <- "my label"
+  
+  test_map <- list(
+    df1 = list(
+      absent = rule("Empty" = "", "B" = "b", "Not Available" = NA)
+    ),
+    df_absent = list(
+      char = rule()
+    )
+  )
+  
+  out <- capture.output(res <- reformat(db, test_map, verbose = TRUE))
+  expect_identical(out, "")
+})
+
 # h_expand_all_datasets ----
 
 test_that("h_expand_all_datasets works as expected", {
