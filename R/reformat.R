@@ -154,6 +154,9 @@ reformat.factor <- function(obj, format, ..., verbose = FALSE) {
 #'   df2 = list(
 #'     var2 = rule("f11" = "F11", "NN" = NA)
 #'   ),
+#'   df_absent = list(
+#'     var1 = rule("NO" = "no")
+#'   ),
 #'   all_datasets = list(
 #'     var1 = rule("xx" = "x", "aa" = "a")
 #'   )
@@ -180,8 +183,8 @@ reformat.list <- function(obj,
   format <- h_expand_all_datasets(format, ls_datasets)
 
   if (verbose) {
-    for (tb in names(format)) {
-      for (cl in names(format[[tb]])) {
+    for (tb in intersect(names(format), ls_datasets)) {
+      for (cl in intersect(names(format[[tb]]), colnames(obj[[tb]]))) {
         cat(sprintf("\nData frame `%s`, column `%s`:\n", tb, cl))
         print(format[[tb]][[cl]])
       }

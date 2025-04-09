@@ -1,5 +1,7 @@
 # dunlin 0.1.9.9002
 
+* The log printed by `reformat` when `verbose = TRUE` is limited to the tables and column existing in the reformatted data set.
+
 # dunlin 0.1.9
 
 * Change package maintainer to Joe Zhu.
