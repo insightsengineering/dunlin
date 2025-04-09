@@ -368,7 +368,12 @@ test_that("reformat for list works as expected when verbose is TRUE", {
     )
   )
 
-  out <- capture.output(res <- reformat(db, test_map, verbose = TRUE))
+  expect_no_message(
+    out <- capture.output(
+      res <- reformat(db, test_map, verbose = TRUE)
+    )
+  )
+
   expected <- capture.output(print(test_map))[1:10]
   expected[1] <- ""
   expected[2] <- "Data frame `df1`, column `char`:"
@@ -397,15 +402,35 @@ test_that("reformat for list works as expected when verbose is TRUE and tables a
 
   test_map <- list(
     df1 = list(
-      absent = rule("Empty" = "", "B" = "b", "Not Available" = NA)
+      x = rule("Empty" = "", "B" = "b", "Not Available" = NA)
     ),
     df_absent = list(
       char = rule()
     )
   )
-
-  out <- capture.output(res <- reformat(db, test_map, verbose = TRUE))
+  expect_message(
+    out <- capture.output(
+      res <- reformat(db, test_map, verbose = TRUE)
+    ),
+    "Tables df_absent absent from data set.\nColumns x absent from table df1."
+  )
   expect_identical(out, "")
+
+  test_map2 <- list(
+    df1 = list(
+      char = rule("Empty" = "", "B" = "b", "Not Available" = NA)
+    ),
+    df_absent = list(
+      char = rule()
+    )
+  )
+  expect_message(
+    out <- capture.output(
+      res <- reformat(db, test_map2, verbose = TRUE)
+    ),
+    "Tables df_absent absent from data set."
+  )
+  expect_identical(length(out), 11L)
 })
 
 # h_expand_all_datasets ----

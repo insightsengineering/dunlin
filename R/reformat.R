@@ -183,12 +183,32 @@ reformat.list <- function(obj,
   format <- h_expand_all_datasets(format, ls_datasets)
 
   if (verbose) {
-    for (tb in intersect(names(format), ls_datasets)) {
-      for (cl in intersect(names(format[[tb]]), colnames(obj[[tb]]))) {
+    msg <- NULL
+    tbls <- intersect(names(format), ls_datasets)
+    tbls_no <- setdiff(names(format), ls_datasets)
+
+    if (length(tbls_no) > 0) {
+      msg <- c(msg, sprintf("Tables %s absent from data set.", toString(tbls_no)))
+    }
+
+    for (tb in tbls) {
+      cls <- intersect(names(format[[tb]]), colnames(obj[[tb]]))
+      cls_no <- setdiff(names(format[[tb]]), colnames(obj[[tb]]))
+
+      if (length(cls_no) > 0) {
+        msg <- c(msg, sprintf("Columns %s absent from table %s.", toString(cls_no), tb))
+      }
+
+      for (cl in cls) {
         cat(sprintf("\nData frame `%s`, column `%s`:\n", tb, cl))
         print(format[[tb]][[cl]])
       }
     }
+
+    if (length(msg) > 0) {
+      message(paste(msg, collapse = "\n"))
+    }
+
     cat("\n")
   }
 
