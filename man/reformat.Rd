@@ -94,6 +94,9 @@ format <- list(
   df2 = list(
     var2 = rule("f11" = "F11", "NN" = NA)
   ),
+  df_absent = list(
+    var1 = rule("NO" = "no")
+  ),
   all_datasets = list(
     var1 = rule("xx" = "x", "aa" = "a")
   )

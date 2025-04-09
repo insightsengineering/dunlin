@@ -391,10 +391,10 @@ test_that("reformat for list works as expected when verbose is TRUE and tables a
     "another_char" = c("a", "b", NA, "a", "k", "x"),
     "another_fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
   )
-  
+
   db <- list(df1 = df1, df2 = df2)
   attr(db$df1$char, "label") <- "my label"
-  
+
   test_map <- list(
     df1 = list(
       absent = rule("Empty" = "", "B" = "b", "Not Available" = NA)
@@ -403,7 +403,7 @@ test_that("reformat for list works as expected when verbose is TRUE and tables a
       char = rule()
     )
   )
-  
+
   out <- capture.output(res <- reformat(db, test_map, verbose = TRUE))
   expect_identical(out, "")
 })
