@@ -74,5 +74,5 @@ get_arg <- function(opt = NULL, sys = NULL, default = NULL, split = ";") {
     }
   }
 
-  return(default)
+  default
 }

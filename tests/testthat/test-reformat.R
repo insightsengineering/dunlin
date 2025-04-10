@@ -368,7 +368,12 @@ test_that("reformat for list works as expected when verbose is TRUE", {
     )
   )
 
-  out <- capture.output(res <- reformat(db, test_map, verbose = TRUE))
+  expect_no_message(
+    out <- capture.output(
+      res <- reformat(db, test_map, verbose = TRUE)
+    )
+  )
+
   expected <- capture.output(print(test_map))[1:10]
   expected[1] <- ""
   expected[2] <- "Data frame `df1`, column `char`:"
@@ -378,6 +383,54 @@ test_that("reformat for list works as expected when verbose is TRUE", {
   expected <- capture.output(print(test_map))[14:21]
   expected[1] <- "Data frame `df2`, column `char`:"
   expect_identical(out[12:19], expected)
+})
+
+test_that("reformat for list works as expected when verbose is TRUE and tables are missing", {
+  df1 <- data.frame(
+    "char" = c("", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f2", "f1"))
+  )
+  df2 <- data.frame(
+    "char" = c("a", "b", NA, "a", "k", "x"),
+    "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
+    "another_char" = c("a", "b", NA, "a", "k", "x"),
+    "another_fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
+  )
+
+  db <- list(df1 = df1, df2 = df2)
+  attr(db$df1$char, "label") <- "my label"
+
+  test_map <- list(
+    df1 = list(
+      x = rule("Empty" = "", "B" = "b", "Not Available" = NA)
+    ),
+    df_absent = list(
+      char = rule()
+    )
+  )
+  expect_message(
+    out <- capture.output(
+      res <- reformat(db, test_map, verbose = TRUE)
+    ),
+    "Tables df_absent absent from data set.\nColumns x absent from table df1."
+  )
+  expect_identical(out, "")
+
+  test_map2 <- list(
+    df1 = list(
+      char = rule("Empty" = "", "B" = "b", "Not Available" = NA)
+    ),
+    df_absent = list(
+      char = rule()
+    )
+  )
+  expect_message(
+    out <- capture.output(
+      res <- reformat(db, test_map2, verbose = TRUE)
+    ),
+    "Tables df_absent absent from data set."
+  )
+  expect_identical(length(out), 11L)
 })
 
 # h_expand_all_datasets ----

@@ -76,7 +76,7 @@ log_filter.list <- function(data, condition, table, by = c("USUBJID", "STUDYID")
     print_log(data, incl = FALSE, incl.adsl = TRUE)
   }
 
-  return(data)
+  data
 }
 
 # Get Log ----

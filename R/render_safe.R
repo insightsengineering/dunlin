@@ -32,7 +32,7 @@ safe_transformer <- function(text, envir) {
     }
   }
 
-  return(toString(res))
+  toString(res)
 }
 
 #' Render whiskers safely

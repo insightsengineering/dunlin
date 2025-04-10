@@ -74,5 +74,5 @@ propagate.list <- function(db, from, add, by, safe = TRUE) {
     }
   }
   cat("\n")
-  return(db)
+  db
 }
