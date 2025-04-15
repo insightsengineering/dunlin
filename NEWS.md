@@ -1,4 +1,4 @@
-# dunlin 0.1.9.9003
+# dunlin 0.1.10
 
 * The log printed by `reformat` when `verbose = TRUE` is limited to the tables and column existing in the reformatted data set.
 
