@@ -6,11 +6,11 @@ adsl <- tibble::tribble(
 )
 
 adae <- tibble::tribble(
-  ~USUBJID,      ~AESER, ~AEACN,
-  "01-701-1015", "Y",    "DOSE NOT CHANGED",
-  "01-701-1015", "N",    "DOSE NOT CHANGED",
-  "01-701-1028", "N",    "DRUG WITHDRAWN",
-  "01-701-1023",  NA,    NA
+  ~USUBJID, ~AESER, ~AEACN,
+  "01-701-1015", "Y", "DOSE NOT CHANGED",
+  "01-701-1015", "N", "DOSE NOT CHANGED",
+  "01-701-1028", "N", "DRUG WITHDRAWN",
+  "01-701-1023", NA, NA
 )
 
 test_that("subject_level_flag() works", {
