@@ -9,7 +9,8 @@ adae <- tibble::tribble(
   ~USUBJID,      ~AESER, ~AEACN,
   "01-701-1015", "Y",    "DOSE NOT CHANGED",
   "01-701-1015", "N",    "DOSE NOT CHANGED",
-  "01-701-1028", "N",    "DRUG WITHDRAWN"
+  "01-701-1028", "N",    "DRUG WITHDRAWN",
+  "01-701-1023",  NA,    NA
 )
 
 test_that("subject_level_flag() works", {
@@ -27,13 +28,13 @@ test_that("subject_level_flag() works", {
   # check AESER derivation
   expect_equal(
     df_flags[df_flags$ANY_AESER, "USUBJID"][[1]],
-    adae[adae$AESER == "Y", "USUBJID"][[1]]
+    adae[adae$AESER %in% "Y", "USUBJID"][[1]]
   )
 
   # check ANY_DRUG_WITHDRAWN derivation
   expect_equal(
     df_flags[df_flags$ANY_DRUG_WITHDRAWN, "USUBJID"][[1]],
-    adae[adae$AEACN == "DRUG WITHDRAWN", "USUBJID"][[1]]
+    adae[adae$AEACN %in% "DRUG WITHDRAWN", "USUBJID"][[1]]
   )
 
   # check no NAs in subject level flags
