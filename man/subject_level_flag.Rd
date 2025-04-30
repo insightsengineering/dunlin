@@ -11,7 +11,8 @@ subject_level_flag(data, data_long, ..., .key = "USUBJID")
 a subject-level data frame, e.g. \code{adsl}}
 
 \item{data_long}{(\code{data.frame})\cr
-a long data frame that is more than one line per subject, e.g. \code{adae}}
+a long data frame that is more than one line per subject, e.g. \code{adae}.
+The expressions passed in \code{...} will be evaluated in this data frame.}
 
 \item{...}{(\code{\link[rlang:args_data_masking]{data-masking}})\cr
 Name-flag pairs. The name gives the name of the new subject-level
@@ -30,6 +31,11 @@ Utility for creating subject-level flags from data frames that are
 more than one line per subject.
 For example, use this function to create a flag indicating whether a
 subject experienced any serious adverse events.
+
+The function works by first creating a logical variable in \code{data_long}
+indicating whether the condition passed in the \code{...} argument is met.
+If a subject has true on any row, then the new variable is added
+to \code{data} as \code{TRUE}, otherwise that subject's value is populated with a \code{FALSE}.
 }
 \examples{
 adsl <- tibble::tribble(
