@@ -87,4 +87,14 @@ test_that("subject_level_flag() messaging", {
     ),
     "must uniquely identify each row"
   )
+  
+  # message when a non-logical is created
+  expect_error(
+    subject_level_flag(
+      data = adsl,
+      data_long = adae,
+      ANY_AESER = AESER
+    ),
+    "must be class <logical>"
+  )
 })
