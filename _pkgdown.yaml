@@ -37,6 +37,7 @@ reference:
       - poly_pivot_wider
       - propagate
       - reformat
+      - subject_level_flag
   - title: Helper functions
     contents:
       - get_arg
