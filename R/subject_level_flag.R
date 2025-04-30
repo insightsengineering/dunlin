@@ -56,8 +56,8 @@ subject_level_flag <- function(data, data_long, ..., .key = "USUBJID") {
   if (!is_named(dots)) {
     rlang::abort("Arguments passed in `...` must be named.")
   }
-  if (any(names(dots) %in% c(names(data), names(data_long)))) {
-    rlang::abort("Named arguments in `...` cannot match existing names in `data` or `data_long`.")
+  if (any(names(dots) %in% names(data))) {
+    rlang::abort("Named arguments in `...` cannot match existing names in `data`.")
   }
   if (!all(.key %in% names(data)) || !all(.key %in% names(data_long))) {
     rlang::abort("Names specified in `.key` argument must appear in both `data` and `data_long`.")
