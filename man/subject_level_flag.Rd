@@ -15,9 +15,9 @@ a long data frame that is more than one line per subject, e.g. \code{adae}.
 The expressions passed in \code{...} will be evaluated in this data frame.}
 
 \item{...}{(\code{\link[rlang:args_data_masking]{data-masking}})\cr
-Name-flag pairs. The name gives the name of the new subject-level
-flag column. The value is a condition that results in a logical vector.
-These name-flag pairs are passed directly to \code{dplyr::mutate(...)}}
+Name and condition pairs. The name is the name of the new subject-level
+flag column. The condition is an expression that results in a logical vector.
+These name-condition pairs are passed directly to \code{dplyr::mutate(...)}.}
 
 \item{.key}{(\code{character})\cr
 Key columns create flags within and to merge by.

@@ -17,9 +17,9 @@
 #'   a long data frame that is more than one line per subject, e.g. `adae`.
 #'   The expressions passed in `...` will be evaluated in this data frame.
 #' @param ... ([`data-masking`][rlang::args_data_masking])\cr
-#'   Name-flag pairs. The name gives the name of the new subject-level
-#'   flag column. The value is a condition that results in a logical vector.
-#'   These name-flag pairs are passed directly to `dplyr::mutate(...)`
+#'   Name and condition pairs. The name is the name of the new subject-level
+#'   flag column. The condition is an expression that results in a logical vector.
+#'   These name-condition pairs are passed directly to `dplyr::mutate(...)`.
 #' @param .key (`character`)\cr
 #'   Key columns create flags within and to merge by.
 #'   Default is `'USUBJID'`
