@@ -87,7 +87,7 @@ test_that("subject_level_flag() messaging", {
     ),
     "must uniquely identify each row"
   )
-  
+
   # message when a non-logical is created
   expect_error(
     subject_level_flag(

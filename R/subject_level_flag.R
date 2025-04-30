@@ -5,7 +5,7 @@
 #' more than one line per subject.
 #' For example, use this function to create a flag indicating whether a
 #' subject experienced any serious adverse events.
-#' 
+#'
 #' The function works by first creating a logical variable in `data_long`
 #' indicating whether the condition passed in the `...` argument is met.
 #' If a subject has true on any row, then the new variable is added
