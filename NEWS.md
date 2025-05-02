@@ -1,4 +1,4 @@
-# dunlin 0.1.10.9001
+# dunlin 0.1.10.9002
 
 * Added `subject_level_flag()` function.
 
