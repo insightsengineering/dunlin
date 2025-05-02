@@ -90,7 +90,7 @@ subject_level_flag <- function(data, data_long, ..., .key = "USUBJID") {
       .by = all_of(.key),
       dplyr::across(
         .cols = dplyr::all_of(names(dots)),
-        .fns = \(x) if (all(is.na(x))) NA else as.logical(max(x, na.rm = TRUE)) # styler: off
+        .fns = \(x) if (all(is.na(x))) NA else any(x, na.rm = TRUE) # styler: off
       )
     ) |>
     dplyr::distinct()
