@@ -20,7 +20,7 @@ URL: https://insightsengineering.github.io/dunlin/,
     https://github.com/insightsengineering/dunlin/
 BugReports: https://github.com/insightsengineering/dunlin/issues
 Depends:
-    R (>= 4.0.0)
+    R (>= 4.1.0)
 Imports:
     checkmate (>= 2.1.0),
     dplyr (>= 1.1.0),
