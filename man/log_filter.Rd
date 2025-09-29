@@ -17,6 +17,7 @@ log_filter(data, condition, ...)
   by = c("USUBJID", "STUDYID"),
   suffix = NULL,
   verbose = FALSE,
+  mode = ifelse(table == "adsl", "all", "unique"),
   ...
 )
 }
@@ -31,9 +32,11 @@ log_filter(data, condition, ...)
 
 \item{table}{(\code{string}) table name.}
 
-\item{by}{(\code{character}) variable names shared by \code{adsl} and other datasets for filtering.}
+\item{by}{(\code{character}) variable names shared by \code{table} and other datasets for filtering when \code{mode == "all"}.}
 
 \item{verbose}{(\code{flag}) whether to print a report about the filtering.}
+
+\item{mode}{(\code{string}) one of \code{all} or \code{unique} whether the other tables should be filtered based on the rows retained in \code{table}. Default value is \code{"all"} is \code{table == "adsl"} and \code{"unique"} otherwise.}
 }
 \value{
 a \code{data.frame} or \code{list} of \code{data.frame} filtered for the provided conditions.
@@ -42,11 +45,10 @@ a \code{data.frame} or \code{list} of \code{data.frame} filtered for the provide
 Filter Data with Log
 }
 \details{
-\code{log_filter} will filter the data/named list of data according to the \code{condition}.
+\code{log_filter} will filter the \code{data.frame} /named list of \code{data.frame} according to the \code{condition}.
 All the variables in \code{condition} must exist in the data (as variables) or in the parent
 frame(e.g., in global environment).
-For named list of data, if \code{ADSL} is available, \code{log_filter} will also try to subset all
-other datasets with \code{USUBJID}.
+For named list of \code{data.frame},
 }
 \examples{
 data <- iris
