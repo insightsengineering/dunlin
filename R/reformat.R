@@ -1,7 +1,7 @@
 #' Reformat Values
 #'
 #' Replaces substitute values in `vectors` or `list` of `data.frame` using used defined [`rule`].
-#' See \code{\link{vignette}("Reformatting", package = "dunlin")} for a detailed guide on using this function.
+#' See `vignette("Reformatting", package = "dunlin")` for a detailed guide on using this function.
 #'
 #' @param obj (`character`, `factor` or `list of data.frame`) to reformat.
 #' @param format (`rule`) or (`list`) of `rule` depending on the class of obj.
