@@ -8,7 +8,8 @@
 #' `log_filter` will filter the `data.frame` /named list of `data.frame` according to the `condition`.
 #' All the variables in `condition` must exist in the data (as variables) or in the parent
 #' frame(e.g., in global environment).
-#' For named list of `data.frame`,
+#' For a named list of `data.frame`, set `mode = "all"`` to filter other tables by keys retained
+#' in table (using by), or `mode = "unique"` to leave other tables unchanged.
 #' @export
 log_filter <- function(data, condition, ...) {
   UseMethod("log_filter")
@@ -45,23 +46,32 @@ log_filter.data.frame <- function(data, condition, suffix = NULL, ...) {
 #' @param table (`string`) table name.
 #' @param by (`character`) variable names shared by `table` and other datasets for filtering when `mode == "all"`.
 #' @param verbose (`flag`) whether to print a report about the filtering.
-#' @param mode (`string`) one of `all` or `unique` whether the other tables should be filtered based on the rows retained in `table`. Default value is `"all"` is `table == "adsl"` and `"unique"` otherwise.
+#' @param mode (`string`) one of `all` or `unique` whether the other tables should be filtered based on the rows retained in `table`.
+#' Default value is `"all"` is `table == "adsl"` and `"unique"` otherwise.
 #' @export
 #' @examples
 #' log_filter(list(iris = iris), Sepal.Length >= 7, "iris", character(0))
-log_filter.list <- function(data, condition, table, by = c("USUBJID", "STUDYID"), suffix = NULL, verbose = FALSE, mode = ifelse(table == "adsl", "all", "unique"), ...) {
+log_filter.list <- function(data,
+                            condition,
+                            table,
+                            by = c("USUBJID", "STUDYID"),
+                            suffix = NULL,
+                            verbose = FALSE,
+                            mode = ifelse(table == "adsl", "all", "unique"),
+                            ...) {
   checkmate::assert_list(data, types = "data.frame", names = "unique")
   assert_all_tablenames(data, table)
   checkmate::assert_names(colnames(data[[table]]), must.include = by)
-  checkmate::assert_character(by, null.ok = TRUE)
   checkmate::assert_string(suffix, null.ok = TRUE)
   checkmate::assert_flag(verbose)
-  checkmate::assert_subset(mode, c("all", "unique"))
+  checkmate::assert_choice(mode, c("all", "unique"))
 
   condition <- match.call()$condition
   data[[table]] <- eval(bquote(log_filter(data[[table]], .(condition), .(suffix))))
 
   if (mode == "all") {
+    checkmate::assert_character(by, null.ok = TRUE)
+
     for (k in setdiff(names(data), table)) {
       if (all(by %in% names(data[[k]]))) {
         if (length(by) == 0) by <- intersect(names(data[[k]]), names(data[[table]]))

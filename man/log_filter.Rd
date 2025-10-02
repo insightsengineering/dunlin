@@ -36,7 +36,8 @@ log_filter(data, condition, ...)
 
 \item{verbose}{(\code{flag}) whether to print a report about the filtering.}
 
-\item{mode}{(\code{string}) one of \code{all} or \code{unique} whether the other tables should be filtered based on the rows retained in \code{table}. Default value is \code{"all"} is \code{table == "adsl"} and \code{"unique"} otherwise.}
+\item{mode}{(\code{string}) one of \code{all} or \code{unique} whether the other tables should be filtered based on the rows retained in \code{table}.
+Default value is \code{"all"} is \code{table == "adsl"} and \code{"unique"} otherwise.}
 }
 \value{
 a \code{data.frame} or \code{list} of \code{data.frame} filtered for the provided conditions.
@@ -48,7 +49,7 @@ Filter Data with Log
 \code{log_filter} will filter the \code{data.frame} /named list of \code{data.frame} according to the \code{condition}.
 All the variables in \code{condition} must exist in the data (as variables) or in the parent
 frame(e.g., in global environment).
-For named list of \code{data.frame},
+For a named list of \code{data.frame}, set \verb{mode = "all"`` to filter other tables by keys retained in table (using by), or }mode = "unique"` to leave other tables unchanged.
 }
 \examples{
 data <- iris

@@ -145,7 +145,7 @@ test_that("log_filter works with long conditions", {
   expect_identical(df1, df2, ignore_attr = TRUE)
 })
 
-test_that("log_filters works with custom `mode` argument", {
+test_that("log_filter works with custom `mode` argument", {
   dfa <- data.frame(USUBJID = letters[5:14], b = 1:10)
   dfb <- data.frame(USUBJID = letters[1:10], c = 1:10)
 
