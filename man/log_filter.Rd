@@ -36,7 +36,8 @@ log_filter(data, condition, ...)
 
 \item{verbose}{(\code{flag}) whether to print a report about the filtering.}
 
-\item{mode}{(\code{string}) one of \code{all} or \code{unique} whether the other tables should be filtered based on the rows retained in \code{table}.
+\item{mode}{(\code{string}) one of \code{all} or \code{unique} whether the other tables should be filtered based on the rows
+retained in \code{table}.
 Default value is \code{"all"} is \code{table == "adsl"} and \code{"unique"} otherwise.}
 }
 \value{

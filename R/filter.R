@@ -46,7 +46,8 @@ log_filter.data.frame <- function(data, condition, suffix = NULL, ...) {
 #' @param table (`string`) table name.
 #' @param by (`character`) variable names shared by `table` and other datasets for filtering when `mode == "all"`.
 #' @param verbose (`flag`) whether to print a report about the filtering.
-#' @param mode (`string`) one of `all` or `unique` whether the other tables should be filtered based on the rows retained in `table`.
+#' @param mode (`string`) one of `all` or `unique` whether the other tables should be filtered based on the rows
+#' retained in `table`.
 #' Default value is `"all"` is `table == "adsl"` and `"unique"` otherwise.
 #' @export
 #' @examples
