@@ -3,16 +3,16 @@
 #' @param condition (`call`) of subset condition. Must evaluate as logical.
 #' @param suffix (`string`) optional argument describing the filter.
 #' @param ... further arguments to be passed to or from other methods.
-#' 
+#'
 #' @returns a `data.frame` or `list` of `data.frame` filtered for the provided conditions.
-#' 
+#'
 #' @details
 #' `log_filter` will filter the `data.frame` /named list of `data.frame` according to the `condition`.
 #' All the variables in `condition` must exist in the data (as variables) or in the parent
 #' frame(e.g., in global environment).
 #' For a named list of `data.frame`, set `mode = "all"`` to filter other tables by keys retained
 #' in table (using by), or `mode = "unique"` to leave other tables unchanged.
-#' 
+#'
 #' @export
 log_filter <- function(data, condition, ...) {
   UseMethod("log_filter")
