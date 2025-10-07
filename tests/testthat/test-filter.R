@@ -145,6 +145,23 @@ test_that("log_filter works with long conditions", {
   expect_identical(df1, df2, ignore_attr = TRUE)
 })
 
+test_that("log_filter works with custom `mode` argument", {
+  dfa <- data.frame(USUBJID = letters[5:14], b = 1:10)
+  dfb <- data.frame(USUBJID = letters[1:10], c = 1:10)
+
+  attr(dfa$USUBJID, "label") <- "usubjid_dfa"
+  attr(dfb$USUBJID, "label") <- "usubjid_dfb"
+
+  df_raw <- list(adsl = dfa, dfb = dfb)
+  res <- expect_silent(log_filter(df_raw, c >= 7, "dfb", by = "USUBJID", mode = "all"))
+  expect_equal(nrow(res$dfb), 4)
+  expect_equal(nrow(res$adsl), 4)
+
+  res <- expect_silent(log_filter(df_raw, c >= 7, "dfb", by = "USUBJID", mode = "unique"))
+  expect_equal(nrow(res$dfb), 4)
+  expect_equal(nrow(res$adsl), 10)
+})
+
 # get_log ----
 
 test_that("get_log works as expected", {

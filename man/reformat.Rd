@@ -44,7 +44,8 @@ the rule.
 (\code{character}, \code{factor} or \verb{list of data.frame}) with remapped values.
 }
 \description{
-Reformat Values
+Replaces values in \code{vectors} or \code{list} of \code{data.frame} using used-defined \code{\link{rule}} or list of \code{\link{rule}}.
+See \code{vignette("Reformatting", package = "dunlin")} for a detailed guide on using this function.
 }
 \note{
 When the rule is empty rule or when values subject to reformatting are absent from the object, no error is

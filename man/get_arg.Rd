@@ -23,7 +23,7 @@ if defined, the value of the option (\code{opt}), a \code{character} from the en
 Getting Argument From System, Option or Default
 }
 \examples{
-\dontshow{if (require("withr")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (require("withr")) withAutoprint(\{ # examplesIf}
 get_arg("my.option", "MY_ARG", "default")
 withr::with_envvar(c(MY_ARG = "x;y"), get_arg("my.option", "MY_ARG", "default"))
 withr::with_options(c(my.option = "y"), get_arg("my.option", "MY_ARG", "default"))
