@@ -1,0 +1,185 @@
+# Reformatting
+
+## Introduction
+
+Reformatting in `dunlin` consists in replacing predetermined values by
+another in particular variables for selected tables of a data set
+stored.
+
+This is performed in two steps:
+
+1.  A Reformatting Map (`rule` object) is created which specifies the
+    correspondence between the old and the new values
+
+2.  The reformatting itself is performed with the
+    [`reformat()`](https://insightsengineering.github.io/dunlin/reference/reformat.md)
+    function.
+
+## The Formatting Map Structure
+
+The Reformatting Map is a `rule` object inheriting from `character`. Its
+names are the new values to be used, and its values are the old values
+to be used.
+
+``` r
+rule(A = "a", B = c("c", "d"))
+#> Mapping of:
+#> A  <-  "a" 
+#> B  <-  "c", "d" 
+#> Convert to <NA>: "" 
+#> Convert to factor: TRUE 
+#> Drop unused level: FALSE 
+#> NA-replacing level in last position: TRUE
+```
+
+This rule will replace “a” with “A”, replace “c” or “d” with “B”.
+
+## Calling `reformat`
+
+`reformat` is a generic supports reformatting of `character` or
+`factor`. Reformatting for other types of variables is meaningless.
+`reformat` will also preserve the attributes of the original data,
+e.g. the data type or labels will be unchanged.
+
+An example of reformatting `character` can be
+
+``` r
+r <- rule(A = "a", B = c("c", "d"))
+reformat(c("a", "c", "d", NA), r)
+#> [1] A    B    B    <NA>
+#> Levels: A B
+```
+
+We can see that the `NA` values are not changed.
+
+Now we test the factor reformatting:
+
+``` r
+r <- rule(A = "a", B = c("c", "d"))
+reformat(factor(c("a", "c", "d", NA)), r)
+#> [1] A    B    B    <NA>
+#> Levels: A B
+```
+
+The `NA` values are also not changed. However, if we including
+reformatting for the `NA`, there is something different:
+
+``` r
+r <- rule(A = "a", C = NA, B = c("c", "d"))
+reformat(factor(c("a", "c", "d", NA)), r)
+#> [1] A B B C
+#> Levels: A B C
+```
+
+By default, the level replacing `NA` is set as the last one. This can be
+changed by setting `.na_last = FALSE`.
+
+``` r
+r <- rule(A = "a", C = NA, B = c("c", "d"))
+reformat(factor(c("a", "c", "d", NA)), r, .na_last = FALSE)
+#> [1] A B B C
+#> Levels: A C B
+```
+
+For `list` of `data.frames`, the `format` argument is actually a nested
+list of rule. The first layer indicates the table names, the second
+layer indicates the variables in that table. Reformatting is only
+available for columns of characters or factors, reformatting columns of
+another types will result in a warning.
+
+#### Example
+
+``` r
+df1 <- data.frame(
+  "char" = c("", "b", NA, "a", "k", "x"),
+  "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"), levels = c("f2", "f1")),
+  "logi" = c(NA, FALSE, TRUE, NA, FALSE, NA)
+)
+df2 <- data.frame(
+  "char" = c("a", "b", NA, "a", "k", "x"),
+  "fact" = factor(c("f1", "f2", NA, NA, "f1", "f1"))
+)
+
+db <- list(df1 = df1, df2 = df2)
+attr(db$df1$char, "label") <- "my label"
+
+rule_map <- list(
+  df1 = list(
+    char = rule("Empty" = "", "B" = "b", "Not Available" = NA),
+    fact = rule("F1" = "f1"),
+    logi = rule()
+  ),
+  df2 = list(
+    char = rule("Empty" = "", "A" = "a", "Not Available" = NA)
+  )
+)
+
+res <- reformat(db, rule_map, .na_last = TRUE)
+#> Warning: Not implemented for class: logical! Returning original object.
+res
+#> $df1
+#>            char fact  logi
+#> 1         Empty   F1    NA
+#> 2             B   f2 FALSE
+#> 3 Not Available <NA>  TRUE
+#> 4             a <NA>    NA
+#> 5             k   F1 FALSE
+#> 6             x   F1    NA
+#> 
+#> $df2
+#>            char fact
+#> 1             A   f1
+#> 2             b   f2
+#> 3 Not Available <NA>
+#> 4             A <NA>
+#> 5             k   f1
+#> 6             x   f1
+```
+
+## Rule Attributes
+
+The behavior of a rule can be further refined using special mapping
+values. \* `.to_NA` convert the specified character to `NA` at the end
+of the process.
+
+``` r
+r <- rule(A = "a", B = c("c", "d"), .to_NA = c("x"))
+reformat(c("a", "c", "d", NA, "x"), r)
+#> [1] A    B    B    <NA> <NA>
+#> Levels: A B
+```
+
+- `.drop` specifies whether unused levels should be dropped.
+
+``` r
+# With drop = FALSE
+obj <- factor(c("a", "c", "d", NA), levels = c("d", "c", "a", "Not used"))
+r <- rule(A = "a", B = c("c", "d"))
+reformat(obj, r)
+#> [1] A    B    B    <NA>
+#> Levels: A B Not used
+
+# With drop = TRUE
+obj <- factor(c("a", "c", "d", NA), levels = c("d", "c", "a", "Not used"))
+r <- rule(A = "a", B = c("c", "d"), .drop = TRUE)
+reformat(obj, r)
+#> [1] A    B    B    <NA>
+#> Levels: A B
+```
+
+Note that behavior of the rule can be overridden using the corresponding
+arguments in `reformat`.
+
+``` r
+r <- rule(A = "a", B = c("c", "d"), .to_NA = c("x"), .drop = TRUE)
+obj <- factor(c("a", "c", "d", NA, "x", "y"), levels = c("d", "c", "a", "Not used", "x", "y"))
+
+reformat(obj, r)
+#> [1] A    B    B    <NA> <NA> y   
+#> Levels: A B y
+
+# Override
+reformat(obj, r, .to_NA = "y", .drop = FALSE)
+#> [1] A    B    B    <NA> x    <NA>
+#> Levels: A B Not used x
+```
