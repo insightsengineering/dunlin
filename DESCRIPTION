@@ -1,6 +1,6 @@
 Package: dunlin
 Title: Preprocessing Tools for Clinical Trial Data
-Version: 0.1.11.9001
+Version: 0.1.12
 Date: 2025-10-07
 Authors@R: c(
     person("Liming", "Li", , "liming.li@roche.com", role = "aut",
