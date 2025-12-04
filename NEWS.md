@@ -1,3 +1,5 @@
+# dunlin 0.1.12.9000
+
 # dunlin 0.1.12
 
 * New `mode` argument in `log_filter` determining whether all tables should be filtered to retain only the rows whose identifiers are present in the filtered data set selected with the `table` argument. (Previously, the behavior was triggered automatically when the `table` name was `adsl`)
