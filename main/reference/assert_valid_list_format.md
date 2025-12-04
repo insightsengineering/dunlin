@@ -1,0 +1,37 @@
+# Assert List can be Converted into a Nested List Compatible with the Format Argument of Reformat.
+
+Assert List can be Converted into a Nested List Compatible with the
+Format Argument of Reformat.
+
+## Usage
+
+``` r
+assert_valid_list_format(object)
+```
+
+## Arguments
+
+- object:
+
+  (`list`) to assert.
+
+## Value
+
+invisible `TRUE` or an error message if the criteria are not fulfilled.
+
+## Examples
+
+``` r
+format <- list(
+  df1 = list(
+    var1 = list("X" = "x", "N" = c(NA, ""))
+  ),
+  df2 = list(
+    var1 = list(),
+    var2 = list("f11" = "F11", "NN" = NA)
+  ),
+  df3 = list()
+)
+
+assert_valid_list_format(format)
+```

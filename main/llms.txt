@@ -1,0 +1,257 @@
+# `dunlin`: Tools for Clinical Trial Data Wrangling
+
+[![Check
+🛠](https://github.com/insightsengineering/dunlin/actions/workflows/check.yaml/badge.svg)](https://insightsengineering.github.io/dunlin/main/unit-test-report/)
+[![Docs
+📚](https://github.com/insightsengineering/dunlin/actions/workflows/docs.yaml/badge.svg)](https://insightsengineering.github.io/dunlin/)
+[![Code Coverage
+📔](https://raw.githubusercontent.com/insightsengineering/dunlin/_xml_coverage_reports/data/main/badge.svg)](https://insightsengineering.github.io/dunlin/main/coverage-report/)
+
+![GitHub
+forks](https://img.shields.io/github/forks/insightsengineering/dunlin?style=social)![GitHub
+repo
+stars](https://img.shields.io/github/stars/insightsengineering/dunlin?style=social)
+
+![GitHub commit
+activity](https://img.shields.io/github/commit-activity/m/insightsengineering/dunlin)![GitHub
+contributors](https://img.shields.io/github/contributors/insightsengineering/dunlin)![GitHub
+last
+commit](https://img.shields.io/github/last-commit/insightsengineering/dunlin)![GitHub
+pull
+requests](https://img.shields.io/github/issues-pr/insightsengineering/dunlin)![GitHub
+repo
+size](https://img.shields.io/github/repo-size/insightsengineering/dunlin)![GitHub
+language
+count](https://img.shields.io/github/languages/count/insightsengineering/dunlin)[![Project
+Status: Active – The project has reached a stable, usable state and is
+being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Current
+Version](https://img.shields.io/github/r-package/v/insightsengineering/dunlin/main?color=purple&label=package%20version)](https://github.com/insightsengineering/dunlin/tree/main)
+[![Open
+Issues](https://img.shields.io/github/issues-raw/insightsengineering/dunlin?color=red&label=open%20issues)](https://github.com/insightsengineering/dunlin/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
+
+`dunlin` provides a variety of data tools to reformat and manipulate a
+subset of the tables in a data set.
+
+## Installation
+
+``` r
+# install.packages("pak")
+pak::pak("insightsengineering/dunlin@*release")
+```
+
+Alternatively, you might also use the development version.
+
+``` r
+# install.packages("pak")
+pak::pak("insightsengineering/dunlin")
+```
+
+## Usage
+
+``` r
+library(dunlin)
+
+df1 <- data.frame(
+  "id" = c("a", "b", NA, "a", "k", "x"),
+  "id2" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
+  "val" = letters[1:6]
+)
+df2 <- data.frame(
+  "id" = c("a", "b", NA, "a", "k", "x"),
+  "id2" = factor(c("f1", "f2", NA, NA, "f1", "f1")),
+  "num" = 1:6
+)
+
+db <- list(df1 = df1, df2 = df2)
+
+prop_db <- propagate(db, "df1", "val", c("id", "id2"))
+```
+
+which returns `prop_db` as
+
+``` text
+ $df1
+    id  id2 val
+1    a   f1   a
+2    b   f2   b
+3 <NA> <NA>   c
+4    a <NA>   d
+5    k   f1   e
+6    x   f1   f
+
+$df2
+    id  id2 num val
+1    a   f1   1   a
+2    b   f2   2   b
+3 <NA> <NA>   3   c
+4    a <NA>   4   d
+5    k   f1   5   e
+6    x   f1   6   f
+```
+
+``` r
+new_format <- list(
+  df1 = list(
+    id = rule("No ID available" = c("", NA, "<Missing>")),
+    id2 = rule("<Missing>" = c("", NA, "<Missing>"))
+  )
+)
+
+res <- reformat(prop_db, new_format, .na_last = TRUE)
+```
+
+which result in `res` as
+
+``` text
+$df1
+               id       id2 val
+1               a        f1   a
+2               b        f2   b
+3 No ID available <Missing>   c
+4               a <Missing>   d
+5               k        f1   e
+6               x        f1   f
+
+$df2
+    id  id2 num val
+1    a   f1   1   a
+2    b   f2   2   b
+3 <NA> <NA>   3   c
+4    a <NA>   4   d
+5    k   f1   5   e
+6    x   f1   6   f
+```
+
+## Stargazers and Forkers
+
+### Stargazers over time
+
+[![Stargazers over
+time](https://starchart.cc/insightsengineering/dunlin.svg)](https://starchart.cc/insightsengineering/dunlin)
+
+### Stargazers
+
+[![Stargazers repo roster for
+dunlin](https://reporoster.com/stars/insightsengineering/dunlin)](https://github.com/insightsengineering/dunlin/stargazers)
+
+[![Forkers repo roster for
+dunlin](https://reporoster.com/forks/insightsengineering/dunlin)](https://github.com/insightsengineering/dunlin/network/members)
+
+# Package index
+
+## Packages
+
+- [`dunlin`](https://insightsengineering.github.io/dunlin/reference/dunlin-package.md)
+  [`dunlin-package`](https://insightsengineering.github.io/dunlin/reference/dunlin-package.md)
+  :
+
+  `Dunlin` Package
+
+## Processing Functions
+
+- [`co_relevels()`](https://insightsengineering.github.io/dunlin/reference/co_relevels.md)
+  : Reorder Two Columns Levels Simultaneously
+
+- [`cut_by_group()`](https://insightsengineering.github.io/dunlin/reference/cut_by_group.md)
+  : Cutting data by group
+
+- [`ls_explicit_na()`](https://insightsengineering.github.io/dunlin/reference/ls_explicit_na.md)
+  :
+
+  Encode Categorical Missing Values in a `list` of `data.frame`
+
+- [`ls_unite()`](https://insightsengineering.github.io/dunlin/reference/ls_unite.md)
+  :
+
+  Unite Columns of a Table in a `list` of `data.frame`.
+
+- [`join_adsub_adsl()`](https://insightsengineering.github.io/dunlin/reference/join_adsub_adsl.md)
+  :
+
+  Join `adsub` to `adsl`
+
+- [`multi_id_pivot_wider()`](https://insightsengineering.github.io/dunlin/reference/multi_id_pivot_wider.md)
+  : Transforming data.frame with Multiple Identifying columns into Wide
+  Format
+
+- [`poly_pivot_wider()`](https://insightsengineering.github.io/dunlin/reference/poly_pivot_wider.md)
+  : Transforming data.frame with multiple Data Column into Wide Format
+
+- [`propagate()`](https://insightsengineering.github.io/dunlin/reference/propagate.md)
+  : Propagate Column
+
+- [`reformat()`](https://insightsengineering.github.io/dunlin/reference/reformat.md)
+  : Reformat Values
+
+- [`subject_level_flag()`](https://insightsengineering.github.io/dunlin/reference/subject_level_flag.md)
+  : Create Subject-level Flag from Long Data
+
+## Helper functions
+
+- [`get_arg()`](https://insightsengineering.github.io/dunlin/reference/get_arg.md)
+  : Getting Argument From System, Option or Default
+- [`attr_label()`](https://insightsengineering.github.io/dunlin/reference/attr_label.md)
+  : Setting the Label Attribute
+- [`attr_label_df()`](https://insightsengineering.github.io/dunlin/reference/attr_label_df.md)
+  : Setting the Label Attribute to Data Frame Columns
+
+## Rule and Format
+
+- [`rule()`](https://insightsengineering.github.io/dunlin/reference/rule.md)
+  : Create rule based on mappings
+
+- [`as.list(`*`<rule>`*`)`](https://insightsengineering.github.io/dunlin/reference/as.list.rule.md)
+  : Convert Rule to List
+
+- [`list2rules()`](https://insightsengineering.github.io/dunlin/reference/list2rules.md)
+  :
+
+  Convert nested list into list of `rule`
+
+- [`combine_rules()`](https://insightsengineering.github.io/dunlin/reference/combine_rules.md)
+  : Combine Two Rules
+
+- [`combine_list_rules()`](https://insightsengineering.github.io/dunlin/reference/combine_list_rules.md)
+  : Combine Rules Found in Lists of Rules.
+
+## Filtering
+
+- [`log_filter()`](https://insightsengineering.github.io/dunlin/reference/log_filter.md)
+  : Filter Data with Log
+- [`get_log()`](https://insightsengineering.github.io/dunlin/reference/get_log.md)
+  : Get Log
+- [`print_log()`](https://insightsengineering.github.io/dunlin/reference/print_log.md)
+  : Print Log
+
+## Whiskers
+
+- [`render_safe()`](https://insightsengineering.github.io/dunlin/reference/render_safe.md)
+  : Render whiskers safely
+- [`add_whisker()`](https://insightsengineering.github.io/dunlin/reference/add_whisker.md)
+  : Add whisker values
+- [`remove_whisker()`](https://insightsengineering.github.io/dunlin/reference/remove_whisker.md)
+  : Remove whisker values
+- [`show_whisker()`](https://insightsengineering.github.io/dunlin/reference/show_whisker.md)
+  : Show Whisker Values
+
+## Assertions
+
+- [`assert_all_tablenames()`](https://insightsengineering.github.io/dunlin/reference/assert_all_tablenames.md)
+  :
+
+  Assert that all names are among names of a `list` of `data.frame`.
+
+- [`assert_valid_format()`](https://insightsengineering.github.io/dunlin/reference/assert_valid_format.md)
+  : Assert Nested List can be used as Format Argument in Reformat.
+
+- [`assert_valid_list_format()`](https://insightsengineering.github.io/dunlin/reference/assert_valid_list_format.md)
+  : Assert List can be Converted into a Nested List Compatible with the
+  Format Argument of Reformat.
+
+# Articles
+
+### All vignettes
+
+- [Reformatting](https://insightsengineering.github.io/dunlin/articles/Reformatting.md):
